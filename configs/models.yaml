@@ -1,0 +1,87 @@
+# Model Provenance Manifest for Phase 0 Multiple-Choice Screen
+# Specification Reference: §4 & §10
+
+experiment_version: "0.2.0"
+date: "2026-11-03"
+experiment_name: "Phase 0 - Pretrained Cooperation Representations Screen"
+
+# Primary base checkpoints across 3 independent families
+base_models:
+  qwen2.5_3b:
+    name: "Qwen/Qwen2.5-3B"
+    hf_id: "Qwen/Qwen2.5-3B"
+    family: "qwen"
+    size: "3B"
+    is_base: true
+    precision: "bfloat16"
+    recommended_gpu_mem_gb: 8
+    notes: "Verified pretrained base checkpoint, no SFT or chat template."
+
+  pythia_2.8b:
+    name: "EleutherAI/pythia-2.8b"
+    hf_id: "EleutherAI/pythia-2.8b"
+    family: "pythia"
+    size: "2.8B"
+    is_base: true
+    precision: "bfloat16"
+    recommended_gpu_mem_gb: 8
+    notes: "Pure pretraining on the Pile; explicit checkpoint sequence."
+
+  olmo2_1b:
+    name: "allenai/OLMo-2-1124-1B"
+    hf_id: "allenai/OLMo-2-1124-1B"
+    family: "olmo"
+    size: "1B"
+    is_base: true
+    precision: "bfloat16"
+    recommended_gpu_mem_gb: 6
+    notes: "Pretrained open weights and data mixture; verified no post-training alignment."
+
+  olmo2_7b:
+    name: "allenai/OLMo-2-1124-7B"
+    hf_id: "allenai/OLMo-2-1124-7B"
+    family: "olmo"
+    size: "7B"
+    is_base: true
+    precision: "bfloat16"
+    recommended_gpu_mem_gb: 16
+    notes: "Larger OLMo-2 base model for replication."
+
+# Optional 4th independent family base checkpoint
+optional_models:
+  mistral_7b_v03:
+    name: "mistralai/Mistral-7B-v0.3"
+    hf_id: "mistralai/Mistral-7B-v0.3"
+    family: "mistral"
+    size: "7B"
+    is_base: true
+    precision: "bfloat16"
+    recommended_gpu_mem_gb: 16
+    notes: "Pretrained base variant, family diversity contingent on compute."
+
+# Post-trained comparator for instrument sanity check (§4 & §4A.4)
+# Warning: NEVER treat comparator as evidence for unaligned pretraining!
+post_trained_comparators:
+  pythia_12b_sft:
+    name: "Pythia-12B-SFT-Comparator"
+    hf_id: "EleutherAI/pythia-12b"  # or specific local/SFT checkpoint path
+    family: "pythia"
+    size: "12B"
+    is_base: false
+    precision: "bfloat16"
+    notes: "Optional sanity check if base models fail format compliance."
+
+  qwen2.5_3b_instruct:
+    name: "Qwen/Qwen2.5-3B-Instruct"
+    hf_id: "Qwen/Qwen2.5-3B-Instruct"
+    family: "qwen"
+    size: "3B"
+    is_base: false
+    precision: "bfloat16"
+    notes: "Matched instruct counterpart for training-stage comparison."
+
+decoding_parameters:
+  max_new_tokens: 5
+  temperature: 0.0
+  do_sample: false
+  forced_choice_letters: ["A", "B", "C", "D"]
