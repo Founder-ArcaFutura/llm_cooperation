@@ -363,7 +363,7 @@ def test_cross_model_gate_requires_independent_families(tmp_path):
     with open(report_multi_fam, "r", encoding="utf-8") as f:
         content_multi_fam = f.read()
 
-    assert "ADVANCE TO PHASE 1 (MECHANISM PILOT)" in content_multi_fam
+    assert "HUMAN SCIENTIFIC REVIEW RECOMMENDED (POTENTIAL PHASE 1 PILOT)" in content_multi_fam
     assert "Multiple independent base model families (2: OLMO, QWEN; 2 distinct model checkpoints)" in content_multi_fam
 
 
@@ -373,6 +373,13 @@ def test_modal_app_mock_and_gpu_routing(monkeypatch):
 
     assert hasattr(modal_app, "run_evaluation_mock_remote")
     assert hasattr(modal_app, "run_evaluation_remote")
+    assert hasattr(modal_app, "run_evaluation_remote_l40s")
+    assert hasattr(modal_app, "resolve_model_gpu")
+
+    # Verify 12B model selects L40S
+    assert modal_app.resolve_model_gpu("EleutherAI/pythia-12b-deduped") == "L40S"
+    assert modal_app.resolve_model_gpu("OpenAssistant/oasst-sft-1-pythia-12b") == "L40S"
+    assert modal_app.resolve_model_gpu("Qwen/Qwen2.5-3B") == "A10G"
 
     # run_evaluation_remote rejects mock=True
     with pytest.raises(ValueError, match="provisions paid GPU resources"):
@@ -398,8 +405,63 @@ def test_modal_app_mock_and_gpu_routing(monkeypatch):
     assert len(mock_calls) == 1
     assert len(gpu_calls) == 0
 
-    # Calling main with mock=False routes to GPU remote function
-    modal_app.main(model="test-model", mock=False)
+    # Calling main with mock=False without authorization raises PermissionError
+    with pytest.raises(PermissionError, match="PAID RUN GUARD TRIGGERED"):
+        modal_app.main(model="test-model", mock=False, authorize_paid_run=False)
+
+    # Calling main with mock=False and authorize_paid_run=True routes to GPU remote function
+    modal_app.main(model="test-model", mock=False, authorize_paid_run=True)
     assert len(mock_calls) == 1
     assert len(gpu_calls) == 1
     assert gpu_calls[0]["mock"] is False
+
+def test_prompt_boundary_token_validation():
+    """Verify prompt boundary token validation detects multi-token fragmentation and incompatible token IDs."""
+    from llm_cooperation.harness.tokenizer_probe import (
+        resolve_candidate_token_ids,
+        TokenizerCandidateError,
+        validate_candidate_tokens_at_boundary,
+    )
+
+    class GoodBoundaryTokenizer:
+        def encode(self, text, add_special_tokens=False):
+            if text == "A": return [1]
+            if text == "B": return [2]
+            if text == "C": return [3]
+            if text == "D": return [4]
+            if text == " A": return [11]
+            if text == " B": return [12]
+            if text == " C": return [13]
+            if text == " D": return [14]
+            if text == "Answer:": return [100, 101]
+            if text == "Answer: A": return [100, 101, 11]
+            if text == "Answer: B": return [100, 101, 12]
+            if text == "Answer: C": return [100, 101, 13]
+            if text == "Answer: D": return [100, 101, 14]
+            return [999]
+
+    tok = GoodBoundaryTokenizer()
+    res = resolve_candidate_token_ids(tok, sample_prompt="Answer:")
+    assert res == {"A": 11, "B": 12, "C": 13, "D": 14}
+
+    class IncompatibleBoundaryTokenizer(GoodBoundaryTokenizer):
+        def encode(self, text, add_special_tokens=False):
+            if text == "Answer: A": return [100, 101, 999]
+            return super().encode(text, add_special_tokens=add_special_tokens)
+
+    bad_tok = IncompatibleBoundaryTokenizer()
+    with pytest.raises(TokenizerCandidateError, match="Incompatible token substitution barred"):
+        resolve_candidate_token_ids(bad_tok, sample_prompt="Answer:")
+
+
+def test_scenario_banks_hash_traceability():
+    """Verify legacy and revised scenario banks exist with distinct sha256 hashes."""
+    import hashlib
+    p_rev = Path("data/scenarios.json")
+    p_leg = Path("data/scenarios_legacy_v020.json")
+    assert p_rev.exists()
+    assert p_leg.exists()
+
+    h_rev = hashlib.sha256(p_rev.read_bytes()).hexdigest()
+    h_leg = hashlib.sha256(p_leg.read_bytes()).hexdigest()
+    assert h_rev != h_leg

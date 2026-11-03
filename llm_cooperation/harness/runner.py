@@ -150,8 +150,13 @@ class ModelRunner:
             self.tokenizer.pad_token = self.tokenizer.eos_token
 
         # Resolve candidate token IDs
-        self.candidate_token_ids = resolve_candidate_token_ids(self.tokenizer)
-        print(f"[ModelRunner] Candidate token IDs: {self.candidate_token_ids}")
+        # Validate candidate tokens against the standard prompt boundary "Answer:"
+        self.candidate_token_ids = resolve_candidate_token_ids(
+            self.tokenizer,
+            prompt_ends_with_space=False,
+            sample_prompt="Answer:"
+        )
+        print(f"[ModelRunner] Validated candidate token IDs at prompt boundary: {self.candidate_token_ids}")
 
         torch_dtype = self.resolve_torch_dtype(self.requested_precision)
         print(f"[ModelRunner] Loading model {self.model_name} (requested_dtype={torch_dtype}, device={self.device})...")
@@ -358,9 +363,11 @@ def run_experiment(
         if i % 16 == 0 or i == len(presentations):
             print(f"  Processed {i}/{len(presentations)} presentations...")
 
+    import uuid
     safe_name = model_name.replace("/", "_")
     ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-    run_id = f"run_{safe_name}_{ts}"
+    entropy = uuid.uuid4().hex[:8]
+    run_id = f"run_{safe_name}_{ts}_{entropy}"
     filename = f"{run_id}.jsonl"
     out_path = Path(output_dir) / filename
 
