@@ -1,7 +1,7 @@
 # Model Provenance Manifest for Phase 0 Multiple-Choice Screen
 # Specification Reference: §4 & §10
 
-experiment_version: "0.2.0"
+experiment_version: "0.2.1"
 date: "2026-11-03"
 experiment_name: "Phase 0 - Pretrained Cooperation Representations Screen"
 
@@ -47,7 +47,7 @@ base_models:
     recommended_gpu_mem_gb: 16
     notes: "Larger OLMo-2 base model for replication."
 
-# Optional 4th independent family base checkpoint
+# Optional 4th independent family base checkpoint and same-size comparator
 optional_models:
   mistral_7b_v03:
     name: "mistralai/Mistral-7B-v0.3"
@@ -59,17 +59,31 @@ optional_models:
     recommended_gpu_mem_gb: 16
     notes: "Pretrained base variant, family diversity contingent on compute."
 
+  pythia_12b_deduped_base:
+    name: "EleutherAI/pythia-12b-deduped"
+    hf_id: "EleutherAI/pythia-12b-deduped"
+    family: "pythia"
+    size: "12B"
+    is_base: true
+    precision: "bfloat16"
+    recommended_gpu_mem_gb: 32
+    notes: "Pretrained base checkpoint for same-size comparison with Pythia-12B SFT comparator."
+
 # Post-trained comparator for instrument sanity check (§4 & §4A.4)
 # Warning: NEVER treat comparator as evidence for unaligned pretraining!
 post_trained_comparators:
   pythia_12b_sft:
-    name: "Pythia-12B-SFT-Comparator"
-    hf_id: "EleutherAI/pythia-12b"  # or specific local/SFT checkpoint path
+    name: "OpenAssistant/oasst-sft-1-pythia-12b"
+    hf_id: "OpenAssistant/oasst-sft-1-pythia-12b"
+    revision: "293df535fe7711a5726987fc2f17dfc87de452a1"
     family: "pythia"
     size: "12B"
     is_base: false
     precision: "bfloat16"
-    notes: "Optional sanity check if base models fail format compliance."
+    recommended_gpu: "L40S"
+    recommended_gpu_mem_gb: 32
+    notes: "Actual supervised-fine-tuned Pythia-12B model based on pythia-12b-deduped. Designated as post-trained comparator only."
+    prompt_mode_support: ["standard_plaintext", "openassistant"]
 
   qwen2.5_3b_instruct:
     name: "Qwen/Qwen2.5-3B-Instruct"
@@ -78,6 +92,7 @@ post_trained_comparators:
     size: "3B"
     is_base: false
     precision: "bfloat16"
+    recommended_gpu_mem_gb: 8
     notes: "Matched instruct counterpart for training-stage comparison."
 
 decoding_parameters:

@@ -92,10 +92,21 @@ llm-coop run --model "mock-qwen2.5-3b" --mock -o results
 llm-coop analyze results/run_mock-qwen2.5-3b_*.jsonl -o reports
 ```
 
-### Cloud GPU Execution (Lambda Labs / RunPod)
-Refer to [docs/runpod_lambda_setup.md](docs/runpod_lambda_setup.md) for full instructions.
+### Modal Cloud Execution (Primary Backend)
+Refer to [docs/modal_execution_guide.md](docs/modal_execution_guide.md) for complete instructions, Windows PowerShell setup, and volume sync commands.
 
-#### Example: Evaluate Pretrained Base Models
+Modal manages on-demand GPU allocation, persistent model weight caching (`llm-coop-hf-cache`), and results persistence (`llm-coop-results`):
+
+```powershell
+# Run on Modal (from Windows workspace G:\llm_cooperation)
+modal run modal_app.py --model "Qwen/Qwen2.5-3B" --precision "bfloat16" --mock False
+
+# Download results from Modal Volume to G:\llm_cooperation\results
+modal volume get llm-coop-results <run_file>.jsonl G:\llm_cooperation\results\
+```
+
+### Local / Cloud GPU Execution (Independent CLI)
+The harness can also be executed directly on any local or remote machine without Modal:
 ```bash
 # 1. Qwen 2.5 3B (Pretrained Base)
 llm-coop run --model "Qwen/Qwen2.5-3B" --precision bfloat16 -o results
@@ -105,6 +116,9 @@ llm-coop run --model "EleutherAI/pythia-2.8b" --precision bfloat16 -o results
 
 # 3. OLMo 2 1B (Pretrained Base)
 llm-coop run --model "allenai/OLMo-2-1124-1B" --precision bfloat16 -o results
+
+# 4. Compare models across runs (separating base models from SFT comparators)
+llm-coop compare-models results/*.jsonl -o reports
 ```
 
 ---

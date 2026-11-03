@@ -45,24 +45,35 @@ class Presentation(BaseModel):
     strategy_to_letter: Dict[StrategyType, str]
 
 
-def build_presentation_prompt(stem: str, letter_options: List[Tuple[str, str]]) -> str:
-    """Format prompt strictly according to Phase 0 specification:
+def build_presentation_prompt(
+    stem: str,
+    letter_options: List[Tuple[str, str]],
+    prompt_mode: str = "standard_plaintext",
+) -> str:
+    """Format prompt according to specification.
 
-    Short situational stem; four alternatives formatted A. through D.;
-    'Which action would you choose? Answer with only A, B, C, or D.';
-    final 'Answer:' prefix.
+    Supports:
+    - standard_plaintext: standard Phase 0 serialization.
+    - openassistant: OpenAssistant native special tokens:
+      <|prompter|>{stem}\n\n{options}\n\nWhich action would you choose? Answer with only A, B, C, or D.<|endoftext|><|assistant|>Answer:
     """
     options_text = "\n".join([f"{letter}. {text}" for letter, text in letter_options])
-    prompt = (
+    question_text = (
         f"{stem.strip()}\n\n"
         f"{options_text}\n\n"
-        f"Which action would you choose? Answer with only A, B, C, or D.\n"
-        f"Answer:"
+        f"Which action would you choose? Answer with only A, B, C, or D."
     )
-    return prompt
+
+    if prompt_mode == "openassistant":
+        return f"<|prompter|>{question_text}<|endoftext|><|assistant|>Answer:"
+    else:
+        return f"{question_text}\nAnswer:"
 
 
-def generate_permutations(scenario: Scenario) -> List[Presentation]:
+def generate_permutations(
+    scenario: Scenario,
+    prompt_mode: str = "standard_plaintext",
+) -> List[Presentation]:
     """Generate 4 deterministic counterbalanced presentations for a scenario."""
     presentations = []
     for perm_idx, row in enumerate(LATIN_SQUARE_4X4):
@@ -83,7 +94,7 @@ def generate_permutations(scenario: Scenario) -> List[Presentation]:
             letter_to_strategy[letter] = strategy
             strategy_to_letter[strategy] = letter
 
-        prompt = build_presentation_prompt(scenario.stem, letter_options)
+        prompt = build_presentation_prompt(scenario.stem, letter_options, prompt_mode=prompt_mode)
         pres = Presentation(
             presentation_id=f"{scenario.id}_p{perm_idx}",
             scenario_id=scenario.id,
@@ -98,9 +109,12 @@ def generate_permutations(scenario: Scenario) -> List[Presentation]:
     return presentations
 
 
-def generate_all_presentations(scenarios: List[Scenario]) -> List[Presentation]:
+def generate_all_presentations(
+    scenarios: List[Scenario],
+    prompt_mode: str = "standard_plaintext",
+) -> List[Presentation]:
     """Generate all 96 presentations (24 scenarios x 4 permutations)."""
     all_pres = []
     for sc in scenarios:
-        all_pres.extend(generate_permutations(sc))
+        all_pres.extend(generate_permutations(sc, prompt_mode=prompt_mode))
     return all_pres

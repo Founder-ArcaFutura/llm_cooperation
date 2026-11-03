@@ -32,7 +32,8 @@ def cmd_audit_items(scenarios_path: str):
 @click.option("--device", default="auto", help="Device map (e.g. 'auto', 'cuda', 'cpu').")
 @click.option("--mock", is_flag=True, default=False, help="Run with mock predictions without loading model weights.")
 @click.option("--seed", default=42, help="Random seed for mock generator.")
-def cmd_run(model, revision, scenarios_path, output_dir, precision, device, mock, seed):
+@click.option("--prompt-mode", default="standard_plaintext", type=click.Choice(["standard_plaintext", "openassistant"]), help="Prompt format mode.")
+def cmd_run(model, revision, scenarios_path, output_dir, precision, device, mock, seed, prompt_mode):
     """Run Phase 0 behavioural evaluation on 96 presentations."""
     run_experiment(
         model_name=model,
@@ -43,6 +44,7 @@ def cmd_run(model, revision, scenarios_path, output_dir, precision, device, mock
         device=device,
         mock=mock,
         seed=seed,
+        prompt_mode=prompt_mode,
     )
 
 
@@ -57,6 +59,21 @@ def cmd_analyze(results_path, output_dir, bootstrap_samples):
         output_dir=output_dir,
         num_bootstraps=bootstrap_samples,
     )
+
+
+@main.command("compare-models")
+@click.argument("results_paths", nargs=-1, required=True, type=click.Path(exists=True))
+@click.option("--output-dir", "-o", default="reports", help="Directory to output comparison report.")
+@click.option("--bootstrap-samples", "-b", default=2000, help="Number of scenario-cluster bootstrap samples.")
+def cmd_compare_models(results_paths, output_dir, bootstrap_samples):
+    """Generate cross-model comparison report separating base models and post-trained comparators."""
+    from llm_cooperation.analysis.pipeline import compare_models
+    out_file = compare_models(
+        results_paths=list(results_paths),
+        output_dir=output_dir,
+        num_bootstraps=bootstrap_samples,
+    )
+    click.echo(f"Saved cross-model comparison report to {out_file}")
 
 
 if __name__ == "__main__":

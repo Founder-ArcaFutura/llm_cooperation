@@ -43,14 +43,22 @@ def probe_candidate_tokens(tokenizer, candidates: Optional[List[str]] = None) ->
     return results
 
 
+class TokenizerCandidateError(Exception):
+    """Raised when candidate choices cannot be cleanly resolved to single tokens."""
+    pass
+
+
 def resolve_candidate_token_ids(tokenizer, prompt_ends_with_space: bool = False) -> Dict[str, int]:
     """Determine the single token ID for each candidate letter A, B, C, D.
 
-    If the prompt ends with a space (e.g. 'Answer: '), unprefixed 'A' is typically expected.
-    If the prompt ends with 'Answer:', leading space ' A' may be standard depending on tokenizer.
+    Fails explicitly with a TokenizerCandidateError if any candidate letter
+    is multi-token or ambiguous at the prompt boundary, rather than silently
+    selecting only the first token.
     """
     probes = probe_candidate_tokens(tokenizer)
     resolved = {}
+    errors = []
+
     for cand, info in probes.items():
         if prompt_ends_with_space:
             # Tokenizer expects letter without space
@@ -59,7 +67,10 @@ def resolve_candidate_token_ids(tokenizer, prompt_ends_with_space: bool = False)
             elif info["leading_space"]["is_single_token"]:
                 resolved[cand] = info["leading_space"]["single_token_id"]
             else:
-                resolved[cand] = info["unprefixed"]["token_ids"][0]
+                errors.append(
+                    f"Candidate '{cand}' tokenizes to multi-token sequence {info['unprefixed']['token_ids']} "
+                    f"(with space: {info['leading_space']['token_ids']}). Forced-choice single-token scoring invalid."
+                )
         else:
             # Prompt ends without space, e.g. "Answer:" -> model continues with " A" or "A"
             if info["leading_space"]["is_single_token"]:
@@ -67,5 +78,14 @@ def resolve_candidate_token_ids(tokenizer, prompt_ends_with_space: bool = False)
             elif info["unprefixed"]["is_single_token"]:
                 resolved[cand] = info["unprefixed"]["single_token_id"]
             else:
-                resolved[cand] = info["leading_space"]["token_ids"][0]
+                errors.append(
+                    f"Candidate '{cand}' tokenizes to multi-token sequence {info['leading_space']['token_ids']} "
+                    f"(unprefixed: {info['unprefixed']['token_ids']}). Forced-choice single-token scoring invalid."
+                )
+
+    if errors:
+        raise TokenizerCandidateError(
+            f"Tokenizer candidate resolution failed at prompt boundary:\n" + "\n".join(errors)
+        )
+
     return resolved

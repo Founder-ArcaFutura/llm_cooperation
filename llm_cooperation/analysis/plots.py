@@ -15,10 +15,17 @@ def plot_summary_figures(
     position_bias: Dict[str, float],
     model_name: str,
     output_dir: str = "reports/figures",
+    run_id: Optional[str] = None,
 ) -> List[str]:
-    """Generate publication-ready figures for Phase 0 analysis."""
+    """Generate publication-ready figures for Phase 0 analysis.
+
+    Uses model slug and optional run_id in filenames to prevent overwrites.
+    """
     os.makedirs(output_dir, exist_ok=True)
     generated_files = []
+
+    model_slug = model_name.replace("/", "_")
+    prefix = f"{model_slug}_{run_id}_" if run_id else f"{model_slug}_"
 
     # Clean styling
     plt.rcParams.update({"font.size": 11, "font.family": "sans-serif"})
@@ -68,7 +75,7 @@ def plot_summary_figures(
 
     fig.suptitle(f"Phase 0 Behavioural Screen: {model_name}", fontsize=14, fontweight="bold")
     plt.tight_layout()
-    f1_path = os.path.join(output_dir, "cooperation_by_strata.png")
+    f1_path = os.path.join(output_dir, f"{prefix}cooperation_by_strata.png")
     plt.savefig(f1_path, dpi=300)
     plt.close()
     generated_files.append(f1_path)
@@ -98,7 +105,7 @@ def plot_summary_figures(
     ax.set_title(f"Strategy Distribution Breakdown: {model_name}")
     ax.grid(axis="y", linestyle=":", alpha=0.6)
     plt.tight_layout()
-    f2_path = os.path.join(output_dir, "strategy_distribution.png")
+    f2_path = os.path.join(output_dir, f"{prefix}strategy_distribution.png")
     plt.savefig(f2_path, dpi=300)
     plt.close()
     generated_files.append(f2_path)
@@ -118,7 +125,7 @@ def plot_summary_figures(
     ax.legend(loc="upper right")
     ax.grid(axis="y", linestyle=":", alpha=0.6)
     plt.tight_layout()
-    f3_path = os.path.join(output_dir, "position_bias_audit.png")
+    f3_path = os.path.join(output_dir, f"{prefix}position_bias_audit.png")
     plt.savefig(f3_path, dpi=300)
     plt.close()
     generated_files.append(f3_path)

@@ -18,7 +18,67 @@ import pandas as pd
 from llm_cooperation.items.schema import StrategyType
 
 
-def load_run_results(file_path: str) -> Tuple[Dict, List[Dict]]:
+class RunDataValidationError(Exception):
+    """Raised when experimental output records fail scientific integrity validation."""
+    pass
+
+
+def validate_run_data(metadata: Dict, records: List[Dict], expected_scenarios: int = 24):
+    """Rigorous pre-analysis validation of experimental run records."""
+    if not records:
+        raise RunDataValidationError("Run dataset contains no presentation records.")
+
+    # Check presentation count
+    expected_presentations = expected_scenarios * 4
+    if len(records) != expected_presentations:
+        raise RunDataValidationError(
+            f"Expected {expected_presentations} presentations ({expected_scenarios} scenarios x 4 permutations), "
+            f"found {len(records)}."
+        )
+
+    # Check unique presentation IDs
+    pres_ids = [r["presentation_id"] for r in records]
+    if len(set(pres_ids)) != len(pres_ids):
+        duplicates = [pid for pid in set(pres_ids) if pres_ids.count(pid) > 1]
+        raise RunDataValidationError(f"Duplicate presentation IDs found: {duplicates}")
+
+    # Check scenario representation and exact 4 permutations per scenario
+    scenario_perms = {}
+    for r in records:
+        sc_id = r["scenario_id"]
+        perm_idx = r["permutation_index"]
+        if sc_id not in scenario_perms:
+            scenario_perms[sc_id] = set()
+        scenario_perms[sc_id].add(perm_idx)
+
+        # Check finite and valid probabilities
+        cond_probs = r.get("conditional_probs", {})
+        if set(cond_probs.keys()) != {"A", "B", "C", "D"}:
+            raise RunDataValidationError(f"Presentation {r['presentation_id']} missing A/B/C/D conditional probs.")
+        for l, p in cond_probs.items():
+            if not np.isfinite(p) or p < 0.0 or p > 1.0:
+                raise RunDataValidationError(
+                    f"Presentation {r['presentation_id']} has invalid conditional probability for {l}: {p}"
+                )
+        prob_sum = sum(cond_probs.values())
+        if abs(prob_sum - 1.0) > 1e-4:
+            raise RunDataValidationError(
+                f"Presentation {r['presentation_id']} conditional probabilities sum to {prob_sum}, expected 1.0."
+            )
+
+    if len(scenario_perms) != expected_scenarios:
+        raise RunDataValidationError(
+            f"Expected {expected_scenarios} distinct scenarios, found {len(scenario_perms)}."
+        )
+
+    for sc_id, perms in scenario_perms.items():
+        if perms != {0, 1, 2, 3}:
+            raise RunDataValidationError(
+                f"Scenario {sc_id} does not have complete permutations 0..3: {perms}"
+            )
+
+
+def load_run_results(file_path: str, validate: bool = True) -> Tuple[Dict, List[Dict]]:
     metadata = None
     records = []
     with open(file_path, "r", encoding="utf-8") as f:
@@ -28,6 +88,10 @@ def load_run_results(file_path: str) -> Tuple[Dict, List[Dict]]:
         for line in f:
             if line.strip():
                 records.append(json.loads(line.strip()))
+
+    if validate and metadata is not None:
+        validate_run_data(metadata, records)
+
     return metadata, records
 
 

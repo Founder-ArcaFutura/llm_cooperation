@@ -29,7 +29,13 @@ from llm_cooperation.items.permutations import (
 TABOO_WORDS = {
     "kind", "kindness", "ethical", "moral", "morality", "selfish",
     "unselfish", "rude", "polite", "evil", "good", "bad", "virtuous",
-    "altruistic", "cooperative", "cheater", "betray"
+    "altruistic", "cooperative", "cheater", "betray", "malicious",
+    "sabotage", "fair", "unfair", "greedy", "generous"
+}
+
+# Extreme lexical markers that might privilege an option or make it obviously unreasonable
+DESTRUCTIVE_MARKERS = {
+    "destroy", "sabotage", "corrupt", "delete all", "wipe", "leak", "steal"
 }
 
 
@@ -98,15 +104,41 @@ def audit_scenarios(bank_path: str = "data/scenarios.json") -> bool:
     table.add_column("Min", justify="right")
     table.add_column("Max", justify="right")
 
+    mean_lens = {}
     for strat, lens in lengths_by_strat.items():
+        m = float(np.mean(lens))
+        mean_lens[strat] = m
         table.add_row(
             strat.value,
-            f"{np.mean(lens):.1f}",
+            f"{m:.1f}",
             f"{np.std(lens):.1f}",
             str(np.min(lens)),
             str(np.max(lens)),
         )
     console.print(table)
+
+    # Check for severe length disparity across strategies (e.g. difference in mean > 5 words)
+    max_mean = max(mean_lens.values())
+    min_mean = min(mean_lens.values())
+    if max_mean - min_mean > 5.0:
+        console.print(f"[bold yellow]WARNING: Length disparity detected across strategies (spread: {max_mean - min_mean:.1f} words)[/bold yellow]")
+
+    # Check for destructive/unreasonable lexical markers
+    destructive_flagged = []
+    for s in scenarios:
+        for strat, opt_text in s.options.items():
+            lowered = opt_text.lower()
+            for marker in DESTRUCTIVE_MARKERS:
+                if marker in lowered:
+                    destructive_flagged.append((s.id, strat.value, marker, opt_text))
+
+    if destructive_flagged:
+        console.print("[bold red]FAIL: Found structurally unreasonable/destructive markers in options:[/bold red]")
+        for item in destructive_flagged:
+            console.print(f"  Scenario: {item[0]} | Strategy: {item[1]} | Marker: '{item[2]}'")
+        success = False
+    else:
+        console.print("[green]PASS: No destructive/unreasonable markers detected.[/green]")
 
     # 4. Check Permutation Counterbalancing
     all_presentations = generate_all_presentations(scenarios)
