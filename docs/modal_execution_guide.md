@@ -55,6 +55,7 @@ To verify the end-to-end container build and packaging without allocating GPU re
 ```powershell
 modal run modal_app.py --model "mock-qwen2.5-3b" --mock True
 ```
+*Note: Mock execution is routed through `run_evaluation_mock_remote` in a CPU-only container without attaching any GPU, ensuring strictly zero GPU compute costs. Real evaluations with `--mock False` route through `run_evaluation_remote` with GPU acceleration.*
 
 ### B. Evaluating Pretrained Base Models
 Run on-demand evaluation of base checkpoints:

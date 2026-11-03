@@ -13,6 +13,17 @@ DO NOT launch paid GPU compute during testing/mock runs.
 import os
 from pathlib import Path
 from typing import Optional
+
+# Ensure modal configuration resolution does not fail if ~/.modal.toml is unreadable
+if "MODAL_CONFIG_PATH" not in os.environ:
+    try:
+        user_cfg = os.path.expanduser("~/.modal.toml")
+        if os.path.exists(user_cfg):
+            with open(user_cfg, "r") as _:
+                pass
+    except Exception:
+        os.environ["MODAL_CONFIG_PATH"] = os.path.abspath(".modal.dummy.toml")
+
 import modal
 
 APP_NAME = "llm-cooperation-phase0"
@@ -73,7 +84,13 @@ def run_evaluation_remote(
     seed: int = 42,
     prompt_mode: str = "standard_plaintext",
 ) -> str:
-    """Execute evaluation inside Modal GPU environment and persist outputs to volume."""
+    """Execute real model evaluation inside Modal GPU environment and persist outputs to volume."""
+    if mock:
+        raise ValueError(
+            "run_evaluation_remote provisions paid GPU resources (A10G). "
+            "For zero-GPU mock runs, use run_evaluation_mock_remote."
+        )
+
     os.environ["HF_HOME"] = "/root/hf_cache"
     from llm_cooperation.harness.runner import run_experiment
 
@@ -87,7 +104,42 @@ def run_evaluation_remote(
         revision=revision,
         precision=precision,
         device=device,
-        mock=mock,
+        mock=False,
+        seed=seed,
+        prompt_mode=prompt_mode,
+    )
+
+    # Commit changes to durable volume
+    results_volume.commit()
+    return str(result_file)
+
+
+@app.function(
+    image=image,
+    volumes={"/root/results": results_volume},
+    timeout=600,  # 10 minutes max runtime for CPU mock execution
+)
+def run_evaluation_mock_remote(
+    model_name: str,
+    revision: Optional[str] = None,
+    precision: str = "bfloat16",
+    seed: int = 42,
+    prompt_mode: str = "standard_plaintext",
+) -> str:
+    """Execute synthetic mock validation in a zero-GPU CPU container and persist outputs to volume."""
+    from llm_cooperation.harness.runner import run_experiment
+
+    out_dir = "/root/results"
+    os.makedirs(out_dir, exist_ok=True)
+
+    result_file = run_experiment(
+        model_name=model_name,
+        scenarios_path="/root/data/scenarios.json",
+        output_dir=out_dir,
+        revision=revision,
+        precision=precision,
+        device="cpu",
+        mock=True,
         seed=seed,
         prompt_mode=prompt_mode,
     )
@@ -107,15 +159,25 @@ def main(
     prompt_mode: str = "standard_plaintext",
 ):
     """Local CLI entrypoint for invoking Modal run."""
-    print(f"[modal_app] Launching Phase 0 run for {model} (mock={mock}, precision={precision})...")
-    remote_path = run_evaluation_remote.remote(
-        model_name=model,
-        revision=revision,
-        precision=precision,
-        mock=mock,
-        seed=seed,
-        prompt_mode=prompt_mode,
-    )
+    if mock:
+        print(f"[modal_app] Launching Phase 0 mock validation for {model} (zero-GPU CPU container)...")
+        remote_path = run_evaluation_mock_remote.remote(
+            model_name=model,
+            revision=revision,
+            precision=precision,
+            seed=seed,
+            prompt_mode=prompt_mode,
+        )
+    else:
+        print(f"[modal_app] Launching Phase 0 real evaluation for {model} (A10G GPU, precision={precision})...")
+        remote_path = run_evaluation_remote.remote(
+            model_name=model,
+            revision=revision,
+            precision=precision,
+            mock=False,
+            seed=seed,
+            prompt_mode=prompt_mode,
+        )
     print(f"[modal_app] Successfully finished run! Output persisted on Modal Volume at: {remote_path}")
     print("To download results to your local workspace:")
     print(f"  modal volume get llm-coop-results {Path(remote_path).name} results/")

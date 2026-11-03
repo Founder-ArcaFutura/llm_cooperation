@@ -49,3 +49,7 @@ llm-coop = "llm_cooperation.cli:main"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["llm_cooperation*"]
+
+[tool.pytest.ini_options]
+addopts = "--basetemp=.pytest_tmp"
+pythonpath = ["."]

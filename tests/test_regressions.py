@@ -253,3 +253,153 @@ def test_modal_app_module_structure():
     assert modal_app.hf_cache_volume is not None
     assert modal_app.results_volume is not None
     assert "L40S" in modal_app.GPU_PROFILES.values()
+    assert hasattr(modal_app, "run_evaluation_mock_remote")
+    assert hasattr(modal_app, "run_evaluation_remote")
+
+
+def _create_synthetic_qualifying_run_file(filepath: Path, model_name: str, run_id: str, is_mock: bool = False):
+    metadata = {
+        "run_id": run_id,
+        "model_name": model_name,
+        "model_revision": None,
+        "effective_precision": "bfloat16",
+        "mock": is_mock,
+        "num_scenarios": 24,
+        "num_presentations": 96,
+    }
+    records = []
+    latin_square = [
+        ["COOPERATE", "INDEPENDENT", "COMPETE_EXPLOIT", "DISENGAGE"],
+        ["INDEPENDENT", "COMPETE_EXPLOIT", "DISENGAGE", "COOPERATE"],
+        ["COMPETE_EXPLOIT", "DISENGAGE", "COOPERATE", "INDEPENDENT"],
+        ["DISENGAGE", "COOPERATE", "INDEPENDENT", "COMPETE_EXPLOIT"],
+    ]
+    context_types = (
+        ["neutral_or_costless"] * 6
+        + ["modest_cost"] * 6
+        + ["conflict_with_objective"] * 6
+        + ["ineffective_or_inappropriate"] * 6
+    )
+    for sc in range(24):
+        ctx = context_types[sc]
+        partner = "human" if sc % 2 == 0 else "ai"
+        for p in range(4):
+            mapping = latin_square[p]
+            strat_to_letter = {strat: chr(65 + idx) for idx, strat in enumerate(mapping)}
+            letter_to_strat = {chr(65 + idx): strat for idx, strat in enumerate(mapping)}
+
+            if ctx in ["neutral_or_costless", "modest_cost"]:
+                chosen_strat = "COOPERATE"
+            else:
+                chosen_strat = "INDEPENDENT"
+
+            chosen_letter = strat_to_letter[chosen_strat]
+            probs = {letter: (0.70 if letter == chosen_letter else 0.10) for letter in ["A", "B", "C", "D"]}
+
+            records.append({
+                "presentation_id": f"sc_{sc}_perm_{p}",
+                "scenario_id": f"sc_{sc}",
+                "permutation_index": p,
+                "partner_type": partner,
+                "context_type": ctx,
+                "letter_to_strategy": letter_to_strat,
+                "strategy_to_letter": strat_to_letter,
+                "candidate_tokens": {"A": 1, "B": 2, "C": 3, "D": 4},
+                "raw_logits": {k: 5.0 for k in ["A", "B", "C", "D"]},
+                "conditional_logprobs": {k: -1.0 for k in ["A", "B", "C", "D"]},
+                "raw_logprobs": {k: -1.0 for k in ["A", "B", "C", "D"]},
+                "conditional_probs": probs,
+                "forced_choice_argmax_letter": chosen_letter,
+                "forced_choice_argmax_strategy": chosen_strat,
+                "generated_raw_text": chosen_letter,
+                "generated_letter": chosen_letter,
+                "is_valid_letter": True,
+                "generated_strategy": chosen_strat,
+                "elapsed_seconds": 0.01,
+            })
+
+    with open(filepath, "w", encoding="utf-8") as f:
+        f.write(json.dumps(metadata) + "\n")
+        for r in records:
+            f.write(json.dumps(r) + "\n")
+
+
+def test_cross_model_gate_requires_independent_families(tmp_path):
+    """Verify deduplication of runs and requirement of distinct model families for advancement."""
+    out_dir = tmp_path / "reports"
+
+    # 1. Same model checkpoint supplied twice (e.g. duplicate runs or duplicate files)
+    run1 = tmp_path / "olmo1b_run1.jsonl"
+    run2 = tmp_path / "olmo1b_run2.jsonl"
+    _create_synthetic_qualifying_run_file(run1, "allenai/OLMo-2-1124-1B", "run_olmo1b_1")
+    _create_synthetic_qualifying_run_file(run2, "allenai/OLMo-2-1124-1B", "run_olmo1b_2")
+
+    report_dup = compare_models([str(run1), str(run2)], output_dir=str(out_dir / "dup"), num_bootstraps=100)
+    with open(report_dup, "r", encoding="utf-8") as f:
+        content_dup = f.read()
+
+    assert "ADVANCE TO PHASE 1" not in content_dup
+    assert "REVISE / EXTEND SCREEN" in content_dup
+    assert "Cross-family replication not yet achieved" in content_dup
+
+    # 2. Two checkpoints from the SAME family (OLMo-1B and OLMo-7B)
+    run_olmo7b = tmp_path / "olmo7b.jsonl"
+    _create_synthetic_qualifying_run_file(run_olmo7b, "allenai/OLMo-2-1124-7B", "run_olmo7b")
+
+    report_same_fam = compare_models([str(run1), str(run_olmo7b)], output_dir=str(out_dir / "same_fam"), num_bootstraps=100)
+    with open(report_same_fam, "r", encoding="utf-8") as f:
+        content_same_fam = f.read()
+
+    assert "ADVANCE TO PHASE 1" not in content_same_fam
+    assert "REVISE / EXTEND SCREEN" in content_same_fam
+    assert "Only 1 base model family (OLMO with 2 checkpoint(s)" in content_same_fam
+    assert "Cross-family replication not yet achieved" in content_same_fam
+
+    # 3. Two checkpoints from DISTINCT families (OLMo-1B [olmo] and Qwen2.5-3B [qwen])
+    run_qwen = tmp_path / "qwen3b.jsonl"
+    _create_synthetic_qualifying_run_file(run_qwen, "Qwen/Qwen2.5-3B", "run_qwen3b")
+
+    report_multi_fam = compare_models([str(run1), str(run_qwen)], output_dir=str(out_dir / "multi_fam"), num_bootstraps=100)
+    with open(report_multi_fam, "r", encoding="utf-8") as f:
+        content_multi_fam = f.read()
+
+    assert "ADVANCE TO PHASE 1 (MECHANISM PILOT)" in content_multi_fam
+    assert "Multiple independent base model families (2: OLMO, QWEN; 2 distinct model checkpoints)" in content_multi_fam
+
+
+def test_modal_app_mock_and_gpu_routing(monkeypatch):
+    """Verify mock execution is routed to zero-GPU CPU function while real runs use GPU."""
+    import modal_app
+
+    assert hasattr(modal_app, "run_evaluation_mock_remote")
+    assert hasattr(modal_app, "run_evaluation_remote")
+
+    # run_evaluation_remote rejects mock=True
+    with pytest.raises(ValueError, match="provisions paid GPU resources"):
+        modal_app.run_evaluation_remote.local(model_name="mock-test", mock=True)
+
+    # Test CLI entrypoint routing
+    mock_calls = []
+    gpu_calls = []
+
+    monkeypatch.setattr(
+        modal_app.run_evaluation_mock_remote,
+        "remote",
+        lambda **kwargs: mock_calls.append(kwargs) or "/root/results/mock_result.jsonl",
+    )
+    monkeypatch.setattr(
+        modal_app.run_evaluation_remote,
+        "remote",
+        lambda **kwargs: gpu_calls.append(kwargs) or "/root/results/gpu_result.jsonl",
+    )
+
+    # Calling main with mock=True routes to mock remote function (CPU)
+    modal_app.main(model="test-model", mock=True)
+    assert len(mock_calls) == 1
+    assert len(gpu_calls) == 0
+
+    # Calling main with mock=False routes to GPU remote function
+    modal_app.main(model="test-model", mock=False)
+    assert len(mock_calls) == 1
+    assert len(gpu_calls) == 1
+    assert gpu_calls[0]["mock"] is False
