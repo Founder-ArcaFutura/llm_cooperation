@@ -16,15 +16,34 @@ def main():
 
 
 @main.command("audit-items")
-@click.option("--scenarios-path", default="data/scenarios.json", help="Path to scenarios JSON file.")
+@click.option("--scenarios-path", default=None, help="Path to scenarios JSON file.")
+@click.option("--bank", type=click.Choice(["pilot", "expanded", "phase0b", "utility-matched", "phase1"]), default=None, help="Convenience bank selector.")
 @click.option("--calibration-path", default=None, help="Path to calibration JSON file to audit.")
-def cmd_audit_items(scenarios_path: str, calibration_path: Optional[str] = None):
+def cmd_audit_items(scenarios_path: Optional[str], bank: Optional[str] = None, calibration_path: Optional[str] = None):
     """Audit scenario balance, length, and permutation counterbalancing."""
     from llm_cooperation.items.audit import audit_calibration
-    success = audit_scenarios(scenarios_path)
+    from llm_cooperation.items.audit_phase1 import audit_phase1_bank
+
+    target_path = scenarios_path
+    if target_path is None:
+        if bank == "phase1":
+            target_path = "data/scenarios_phase1_prospective.json"
+        elif bank in ("phase0b", "utility-matched"):
+            target_path = "data/scenarios_phase0b_utility_matched.json"
+        elif bank == "expanded":
+            target_path = "data/scenarios_v1_expanded.json"
+        else:
+            target_path = "data/scenarios.json"
+
+    if bank == "phase1" or "phase1" in target_path.lower():
+        success, flags = audit_phase1_bank(target_path)
+    else:
+        success = audit_scenarios(target_path)
+
     if calibration_path:
         calib_success = audit_calibration(calibration_path)
         success = success and calib_success
+
     if not success:
         raise click.ClickException("Item audit failed.")
 
@@ -59,21 +78,26 @@ def cmd_calibrate(model, calibration_path, revision, output_dir, precision, devi
 @main.command("run")
 @click.option("--model", "-m", required=True, help="Hugging Face model identifier or mock name.")
 @click.option("--revision", default=None, help="Specific commit SHA or branch revision.")
-@click.option("--bank", type=click.Choice(["pilot", "expanded", "phase0b", "utility-matched"]), default=None, help="Convenience bank selector ('pilot', 'expanded', or 'utility-matched' / 'phase0b').")
+@click.option("--bank", type=click.Choice(["pilot", "expanded", "phase0b", "utility-matched", "phase1"]), default=None, help="Convenience bank selector ('pilot', 'expanded', 'utility-matched' / 'phase0b', or 'phase1').")
 @click.option("--scenarios-path", default=None, help="Custom path to scenarios JSON file (defaults to data/scenarios.json or bank choice).")
 @click.option("--split", type=click.Choice(["exploratory", "confirmatory", "all"]), default=None, help="Dataset split execution filter. In Phase 0B, defaults to 'exploratory'. Evaluating 'confirmatory' or 'all' requires authorization.")
 @click.option("--authorize-confirmatory", is_flag=True, default=False, help="Explicit authorization flag required to evaluate the held-out confirmatory split.")
+@click.option("--authorize-phase1-run", is_flag=True, default=False, help="Explicit authorization flag required to evaluate Phase 1 bank once frozen.")
 @click.option("--output-dir", "-o", default="results", help="Directory to save raw results.")
 @click.option("--precision", default="bfloat16", type=click.Choice(["bfloat16", "float16", "float32"]))
 @click.option("--device", default="auto", help="Device map (e.g. 'auto', 'cuda', 'cpu').")
 @click.option("--mock", is_flag=True, default=False, help="Run with mock predictions without loading model weights.")
 @click.option("--seed", default=42, help="Random seed for mock generator.")
 @click.option("--prompt-mode", default="standard_plaintext", type=click.Choice(["standard_plaintext", "openassistant"]), help="Prompt format mode.")
-def cmd_run(model, revision, bank, scenarios_path, split, authorize_confirmatory, output_dir, precision, device, mock, seed, prompt_mode):
-    """Run Phase 0 or Phase 0B behavioural evaluation."""
+def cmd_run(model, revision, bank, scenarios_path, split, authorize_confirmatory, authorize_phase1_run, output_dir, precision, device, mock, seed, prompt_mode):
+    """Run behavioural evaluation."""
     is_phase0b = False
+    is_phase1 = False
     target_path = "data/scenarios.json"
-    if bank in ("phase0b", "utility-matched"):
+    if bank == "phase1":
+        target_path = "data/scenarios_phase1_prospective.json"
+        is_phase1 = True
+    elif bank in ("phase0b", "utility-matched"):
         target_path = "data/scenarios_phase0b_utility_matched.json"
         is_phase0b = True
     elif bank == "expanded":
@@ -83,7 +107,9 @@ def cmd_run(model, revision, bank, scenarios_path, split, authorize_confirmatory
 
     if scenarios_path is not None:
         target_path = scenarios_path
-        if "phase0b" in target_path.lower():
+        if "phase1" in target_path.lower():
+            is_phase1 = True
+        elif "phase0b" in target_path.lower():
             is_phase0b = True
 
     # Default split logic
@@ -91,7 +117,7 @@ def cmd_run(model, revision, bank, scenarios_path, split, authorize_confirmatory
     if is_phase0b and effective_split is None:
         effective_split = "exploratory"
 
-    # Confirmatory split authorization guard
+    # Confirmatory split authorization guard for Phase 0B
     if effective_split in ("confirmatory", "all") and is_phase0b and not authorize_confirmatory:
         raise click.ClickException(
             f"CONFIRMATORY SPLIT GUARD: Executing held-out confirmatory partition in Phase 0B "
@@ -99,18 +125,22 @@ def cmd_run(model, revision, bank, scenarios_path, split, authorize_confirmatory
             f"Phase 0B defaults to '--split exploratory' to protect confirmatory held-out isolation."
         )
 
-    run_experiment(
-        model_name=model,
-        scenarios_path=target_path,
-        output_dir=output_dir,
-        revision=revision,
-        precision=precision,
-        device=device,
-        mock=mock,
-        seed=seed,
-        prompt_mode=prompt_mode,
-        split_filter=effective_split if effective_split != "all" else None,
-    )
+    try:
+        run_experiment(
+            model_name=model,
+            scenarios_path=target_path,
+            output_dir=output_dir,
+            revision=revision,
+            precision=precision,
+            device=device,
+            mock=mock,
+            seed=seed,
+            prompt_mode=prompt_mode,
+            split_filter=effective_split if effective_split != "all" else None,
+            authorize_phase1_run=authorize_phase1_run,
+        )
+    except (PermissionError, ValueError) as e:
+        raise click.ClickException(str(e))
 
 
 @main.command("analyze")

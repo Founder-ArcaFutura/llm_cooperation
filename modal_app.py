@@ -55,6 +55,7 @@ image = (
     .add_local_file("data/scenarios.json", "/root/data/scenarios.json")
     .add_local_file("data/scenarios_v1_expanded.json", "/root/data/scenarios_v1_expanded.json")
     .add_local_file("data/scenarios_phase0b_utility_matched.json", "/root/data/scenarios_phase0b_utility_matched.json")
+    .add_local_file("data/scenarios_phase1_prospective.json", "/root/data/scenarios_phase1_prospective.json")
     .add_local_file("data/calibration_bank.json", "/root/data/calibration_bank.json")
     .add_local_file("configs/models.yaml", "/root/configs/models.yaml")
 )
@@ -151,6 +152,7 @@ SUPPORTED_BANKS = {
     "expanded": "/root/data/scenarios_v1_expanded.json",
     "phase0b": "/root/data/scenarios_phase0b_utility_matched.json",
     "utility-matched": "/root/data/scenarios_phase0b_utility_matched.json",
+    "phase1": "/root/data/scenarios_phase1_prospective.json",
 }
 
 
@@ -158,8 +160,9 @@ def resolve_bank_and_split(
     bank: str,
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
+    authorize_phase1_run: bool = False,
 ) -> tuple[str, Optional[str]]:
-    """Validate bank identifier and enforce Phase 0B split defaults & confirmatory guard.
+    """Validate bank identifier and enforce Phase 0B split defaults & Phase 1 holdout guard.
 
     Fails explicitly if bank is unsupported rather than silently choosing another instrument.
     """
@@ -172,6 +175,31 @@ def resolve_bank_and_split(
 
     scenarios_path = SUPPORTED_BANKS[bank_clean]
     is_phase0b = bank_clean in ("phase0b", "utility-matched")
+    is_phase1 = bank_clean == "phase1"
+
+    # Fail-closed Phase 1 holdout protection guard
+    if is_phase1:
+        # Check draft status fail-closed
+        import json
+        from pathlib import Path
+        local_p = Path("data/scenarios_phase1_prospective.json")
+        target_check = local_p if local_p.exists() else Path(scenarios_path)
+        if target_check.exists():
+            with open(target_check, "r", encoding="utf-8") as f:
+                bdata = json.load(f)
+            if bdata.get("status") == "draft_pending_review":
+                raise PermissionError(
+                    "PHASE 1 HOLDOUT PROTECTION TRIGGERED: The Phase 1 prospective replication bank is currently in "
+                    "status 'draft_pending_review'. Phase 1 scenarios must remain held out and unexecuted while in draft "
+                    "status. No inference (real or mock) is permitted until independent review and protocol approval are complete."
+                )
+
+        env_p1_auth = os.environ.get("ALLOW_PHASE1_RUN", "").lower() in ("1", "true", "yes")
+        if not (authorize_phase1_run or env_p1_auth):
+            raise PermissionError(
+                "PHASE 1 INFERENCE AUTHORIZATION GUARD: Executing inference on the Phase 1 prospective replication bank "
+                "requires explicit scientific authorization (--authorize-phase1-run or ALLOW_PHASE1_RUN=true)."
+            )
 
     effective_split = split
     if is_phase0b and effective_split is None:
@@ -200,6 +228,7 @@ def _execute_evaluation(
     bank: str = "pilot",
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
+    authorize_phase1_run: bool = False,
 ) -> str:
     """Internal helper to execute evaluation inside container and commit volumes."""
     os.environ["HF_HOME"] = "/root/hf_cache"
@@ -212,6 +241,7 @@ def _execute_evaluation(
         bank=bank,
         split=split,
         authorize_confirmatory=authorize_confirmatory,
+        authorize_phase1_run=authorize_phase1_run,
     )
 
     result_file = run_experiment(
@@ -225,6 +255,7 @@ def _execute_evaluation(
         seed=seed,
         prompt_mode=prompt_mode,
         split_filter=effective_split if effective_split != "all" else None,
+        authorize_phase1_run=authorize_phase1_run,
     )
 
     # Durable commit to Modal persistent volume
@@ -251,6 +282,7 @@ def run_evaluation_remote(
     bank: str = "pilot",
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
+    authorize_phase1_run: bool = False,
 ) -> str:
     """Execute evaluation on standard A10G GPU (ideal for 1B-3B models)."""
     if mock:
@@ -268,6 +300,7 @@ def run_evaluation_remote(
         bank=bank,
         split=split,
         authorize_confirmatory=authorize_confirmatory,
+        authorize_phase1_run=authorize_phase1_run,
     )
 
 
@@ -289,6 +322,7 @@ def run_evaluation_remote_l40s(
     bank: str = "pilot",
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
+    authorize_phase1_run: bool = False,
 ) -> str:
     """Execute evaluation on high-VRAM L40S GPU (ideal for 7B-12B models, e.g. Pythia-12B)."""
     if mock:
@@ -306,6 +340,7 @@ def run_evaluation_remote_l40s(
         bank=bank,
         split=split,
         authorize_confirmatory=authorize_confirmatory,
+        authorize_phase1_run=authorize_phase1_run,
     )
 
 
@@ -323,6 +358,7 @@ def run_evaluation_mock_remote(
     bank: str = "pilot",
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
+    authorize_phase1_run: bool = False,
 ) -> str:
     """Execute synthetic mock validation in a zero-GPU CPU container and persist outputs to volume."""
     from llm_cooperation.harness.runner import run_experiment
@@ -334,6 +370,7 @@ def run_evaluation_mock_remote(
         bank=bank,
         split=split,
         authorize_confirmatory=authorize_confirmatory,
+        authorize_phase1_run=authorize_phase1_run,
     )
 
     result_file = run_experiment(
@@ -347,6 +384,7 @@ def run_evaluation_mock_remote(
         seed=seed,
         prompt_mode=prompt_mode,
         split_filter=effective_split if effective_split != "all" else None,
+        authorize_phase1_run=authorize_phase1_run,
     )
 
     # Commit changes to durable volume
@@ -364,6 +402,7 @@ def main(
     bank: str = "pilot",
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
+    authorize_phase1_run: bool = False,
     prompt_mode: str = "standard_plaintext",
     authorize_paid_run: bool = False,
 ):
@@ -385,6 +424,7 @@ def main(
             bank=bank,
             split=split,
             authorize_confirmatory=authorize_confirmatory,
+            authorize_phase1_run=authorize_phase1_run,
         )
     else:
         # Explicit paid-run authorization guard
@@ -411,6 +451,7 @@ def main(
                 bank=bank,
                 split=split,
                 authorize_confirmatory=authorize_confirmatory,
+                authorize_phase1_run=authorize_phase1_run,
             )
         elif selected_gpu == GPU_PROFILES["small"]:  # A10G
             print(f"[modal_app] Dispatching to A10G GPU container (precision={precision})...")
@@ -424,6 +465,7 @@ def main(
                 bank=bank,
                 split=split,
                 authorize_confirmatory=authorize_confirmatory,
+                authorize_phase1_run=authorize_phase1_run,
             )
         else:
             # If large or unsupported GPU profile is selected, fail fast before provisioning
