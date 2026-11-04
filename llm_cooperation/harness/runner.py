@@ -374,6 +374,8 @@ class ModelRunner:
                 template_id=scenario_meta.get("template_id"),
                 split=scenario_meta.get("split"),
                 domain=scenario_meta.get("domain"),
+                utility_condition=scenario_meta.get("utility_condition"),
+                source_type=scenario_meta.get("source_type"),
                 permutation_index=presentation.permutation_index,
                 partner_type=scenario_meta["partner_type"],
                 context_type=scenario_meta["context_type"],
@@ -447,6 +449,8 @@ class ModelRunner:
             template_id=scenario_meta.get("template_id"),
             split=scenario_meta.get("split"),
             domain=scenario_meta.get("domain"),
+            utility_condition=scenario_meta.get("utility_condition"),
+            source_type=scenario_meta.get("source_type"),
             permutation_index=presentation.permutation_index,
             partner_type=scenario_meta["partner_type"],
             context_type=scenario_meta["context_type"],
@@ -503,6 +507,8 @@ def run_experiment(
             "template_id": s.template_id,
             "split": s.split,
             "domain": s.domain,
+            "utility_condition": s.utility_condition.value if s.utility_condition else None,
+            "source_type": s.source_type,
         }
         for s in scenarios
     }

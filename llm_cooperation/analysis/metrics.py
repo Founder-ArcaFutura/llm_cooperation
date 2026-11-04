@@ -111,9 +111,17 @@ def aggregate_by_scenario(records: List[Dict]) -> pd.DataFrame:
         df[f"is_argmax_{strat}"] = (df["forced_choice_argmax_strategy"] == strat).astype(float)
         df[f"is_gen_{strat}"] = (df["generated_strategy"] == strat).astype(float)
 
-    # Grouping columns: preserve template_id, split, domain if available
+    # Compute log probability differences between COOPERATE and INDEPENDENT: log P(COOP) - log P(INDEP)
+    # Using small epsilon to prevent log(0)
+    eps = 1e-12
+    df["log_prob_coop_indep_diff"] = df.apply(
+        lambda row: float(np.log(max(row["prob_COOPERATE"], eps)) - np.log(max(row["prob_INDEPENDENT"], eps))),
+        axis=1,
+    )
+
+    # Grouping columns: preserve template_id, split, domain, utility_condition, source_type if available
     group_cols = ["scenario_id", "partner_type", "context_type"]
-    extra_meta_cols = [c for c in ["template_id", "split", "domain"] if c in df.columns]
+    extra_meta_cols = [c for c in ["template_id", "split", "domain", "utility_condition", "source_type"] if c in df.columns]
 
     agg_dict = {
         # Mean conditional probability across the 4 permutations
@@ -126,6 +134,8 @@ def aggregate_by_scenario(records: List[Dict]) -> pd.DataFrame:
         "indep_argmax_rate": ("is_argmax_INDEPENDENT", "mean"),
         "compete_argmax_rate": ("is_argmax_COMPETE_EXPLOIT", "mean"),
         "disengage_argmax_rate": ("is_argmax_DISENGAGE", "mean"),
+        # Log-probability difference
+        "log_prob_coop_indep_diff": ("log_prob_coop_indep_diff", "mean"),
         # Generated compliance
         "valid_letter_rate": ("is_valid_letter", "mean"),
         "gen_coop_rate": ("is_gen_COOPERATE", "mean"),
@@ -194,6 +204,122 @@ def template_cluster_bootstrap(
         "bootstrap_samples": n_bootstraps,
         "clustering_level": "template",
         "num_clusters": n_templates,
+    }
+
+
+def compute_utility_matched_contrast(
+    scenario_df: pd.DataFrame,
+    n_bootstraps: int = 2000,
+    alpha: float = 0.05,
+    seed: int = 42,
+) -> Optional[Dict[str, float]]:
+    """Compute Phase 0B primary contrasts within utility-matched scenarios:
+    1. Argmax choice difference: P(COOPERATE) - P(INDEPENDENT)
+    2. Log-probability difference: log P(COOPERATE) - log P(INDEPENDENT)
+    Bootstrap clustered at the template level (pairing human and AI variants).
+    """
+    if "utility_condition" in scenario_df.columns:
+        matched_df = scenario_df[scenario_df["utility_condition"] == "equal_utility"]
+    else:
+        matched_df = scenario_df
+
+    if matched_df.empty:
+        return None
+
+    rng = np.random.default_rng(seed)
+
+    # Check template availability
+    has_templates = ("template_id" in matched_df.columns and not matched_df["template_id"].isnull().all())
+
+    if not has_templates:
+        # Fallback to scenario resampling
+        diff_argmax = matched_df["coop_argmax_rate"].values - matched_df["indep_argmax_rate"].values
+        diff_log_prob = matched_df["log_prob_coop_indep_diff"].values
+
+        n = len(diff_argmax)
+        b_argmax = [float(np.mean(rng.choice(diff_argmax, size=n, replace=True))) for _ in range(n_bootstraps)]
+        b_log = [float(np.mean(rng.choice(diff_log_prob, size=n, replace=True))) for _ in range(n_bootstraps)]
+
+        return {
+            "choice_diff_mean": float(np.mean(diff_argmax)),
+            "choice_diff_ci_lower": float(np.percentile(b_argmax, 100 * (alpha / 2))),
+            "choice_diff_ci_upper": float(np.percentile(b_argmax, 100 * (1 - alpha / 2))),
+            "log_prob_diff_mean": float(np.mean(diff_log_prob)),
+            "log_prob_diff_ci_lower": float(np.percentile(b_log, 100 * (alpha / 2))),
+            "log_prob_diff_ci_upper": float(np.percentile(b_log, 100 * (1 - alpha / 2))),
+            "coop_rate_mean": float(np.mean(matched_df["coop_argmax_rate"])),
+            "indep_rate_mean": float(np.mean(matched_df["indep_argmax_rate"])),
+            "num_scenarios": len(matched_df),
+            "clustering_level": "scenario",
+        }
+
+    # Aggregate at template level
+    tpl_df = matched_df.groupby("template_id").agg({
+        "coop_argmax_rate": "mean",
+        "indep_argmax_rate": "mean",
+        "log_prob_coop_indep_diff": "mean",
+    }).reset_index()
+
+    tpl_df["choice_diff"] = tpl_df["coop_argmax_rate"] - tpl_df["indep_argmax_rate"]
+    tids = tpl_df["template_id"].values
+    n_tpl = len(tids)
+
+    choice_diff_vals = tpl_df["choice_diff"].values
+    log_diff_vals = tpl_df["log_prob_coop_indep_diff"].values
+
+    b_argmax = []
+    b_log = []
+    for _ in range(n_bootstraps):
+        idxs = rng.choice(n_tpl, size=n_tpl, replace=True)
+        b_argmax.append(float(np.mean(choice_diff_vals[idxs])))
+        b_log.append(float(np.mean(log_diff_vals[idxs])))
+
+    return {
+        "choice_diff_mean": float(np.mean(choice_diff_vals)),
+        "choice_diff_ci_lower": float(np.percentile(b_argmax, 100 * (alpha / 2))),
+        "choice_diff_ci_upper": float(np.percentile(b_argmax, 100 * (1 - alpha / 2))),
+        "log_prob_diff_mean": float(np.mean(log_diff_vals)),
+        "log_prob_diff_ci_lower": float(np.percentile(b_log, 100 * (alpha / 2))),
+        "log_prob_diff_ci_upper": float(np.percentile(b_log, 100 * (1 - alpha / 2))),
+        "coop_rate_mean": float(tpl_df["coop_argmax_rate"].mean()),
+        "indep_rate_mean": float(tpl_df["indep_argmax_rate"].mean()),
+        "num_templates": n_tpl,
+        "clustering_level": "template",
+    }
+
+
+def compute_utility_sensitivity_contrast(
+    scenario_df: pd.DataFrame,
+    n_bootstraps: int = 2000,
+    alpha: float = 0.05,
+    seed: int = 42,
+) -> Optional[Dict[str, float]]:
+    """Compute cooperation rates across the 3 utility conditions (advantageous, equal, disadvantageous)
+    and estimate the sensitivity slope/gradient.
+    """
+    if "utility_condition" not in scenario_df.columns:
+        return None
+
+    adv_df = scenario_df[scenario_df["utility_condition"] == "coop_advantageous"]
+    eq_df = scenario_df[scenario_df["utility_condition"] == "equal_utility"]
+    dis_df = scenario_df[scenario_df["utility_condition"] == "coop_disadvantageous"]
+
+    if adv_df.empty or dis_df.empty:
+        return None
+
+    adv_mean = float(adv_df["coop_argmax_rate"].mean())
+    eq_mean = float(eq_df["coop_argmax_rate"].mean())
+    dis_mean = float(dis_df["coop_argmax_rate"].mean())
+
+    # Gradient: Advantageous vs Disadvantageous spread
+    spread = adv_mean - dis_mean
+
+    return {
+        "coop_advantageous_mean": adv_mean,
+        "coop_equal_mean": eq_mean,
+        "coop_disadvantageous_mean": dis_mean,
+        "adv_vs_disadv_spread": spread,
+        "monotonic_ordering": bool(adv_mean >= eq_mean >= dis_mean),
     }
 
 

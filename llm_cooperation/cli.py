@@ -59,7 +59,7 @@ def cmd_calibrate(model, calibration_path, revision, output_dir, precision, devi
 @main.command("run")
 @click.option("--model", "-m", required=True, help="Hugging Face model identifier or mock name.")
 @click.option("--revision", default=None, help="Specific commit SHA or branch revision.")
-@click.option("--bank", type=click.Choice(["pilot", "expanded"]), default=None, help="Convenience bank selector ('pilot' or 'expanded').")
+@click.option("--bank", type=click.Choice(["pilot", "expanded", "phase0b", "utility-matched"]), default=None, help="Convenience bank selector ('pilot', 'expanded', or 'utility-matched' / 'phase0b').")
 @click.option("--scenarios-path", default=None, help="Custom path to scenarios JSON file (defaults to data/scenarios.json or bank choice).")
 @click.option("--output-dir", "-o", default="results", help="Directory to save raw results.")
 @click.option("--precision", default="bfloat16", type=click.Choice(["bfloat16", "float16", "float32"]))
@@ -68,9 +68,11 @@ def cmd_calibrate(model, calibration_path, revision, output_dir, precision, devi
 @click.option("--seed", default=42, help="Random seed for mock generator.")
 @click.option("--prompt-mode", default="standard_plaintext", type=click.Choice(["standard_plaintext", "openassistant"]), help="Prompt format mode.")
 def cmd_run(model, revision, bank, scenarios_path, output_dir, precision, device, mock, seed, prompt_mode):
-    """Run Phase 0 behavioural evaluation."""
+    """Run Phase 0 or Phase 0B behavioural evaluation."""
     target_path = "data/scenarios.json"
-    if bank == "expanded":
+    if bank in ("phase0b", "utility-matched"):
+        target_path = "data/scenarios_phase0b_utility_matched.json"
+    elif bank == "expanded":
         target_path = "data/scenarios_v1_expanded.json"
     elif bank == "pilot":
         target_path = "data/scenarios.json"

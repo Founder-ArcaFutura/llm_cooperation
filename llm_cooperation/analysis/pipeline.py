@@ -13,6 +13,8 @@ from llm_cooperation.analysis.metrics import (
     scenario_cluster_bootstrap,
     template_cluster_bootstrap,
     compute_principal_contrast,
+    compute_utility_matched_contrast,
+    compute_utility_sensitivity_contrast,
     audit_position_bias,
 )
 from llm_cooperation.analysis.plots import plot_summary_figures
@@ -92,6 +94,8 @@ def generate_markdown_report(
     exploratory_boot: Optional[Dict[str, float]] = None,
     confirmatory_boot: Optional[Dict[str, float]] = None,
     principal_contrast: Optional[Dict[str, float]] = None,
+    utility_matched_contrast: Optional[Dict[str, float]] = None,
+    utility_sensitivity: Optional[Dict[str, float]] = None,
 ) -> str:
     model_name = metadata.get("model_name", "Unknown")
     num_scenarios = len(scenario_df)
@@ -169,6 +173,41 @@ def generate_markdown_report(
         mean_argmax=("coop_argmax_rate", "mean"),
         mean_prob=("coop_cond_prob", "mean"),
     ).to_markdown()
+
+    # Phase 0B Utility-Matched Assay Section
+    phase0b_section = ""
+    if utility_matched_contrast:
+        u_lines = []
+        u_lines.append(
+            f"- **Primary Contrast [Choice Rate Difference (COOP - INDEP) under Equal Utility]:** "
+            f"{utility_matched_contrast['choice_diff_mean']:.1%} [95% CI: {utility_matched_contrast['choice_diff_ci_lower']:.1%} – {utility_matched_contrast['choice_diff_ci_upper']:.1%}] "
+            f"(Coop: {utility_matched_contrast['coop_rate_mean']:.1%}, Indep: {utility_matched_contrast['indep_rate_mean']:.1%})"
+        )
+        u_lines.append(
+            f"- **Primary Contrast [Log-Probability Difference log P(COOP) - log P(INDEP)]:** "
+            f"{utility_matched_contrast['log_prob_diff_mean']:.3f} [95% CI: {utility_matched_contrast['log_prob_diff_ci_lower']:.3f} – {utility_matched_contrast['log_prob_diff_ci_upper']:.3f}]"
+        )
+        if utility_sensitivity:
+            u_lines.append(
+                f"- **Utility Sensitivity Triad (Advantageous / Equal / Disadvantageous):** "
+                f"Adv={utility_sensitivity['coop_advantageous_mean']:.1%}, "
+                f"Equal={utility_sensitivity['coop_equal_mean']:.1%}, "
+                f"Disadv={utility_sensitivity['coop_disadvantageous_mean']:.1%} "
+                f"(Spread: {utility_sensitivity['adv_vs_disadv_spread']:.1%}, Monotonic: {utility_sensitivity['monotonic_ordering']})"
+            )
+        # Source type breakdown if present
+        if "source_type" in scenario_df.columns and not scenario_df["source_type"].isnull().all():
+            src_summary = scenario_df.groupby("source_type").agg(
+                scenarios=("scenario_id", "count"),
+                mean_coop_argmax=("coop_argmax_rate", "mean"),
+                mean_indep_argmax=("indep_argmax_rate", "mean"),
+            ).to_markdown()
+            u_lines.append(f"\n#### Source Type Breakdown (Reused vs New Templates)\n{src_summary}")
+
+        phase0b_section = f"""
+### Phase 0B: Utility-Matched Construct Validation Contrasts
+{chr(10).join(u_lines)}
+"""
 
     # Strategy distribution
     strat_dist = {
@@ -269,6 +308,7 @@ def generate_markdown_report(
 ### Partner Type Breakdown (Human vs AI)
 {partner_summary}
 {split_section}
+{phase0b_section}
 
 ---
 
@@ -361,6 +401,13 @@ def analyze_results(
     else:
         principal_contrast = compute_principal_contrast(scenario_df, n_bootstraps=num_bootstraps)
 
+    # Phase 0B Utility-Matched Contrasts
+    utility_matched_contrast = None
+    utility_sensitivity = None
+    if "utility_condition" in scenario_df.columns and not scenario_df["utility_condition"].isnull().all():
+        utility_matched_contrast = compute_utility_matched_contrast(scenario_df, n_bootstraps=num_bootstraps)
+        utility_sensitivity = compute_utility_sensitivity_contrast(scenario_df, n_bootstraps=num_bootstraps)
+
     # 3. Position bias audit
     pos_bias = audit_position_bias(records)
 
@@ -395,6 +442,8 @@ def analyze_results(
         exploratory_boot=exploratory_boot,
         confirmatory_boot=confirmatory_boot,
         principal_contrast=principal_contrast,
+        utility_matched_contrast=utility_matched_contrast,
+        utility_sensitivity=utility_sensitivity,
     )
     console.print(f"[bold cyan]Generated executive report at {report_path}[/bold cyan]")
 

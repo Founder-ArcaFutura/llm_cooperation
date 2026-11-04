@@ -11,6 +11,8 @@ class ScoredPresentation(BaseModel):
     template_id: Optional[str] = None
     split: Optional[str] = None
     domain: Optional[str] = None
+    utility_condition: Optional[str] = None
+    source_type: Optional[str] = None
     permutation_index: int
     partner_type: str
     context_type: str
