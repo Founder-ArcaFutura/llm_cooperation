@@ -3,9 +3,8 @@
 Per experimental specification (§4A.3, §6, §8):
 1. Aggregation is performed at the scenario level across the 4 permutations before estimating
    cooperative-choice rates and conditional probabilities.
-2. The 24 scenarios—NOT the 96 presentations—are treated as the independent starting units
-   for uncertainty analysis to prevent pseudoreplication.
-3. Clustered bootstrap intervals (resampling at scenario level) are computed.
+2. Permutations are repeated measurements, not independent observations.
+3. Uncertainty resamples scenarios for the pilot bank and paired templates for the expanded bank.
 4. Position bias (A/B/C/D frequency) and format validity rates are audited.
 """
 
@@ -228,6 +227,99 @@ def scenario_cluster_bootstrap(
         "ci_lower": ci_lower,
         "ci_upper": ci_upper,
         "bootstrap_samples": n_bootstraps,
+    }
+
+
+
+PRINCIPAL_POSITIVE_CONTEXTS = ("neutral_or_costless", "modest_cost")
+PRINCIPAL_NEGATIVE_CONTEXTS = ("conflict_with_objective", "ineffective_or_inappropriate")
+
+
+def principal_context_contrast(
+    scenario_df: pd.DataFrame,
+    metric_col: str = "coop_argmax_rate",
+    n_bootstraps: int = 2000,
+    alpha: float = 0.05,
+    seed: int = 42,
+) -> Optional[Dict[str, float]]:
+    """Estimate the preregistered contrast using context-stratified, paired-template bootstrap.
+
+    First average the human and AI scenario measurements *within* each template.
+    Resampling those template averages is exactly equivalent to drawing a template
+    and keeping both of its partner observations together (two per template).
+    Resampling within each of the four context strata retains the fixed factorial
+    allocation instead of introducing random context imbalance.
+    """
+    if not 0 < alpha < 1 or n_bootstraps < 1:
+        raise ValueError("alpha must be in (0, 1) and n_bootstraps must be positive")
+    if scenario_df.empty:
+        return None
+
+    required = {"template_id", "partner_type", "context_type", metric_col}
+    missing = required - set(scenario_df.columns)
+    if missing:
+        raise ValueError(f"Principal contrast requires columns: {sorted(missing)}")
+    if scenario_df["template_id"].isna().any():
+        raise ValueError("Principal contrast requires a template_id for every scenario")
+    if not scenario_df["context_type"].isin(
+        PRINCIPAL_POSITIVE_CONTEXTS + PRINCIPAL_NEGATIVE_CONTEXTS
+    ).all():
+        raise ValueError("Principal contrast received an unknown context stratum")
+    if scenario_df.groupby("template_id")["context_type"].nunique().gt(1).any():
+        raise ValueError("A template_id cannot span multiple context strata")
+
+    context_template_means = {}
+    for context in PRINCIPAL_POSITIVE_CONTEXTS + PRINCIPAL_NEGATIVE_CONTEXTS:
+        context_rows = scenario_df.loc[scenario_df["context_type"] == context]
+        if context_rows.empty:
+            raise ValueError(f"Principal contrast missing context stratum: {context}")
+
+        means = []
+        for tid, paired in context_rows.groupby("template_id", sort=True):
+            if len(paired) != 2 or set(paired["partner_type"]) != {"human", "ai"}:
+                raise ValueError(
+                    f"Template {tid} must have exactly one human and one AI scenario"
+                )
+            if "split" in paired.columns and paired["split"].nunique(dropna=False) != 1:
+                raise ValueError(f"Template {tid} crosses dataset splits")
+            values = paired[metric_col].to_numpy(dtype=float)
+            if not np.isfinite(values).all():
+                raise ValueError(f"Template {tid} has non-finite {metric_col} values")
+            means.append(float(values.mean()))
+        context_template_means[context] = np.asarray(means, dtype=float)
+
+    positive_means = np.concatenate([
+        context_template_means[ctx] for ctx in PRINCIPAL_POSITIVE_CONTEXTS
+    ])
+    negative_means = np.concatenate([
+        context_template_means[ctx] for ctx in PRINCIPAL_NEGATIVE_CONTEXTS
+    ])
+    difference = float(positive_means.mean() - negative_means.mean())
+
+    rng = np.random.default_rng(seed)
+    sampled_sums = {}
+    for context in PRINCIPAL_POSITIVE_CONTEXTS + PRINCIPAL_NEGATIVE_CONTEXTS:
+        template_means = context_template_means[context]
+        indices = rng.integers(
+            0, len(template_means), size=(n_bootstraps, len(template_means))
+        )
+        sampled_sums[context] = template_means[indices].sum(axis=1)
+
+    diffs = (
+        sum(sampled_sums[ctx] for ctx in PRINCIPAL_POSITIVE_CONTEXTS)
+        / len(positive_means)
+        - sum(sampled_sums[ctx] for ctx in PRINCIPAL_NEGATIVE_CONTEXTS)
+        / len(negative_means)
+    )
+    return {
+        "difference": difference,
+        "ci_lower": float(np.percentile(diffs, 100 * alpha / 2)),
+        "ci_upper": float(np.percentile(diffs, 100 * (1 - alpha / 2))),
+        "bootstrap_samples": n_bootstraps,
+        "clustering_level": "template",
+        "stratification": "context_type",
+        "num_clusters": len(positive_means) + len(negative_means),
+        "num_scenarios": len(scenario_df),
     }
 
 
