@@ -216,6 +216,7 @@ def test_expanded_run_and_analysis_mock(tmp_path):
     assert "Exploratory Split" in md_text
     assert "Held-Out Confirmatory Split" in md_text
     assert "Preregistered Principal Contrast" in md_text
+    assert "480 total counterbalanced presentations" in md_text
 
 
 def test_principal_contrast_keeps_human_ai_rows_paired():
