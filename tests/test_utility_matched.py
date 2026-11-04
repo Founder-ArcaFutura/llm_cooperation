@@ -216,6 +216,112 @@ def test_utility_matched_contrast_calculation():
     assert sensitivity["monotonic_ordering"] is True
 
 
+def test_symmetric_controls_cannot_change_primary_estimate():
+    """Regression test: symmetric control items (is_symmetric_control=True) are excluded
+
+    from the primary equal-utility contrast and cannot change the primary estimate.
+    """
+    base_records = [
+        {
+            "template_id": "template_001",
+            "partner_type": "human",
+            "context_type": "neutral_or_costless",
+            "utility_condition": "equal_utility",
+            "is_symmetric_control": False,
+            "coop_argmax_rate": 0.8,
+            "indep_argmax_rate": 0.1,
+            "log_prob_coop_indep_diff": 0.6,
+        },
+        {
+            "template_id": "template_001",
+            "partner_type": "ai",
+            "context_type": "neutral_or_costless",
+            "utility_condition": "equal_utility",
+            "is_symmetric_control": False,
+            "coop_argmax_rate": 0.8,
+            "indep_argmax_rate": 0.1,
+            "log_prob_coop_indep_diff": 0.6,
+        },
+        {
+            "template_id": "template_002",
+            "partner_type": "human",
+            "context_type": "neutral_or_costless",
+            "utility_condition": "equal_utility",
+            "is_symmetric_control": False,
+            "coop_argmax_rate": 0.5,
+            "indep_argmax_rate": 0.3,
+            "log_prob_coop_indep_diff": 0.2,
+        },
+        {
+            "template_id": "template_002",
+            "partner_type": "ai",
+            "context_type": "neutral_or_costless",
+            "utility_condition": "equal_utility",
+            "is_symmetric_control": False,
+            "coop_argmax_rate": 0.5,
+            "indep_argmax_rate": 0.3,
+            "log_prob_coop_indep_diff": 0.2,
+        },
+    ]
+
+    control_records = [
+        {
+            "template_id": "template_061",
+            "partner_type": "human",
+            "context_type": "neutral_or_costless",
+            "utility_condition": "equal_utility",
+            "is_symmetric_control": True,
+            "coop_argmax_rate": 0.05,
+            "indep_argmax_rate": 0.95,
+            "log_prob_coop_indep_diff": -2.5,
+        },
+        {
+            "template_id": "template_061",
+            "partner_type": "ai",
+            "context_type": "neutral_or_costless",
+            "utility_condition": "equal_utility",
+            "is_symmetric_control": True,
+            "coop_argmax_rate": 0.05,
+            "indep_argmax_rate": 0.95,
+            "log_prob_coop_indep_diff": -2.5,
+        },
+        {
+            "template_id": "template_062",
+            "partner_type": "human",
+            "context_type": "neutral_or_costless",
+            "utility_condition": "equal_utility",
+            "is_symmetric_control": True,
+            "coop_argmax_rate": 0.1,
+            "indep_argmax_rate": 0.9,
+            "log_prob_coop_indep_diff": -2.0,
+        },
+        {
+            "template_id": "template_062",
+            "partner_type": "ai",
+            "context_type": "neutral_or_costless",
+            "utility_condition": "equal_utility",
+            "is_symmetric_control": True,
+            "coop_argmax_rate": 0.1,
+            "indep_argmax_rate": 0.9,
+            "log_prob_coop_indep_diff": -2.0,
+        },
+    ]
+
+    df_without_controls = pd.DataFrame(base_records)
+    df_with_controls = pd.DataFrame(base_records + control_records)
+
+    contrast_without = compute_utility_matched_contrast(df_without_controls, seed=123, n_bootstraps=500)
+    contrast_with = compute_utility_matched_contrast(df_with_controls, seed=123, n_bootstraps=500)
+
+    assert contrast_without is not None
+    assert contrast_with is not None
+    assert contrast_without["choice_diff_mean"] == pytest.approx(contrast_with["choice_diff_mean"])
+    assert contrast_without["log_prob_diff_mean"] == pytest.approx(contrast_with["log_prob_diff_mean"])
+    assert contrast_without["coop_rate_mean"] == pytest.approx(contrast_with["coop_rate_mean"])
+    assert contrast_without["indep_rate_mean"] == pytest.approx(contrast_with["indep_rate_mean"])
+    assert contrast_without["num_templates"] == contrast_with["num_templates"] == 2
+
+
 def test_phase0b_mock_end_to_end_analysis(tmp_path):
     """Verify end-to-end mock execution and analysis on Phase 0B bank."""
     out_dir = tmp_path / "results"
