@@ -162,6 +162,7 @@ def resolve_bank_and_split(
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
     authorize_phase1_run: bool = False,
+    provisional_phase1: bool = False,
     _freeze_manifest_override: Optional[str] = None,
 ) -> tuple[str, Optional[str]]:
     """Validate bank identifier and enforce Phase 0B split defaults & Phase 1 holdout guard.
@@ -178,9 +179,18 @@ def resolve_bank_and_split(
     scenarios_path = SUPPORTED_BANKS[bank_clean]
     is_phase0b = bank_clean in ("phase0b", "utility-matched")
     is_phase1 = bank_clean == "phase1"
+    if provisional_phase1 and not is_phase1:
+        raise PermissionError("--provisional-phase1 may only be used with --bank phase1")
 
     # Fail-closed Phase 1 holdout protection guard
     if is_phase1:
+        if provisional_phase1:
+            from pathlib import Path
+            from llm_cooperation.harness.runner import verify_provisional_phase1_bank
+            local_p = Path("data/scenarios_phase1_prospective.json")
+            target_check = local_p if local_p.exists() else Path(scenarios_path)
+            verify_provisional_phase1_bank(str(target_check))
+            return scenarios_path, split
         import json
         from pathlib import Path
         from llm_cooperation.harness.runner import verify_phase1_freeze_manifest
@@ -244,6 +254,7 @@ def _execute_evaluation(
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
     authorize_phase1_run: bool = False,
+    provisional_phase1: bool = False,
 ) -> str:
     """Internal helper to execute evaluation inside container and commit volumes."""
     os.environ["HF_HOME"] = "/root/hf_cache"
@@ -257,6 +268,7 @@ def _execute_evaluation(
         split=split,
         authorize_confirmatory=authorize_confirmatory,
         authorize_phase1_run=authorize_phase1_run,
+        provisional_phase1=provisional_phase1,
     )
 
     result_file = run_experiment(
@@ -271,6 +283,7 @@ def _execute_evaluation(
         prompt_mode=prompt_mode,
         split_filter=effective_split if effective_split != "all" else None,
         authorize_phase1_run=authorize_phase1_run,
+        provisional_phase1=provisional_phase1,
     )
 
     # Durable commit to Modal persistent volume
@@ -298,6 +311,7 @@ def run_evaluation_remote(
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
     authorize_phase1_run: bool = False,
+    provisional_phase1: bool = False,
 ) -> str:
     """Execute evaluation on standard A10G GPU (ideal for 1B-3B models)."""
     if mock:
@@ -316,6 +330,7 @@ def run_evaluation_remote(
         split=split,
         authorize_confirmatory=authorize_confirmatory,
         authorize_phase1_run=authorize_phase1_run,
+        provisional_phase1=provisional_phase1,
     )
 
 
@@ -338,6 +353,7 @@ def run_evaluation_remote_l40s(
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
     authorize_phase1_run: bool = False,
+    provisional_phase1: bool = False,
 ) -> str:
     """Execute evaluation on high-VRAM L40S GPU (ideal for 7B-12B models, e.g. Pythia-12B)."""
     if mock:
@@ -356,6 +372,7 @@ def run_evaluation_remote_l40s(
         split=split,
         authorize_confirmatory=authorize_confirmatory,
         authorize_phase1_run=authorize_phase1_run,
+        provisional_phase1=provisional_phase1,
     )
 
 
@@ -374,6 +391,7 @@ def run_evaluation_mock_remote(
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
     authorize_phase1_run: bool = False,
+    provisional_phase1: bool = False,
 ) -> str:
     """Execute synthetic mock validation in a zero-GPU CPU container and persist outputs to volume."""
     from llm_cooperation.harness.runner import run_experiment
@@ -386,6 +404,7 @@ def run_evaluation_mock_remote(
         split=split,
         authorize_confirmatory=authorize_confirmatory,
         authorize_phase1_run=authorize_phase1_run,
+        provisional_phase1=provisional_phase1,
     )
 
     result_file = run_experiment(
@@ -400,6 +419,7 @@ def run_evaluation_mock_remote(
         prompt_mode=prompt_mode,
         split_filter=effective_split if effective_split != "all" else None,
         authorize_phase1_run=authorize_phase1_run,
+        provisional_phase1=provisional_phase1,
     )
 
     # Commit changes to durable volume
@@ -418,6 +438,7 @@ def main(
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
     authorize_phase1_run: bool = False,
+    provisional_phase1: bool = False,
     prompt_mode: str = "standard_plaintext",
     authorize_paid_run: bool = False,
 ):
@@ -434,6 +455,7 @@ def main(
         split=split,
         authorize_confirmatory=authorize_confirmatory,
         authorize_phase1_run=authorize_phase1_run,
+        provisional_phase1=provisional_phase1,
     )
 
     if mock:
@@ -448,6 +470,7 @@ def main(
             split=split,
             authorize_confirmatory=authorize_confirmatory,
             authorize_phase1_run=authorize_phase1_run,
+            provisional_phase1=provisional_phase1,
         )
     else:
         # Explicit paid-run authorization guard
@@ -475,6 +498,7 @@ def main(
                 split=split,
                 authorize_confirmatory=authorize_confirmatory,
                 authorize_phase1_run=authorize_phase1_run,
+                provisional_phase1=provisional_phase1,
             )
         elif selected_gpu == GPU_PROFILES["small"]:  # A10G
             print(f"[modal_app] Dispatching to A10G GPU container (precision={precision})...")
@@ -489,6 +513,7 @@ def main(
                 split=split,
                 authorize_confirmatory=authorize_confirmatory,
                 authorize_phase1_run=authorize_phase1_run,
+                provisional_phase1=provisional_phase1,
             )
         else:
             # If large or unsupported GPU profile is selected, fail fast before provisioning

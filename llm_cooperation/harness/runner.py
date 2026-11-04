@@ -488,6 +488,22 @@ def compute_file_hash(filepath: str) -> str:
 
 PHASE1_FREEZE_MANIFEST_PATH = "configs/phase1_freeze_manifest.json"
 
+# The original (unadjudicated) draft corpus is pinned independently of the
+# approved freeze manifest. This is an exploratory/provisional workflow only.
+PHASE1_PROVISIONAL_SHA256 = "5994103be281863e336fbad2d325b99a9d235c982ef7bc0f00d512f713e8886f"
+
+
+def verify_provisional_phase1_bank(scenarios_path: str) -> str:
+    """Authorize original draft *only* for an explicitly labeled provisional assay."""
+    with open(scenarios_path, "r", encoding="utf-8") as fh:
+        bank_dict = json.load(fh)
+    if bank_dict.get("status") != "draft_pending_review":
+        raise PermissionError("PROVISIONAL PHASE 1 requires the original draft bank, not a frozen or unknown status")
+    actual = compute_file_hash(scenarios_path)
+    if actual != PHASE1_PROVISIONAL_SHA256:
+        raise ValueError(f"PROVISIONAL PHASE 1 BANK HASH MISMATCH: {actual}; expected {PHASE1_PROVISIONAL_SHA256}")
+    return actual
+
 
 def verify_phase1_freeze_manifest(scenarios_path: str, manifest_path: Optional[str] = None) -> str:
     """Verify that a trusted, review-approved freeze manifest exists and matches the bank SHA-256 fingerprint.
@@ -546,6 +562,7 @@ def run_experiment(
     prompt_mode: str = "standard_plaintext",
     split_filter: Optional[str] = None,
     authorize_phase1_run: bool = False,
+    provisional_phase1: bool = False,
     _freeze_manifest_override: Optional[str] = None,
 ) -> Path:
     """Run evaluation of presentations on a specified model."""
@@ -573,8 +590,15 @@ def run_experiment(
         or (s.id and s.id.startswith("phase1_"))
         for s in bank.scenarios
     )
-    if is_phase1:
-        # Require bank status to be exactly 'frozen'
+    if provisional_phase1 and not is_phase1:
+        raise PermissionError("Provisional Phase 1 mode may only be used with the Phase 1 scenario bank")
+
+    if is_phase1 and provisional_phase1:
+        verify_provisional_phase1_bank(scenarios_path)
+        print("[PHASE 1 PROVISIONAL] Exploratory evaluation of unadjudicated draft corpus; NOT a confirmatory replication")
+
+    if is_phase1 and not provisional_phase1:
+        # Require bank status to be exactly 'frozen' 
         if bank.status != "frozen":
             raise PermissionError(
                 f"PHASE 1 HOLDOUT PROTECTION TRIGGERED: Phase 1 scenario bank must have status exactly 'frozen' "
@@ -696,7 +720,12 @@ def run_experiment(
 
     with open(out_path, "w", encoding="utf-8") as f:
         # Write metadata header as first line
-        f.write(json.dumps(run_record.model_dump(exclude={"records"})) + "\n")
+        metadata = run_record.model_dump(exclude={"records"})
+        if provisional_phase1:
+            metadata["research_status"] = "phase1_provisional_exploratory_not_human_adjudicated"
+            metadata["formal_confirmatory_freeze"] = False
+            metadata["draft_bank_sha256"] = PHASE1_PROVISIONAL_SHA256
+        f.write(json.dumps(metadata) + "\n")
         # Write individual records
         for r in scored_records:
             f.write(json.dumps(r.model_dump()) + "\n")
