@@ -113,8 +113,104 @@ def generate_all_presentations(
     scenarios: List[Scenario],
     prompt_mode: str = "standard_plaintext",
 ) -> List[Presentation]:
-    """Generate all 96 presentations (24 scenarios x 4 permutations)."""
+    """Generate all presentations for the given scenarios (N scenarios x 4 permutations)."""
     all_pres = []
     for sc in scenarios:
         all_pres.extend(generate_permutations(sc, prompt_mode=prompt_mode))
+    return all_pres
+
+
+class CalibrationPresentationOption(BaseModel):
+    letter: str
+    option_id: str
+    text: str
+
+
+class CalibrationPresentation(BaseModel):
+    presentation_id: str
+    item_id: str
+    permutation_index: int
+    stem: str
+    prompt_text: str
+    options: List[CalibrationPresentationOption]
+    letter_to_option_id: Dict[str, str]
+    option_id_to_letter: Dict[str, str]
+    correct_option_id: str
+    correct_letter: str
+    domain: str
+    difficulty: str
+
+
+def build_calibration_presentation_prompt(
+    stem: str,
+    letter_options: List[Tuple[str, str]],
+    prompt_mode: str = "standard_plaintext",
+) -> str:
+    """Format calibration question prompt according to specification."""
+    options_text = "\n".join([f"{letter}. {text}" for letter, text in letter_options])
+    question_text = (
+        f"{stem.strip()}\n\n"
+        f"{options_text}\n\n"
+        f"Which answer is correct? Answer with only A, B, C, or D."
+    )
+    if prompt_mode == "openassistant":
+        return f"<|prompter|>{question_text}<|endoftext|><|assistant|>Answer:"
+    else:
+        return f"{question_text}\nAnswer:"
+
+
+def generate_calibration_permutations(
+    item,
+    prompt_mode: str = "standard_plaintext",
+) -> List[CalibrationPresentation]:
+    """Generate 4 deterministic counterbalanced presentations for a calibration item using Latin square."""
+    # Deterministic sorted order of invariant option keys (e.g. opt_1, opt_2, opt_3, opt_4)
+    sorted_option_ids = sorted(list(item.options.keys()))
+    presentations = []
+    for perm_idx, row in enumerate(LATIN_SQUARE_4X4):
+        letter_options: List[Tuple[str, str]] = []
+        presentation_opts: List[CalibrationPresentationOption] = []
+        letter_to_option_id: Dict[str, str] = {}
+        option_id_to_letter: Dict[str, str] = {}
+
+        for col_idx, letter in enumerate(LETTERS):
+            opt_idx = row[col_idx]
+            opt_id = sorted_option_ids[opt_idx]
+            text = item.options[opt_id]
+
+            letter_options.append((letter, text))
+            presentation_opts.append(
+                CalibrationPresentationOption(letter=letter, option_id=opt_id, text=text)
+            )
+            letter_to_option_id[letter] = opt_id
+            option_id_to_letter[opt_id] = letter
+
+        correct_letter = option_id_to_letter[item.correct_option_id]
+        prompt = build_calibration_presentation_prompt(item.stem, letter_options, prompt_mode=prompt_mode)
+        pres = CalibrationPresentation(
+            presentation_id=f"{item.id}_p{perm_idx}",
+            item_id=item.id,
+            permutation_index=perm_idx,
+            stem=item.stem,
+            prompt_text=prompt,
+            options=presentation_opts,
+            letter_to_option_id=letter_to_option_id,
+            option_id_to_letter=option_id_to_letter,
+            correct_option_id=item.correct_option_id,
+            correct_letter=correct_letter,
+            domain=item.domain,
+            difficulty=item.difficulty,
+        )
+        presentations.append(pres)
+    return presentations
+
+
+def generate_all_calibration_presentations(
+    items: List,
+    prompt_mode: str = "standard_plaintext",
+) -> List[CalibrationPresentation]:
+    """Generate all presentations for diagnostic calibration items (e.g. 24 items x 4 = 96 presentations)."""
+    all_pres = []
+    for it in items:
+        all_pres.extend(generate_calibration_permutations(it, prompt_mode=prompt_mode))
     return all_pres

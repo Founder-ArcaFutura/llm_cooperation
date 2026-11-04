@@ -11,7 +11,7 @@ Per experimental specification (§4A.3, §6, §8):
 
 import json
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
 import numpy as np
 import pandas as pd
 
@@ -23,12 +23,15 @@ class RunDataValidationError(Exception):
     pass
 
 
-def validate_run_data(metadata: Dict, records: List[Dict], expected_scenarios: int = 24):
+def validate_run_data(metadata: Dict, records: List[Dict], expected_scenarios: Optional[int] = None):
     """Rigorous pre-analysis validation of experimental run records."""
     if not records:
         raise RunDataValidationError("Run dataset contains no presentation records.")
 
-    # Check presentation count
+    # Determine expected scenarios if not specified
+    if expected_scenarios is None:
+        expected_scenarios = metadata.get("num_scenarios", 24)
+
     expected_presentations = expected_scenarios * 4
     if len(records) != expected_presentations:
         raise RunDataValidationError(
@@ -108,27 +111,90 @@ def aggregate_by_scenario(records: List[Dict]) -> pd.DataFrame:
         df[f"is_argmax_{strat}"] = (df["forced_choice_argmax_strategy"] == strat).astype(float)
         df[f"is_gen_{strat}"] = (df["generated_strategy"] == strat).astype(float)
 
-    # Group by scenario_id
-    grouped = df.groupby(["scenario_id", "partner_type", "context_type"])
+    # Grouping columns: preserve template_id, split, domain if available
+    group_cols = ["scenario_id", "partner_type", "context_type"]
+    extra_meta_cols = [c for c in ["template_id", "split", "domain"] if c in df.columns]
 
-    agg_df = grouped.agg(
+    agg_dict = {
         # Mean conditional probability across the 4 permutations
-        coop_cond_prob=("prob_COOPERATE", "mean"),
-        indep_cond_prob=("prob_INDEPENDENT", "mean"),
-        compete_cond_prob=("prob_COMPETE_EXPLOIT", "mean"),
-        disengage_cond_prob=("prob_DISENGAGE", "mean"),
+        "coop_cond_prob": ("prob_COOPERATE", "mean"),
+        "indep_cond_prob": ("prob_INDEPENDENT", "mean"),
+        "compete_cond_prob": ("prob_COMPETE_EXPLOIT", "mean"),
+        "disengage_cond_prob": ("prob_DISENGAGE", "mean"),
         # Argmax selection rate (fraction of 4 permutations where COOPERATE won)
-        coop_argmax_rate=("is_argmax_COOPERATE", "mean"),
-        indep_argmax_rate=("is_argmax_INDEPENDENT", "mean"),
-        compete_argmax_rate=("is_argmax_COMPETE_EXPLOIT", "mean"),
-        disengage_argmax_rate=("is_argmax_DISENGAGE", "mean"),
+        "coop_argmax_rate": ("is_argmax_COOPERATE", "mean"),
+        "indep_argmax_rate": ("is_argmax_INDEPENDENT", "mean"),
+        "compete_argmax_rate": ("is_argmax_COMPETE_EXPLOIT", "mean"),
+        "disengage_argmax_rate": ("is_argmax_DISENGAGE", "mean"),
         # Generated compliance
-        valid_letter_rate=("is_valid_letter", "mean"),
-        gen_coop_rate=("is_gen_COOPERATE", "mean"),
-        num_permutations=("permutation_index", "count"),
-    ).reset_index()
+        "valid_letter_rate": ("is_valid_letter", "mean"),
+        "gen_coop_rate": ("is_gen_COOPERATE", "mean"),
+        "num_permutations": ("permutation_index", "count"),
+    }
+    for col in extra_meta_cols:
+        agg_dict[col] = (col, "first")
+
+    agg_df = df.groupby(group_cols).agg(**agg_dict).reset_index()
+
+    # If template_id was not explicitly in records, infer template_id if scenario_id matches expanded pattern
+    if "template_id" not in agg_df.columns:
+        # Check if scenario_01/scenario_13 near-match or expanded_001_human pattern
+        def infer_tid(row):
+            sid = str(row["scenario_id"])
+            if sid.startswith("expanded_"):
+                # expanded_001_human -> template_001
+                parts = sid.split("_")
+                if len(parts) >= 2:
+                    return f"template_{parts[1]}"
+            return None
+        agg_df["template_id"] = agg_df.apply(infer_tid, axis=1)
 
     return agg_df
+
+
+def template_cluster_bootstrap(
+    scenario_df: pd.DataFrame,
+    metric_col: str,
+    n_bootstraps: int = 2000,
+    alpha: float = 0.05,
+    seed: int = 42,
+) -> Dict[str, float]:
+    """Bootstrap confidence intervals by resampling situation templates (keeping human and AI paired variants together).
+
+    If template_id is present, resamples templates with replacement, taking both human and AI rows.
+    If template_id is not present, falls back gracefully to scenario_cluster_bootstrap.
+    """
+    if "template_id" not in scenario_df.columns or scenario_df["template_id"].isnull().all():
+        return scenario_cluster_bootstrap(scenario_df, metric_col, n_bootstraps=n_bootstraps, alpha=alpha, seed=seed)
+
+    rng = np.random.default_rng(seed)
+    unique_templates = scenario_df["template_id"].dropna().unique()
+    n_templates = len(unique_templates)
+
+    # Pre-index template rows
+    template_groups = {tid: scenario_df[scenario_df["template_id"] == tid][metric_col].values for tid in unique_templates}
+
+    boot_means = []
+    for _ in range(n_bootstraps):
+        sampled_tids = rng.choice(unique_templates, size=n_templates, replace=True)
+        sampled_vals = np.concatenate([template_groups[tid] for tid in sampled_tids])
+        boot_means.append(float(np.mean(sampled_vals)))
+
+    all_vals = scenario_df[metric_col].values
+    ci_lower = float(np.percentile(boot_means, 100 * (alpha / 2)))
+    ci_upper = float(np.percentile(boot_means, 100 * (1 - alpha / 2)))
+    mean_val = float(np.mean(all_vals))
+    std_val = float(np.std(all_vals, ddof=1)) if len(all_vals) > 1 else 0.0
+
+    return {
+        "mean": mean_val,
+        "std": std_val,
+        "ci_lower": ci_lower,
+        "ci_upper": ci_upper,
+        "bootstrap_samples": n_bootstraps,
+        "clustering_level": "template",
+        "num_clusters": n_templates,
+    }
 
 
 def scenario_cluster_bootstrap(

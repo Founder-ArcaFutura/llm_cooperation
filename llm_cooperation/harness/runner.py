@@ -33,6 +33,13 @@ from llm_cooperation.harness.tokenizer_probe import (
 from llm_cooperation.harness.scorer import (
     ScoredPresentation,
     ExperimentRunRecord,
+    ScoredCalibrationPresentation,
+    CalibrationRunRecord,
+)
+from llm_cooperation.items.schema import CalibrationBank
+from llm_cooperation.items.permutations import (
+    CalibrationPresentation,
+    generate_all_calibration_presentations,
 )
 
 
@@ -192,6 +199,137 @@ class ModelRunner:
         self.effective_precision = self.requested_precision
         np.random.seed(self.seed)
 
+    def evaluate_calibration_presentation(self, pres: CalibrationPresentation) -> ScoredCalibrationPresentation:
+        t0 = time.time()
+        prompt = pres.prompt_text
+
+        if self.mock:
+            # Deterministic mock behaviour based on model name
+            # If model name contains "pythia" or "invariant_a", simulate Pythia-style invariant-A pathology!
+            if "pythia" in self.model_name.lower() or "invariant_a" in self.model_name.lower():
+                raw_logits = {"A": 10.0, "B": 2.0, "C": 2.0, "D": 2.0}
+                cond_probs = {"A": 0.999, "B": 0.0003, "C": 0.0003, "D": 0.0003}
+                cond_logprobs = {"A": -0.001, "B": -8.0, "C": -8.0, "D": -8.0}
+                full_vocab_logprobs = {k: v - 12.0 for k, v in cond_logprobs.items()}
+                argmax_letter = "A"
+                # Pythia-style non-compliant output or repeating A
+                generated_raw = "A\n\nQuestion:"
+                gen_letter, is_valid = parse_generated_letter(generated_raw)
+            else:
+                # Normal mock model that achieves high accuracy on calibration
+                raw_logits = {}
+                for letter in ["A", "B", "C", "D"]:
+                    bonus = 3.0 if letter == pres.correct_letter else 0.0
+                    raw_logits[letter] = float(np.random.normal(5.0, 0.4) + bonus)
+                max_l = max(raw_logits.values())
+                exp_vals = {k: np.exp(v - max_l) for k, v in raw_logits.items()}
+                sum_exp = sum(exp_vals.values())
+                cond_probs = {k: float(v / sum_exp) for k, v in exp_vals.items()}
+                cond_logprobs = {k: float(np.log(v)) for k, v in cond_probs.items()}
+                full_vocab_logprobs = {k: float(v - 12.0) for k, v in cond_logprobs.items()}
+                argmax_letter = max(cond_probs, key=cond_probs.get)
+                generated_raw = f" {argmax_letter}"
+                gen_letter, is_valid = parse_generated_letter(generated_raw)
+
+            fc_correct = (argmax_letter == pres.correct_letter)
+            gen_correct = (gen_letter == pres.correct_letter) if is_valid else False
+            agreement = (argmax_letter == gen_letter) if is_valid else False
+            elapsed = time.time() - t0
+
+            return ScoredCalibrationPresentation(
+                presentation_id=pres.presentation_id,
+                item_id=pres.item_id,
+                permutation_index=pres.permutation_index,
+                domain=pres.domain,
+                difficulty=pres.difficulty,
+                correct_option_id=pres.correct_option_id,
+                correct_letter=pres.correct_letter,
+                letter_to_option_id=pres.letter_to_option_id,
+                option_id_to_letter=pres.option_id_to_letter,
+                candidate_tokens=self.candidate_token_ids,
+                raw_logits=raw_logits,
+                full_vocab_logprobs=full_vocab_logprobs,
+                conditional_logprobs=cond_logprobs,
+                conditional_probs=cond_probs,
+                forced_choice_argmax_letter=argmax_letter,
+                is_forced_choice_correct=fc_correct,
+                generated_raw_text=generated_raw,
+                generated_letter=gen_letter,
+                is_valid_letter=is_valid,
+                is_generated_correct=gen_correct,
+                forced_generated_agreement=agreement,
+                elapsed_seconds=elapsed,
+            )
+
+        # Real model execution
+        import torch
+
+        inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
+        input_ids = inputs["input_ids"]
+
+        with torch.no_grad():
+            outputs = self.model(input_ids)
+            next_token_logits = outputs.logits[0, -1, :]
+
+            full_vocab_log_softmax = torch.log_softmax(next_token_logits, dim=-1)
+            full_vocab_logprobs = {
+                letter: float(full_vocab_log_softmax[token_id].item())
+                for letter, token_id in self.candidate_token_ids.items()
+            }
+
+            raw_logits = {}
+            for letter, token_id in self.candidate_token_ids.items():
+                raw_logits[letter] = float(next_token_logits[token_id].item())
+
+            cand_tensor = torch.tensor([raw_logits[l] for l in ["A", "B", "C", "D"]])
+            cond_prob_tensor = torch.softmax(cand_tensor, dim=0)
+            cond_logprob_tensor = torch.log_softmax(cand_tensor, dim=0)
+
+            cond_probs = {l: float(cond_prob_tensor[i].item()) for i, l in enumerate(["A", "B", "C", "D"])}
+            cond_logprobs = {l: float(cond_logprob_tensor[i].item()) for i, l in enumerate(["A", "B", "C", "D"])}
+
+            argmax_letter = max(cond_probs, key=cond_probs.get)
+
+            gen_output = self.model.generate(
+                input_ids,
+                max_new_tokens=5,
+                do_sample=False,
+                pad_token_id=self.tokenizer.pad_token_id,
+            )
+            new_tokens = gen_output[0][input_ids.shape[1]:]
+            generated_raw = self.tokenizer.decode(new_tokens, skip_special_tokens=True)
+            gen_letter, is_valid = parse_generated_letter(generated_raw)
+
+        fc_correct = (argmax_letter == pres.correct_letter)
+        gen_correct = (gen_letter == pres.correct_letter) if is_valid else False
+        agreement = (argmax_letter == gen_letter) if is_valid else False
+        elapsed = time.time() - t0
+
+        return ScoredCalibrationPresentation(
+            presentation_id=pres.presentation_id,
+            item_id=pres.item_id,
+            permutation_index=pres.permutation_index,
+            domain=pres.domain,
+            difficulty=pres.difficulty,
+            correct_option_id=pres.correct_option_id,
+            correct_letter=pres.correct_letter,
+            letter_to_option_id=pres.letter_to_option_id,
+            option_id_to_letter=pres.option_id_to_letter,
+            candidate_tokens=self.candidate_token_ids,
+            raw_logits=raw_logits,
+            full_vocab_logprobs=full_vocab_logprobs,
+            conditional_logprobs=cond_logprobs,
+            conditional_probs=cond_probs,
+            forced_choice_argmax_letter=argmax_letter,
+            is_forced_choice_correct=fc_correct,
+            generated_raw_text=generated_raw,
+            generated_letter=gen_letter,
+            is_valid_letter=is_valid,
+            is_generated_correct=gen_correct,
+            forced_generated_agreement=agreement,
+            elapsed_seconds=elapsed,
+        )
+
     def evaluate_presentation(self, presentation: Presentation, scenario_meta: Dict) -> ScoredPresentation:
         t0 = time.time()
         prompt = presentation.prompt_text
@@ -233,6 +371,9 @@ class ModelRunner:
             return ScoredPresentation(
                 presentation_id=presentation.presentation_id,
                 scenario_id=presentation.scenario_id,
+                template_id=scenario_meta.get("template_id"),
+                split=scenario_meta.get("split"),
+                domain=scenario_meta.get("domain"),
                 permutation_index=presentation.permutation_index,
                 partner_type=scenario_meta["partner_type"],
                 context_type=scenario_meta["context_type"],
@@ -303,6 +444,9 @@ class ModelRunner:
         return ScoredPresentation(
             presentation_id=presentation.presentation_id,
             scenario_id=presentation.scenario_id,
+            template_id=scenario_meta.get("template_id"),
+            split=scenario_meta.get("split"),
+            domain=scenario_meta.get("domain"),
             permutation_index=presentation.permutation_index,
             partner_type=scenario_meta["partner_type"],
             context_type=scenario_meta["context_type"],
@@ -353,7 +497,13 @@ def run_experiment(
     bank = ScenarioBank(**bank_data)
     scenarios = bank.scenarios
     scenario_meta_map = {
-        s.id: {"partner_type": s.partner_type.value, "context_type": s.context_type.value}
+        s.id: {
+            "partner_type": s.partner_type.value,
+            "context_type": s.context_type.value,
+            "template_id": s.template_id,
+            "split": s.split,
+            "domain": s.domain,
+        }
         for s in scenarios
     }
 
@@ -445,3 +595,153 @@ def run_experiment(
 
     print(f"[run_experiment] Completed successfully! Saved raw results to {out_path}")
     return out_path
+
+
+def run_calibration(
+    model_name: str,
+    calibration_path: str = "data/calibration_bank.json",
+    output_dir: str = "results",
+    revision: Optional[str] = None,
+    precision: str = "bfloat16",
+    device: str = "auto",
+    mock: bool = False,
+    seed: int = 42,
+    prompt_mode: str = "standard_plaintext",
+) -> Tuple[Path, Dict]:
+    """Run diagnostic multiple-choice calibration evaluation across 24 objective items (96 presentations)."""
+    os.makedirs(output_dir, exist_ok=True)
+    with open(calibration_path, "r", encoding="utf-8") as f:
+        bank_data = json.load(f)
+
+    bank = CalibrationBank(**bank_data)
+    items = bank.items
+    presentations = generate_all_calibration_presentations(items, prompt_mode=prompt_mode)
+
+    runner = ModelRunner(
+        model_name=model_name,
+        revision=revision,
+        precision=precision,
+        device=device,
+        mock=mock,
+        seed=seed,
+    )
+
+    scored_records: List[ScoredCalibrationPresentation] = []
+    print(f"[run_calibration] Running {len(presentations)} calibration presentations on {model_name} (mock={mock})...")
+
+    for i, pres in enumerate(presentations, 1):
+        rec = runner.evaluate_calibration_presentation(pres)
+        scored_records.append(rec)
+        if i % 16 == 0 or i == len(presentations):
+            print(f"  Processed {i}/{len(presentations)} calibration presentations...")
+
+    import uuid
+    safe_name = model_name.replace("/", "_")
+    ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+    entropy = uuid.uuid4().hex[:8]
+    run_id = f"calibration_{safe_name}_{ts}_{entropy}"
+    filename = f"{run_id}.jsonl"
+    out_path = Path(output_dir) / filename
+
+    import importlib.metadata
+    torch_v = None
+    transformers_v = None
+    modal_v = None
+    try:
+        import torch
+        torch_v = torch.__version__
+    except Exception:
+        pass
+    try:
+        import transformers
+        transformers_v = transformers.__version__
+    except Exception:
+        pass
+    try:
+        import modal
+        modal_v = modal.__version__
+    except Exception:
+        pass
+
+    run_record = CalibrationRunRecord(
+        run_id=run_id,
+        model_name=model_name,
+        model_revision=revision,
+        tokenizer_revision=getattr(runner.tokenizer, "init_kwargs", {}).get("revision") if runner.tokenizer else None,
+        model_class=runner.model.__class__.__name__ if runner.model else ("MockModel" if mock else None),
+        timestamp=datetime.now(timezone.utc).isoformat(),
+        device=device,
+        precision=runner.effective_precision,
+        requested_precision=runner.requested_precision,
+        effective_precision=runner.effective_precision,
+        mock=mock,
+        git_commit=get_git_commit(),
+        calibration_bank_hash=compute_file_hash(calibration_path) if os.path.exists(calibration_path) else None,
+        seed=seed,
+        torch_version=torch_v,
+        transformers_version=transformers_v,
+        modal_version=modal_v,
+        prompt_mode=prompt_mode,
+        num_items=len(items),
+        num_presentations=len(scored_records),
+        records=scored_records,
+    )
+
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(json.dumps(run_record.model_dump(exclude={"records"})) + "\n")
+        for r in scored_records:
+            f.write(json.dumps(r.model_dump()) + "\n")
+
+    # Compute diagnostic calibration metrics
+    n = len(scored_records)
+    fc_acc = sum(r.is_forced_choice_correct for r in scored_records) / n if n else 0.0
+    valid_rate = sum(r.is_valid_letter for r in scored_records) / n if n else 0.0
+    gen_acc = sum(r.is_generated_correct for r in scored_records) / n if n else 0.0
+    agreement_rate = sum(r.forced_generated_agreement for r in scored_records) / n if n else 0.0
+
+    letter_counts = {"A": 0, "B": 0, "C": 0, "D": 0}
+    for r in scored_records:
+        letter_counts[r.forced_choice_argmax_letter] = letter_counts.get(r.forced_choice_argmax_letter, 0) + 1
+    letter_dist = {k: v / n for k, v in letter_counts.items()} if n else {}
+
+    pos_spread = (max(letter_dist.values()) - min(letter_dist.values())) if letter_dist else 0.0
+
+    # Pythia-style invariant pathology detection
+    invariant_a_detected = (letter_dist.get("A", 0.0) >= 0.95)
+    invariant_letter_detected = any(v >= 0.95 for v in letter_dist.values())
+
+    status = "PASS"
+    failure_reasons = []
+    if invariant_letter_detected:
+        status = "FAIL_INVARIANT_POSITION"
+        failure_reasons.append(f"Model exhibits severe invariant letter bias ({max(letter_dist, key=letter_dist.get)}: {max(letter_dist.values()):.1%}). Pythia-style failure mode detected.")
+    if valid_rate < 0.50:
+        status = "FAIL_FORMAT_COMPLIANCE"
+        failure_reasons.append(f"Generated-letter validity is {valid_rate:.1%} (<50%). Model fails response-format completion.")
+    if fc_acc < 0.40 and not invariant_letter_detected:
+        status = "FAIL_ACCURACY"
+        failure_reasons.append(f"Forced-choice accuracy on elementary factual items is {fc_acc:.1%} (<40%).")
+
+    summary = {
+        "model_name": model_name,
+        "run_id": run_id,
+        "status": status,
+        "forced_choice_accuracy": fc_acc,
+        "generated_accuracy": gen_acc,
+        "valid_letter_rate": valid_rate,
+        "forced_generated_agreement": agreement_rate,
+        "position_distribution": letter_dist,
+        "position_spread": pos_spread,
+        "invariant_a_detected": invariant_a_detected,
+        "invariant_letter_detected": invariant_letter_detected,
+        "failure_reasons": failure_reasons,
+        "output_path": str(out_path),
+    }
+
+    print(f"[run_calibration] Calibration Status: {status}")
+    print(f"  FC Accuracy: {fc_acc:.1%}, Generated Validity: {valid_rate:.1%}, Agreement: {agreement_rate:.1%}")
+    print(f"  Letter distribution: A={letter_dist.get('A', 0):.1%}, B={letter_dist.get('B', 0):.1%}, C={letter_dist.get('C', 0):.1%}, D={letter_dist.get('D', 0):.1%}")
+    if invariant_a_detected:
+        print("  WARNING: Pythia-style invariant-A failure detected!")
+
+    return out_path, summary

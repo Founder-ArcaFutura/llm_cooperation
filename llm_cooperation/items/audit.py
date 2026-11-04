@@ -51,8 +51,10 @@ def audit_scenarios(bank_path: str = "data/scenarios.json") -> bool:
     success = True
 
     # 1. Check counts
-    if len(scenarios) != 24:
-        console.print(f"[bold red]FAIL: Expected 24 scenarios, found {len(scenarios)}[/bold red]")
+    is_expanded = len(scenarios) == 120
+    expected_cell_count = 15 if is_expanded else 3
+    if len(scenarios) not in (24, 120):
+        console.print(f"[bold red]FAIL: Expected 24 or 120 scenarios, found {len(scenarios)}[/bold red]")
         success = False
 
     partner_counts = {PartnerType.HUMAN: 0, PartnerType.AI: 0}
@@ -70,9 +72,51 @@ def audit_scenarios(bank_path: str = "data/scenarios.json") -> bool:
         for ctx in ContextType:
             cell = (partner, ctx.value)
             count = cell_counts.get(cell, 0)
-            if count != 3:
-                console.print(f"[bold red]FAIL: Cell {cell} has count {count}, expected 3[/bold red]")
+            if count != expected_cell_count:
+                console.print(f"[bold red]FAIL: Cell {cell} has count {count}, expected {expected_cell_count}[/bold red]")
                 success = False
+
+    # For expanded bank: verify template pairing and split integrity
+    if is_expanded:
+        templates_map = {}
+        for s in scenarios:
+            if not s.template_id:
+                console.print(f"[bold red]FAIL: Scenario {s.id} missing template_id[/bold red]")
+                success = False
+                continue
+            if s.template_id not in templates_map:
+                templates_map[s.template_id] = []
+            templates_map[s.template_id].append(s)
+
+        if len(templates_map) != 60:
+            console.print(f"[bold red]FAIL: Expected 60 unique templates, found {len(templates_map)}[/bold red]")
+            success = False
+
+        exploratory_count = 0
+        confirmatory_count = 0
+        for tid, t_scenarios in templates_map.items():
+            if len(t_scenarios) != 2:
+                console.print(f"[bold red]FAIL: Template {tid} has {len(t_scenarios)} scenarios, expected 2[/bold red]")
+                success = False
+            partners = {sc.partner_type for sc in t_scenarios}
+            if partners != {PartnerType.HUMAN, PartnerType.AI}:
+                console.print(f"[bold red]FAIL: Template {tid} missing partner pair ({partners})[/bold red]")
+                success = False
+            splits = {sc.split for sc in t_scenarios}
+            if len(splits) != 1 or list(splits)[0] not in ("exploratory", "confirmatory"):
+                console.print(f"[bold red]FAIL: Template {tid} split mismatch or invalid: {splits}[/bold red]")
+                success = False
+            split_val = list(splits)[0]
+            if split_val == "exploratory":
+                exploratory_count += 1
+            else:
+                confirmatory_count += 1
+
+        if exploratory_count != 40 or confirmatory_count != 20:
+            console.print(f"[bold red]FAIL: Expected 40 exploratory & 20 confirmatory templates, got {exploratory_count}/{confirmatory_count}[/bold red]")
+            success = False
+        else:
+            console.print(f"[green]PASS: Template pairing verified: 60 templates (40 exploratory, 20 confirmatory).[/green]")
 
     # 2. Check Taboo Words in Option Text
     flagged_taboo = []
@@ -141,9 +185,10 @@ def audit_scenarios(bank_path: str = "data/scenarios.json") -> bool:
         console.print("[green]PASS: No destructive/unreasonable markers detected.[/green]")
 
     # 4. Check Permutation Counterbalancing
+    expected_presentations = len(scenarios) * 4
     all_presentations = generate_all_presentations(scenarios)
-    if len(all_presentations) != 96:
-        console.print(f"[bold red]FAIL: Expected 96 presentations, got {len(all_presentations)}[/bold red]")
+    if len(all_presentations) != expected_presentations:
+        console.print(f"[bold red]FAIL: Expected {expected_presentations} presentations, got {len(all_presentations)}[/bold red]")
         success = False
 
     # Check each scenario has 4 presentations with each strategy at each letter once
@@ -177,20 +222,71 @@ def audit_scenarios(bank_path: str = "data/scenarios.json") -> bool:
         for opt in p.options:
             letter_counts_overall[opt.letter][opt.strategy] += 1
 
+    expected_strat_per_letter = len(scenarios)
     for letter, s_counts in letter_counts_overall.items():
         for strat, count in s_counts.items():
-            if count != 24:
-                console.print(f"[bold red]FAIL: Letter {letter} has {strat} {count} times, expected exactly 24[/bold red]")
+            if count != expected_strat_per_letter:
+                console.print(f"[bold red]FAIL: Letter {letter} has {strat} {count} times, expected exactly {expected_strat_per_letter}[/bold red]")
                 success = False
 
     if success:
         console.print("[bold green]ALL AUDIT CHECKS PASSED SUCCESSFULLY![/bold green]")
-        console.print("[green]- 24 scenarios perfectly balanced across 2 partner x 4 context strata (3 each).[/green]")
-        console.print("[green]- 96 presentations generated with exact 4x4 Latin-square counterbalancing.[/green]")
-        console.print("[green]- Every strategy occupies positions A, B, C, D exactly 24 times in the corpus.[/green]")
+        console.print(f"[green]- {len(scenarios)} scenarios perfectly balanced across 2 partner x 4 context strata ({expected_cell_count} each).[/green]")
+        console.print(f"[green]- {len(all_presentations)} presentations generated with exact 4x4 Latin-square counterbalancing.[/green]")
+        console.print(f"[green]- Every strategy occupies positions A, B, C, D exactly {expected_strat_per_letter} times in the corpus.[/green]")
     else:
         console.print("[bold red]SOME AUDIT CHECKS FAILED. Please review output above.[/bold red]")
 
+    return success
+
+
+def audit_calibration(bank_path: str = "data/calibration_bank.json") -> bool:
+    console = Console()
+    with open(bank_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    from llm_cooperation.items.schema import CalibrationBank
+    from llm_cooperation.items.permutations import generate_all_calibration_presentations
+
+    bank = CalibrationBank(**data)
+    items = bank.items
+    console.print(f"[bold green]Loaded {len(items)} calibration items from {bank_path}.[/bold green]")
+
+    success = True
+    if len(items) != 24:
+        console.print(f"[bold red]FAIL: Expected 24 calibration items, got {len(items)}[/bold red]")
+        success = False
+
+    # Check option ID balance
+    correct_opt_counts = {}
+    for it in items:
+        correct_opt_counts[it.correct_option_id] = correct_opt_counts.get(it.correct_option_id, 0) + 1
+
+    for opt_id in ["opt_1", "opt_2", "opt_3", "opt_4"]:
+        c = correct_opt_counts.get(opt_id, 0)
+        if c != 6:
+            console.print(f"[bold red]FAIL: Correct option {opt_id} appears {c} times, expected 6[/bold red]")
+            success = False
+
+    # Check Latin square counterbalancing across 96 presentations
+    calib_pres = generate_all_calibration_presentations(items)
+    if len(calib_pres) != 96:
+        console.print(f"[bold red]FAIL: Expected 96 calibration presentations, got {len(calib_pres)}[/bold red]")
+        success = False
+
+    letter_correct_counts = {"A": 0, "B": 0, "C": 0, "D": 0}
+    for p in calib_pres:
+        letter_correct_counts[p.correct_letter] += 1
+
+    for l, count in letter_correct_counts.items():
+        if count != 24:
+            console.print(f"[bold red]FAIL: Calibration presentations have letter {l} as correct answer {count} times, expected 24[/bold red]")
+            success = False
+
+    if success:
+        console.print("[bold green]ALL CALIBRATION AUDIT CHECKS PASSED SUCCESSFULLY![/bold green]")
+        console.print("[green]- 24 diagnostic items balanced across 4 option positions (6 each).[/green]")
+        console.print("[green]- 96 presentations under Latin square yield exactly 24 correct answers for each of A, B, C, D.[/green]")
     return success
 
 

@@ -11,6 +11,7 @@ from llm_cooperation.analysis.metrics import (
     load_run_results,
     aggregate_by_scenario,
     scenario_cluster_bootstrap,
+    template_cluster_bootstrap,
     audit_position_bias,
 )
 from llm_cooperation.analysis.plots import plot_summary_figures
@@ -87,6 +88,9 @@ def generate_markdown_report(
     prob_boot: Dict[str, float],
     pos_bias: Dict[str, float],
     output_path: str,
+    exploratory_boot: Optional[Dict[str, float]] = None,
+    confirmatory_boot: Optional[Dict[str, float]] = None,
+    principal_contrast: Optional[Dict[str, float]] = None,
 ) -> str:
     model_name = metadata.get("model_name", "Unknown")
     num_scenarios = len(scenario_df)
@@ -97,6 +101,42 @@ def generate_markdown_report(
         mean_argmax=("coop_argmax_rate", "mean"),
         mean_prob=("coop_cond_prob", "mean"),
     ).to_markdown()
+
+    # Split breakdown if present
+    split_section = ""
+    if "split" in scenario_df.columns and not scenario_df["split"].isnull().all():
+        split_summary = scenario_df.groupby("split").agg(
+            scenarios=("scenario_id", "count"),
+            mean_coop_argmax=("coop_argmax_rate", "mean"),
+            mean_coop_prob=("coop_cond_prob", "mean"),
+        ).to_markdown()
+
+        split_details = []
+        if exploratory_boot:
+            split_details.append(
+                f"- **Exploratory Split (N={exploratory_boot.get('num_clusters', 'N/A')} templates):** "
+                f"Coop Rate: {exploratory_boot['mean']:.1%} [95% CI: {exploratory_boot['ci_lower']:.1%} – {exploratory_boot['ci_upper']:.1%}]"
+            )
+        if confirmatory_boot:
+            split_details.append(
+                f"- **Held-Out Confirmatory Split (N={confirmatory_boot.get('num_clusters', 'N/A')} templates):** "
+                f"Coop Rate: {confirmatory_boot['mean']:.1%} [95% CI: {confirmatory_boot['ci_lower']:.1%} – {confirmatory_boot['ci_upper']:.1%}]"
+            )
+
+        contrast_text = ""
+        if principal_contrast:
+            contrast_text = (
+                f"\n- **Preregistered Principal Contrast [Coop in (Neutral + Cost) vs (Conflict + Inappropriate)]:** "
+                f"{principal_contrast['difference']:.1%} [95% CI: {principal_contrast['ci_lower']:.1%} – {principal_contrast['ci_upper']:.1%}]"
+            )
+
+        split_section = f"""
+### Dataset Split & Confirmatory Isolation (§3)
+{split_summary}
+
+{chr(10).join(split_details)}{contrast_text}
+*(Note: Confirmatory split is held-out and isolated from item optimization or prompt tuning.)*
+"""
 
     # Breakdown by partner
     partner_summary = scenario_df.groupby("partner_type").agg(
@@ -202,6 +242,7 @@ def generate_markdown_report(
 
 ### Partner Type Breakdown (Human vs AI)
 {partner_summary}
+{split_section}
 
 ---
 
@@ -253,17 +294,56 @@ def analyze_results(
     # 1. Aggregate to scenario level (N=24)
     scenario_df = aggregate_by_scenario(records)
 
-    # 2. Scenario-level clustered bootstrapping
-    overall_boot = scenario_cluster_bootstrap(
+    # 2. Template-level or scenario-level clustered bootstrapping
+    is_template_available = "template_id" in scenario_df.columns and not scenario_df["template_id"].isnull().all()
+    bootstrap_fn = template_cluster_bootstrap if is_template_available else scenario_cluster_bootstrap
+
+    overall_boot = bootstrap_fn(
         scenario_df,
         metric_col="coop_argmax_rate",
         n_bootstraps=num_bootstraps,
     )
-    prob_boot = scenario_cluster_bootstrap(
+    prob_boot = bootstrap_fn(
         scenario_df,
         metric_col="coop_cond_prob",
         n_bootstraps=num_bootstraps,
     )
+
+    # Split-specific bootstrap if splits exist
+    exploratory_boot = None
+    confirmatory_boot = None
+    principal_contrast = None
+
+    if "split" in scenario_df.columns and not scenario_df["split"].isnull().all():
+        exp_df = scenario_df[scenario_df["split"] == "exploratory"]
+        conf_df = scenario_df[scenario_df["split"] == "confirmatory"]
+        if not exp_df.empty:
+            exploratory_boot = bootstrap_fn(exp_df, "coop_argmax_rate", n_bootstraps=num_bootstraps)
+        if not conf_df.empty:
+            confirmatory_boot = bootstrap_fn(conf_df, "coop_argmax_rate", n_bootstraps=num_bootstraps)
+
+    # Compute principal contrast: coop in neutral/modest_cost vs conflict/ineffective
+    neutral_cost_df = scenario_df[scenario_df["context_type"].isin(["neutral_or_costless", "modest_cost"])]
+    conflict_ineff_df = scenario_df[scenario_df["context_type"].isin(["conflict_with_objective", "ineffective_or_inappropriate"])]
+    if not neutral_cost_df.empty and not conflict_ineff_df.empty:
+        r_pos = neutral_cost_df["coop_argmax_rate"].mean()
+        r_neg = conflict_ineff_df["coop_argmax_rate"].mean()
+        diff = r_pos - r_neg
+        # Simple bootstrap for contrast difference
+        import numpy as np
+        rng = np.random.default_rng(42)
+        diffs = []
+        pos_vals = neutral_cost_df["coop_argmax_rate"].values
+        neg_vals = conflict_ineff_df["coop_argmax_rate"].values
+        for _ in range(num_bootstraps):
+            s_pos = rng.choice(pos_vals, size=len(pos_vals), replace=True)
+            s_neg = rng.choice(neg_vals, size=len(neg_vals), replace=True)
+            diffs.append(np.mean(s_pos) - np.mean(s_neg))
+        principal_contrast = {
+            "difference": float(diff),
+            "ci_lower": float(np.percentile(diffs, 2.5)),
+            "ci_upper": float(np.percentile(diffs, 97.5)),
+        }
 
     # 3. Position bias audit
     pos_bias = audit_position_bias(records)
@@ -296,6 +376,9 @@ def analyze_results(
         prob_boot=prob_boot,
         pos_bias=pos_bias,
         output_path=report_path,
+        exploratory_boot=exploratory_boot,
+        confirmatory_boot=confirmatory_boot,
+        principal_contrast=principal_contrast,
     )
     console.print(f"[bold cyan]Generated executive report at {report_path}[/bold cyan]")
 
