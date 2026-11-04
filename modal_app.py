@@ -54,6 +54,7 @@ image = (
     .add_local_python_source("llm_cooperation")
     .add_local_file("data/scenarios.json", "/root/data/scenarios.json")
     .add_local_file("data/scenarios_v1_expanded.json", "/root/data/scenarios_v1_expanded.json")
+    .add_local_file("data/scenarios_phase0b_utility_matched.json", "/root/data/scenarios_phase0b_utility_matched.json")
     .add_local_file("data/calibration_bank.json", "/root/data/calibration_bank.json")
     .add_local_file("configs/models.yaml", "/root/configs/models.yaml")
 )
@@ -145,6 +146,50 @@ def _get_secrets() -> List[modal.Secret]:
     return secrets
 
 
+SUPPORTED_BANKS = {
+    "pilot": "/root/data/scenarios.json",
+    "expanded": "/root/data/scenarios_v1_expanded.json",
+    "phase0b": "/root/data/scenarios_phase0b_utility_matched.json",
+    "utility-matched": "/root/data/scenarios_phase0b_utility_matched.json",
+}
+
+
+def resolve_bank_and_split(
+    bank: str,
+    split: Optional[str] = None,
+    authorize_confirmatory: bool = False,
+) -> tuple[str, Optional[str]]:
+    """Validate bank identifier and enforce Phase 0B split defaults & confirmatory guard.
+
+    Fails explicitly if bank is unsupported rather than silently choosing another instrument.
+    """
+    bank_clean = (bank or "").strip().lower()
+    if bank_clean not in SUPPORTED_BANKS:
+        raise ValueError(
+            f"Unsupported bank '{bank}'. Supported banks: {sorted(list(SUPPORTED_BANKS.keys()))}. "
+            "Failing explicitly rather than silently falling back."
+        )
+
+    scenarios_path = SUPPORTED_BANKS[bank_clean]
+    is_phase0b = bank_clean in ("phase0b", "utility-matched")
+
+    effective_split = split
+    if is_phase0b and effective_split is None:
+        effective_split = "exploratory"
+
+    # Confirmatory split authorization guard for Phase 0B
+    if is_phase0b and effective_split in ("confirmatory", "all"):
+        env_auth = os.environ.get("ALLOW_CONFIRMATORY_RUN", "").lower() in ("1", "true", "yes")
+        if not (authorize_confirmatory or env_auth):
+            raise PermissionError(
+                f"CONFIRMATORY SPLIT GUARD: Executing held-out confirmatory partition in Phase 0B "
+                f"requires explicit scientific authorization (--authorize-confirmatory or ALLOW_CONFIRMATORY_RUN=true). "
+                f"Phase 0B defaults to 'exploratory' to protect confirmatory held-out isolation."
+            )
+
+    return scenarios_path, effective_split
+
+
 def _execute_evaluation(
     model_name: str,
     revision: Optional[str],
@@ -153,6 +198,8 @@ def _execute_evaluation(
     seed: int,
     prompt_mode: str,
     bank: str = "pilot",
+    split: Optional[str] = None,
+    authorize_confirmatory: bool = False,
 ) -> str:
     """Internal helper to execute evaluation inside container and commit volumes."""
     os.environ["HF_HOME"] = "/root/hf_cache"
@@ -161,7 +208,11 @@ def _execute_evaluation(
     out_dir = "/root/results"
     os.makedirs(out_dir, exist_ok=True)
 
-    scenarios_path = "/root/data/scenarios.json" if bank == "pilot" else "/root/data/scenarios_v1_expanded.json"
+    scenarios_path, effective_split = resolve_bank_and_split(
+        bank=bank,
+        split=split,
+        authorize_confirmatory=authorize_confirmatory,
+    )
 
     result_file = run_experiment(
         model_name=model_name,
@@ -173,6 +224,7 @@ def _execute_evaluation(
         mock=False,
         seed=seed,
         prompt_mode=prompt_mode,
+        split_filter=effective_split if effective_split != "all" else None,
     )
 
     # Durable commit to Modal persistent volume
@@ -197,6 +249,8 @@ def run_evaluation_remote(
     seed: int = 42,
     prompt_mode: str = "standard_plaintext",
     bank: str = "pilot",
+    split: Optional[str] = None,
+    authorize_confirmatory: bool = False,
 ) -> str:
     """Execute evaluation on standard A10G GPU (ideal for 1B-3B models)."""
     if mock:
@@ -212,6 +266,8 @@ def run_evaluation_remote(
         seed=seed,
         prompt_mode=prompt_mode,
         bank=bank,
+        split=split,
+        authorize_confirmatory=authorize_confirmatory,
     )
 
 
@@ -231,6 +287,8 @@ def run_evaluation_remote_l40s(
     seed: int = 42,
     prompt_mode: str = "standard_plaintext",
     bank: str = "pilot",
+    split: Optional[str] = None,
+    authorize_confirmatory: bool = False,
 ) -> str:
     """Execute evaluation on high-VRAM L40S GPU (ideal for 7B-12B models, e.g. Pythia-12B)."""
     if mock:
@@ -246,6 +304,8 @@ def run_evaluation_remote_l40s(
         seed=seed,
         prompt_mode=prompt_mode,
         bank=bank,
+        split=split,
+        authorize_confirmatory=authorize_confirmatory,
     )
 
 
@@ -261,6 +321,8 @@ def run_evaluation_mock_remote(
     seed: int = 42,
     prompt_mode: str = "standard_plaintext",
     bank: str = "pilot",
+    split: Optional[str] = None,
+    authorize_confirmatory: bool = False,
 ) -> str:
     """Execute synthetic mock validation in a zero-GPU CPU container and persist outputs to volume."""
     from llm_cooperation.harness.runner import run_experiment
@@ -268,7 +330,11 @@ def run_evaluation_mock_remote(
     out_dir = "/root/results"
     os.makedirs(out_dir, exist_ok=True)
 
-    scenarios_path = "/root/data/scenarios.json" if bank == "pilot" else "/root/data/scenarios_v1_expanded.json"
+    scenarios_path, effective_split = resolve_bank_and_split(
+        bank=bank,
+        split=split,
+        authorize_confirmatory=authorize_confirmatory,
+    )
 
     result_file = run_experiment(
         model_name=model_name,
@@ -280,6 +346,7 @@ def run_evaluation_mock_remote(
         mock=True,
         seed=seed,
         prompt_mode=prompt_mode,
+        split_filter=effective_split if effective_split != "all" else None,
     )
 
     # Commit changes to durable volume
@@ -295,6 +362,8 @@ def main(
     mock: bool = True,
     seed: int = 42,
     bank: str = "pilot",
+    split: Optional[str] = None,
+    authorize_confirmatory: bool = False,
     prompt_mode: str = "standard_plaintext",
     authorize_paid_run: bool = False,
 ):
@@ -314,6 +383,8 @@ def main(
             seed=seed,
             prompt_mode=prompt_mode,
             bank=bank,
+            split=split,
+            authorize_confirmatory=authorize_confirmatory,
         )
     else:
         # Explicit paid-run authorization guard
@@ -338,6 +409,8 @@ def main(
                 seed=seed,
                 prompt_mode=prompt_mode,
                 bank=bank,
+                split=split,
+                authorize_confirmatory=authorize_confirmatory,
             )
         elif selected_gpu == GPU_PROFILES["small"]:  # A10G
             print(f"[modal_app] Dispatching to A10G GPU container (precision={precision})...")
@@ -349,6 +422,8 @@ def main(
                 seed=seed,
                 prompt_mode=prompt_mode,
                 bank=bank,
+                split=split,
+                authorize_confirmatory=authorize_confirmatory,
             )
         else:
             # If large or unsupported GPU profile is selected, fail fast before provisioning

@@ -217,11 +217,19 @@ def compute_utility_matched_contrast(
     1. Argmax choice difference: P(COOPERATE) - P(INDEPENDENT)
     2. Log-probability difference: log P(COOPERATE) - log P(INDEPENDENT)
     Bootstrap clustered at the template level (pairing human and AI variants).
+
+    Excludes symmetric welfare controls (is_symmetric_control=True) so the
+    primary contrast isolates equal-utility trade-offs cleanly. Symmetric
+    controls are analyzed separately via compute_symmetric_control_contrast.
     """
     if "utility_condition" in scenario_df.columns:
         matched_df = scenario_df[scenario_df["utility_condition"] == "equal_utility"]
     else:
         matched_df = scenario_df
+
+    # Explicitly isolate primary contrast by excluding symmetric outcome controls
+    if "is_symmetric_control" in matched_df.columns:
+        matched_df = matched_df[matched_df["is_symmetric_control"] != True]
 
     if matched_df.empty:
         return None

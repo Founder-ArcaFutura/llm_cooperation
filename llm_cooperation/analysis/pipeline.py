@@ -101,6 +101,12 @@ def generate_markdown_report(
 ) -> str:
     model_name = metadata.get("model_name", "Unknown")
     num_scenarios = len(scenario_df)
+    total_presentations = metadata.get("num_presentations")
+    if total_presentations is None:
+        if "num_permutations" in scenario_df.columns:
+            total_presentations = int(scenario_df["num_permutations"].sum())
+        else:
+            total_presentations = num_scenarios * 4
     valid_rate = scenario_df["valid_letter_rate"].mean()
 
     # Breakdown by context
@@ -303,7 +309,7 @@ def generate_markdown_report(
 **Model:** `{model_name}`
 **Date:** {metadata.get('timestamp', 'N/A')}
 **Git Commit:** `{metadata.get('git_commit', 'N/A')}`
-**Scenarios Evaluated (N):** {num_scenarios} (96 total counterbalanced presentations)
+**Scenarios Evaluated (N):** {num_scenarios} ({total_presentations} total counterbalanced presentations)
 
 ---
 
@@ -338,7 +344,7 @@ def generate_markdown_report(
 ---
 
 ## 3. Position Bias Audit (§4A.3)
-Presentation frequency of chosen letters across all 96 counterbalanced presentations:
+Presentation frequency of chosen letters across all {total_presentations} counterbalanced presentations:
 - **A:** {pos_bias.get('A', 0.0):.1%}
 - **B:** {pos_bias.get('B', 0.0):.1%}
 - **C:** {pos_bias.get('C', 0.0):.1%}

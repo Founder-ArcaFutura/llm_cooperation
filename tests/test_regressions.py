@@ -415,6 +415,81 @@ def test_modal_app_mock_and_gpu_routing(monkeypatch):
     assert len(gpu_calls) == 1
     assert gpu_calls[0]["mock"] is False
 
+
+def test_modal_app_phase0b_routing_and_guards(monkeypatch):
+    """Verify modal_app packages and routes Phase 0B, defaults to exploratory,
+
+    requires confirmatory authorization, and fails on unsupported banks.
+    """
+    import modal_app
+
+    # 1. Unsupported bank fails fast
+    with pytest.raises(ValueError, match="Unsupported bank 'unknown_invalid_bank'"):
+        modal_app.resolve_bank_and_split("unknown_invalid_bank")
+
+    # 2. Phase 0B defaults to exploratory
+    p_path, p_split = modal_app.resolve_bank_and_split("phase0b")
+    assert p_path == "/root/data/scenarios_phase0b_utility_matched.json"
+    assert p_split == "exploratory"
+
+    u_path, u_split = modal_app.resolve_bank_and_split("utility-matched")
+    assert u_path == "/root/data/scenarios_phase0b_utility_matched.json"
+    assert u_split == "exploratory"
+
+    # 3. Phase 0B confirmatory requires authorization
+    with pytest.raises(PermissionError, match="CONFIRMATORY SPLIT GUARD"):
+        modal_app.resolve_bank_and_split("phase0b", split="confirmatory", authorize_confirmatory=False)
+
+    with pytest.raises(PermissionError, match="CONFIRMATORY SPLIT GUARD"):
+        modal_app.resolve_bank_and_split("phase0b", split="all", authorize_confirmatory=False)
+
+    # 4. Phase 0B confirmatory succeeds with authorization
+    _, auth_split = modal_app.resolve_bank_and_split("phase0b", split="confirmatory", authorize_confirmatory=True)
+    assert auth_split == "confirmatory"
+
+    # 5. Modal app main routes split and bank parameters
+    mock_calls = []
+    monkeypatch.setattr(
+        modal_app.run_evaluation_mock_remote,
+        "remote",
+        lambda **kwargs: mock_calls.append(kwargs) or "/root/results/mock_result.jsonl",
+    )
+
+    modal_app.main(model="test-model", mock=True, bank="phase0b")
+    assert len(mock_calls) == 1
+    assert mock_calls[0]["bank"] == "phase0b"
+    assert mock_calls[0]["split"] is None  # Defaults inside resolve_bank_and_split to exploratory
+
+
+def test_markdown_report_presentation_count_label():
+    """Verify generate_markdown_report reflects actual presentation count rather than hardcoded 96."""
+    import pandas as pd
+    from llm_cooperation.analysis.pipeline import generate_markdown_report
+
+    metadata = {"model_name": "test-model", "num_presentations": 480}
+    records = [
+        {"scenario_id": f"s_{i}", "partner_type": "human", "context_type": "neutral_or_costless",
+         "coop_argmax_rate": 0.5, "coop_cond_prob": 0.5, "valid_letter_rate": 1.0, "num_permutations": 4}
+        for i in range(120)
+    ]
+    df = pd.DataFrame(records)
+    boot = {"mean": 0.5, "ci_lower": 0.4, "ci_upper": 0.6}
+    pos_bias = {"A": 0.25, "B": 0.25, "C": 0.25, "D": 0.25}
+
+    report = generate_markdown_report(
+        metadata=metadata,
+        scenario_df=df,
+        overall_boot=boot,
+        prob_boot=boot,
+        pos_bias=pos_bias,
+        output_path="/dev/null",
+    )
+
+    assert "Scenarios Evaluated (N):** 120 (480 total counterbalanced presentations)" in report
+    assert "Presentation frequency of chosen letters across all 480 counterbalanced presentations:" in report
+    assert "96 total counterbalanced presentations" not in report
+    assert "across all 96 counterbalanced presentations" not in report
+
 def test_prompt_boundary_token_validation():
     """Verify prompt boundary token validation detects multi-token fragmentation and incompatible token IDs."""
     from llm_cooperation.harness.tokenizer_probe import (
