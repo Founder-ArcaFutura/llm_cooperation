@@ -56,9 +56,10 @@ def audit_phase1_bank(bank_path: str = "data/scenarios_phase1_prospective.json")
         flags.append(msg)
         success = False
 
-    # 2. Check bank status
-    if bank.status != "draft_pending_review":
-        msg = f"Phase 1 bank must have status 'draft_pending_review', got '{bank.status}'"
+    # 2. Check bank status: permits both 'draft_pending_review' and 'frozen'
+    valid_statuses = {"draft_pending_review", "frozen"}
+    if bank.status not in valid_statuses:
+        msg = f"Phase 1 bank status must be one of {valid_statuses}, got '{bank.status}'"
         console.print(f"[bold red]FAIL: {msg}[/bold red]")
         flags.append(msg)
         success = False

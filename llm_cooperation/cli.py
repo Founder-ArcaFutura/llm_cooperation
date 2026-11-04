@@ -83,13 +83,14 @@ def cmd_calibrate(model, calibration_path, revision, output_dir, precision, devi
 @click.option("--split", type=click.Choice(["exploratory", "confirmatory", "all"]), default=None, help="Dataset split execution filter. In Phase 0B, defaults to 'exploratory'. Evaluating 'confirmatory' or 'all' requires authorization.")
 @click.option("--authorize-confirmatory", is_flag=True, default=False, help="Explicit authorization flag required to evaluate the held-out confirmatory split.")
 @click.option("--authorize-phase1-run", is_flag=True, default=False, help="Explicit authorization flag required to evaluate Phase 1 bank once frozen.")
+@click.option("--phase1-fingerprint", default=None, help="Approved SHA-256 fingerprint for Phase 1 bank verification.")
 @click.option("--output-dir", "-o", default="results", help="Directory to save raw results.")
 @click.option("--precision", default="bfloat16", type=click.Choice(["bfloat16", "float16", "float32"]))
 @click.option("--device", default="auto", help="Device map (e.g. 'auto', 'cuda', 'cpu').")
 @click.option("--mock", is_flag=True, default=False, help="Run with mock predictions without loading model weights.")
 @click.option("--seed", default=42, help="Random seed for mock generator.")
 @click.option("--prompt-mode", default="standard_plaintext", type=click.Choice(["standard_plaintext", "openassistant"]), help="Prompt format mode.")
-def cmd_run(model, revision, bank, scenarios_path, split, authorize_confirmatory, authorize_phase1_run, output_dir, precision, device, mock, seed, prompt_mode):
+def cmd_run(model, revision, bank, scenarios_path, split, authorize_confirmatory, authorize_phase1_run, phase1_fingerprint, output_dir, precision, device, mock, seed, prompt_mode):
     """Run behavioural evaluation."""
     is_phase0b = False
     is_phase1 = False
@@ -138,8 +139,9 @@ def cmd_run(model, revision, bank, scenarios_path, split, authorize_confirmatory
             prompt_mode=prompt_mode,
             split_filter=effective_split if effective_split != "all" else None,
             authorize_phase1_run=authorize_phase1_run,
+            expected_phase1_bank_hash=phase1_fingerprint,
         )
-    except (PermissionError, ValueError) as e:
+    except (PermissionError, ValueError, FileNotFoundError) as e:
         raise click.ClickException(str(e))
 
 

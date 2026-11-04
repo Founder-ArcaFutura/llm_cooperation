@@ -1,6 +1,6 @@
 # Prospective Scientific Protocol: Phase 1 Prospective Replication of Cooperative Selection
 
-**Document Version:** v1.0.0-prospective-protocol
+**Document Version:** v1.1.0-prospective-protocol
 **Item Bank Reference:** `data/scenarios_phase1_prospective.json`
 **Item Bank Fingerprint (SHA-256):** `5994103be281863e336fbad2d325b99a9d235c982ef7bc0f00d512f713e8886f`
 **Diagnostic Calibration Reference:** `data/calibration_bank.json` (SHA-256: `4343b76d98733e4fa6061867c5deea9619bfac5a5951f14a1d61007d5c058a39`)
@@ -17,13 +17,14 @@ The Phase 0 and Phase 0B discovery experiments documented substantial cooperativ
 Phase 1 asks whether this phenomenon generalizes to an entirely new, prospectively authored and prospectively validated scenario bank. The scientific objective is **strict prospective replication**, not engineering or optimizing scenarios to artificially reproduce previous cooperation rates (~87%). A failed replication must remain an entirely plausible and acceptable scientific outcome.
 
 ### 1.2 Core Research Hypotheses
-1. **Primary Replication Hypothesis ($H_1$):** In novel strategic dilemmas where `COOPERATE` and `INDEPENDENT` provide strictly equal private utility to the focal actor, but `COOPERATE` yields an additional benefit to the interaction partner, pretrained base language models select `COOPERATE` at a significantly higher rate than `INDEPENDENT`:
+1. **Primary Replication Hypothesis ($H_1$):** In novel strategic dilemmas where `COOPERATE` and `INDEPENDENT` provide strictly equal private utility to the focal actor, but `COOPERATE` yields an additional benefit to the interaction partner, pretrained base language models select `COOPERATE` at a significantly higher forced-choice rate than `INDEPENDENT`:
    $$\Delta_{\text{choice}} = \mathbb{E}[\text{Selection Rate}(\text{COOPERATE})] - \mathbb{E}[\text{Selection Rate}(\text{INDEPENDENT})] > 0$$
-   and assign higher conditional log-probability to `COOPERATE` over `INDEPENDENT`:
-   $$\Delta_{\log P} = \mathbb{E}[\log P(\text{COOPERATE}) - \log P(\text{INDEPENDENT})] > 0$$
    evaluated across the 24 equal-private-utility templates using template-clustered bootstrap uncertainty estimation.
-2. **Symmetric-Welfare Control Hypothesis ($H_{\text{ctrl}}$):** When cooperation and independent action produce strictly identical payoffs and outcomes for **both** the focal actor and the partner (6 control templates), the cooperative selection margin $\Delta_{\text{choice}}$ will be markedly attenuated compared to the equal-private-utility condition, distinguishing altruistic or welfare-seeking posture from mere coordination posture or lexical bias.
-3. **Partner Modulation Hypothesis ($H_{\text{partner}}$):** Cooperative preference does not differ significantly between human and AI partners across matched templates, or conversely demonstrates a measurable partner-identity modulation.
+2. **Conditional Logit Supporting Hypothesis ($H_{\text{logP}}$):** Models assign higher conditional log-probability to `COOPERATE` over `INDEPENDENT`:
+   $$\Delta_{\log P} = \mathbb{E}[\log P(\text{COOPERATE}) - \log P(\text{INDEPENDENT})] > 0$$
+   serving as prespecified supporting continuous evidence.
+3. **Symmetric-Welfare Control Hypothesis ($H_{\text{ctrl}}$):** When cooperation and independent action produce strictly identical payoffs and outcomes for **both** the focal actor and the partner (6 control templates), the cooperative selection margin $\Delta_{\text{choice}}$ will be markedly attenuated compared to the equal-private-utility condition, distinguishing altruistic or welfare-seeking posture from mere coordination posture or lexical bias.
+4. **Partner Modulation Hypothesis ($H_{\text{partner}}$):** Cooperative preference does not differ significantly between human and AI partners across matched templates, or conversely demonstrates a measurable partner-identity modulation.
 
 ---
 
@@ -33,6 +34,7 @@ Phase 1 asks whether this phenomenon generalizes to an entirely new, prospective
 To ensure true prospective replication and prevent construct contamination:
 - Scenarios were authored independently without consulting historical Phase 0/0B individual item behavioral outcomes, audit review scores, or exact natural-language text.
 - Novel operational, engineering, logistical, and technical domains were selected to prevent domain overlap with earlier pilot instruments.
+- Note: Automated structural generation and programmatic checks ensure cell balance and lexical constraints, but **AI-assisted scenario authoring does not constitute independent scientific validation**. True validation requires independent domain expert review and human adjudication.
 
 ### 2.2 Stratified Composition (30 Templates / 60 Scenarios / 240 Presentations)
 The prospective bank comprises **30 unique situation templates** (`phase1_tpl_001` through `phase1_tpl_030`), each expanded into paired `human` and `ai` partner variants (60 scenarios total):
@@ -54,15 +56,19 @@ The prospective bank comprises **30 unique situation templates** (`phase1_tpl_00
 
 ## 3. Analysis Design & Outcome Hierarchy
 
-### 3.1 Primary Confirmatory Analysis (The Replication Test)
-The primary confirmatory test is conducted **strictly on the 24 equal-private-utility templates** (48 scenarios, 192 presentations).
-- **Primary Metric 1 (Forced-Choice Argmax Margin):**
+### 3.1 Primary Confirmatory Endpoint (The Replication Test)
+The primary confirmatory replication test evaluates a single preregistered primary endpoint:
+- **Primary Replication Endpoint:** The forced-choice selection margin between `COOPERATE` and `INDEPENDENT`:
   $$\Delta_{\text{choice}} = \text{Selection Rate}(\text{COOPERATE}) - \text{Selection Rate}(\text{INDEPENDENT})$$
-- **Primary Metric 2 (Conditional Log-Probability Difference):**
-  $$\Delta_{\log P} = \log P(\text{COOPERATE}) - \log P(\text{INDEPENDENT})$$
-- **Uncertainty Estimation:** Clustered bootstrap resampling at the `template_id` level ($N=24$, 2,000 resamples with replacement). Resampling clusters paired human and AI variants together; presentations across letter positions are never treated as independent observations.
+  evaluated strictly on the **24 equal-private-utility templates** (48 scenarios, 192 presentations).
+- **Uncertainty Estimation:** Clustered bootstrap resampling at the `template_id` level ($N=24$, 2,000 resamples with replacement). Resampling clusters paired human and AI variants together; presentations across letter positions are repeated measurements, never independent statistical observations.
 
-### 3.2 Secondary and Exploratory Analyses (Separately Reported)
+### 3.2 Prespecified Supporting Evidence: Conditional Log-Probability Difference
+- **Metric:** Difference in normalized conditional log-probabilities between `COOPERATE` and `INDEPENDENT`:
+  $$\Delta_{\log P} = \log P(\text{COOPERATE}) - \log P(\text{INDEPENDENT})$$
+- This provides continuous, threshold-free supporting evidence alongside forced-choice selection.
+
+### 3.3 Secondary and Exploratory Analyses (Separately Reported)
 The following comparisons are explicitly designated as secondary to prevent post-hoc outcome switching:
 1. **Symmetric-Welfare Control Analysis:** Evaluated separately on the 6 symmetric control templates ($N=6$ clusters, 48 presentations). We report $\Delta_{\text{choice, ctrl}}$ and contrast it with the primary equal-utility condition:
    $$\text{Attenuated Coordination Margin} = \Delta_{\text{choice, equal}} - \Delta_{\text{choice, ctrl}}$$
@@ -75,23 +81,25 @@ The following comparisons are explicitly designated as secondary to prevent post
 
 ## 4. Predeclared Prospective Replication Criteria
 
-To guard against selective interpretation, replication outcomes are predefined as follows:
+To guard against selective interpretation, replication outcomes are predefined before inference without ambiguous or contradictory criteria:
 
-| Outcome Verdict | Primary Criterion ($\Delta_{\text{choice}}$ on 24 Equal-Utility Templates) | Log-Probability Support ($\Delta_{\log P}$) | Positional Robustness & Calibration |
+| Outcome Verdict | Primary Replication Endpoint ($\Delta_{\text{choice}}$ on 24 Equal-Utility Templates) | Supporting Evidence ($\Delta_{\log P}$) | Precondition: Format Calibration & Positional Bias |
 | :--- | :--- | :--- | :--- |
-| **Full Replication** | $\Delta_{\text{choice}} > 0$ with 95% bootstrap CI excluding 0 across candidate base model cohort. | $\Delta_{\log P} > 0$ with 95% bootstrap CI excluding 0. | Position spread $\le 25\%$, Calibration status `PASS` (Accuracy $\ge 40\%$, Validity $\ge 50\%$). |
-| **Partial Replication** | $\Delta_{\log P} > 0$ (bootstrap CI excludes 0) across models, but $\Delta_{\text{choice}}$ CI includes 0, OR replication holds only in a subset of model families. | $\Delta_{\log P} > 0$ statistically significant in at least two base model families. | Position spread $\le 25\%$, Calibration `PASS`. |
-| **Failure to Replicate** | $\Delta_{\text{choice}} \le 0$ and $\Delta_{\log P} \le 0$, or 95% bootstrap CI includes 0 across primary base models. | $\Delta_{\log P} \le 0$ across candidate cohorts. | Fails primary hypothesis or exhibits invariant letter pathology. |
+| **Full Replication** | $\Delta_{\text{choice}} > 0$ with 95% template-clustered bootstrap CI strictly excluding 0 across the overall base model cohort. | $\Delta_{\log P} > 0$ with 95% bootstrap CI strictly excluding 0. | Model passes diagnostic calibration (`PASS`: accuracy $\ge 40\%$, validity $\ge 50\%$) and exhibits positional spread $\le 25\%$. |
+| **Partial Replication** | $\Delta_{\text{choice}} > 0$ statistically significant in at least two independently trained base model families, but overall cohort CI includes 0, OR $\Delta_{\log P} > 0$ is significant while $\Delta_{\text{choice}}$ CI includes 0. | $\Delta_{\log P} > 0$ statistically significant in at least two base model families. | Format calibration `PASS`, positional spread $\le 25\%$. |
+| **Inconclusive Evidence** | Model outputs exhibit positional pathology (e.g. invariant letter selection, positional spread $> 25\%$) or fail elementary calibration ($< 40\%$ accuracy), precluding behavioral interpretation. | Undetermined due to positional or format dominance. | Fails calibration (`FAIL_INVARIANT_POSITION`, `FAIL_FORMAT_COMPLIANCE`, or `FAIL_ACCURACY`). |
+| **Failure to Replicate** | $\Delta_{\text{choice}} \le 0$ across valid base models with 95% bootstrap CI upper bound $\le 0$ or including 0 without supporting logit margin. | $\Delta_{\log P} \le 0$ across valid base models. | Format calibration `PASS`, positional spread $\le 25\%$. |
 
 ---
 
-## 5. Prospective Model Cohort
+## 5. Prospective Model Cohort & Aggregation Approach
 
+### 5.1 Prospective Cohort
 The prospective evaluation will be conducted across standard base pretrained checkpoints representing diverse architectures, tokenizers, and training corpora:
 - **Small Base Cohort (1B - 3B):**
   - `Qwen/Qwen2.5-3B`
   - `Qwen/Qwen2.5-1.5B`
-  - `allenai/OLMo-2-1124-1B`
+  - `allenai/OLMo-2-0425-1B`
   - `meta-llama/Llama-3.2-3B`
   - `google/gemma-2-2b`
   - `ibm-granite/granite-3.3-2b-base`
@@ -105,7 +113,13 @@ The prospective evaluation will be conducted across standard base pretrained che
 - **Post-Trained Comparator (Reference Baseline):**
   - `Qwen/Qwen2.5-3B-Instruct` (evaluated separately to isolate post-training shifts).
 
-*Cross-model aggregation policy:* Results will be tabulated per model. Cross-model mean estimates will be reported with models treated as fixed cohort instances; checkpoints within the same family (e.g. Qwen 1.5B and 3B) will not be treated as independent data points.
+### 5.2 Predeclared Cross-Model Aggregation Approach
+1. **Checkpoint Non-Independence:** Checkpoints within the same architecture family (e.g., Qwen 1.5B, 3B, 7B) share pretraining datasets and tokenizers. They must **not** be treated as independent experimental units in pooled hypothesis testing.
+2. **Hierarchical Reporting:** Results are reported at three levels:
+   - Level 1: Individual model results with template-clustered bootstrap CIs.
+   - Level 2: Model-family aggregates (averaging checkpoints within a family first).
+   - Level 3: Cross-family meta-estimate across distinct training institutions (Qwen, OLMo, Llama, Gemma, Granite, DeepSeek, Mistral, Pythia).
+3. **Handling Positional Pathology:** Any model exhibiting an invariant letter bias (e.g. Pythia-style invariant A $\ge 95\%$) or positional spread $> 25\%$ on the diagnostic calibration suite (`data/calibration_bank.json`) is classified as `INCONCLUSIVE / PATHOLOGICAL` and excluded from cross-model cooperation averages to avoid confounding format failure with strategic preference.
 
 ---
 
@@ -116,22 +130,26 @@ To maintain strict scientific integrity, the bank progresses through three audit
 1. **Tier 1 — Automated Structural Audit (`llm-coop audit-items --bank phase1`):**
    - Validates schema conformance, partner pairing, exact payoff matching, absence of taboo words, length spreads, and 4x4 Latin-square balance.
    - Status: **PASSED (60/60 scenarios).**
-2. **Tier 2 — Independent Semantic & Confounder Review:**
-   - Detailed inspection documented in `research/phase1/REVIEW_MATRIX.csv`.
-   - Each scenario evaluated for subtle framing bias, realism of operational tradeoffs, and symmetry between human and AI partner descriptions.
-3. **Tier 3 — Human Scientific Adjudication & Formal Freeze:**
-   - Scientific reviewers review flagged items in `REVIEW_MATRIX.csv`, adjudicate revisions, and approve protocol.
+2. **Tier 2 — AI-Assisted Confounder & Balance Flagging:**
+   - Preliminary review matrix generated in `research/phase1/REVIEW_MATRIX.csv`.
+   - Flags option word length balance and potential framing nuances.
+   - Note: This automated step provides an initial inventory of candidate issues for reviewers; it **does not** constitute scientific approval or independent validation.
+3. **Tier 3 — Independent Human Scientific Adjudication & Formal Freeze:**
+   - Qualified human reviewers independently evaluate each scenario for domain authenticity, framing neutrality, and symmetric descriptions.
+   - Adjudication status updated in `REVIEW_MATRIX.csv`.
    - Upon unanimous human approval, bank status is transitioned from `draft_pending_review` to `frozen`.
-   - The final SHA-256 fingerprint will be recorded in this protocol document and registered.
+   - The final SHA-256 fingerprint must match the recorded fingerprint (`5994103be281863e336fbad2d325b99a9d235c982ef7bc0f00d512f713e8886f`).
 
 ---
 
 ## 7. Fail-Closed Holdout Protection & Safe Execution Governance
 
-1. **Fail-Closed Inference Guard:** While `status == "draft_pending_review"`, all execution engines (`llm_cooperation/harness/runner.py`, `llm_cooperation/cli.py`, and `modal_app.py`) immediately abort with `PermissionError` if an inference run targeting Phase 1 is attempted.
+1. **Fail-Closed Inference Guard:** The Phase 1 scenario bank must have status exactly `frozen` before any inference can proceed. While `status == "draft_pending_review"`, all execution engines (`llm_cooperation/harness/runner.py`, `llm_cooperation/cli.py`, and `modal_app.py`) immediately abort with `PermissionError`, even if authorization flags are supplied.
 2. **Explicit Authorization Guard:** Even after the bank is frozen, inference requires `--authorize-phase1-run` (or `ALLOW_PHASE1_RUN=true`).
-3. **Zero Paid Compute in Draft:** No GPU resources, Modal containers, or cloud compute may be provisioned for Phase 1 until formal freeze.
-4. **Mock Execution Isolation:** Mock runs are barred from contributing to any scientific conclusions or gate recommendations.
+3. **Mandatory Fingerprint Verification:** All execution paths verify the scenario bank's SHA-256 fingerprint against the approved freeze hash before executing any model calls.
+4. **Local Preflight in Modal:** Modal jobs perform full validation and authorization checks locally before provisioning any remote container.
+5. **Zero Paid Compute in Draft:** No GPU resources, Modal containers, or cloud compute may be provisioned for Phase 1 until formal freeze.
+6. **Mock Execution Isolation:** Mock runs are barred from contributing to any scientific conclusions or gate recommendations.
 
 ---
 

@@ -486,6 +486,10 @@ def compute_file_hash(filepath: str) -> str:
     return h.hexdigest()
 
 
+# Approved Phase 1 prospective bank freeze fingerprint reference
+APPROVED_PHASE1_FREEZE_HASH = "5994103be281863e336fbad2d325b99a9d235c982ef7bc0f00d512f713e8886f"
+
+
 def run_experiment(
     model_name: str,
     scenarios_path: str = "data/scenarios.json",
@@ -502,37 +506,55 @@ def run_experiment(
 ) -> Path:
     """Run evaluation of presentations on a specified model."""
     os.makedirs(output_dir, exist_ok=True)
-    with open(scenarios_path, "r", encoding="utf-8") as f:
-        bank_data = json.load(f)
 
-    bank = ScenarioBank(**bank_data)
+    if not os.path.exists(scenarios_path):
+        raise FileNotFoundError(f"Scenario bank file not found: {scenarios_path}")
+
+    try:
+        with open(scenarios_path, "r", encoding="utf-8") as f:
+            bank_data = json.load(f)
+    except Exception as e:
+        raise ValueError(f"Failed to parse scenario bank JSON at {scenarios_path}: {e}")
+
+    try:
+        bank = ScenarioBank(**bank_data)
+    except Exception as e:
+        raise ValueError(f"Malformed scenario bank metadata or schema at {scenarios_path}: {e}")
 
     # Fail-closed Phase 1 holdout protection guard
+    # Detects Phase 1 scenarios via filename, path, template_id prefix, or source_type
     is_phase1 = "phase1" in Path(scenarios_path).name.lower() or any(
-        getattr(s, "source_type", None) == "prospective_replication" or (s.template_id and s.template_id.startswith("phase1_"))
+        getattr(s, "source_type", None) == "prospective_replication"
+        or (s.template_id and s.template_id.startswith("phase1_"))
+        or (s.id and s.id.startswith("phase1_"))
         for s in bank.scenarios
     )
     if is_phase1:
-        if bank.status == "draft_pending_review":
+        # Require bank status to be exactly 'frozen'
+        if bank.status != "frozen":
             raise PermissionError(
-                "PHASE 1 HOLDOUT PROTECTION TRIGGERED: The Phase 1 prospective replication bank is currently in "
-                "status 'draft_pending_review'. Phase 1 scenarios must remain held out and unexecuted while in draft "
-                "status. No inference (real or mock) is permitted until independent review and protocol approval are complete."
+                f"PHASE 1 HOLDOUT PROTECTION TRIGGERED: Phase 1 scenario bank must have status exactly 'frozen' "
+                f"before inference can be executed (current status: '{bank.status}'). Draft banks ('draft_pending_review') "
+                f"or unapproved lifecycle states must remain strictly held out."
             )
-        # Even after review when status != draft_pending_review, inference requires explicit authorization and hash check
+
+        # Require explicit scientific authorization
         env_auth = os.environ.get("ALLOW_PHASE1_RUN", "").lower() in ("1", "true", "yes")
         if not (authorize_phase1_run or env_auth):
             raise PermissionError(
                 "PHASE 1 INFERENCE AUTHORIZATION GUARD: Executing inference on the Phase 1 prospective replication bank "
                 "requires explicit scientific authorization (--authorize-phase1-run or ALLOW_PHASE1_RUN=true)."
             )
-        if expected_phase1_bank_hash is not None:
-            actual_hash = compute_file_hash(scenarios_path)
-            if actual_hash != expected_phase1_bank_hash:
-                raise ValueError(
-                    f"PHASE 1 BANK INTEGRITY ERROR: Bank hash mismatch! "
-                    f"Expected: {expected_phase1_bank_hash}, Actual: {actual_hash}"
-                )
+
+        # Require mandatory SHA-256 fingerprint verification against approved freeze fingerprint
+        required_hash = expected_phase1_bank_hash or os.environ.get("PHASE1_APPROVED_HASH") or APPROVED_PHASE1_FREEZE_HASH
+        actual_hash = compute_file_hash(scenarios_path)
+        if actual_hash != required_hash:
+            raise ValueError(
+                f"PHASE 1 BANK INTEGRITY ERROR: Bank fingerprint mismatch! "
+                f"Expected approved fingerprint: {required_hash}, Actual file hash: {actual_hash}. "
+                f"Inference is aborted."
+            )
 
     scenarios = bank.scenarios
 
