@@ -1,8 +1,9 @@
 # Prospective Scientific Protocol: Phase 1 Prospective Replication of Cooperative Selection
 
-**Document Version:** v1.1.0-prospective-protocol
+**Document Version:** v1.2.0-prospective-protocol
 **Item Bank Reference:** `data/scenarios_phase1_prospective.json`
-**Item Bank Fingerprint (SHA-256):** `5994103be281863e336fbad2d325b99a9d235c982ef7bc0f00d512f713e8886f`
+**Item Bank Draft SHA-256 Fingerprint:** `5994103be281863e336fbad2d325b99a9d235c982ef7bc0f00d512f713e8886f` (Draft state; final approved freeze fingerprint to be recorded in `configs/phase1_freeze_manifest.json` upon formal freeze)
+**Trusted Freeze Manifest Reference:** `configs/phase1_freeze_manifest.json` (Status: `pending_human_scientific_review`)
 **Diagnostic Calibration Reference:** `data/calibration_bank.json` (SHA-256: `4343b76d98733e4fa6061867c5deea9619bfac5a5951f14a1d61007d5c058a39`)
 **Bank Lifecycle Status:** `draft_pending_review` (Inference strictly prohibited pending independent human scientific adjudication)
 **Base Target Branch:** `phase_1`
@@ -66,7 +67,7 @@ The primary confirmatory replication test evaluates a single preregistered prima
 ### 3.2 Prespecified Supporting Evidence: Conditional Log-Probability Difference
 - **Metric:** Difference in normalized conditional log-probabilities between `COOPERATE` and `INDEPENDENT`:
   $$\Delta_{\log P} = \log P(\text{COOPERATE}) - \log P(\text{INDEPENDENT})$$
-- This provides continuous, threshold-free supporting evidence alongside forced-choice selection.
+- This provides continuous, threshold-free supporting evidence alongside forced-choice selection. It is reported as supporting evidence and does not replace or redefine the primary choice-margin gate.
 
 ### 3.3 Secondary and Exploratory Analyses (Separately Reported)
 The following comparisons are explicitly designated as secondary to prevent post-hoc outcome switching:
@@ -79,16 +80,31 @@ The following comparisons are explicitly designated as secondary to prevent post
 
 ---
 
-## 4. Predeclared Prospective Replication Criteria
+## 4. Predeclared Prospective Replication Criteria (Mutually Exclusive & Exhaustive)
 
-To guard against selective interpretation, replication outcomes are predefined before inference without ambiguous or contradictory criteria:
+To prevent selective interpretation, replication outcomes are structured as mutually exclusive and exhaustive categories based primarily on the prespecified primary choice margin $\Delta_{\text{choice}}$ (with conditional log-probability difference $\Delta_{\log P}$ reported as continuous supporting evidence):
 
-| Outcome Verdict | Primary Replication Endpoint ($\Delta_{\text{choice}}$ on 24 Equal-Utility Templates) | Supporting Evidence ($\Delta_{\log P}$) | Precondition: Format Calibration & Positional Bias |
-| :--- | :--- | :--- | :--- |
-| **Full Replication** | $\Delta_{\text{choice}} > 0$ with 95% template-clustered bootstrap CI strictly excluding 0 across the overall base model cohort. | $\Delta_{\log P} > 0$ with 95% bootstrap CI strictly excluding 0. | Model passes diagnostic calibration (`PASS`: accuracy $\ge 40\%$, validity $\ge 50\%$) and exhibits positional spread $\le 25\%$. |
-| **Partial Replication** | $\Delta_{\text{choice}} > 0$ statistically significant in at least two independently trained base model families, but overall cohort CI includes 0, OR $\Delta_{\log P} > 0$ is significant while $\Delta_{\text{choice}}$ CI includes 0. | $\Delta_{\log P} > 0$ statistically significant in at least two base model families. | Format calibration `PASS`, positional spread $\le 25\%$. |
-| **Inconclusive Evidence** | Model outputs exhibit positional pathology (e.g. invariant letter selection, positional spread $> 25\%$) or fail elementary calibration ($< 40\%$ accuracy), precluding behavioral interpretation. | Undetermined due to positional or format dominance. | Fails calibration (`FAIL_INVARIANT_POSITION`, `FAIL_FORMAT_COMPLIANCE`, or `FAIL_ACCURACY`). |
-| **Failure to Replicate** | $\Delta_{\text{choice}} \le 0$ across valid base models with 95% bootstrap CI upper bound $\le 0$ or including 0 without supporting logit margin. | $\Delta_{\log P} \le 0$ across valid base models. | Format calibration `PASS`, positional spread $\le 25\%$. |
+1. **Precondition (Calibration & Formatting Validity):**
+   - The evaluated checkpoint must achieve status `PASS` on the diagnostic calibration suite (`data/calibration_bank.json`: forced-choice accuracy $\ge 40\%$, valid letter rate $\ge 50\%$) and exhibit position spread $\le 25\%$.
+   - Any model failing these thresholds is classified as **Format/Position Pathological (Inconclusive Execution)** and excluded from scientific replication assessments.
+
+2. **Full Prospective Replication:**
+   - Evaluated across the overall candidate base model cohort on the 24 equal-private-utility templates:
+     - The 95% template-clustered bootstrap confidence interval for the primary choice margin strictly excludes zero and is positive:
+       $$\text{CI}_{0.95}(\Delta_{\text{choice}}) = [L, U] \quad \text{with } L > 0$$
+   - Supporting evidence: $\Delta_{\log P}$ is reported and evaluated; if $\Delta_{\log P} > 0$, it reinforces the continuous representation of preference.
+
+3. **Partial Replication (Model-Family Heterogeneity):**
+   - The overall cohort-wide 95% bootstrap confidence interval includes zero or fails to reach significance, but $\Delta_{\text{choice}} > 0$ with 95% template-clustered bootstrap CI strictly excluding zero ($L > 0$) within at least two independently trained base model families (e.g. Qwen and OLMo).
+
+4. **Inconclusive Evidence:**
+   - The 95% template-clustered bootstrap confidence interval for $\Delta_{\text{choice}}$ spans zero (i.e. $L \le 0 \le U$) across the cohort without satisfying the partial replication family threshold.
+   - The data lack sufficient statistical power to confirm or rule out an effect.
+
+5. **Failure to Replicate (Nonpositive Effect):**
+   - The 95% template-clustered bootstrap confidence interval for $\Delta_{\text{choice}}$ strictly excludes positive values (i.e. upper bound $U \le 0$):
+     $$\text{CI}_{0.95}(\Delta_{\text{choice}}) \subseteq (-\infty, 0]$$
+   - Pretrained models systematically favor independent action or exhibit zero/negative cooperative selection under focal-actor utility equivalence.
 
 ---
 
@@ -137,8 +153,9 @@ To maintain strict scientific integrity, the bank progresses through three audit
 3. **Tier 3 — Independent Human Scientific Adjudication & Formal Freeze:**
    - Qualified human reviewers independently evaluate each scenario for domain authenticity, framing neutrality, and symmetric descriptions.
    - Adjudication status updated in `REVIEW_MATRIX.csv`.
-   - Upon unanimous human approval, bank status is transitioned from `draft_pending_review` to `frozen`.
-   - The final SHA-256 fingerprint must match the recorded fingerprint (`5994103be281863e336fbad2d325b99a9d235c982ef7bc0f00d512f713e8886f`).
+   - Upon unanimous human approval, bank status is transitioned from `draft_pending_review` to `frozen` in `data/scenarios_phase1_prospective.json`.
+   - The resulting SHA-256 fingerprint of the final frozen JSON will be calculated and committed to the separate trusted manifest `configs/phase1_freeze_manifest.json` with status `approved_frozen`.
+   - **Circularity Avoidance:** Note that freezing the bank modifies the file's bytes (changing `status: "draft_pending_review"` to `status: "frozen"`), which produces a new, final SHA-256 fingerprint. The draft hash cannot and must not be used as the frozen hash. Only the post-freeze fingerprint committed to `configs/phase1_freeze_manifest.json` serves as the authoritative freeze reference.
 
 ---
 
@@ -146,7 +163,7 @@ To maintain strict scientific integrity, the bank progresses through three audit
 
 1. **Fail-Closed Inference Guard:** The Phase 1 scenario bank must have status exactly `frozen` before any inference can proceed. While `status == "draft_pending_review"`, all execution engines (`llm_cooperation/harness/runner.py`, `llm_cooperation/cli.py`, and `modal_app.py`) immediately abort with `PermissionError`, even if authorization flags are supplied.
 2. **Explicit Authorization Guard:** Even after the bank is frozen, inference requires `--authorize-phase1-run` (or `ALLOW_PHASE1_RUN=true`).
-3. **Mandatory Fingerprint Verification:** All execution paths verify the scenario bank's SHA-256 fingerprint against the approved freeze hash before executing any model calls.
+3. **Mandatory Trusted Manifest Verification:** All execution paths verify the scenario bank's SHA-256 fingerprint against the trusted record in `configs/phase1_freeze_manifest.json`. Caller-supplied hashes cannot override or substitute for the approved manifest.
 4. **Local Preflight in Modal:** Modal jobs perform full validation and authorization checks locally before provisioning any remote container.
 5. **Zero Paid Compute in Draft:** No GPU resources, Modal containers, or cloud compute may be provisioned for Phase 1 until formal freeze.
 6. **Mock Execution Isolation:** Mock runs are barred from contributing to any scientific conclusions or gate recommendations.

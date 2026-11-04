@@ -156,16 +156,12 @@ SUPPORTED_BANKS = {
 }
 
 
-# Approved Phase 1 prospective bank freeze fingerprint reference
-APPROVED_PHASE1_FREEZE_HASH = "5994103be281863e336fbad2d325b99a9d235c982ef7bc0f00d512f713e8886f"
-
-
 def resolve_bank_and_split(
     bank: str,
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
     authorize_phase1_run: bool = False,
-    phase1_fingerprint: Optional[str] = None,
+    freeze_manifest_path: Optional[str] = None,
 ) -> tuple[str, Optional[str]]:
     """Validate bank identifier and enforce Phase 0B split defaults & Phase 1 holdout guard.
 
@@ -186,6 +182,8 @@ def resolve_bank_and_split(
     if is_phase1:
         import json
         from pathlib import Path
+        from llm_cooperation.harness.runner import verify_phase1_freeze_manifest
+
         local_p = Path("data/scenarios_phase1_prospective.json")
         target_check = local_p if local_p.exists() else Path(scenarios_path)
         if not target_check.exists():
@@ -214,21 +212,8 @@ def resolve_bank_and_split(
                 "requires explicit scientific authorization (--authorize-phase1-run or ALLOW_PHASE1_RUN=true)."
             )
 
-        # Mandatory SHA-256 fingerprint verification against approved freeze fingerprint
-        import hashlib
-        h = hashlib.sha256()
-        with open(target_check, "rb") as f:
-            while chunk := f.read(8192):
-                h.update(chunk)
-        actual_hash = h.hexdigest()
-
-        required_hash = phase1_fingerprint or os.environ.get("PHASE1_APPROVED_HASH") or APPROVED_PHASE1_FREEZE_HASH
-        if actual_hash != required_hash:
-            raise ValueError(
-                f"PHASE 1 BANK INTEGRITY ERROR: Bank fingerprint mismatch! "
-                f"Expected approved fingerprint: {required_hash}, Actual file hash: {actual_hash}. "
-                f"Inference is aborted."
-            )
+        # Mandatory verification against trusted freeze manifest
+        verify_phase1_freeze_manifest(str(target_check), manifest_path=freeze_manifest_path)
 
     effective_split = split
     if is_phase0b and effective_split is None:
@@ -258,7 +243,7 @@ def _execute_evaluation(
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
     authorize_phase1_run: bool = False,
-    phase1_fingerprint: Optional[str] = None,
+    freeze_manifest_path: Optional[str] = None,
 ) -> str:
     """Internal helper to execute evaluation inside container and commit volumes."""
     os.environ["HF_HOME"] = "/root/hf_cache"
@@ -272,7 +257,7 @@ def _execute_evaluation(
         split=split,
         authorize_confirmatory=authorize_confirmatory,
         authorize_phase1_run=authorize_phase1_run,
-        phase1_fingerprint=phase1_fingerprint,
+        freeze_manifest_path=freeze_manifest_path,
     )
 
     result_file = run_experiment(
@@ -287,7 +272,7 @@ def _execute_evaluation(
         prompt_mode=prompt_mode,
         split_filter=effective_split if effective_split != "all" else None,
         authorize_phase1_run=authorize_phase1_run,
-        expected_phase1_bank_hash=phase1_fingerprint,
+        freeze_manifest_path=freeze_manifest_path,
     )
 
     # Durable commit to Modal persistent volume
@@ -315,7 +300,7 @@ def run_evaluation_remote(
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
     authorize_phase1_run: bool = False,
-    phase1_fingerprint: Optional[str] = None,
+    freeze_manifest_path: Optional[str] = None,
 ) -> str:
     """Execute evaluation on standard A10G GPU (ideal for 1B-3B models)."""
     if mock:
@@ -334,7 +319,7 @@ def run_evaluation_remote(
         split=split,
         authorize_confirmatory=authorize_confirmatory,
         authorize_phase1_run=authorize_phase1_run,
-        phase1_fingerprint=phase1_fingerprint,
+        freeze_manifest_path=freeze_manifest_path,
     )
 
 
@@ -357,7 +342,7 @@ def run_evaluation_remote_l40s(
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
     authorize_phase1_run: bool = False,
-    phase1_fingerprint: Optional[str] = None,
+    freeze_manifest_path: Optional[str] = None,
 ) -> str:
     """Execute evaluation on high-VRAM L40S GPU (ideal for 7B-12B models, e.g. Pythia-12B)."""
     if mock:
@@ -376,7 +361,7 @@ def run_evaluation_remote_l40s(
         split=split,
         authorize_confirmatory=authorize_confirmatory,
         authorize_phase1_run=authorize_phase1_run,
-        phase1_fingerprint=phase1_fingerprint,
+        freeze_manifest_path=freeze_manifest_path,
     )
 
 
@@ -395,7 +380,7 @@ def run_evaluation_mock_remote(
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
     authorize_phase1_run: bool = False,
-    phase1_fingerprint: Optional[str] = None,
+    freeze_manifest_path: Optional[str] = None,
 ) -> str:
     """Execute synthetic mock validation in a zero-GPU CPU container and persist outputs to volume."""
     from llm_cooperation.harness.runner import run_experiment
@@ -408,7 +393,7 @@ def run_evaluation_mock_remote(
         split=split,
         authorize_confirmatory=authorize_confirmatory,
         authorize_phase1_run=authorize_phase1_run,
-        phase1_fingerprint=phase1_fingerprint,
+        freeze_manifest_path=freeze_manifest_path,
     )
 
     result_file = run_experiment(
@@ -423,7 +408,7 @@ def run_evaluation_mock_remote(
         prompt_mode=prompt_mode,
         split_filter=effective_split if effective_split != "all" else None,
         authorize_phase1_run=authorize_phase1_run,
-        expected_phase1_bank_hash=phase1_fingerprint,
+        freeze_manifest_path=freeze_manifest_path,
     )
 
     # Commit changes to durable volume
@@ -442,7 +427,7 @@ def main(
     split: Optional[str] = None,
     authorize_confirmatory: bool = False,
     authorize_phase1_run: bool = False,
-    phase1_fingerprint: Optional[str] = None,
+    freeze_manifest_path: Optional[str] = None,
     prompt_mode: str = "standard_plaintext",
     authorize_paid_run: bool = False,
 ):
@@ -459,7 +444,7 @@ def main(
         split=split,
         authorize_confirmatory=authorize_confirmatory,
         authorize_phase1_run=authorize_phase1_run,
-        phase1_fingerprint=phase1_fingerprint,
+        freeze_manifest_path=freeze_manifest_path,
     )
 
     if mock:
@@ -474,7 +459,7 @@ def main(
             split=split,
             authorize_confirmatory=authorize_confirmatory,
             authorize_phase1_run=authorize_phase1_run,
-            phase1_fingerprint=phase1_fingerprint,
+            freeze_manifest_path=freeze_manifest_path,
         )
     else:
         # Explicit paid-run authorization guard
@@ -502,7 +487,7 @@ def main(
                 split=split,
                 authorize_confirmatory=authorize_confirmatory,
                 authorize_phase1_run=authorize_phase1_run,
-                phase1_fingerprint=phase1_fingerprint,
+                freeze_manifest_path=freeze_manifest_path,
             )
         elif selected_gpu == GPU_PROFILES["small"]:  # A10G
             print(f"[modal_app] Dispatching to A10G GPU container (precision={precision})...")
@@ -517,7 +502,7 @@ def main(
                 split=split,
                 authorize_confirmatory=authorize_confirmatory,
                 authorize_phase1_run=authorize_phase1_run,
-                phase1_fingerprint=phase1_fingerprint,
+                freeze_manifest_path=freeze_manifest_path,
             )
         else:
             # If large or unsupported GPU profile is selected, fail fast before provisioning

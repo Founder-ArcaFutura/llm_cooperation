@@ -486,8 +486,52 @@ def compute_file_hash(filepath: str) -> str:
     return h.hexdigest()
 
 
-# Approved Phase 1 prospective bank freeze fingerprint reference
-APPROVED_PHASE1_FREEZE_HASH = "5994103be281863e336fbad2d325b99a9d235c982ef7bc0f00d512f713e8886f"
+PHASE1_FREEZE_MANIFEST_PATH = "configs/phase1_freeze_manifest.json"
+
+
+def verify_phase1_freeze_manifest(scenarios_path: str, manifest_path: Optional[str] = None) -> str:
+    """Verify that a trusted, review-approved freeze manifest exists and matches the bank SHA-256 fingerprint.
+
+    Fails closed if the manifest is missing, unapproved, null, or does not match the actual file hash.
+    Caller-supplied hashes cannot substitute for or bypass an approved freeze manifest.
+    """
+    target_manifest = Path(manifest_path or PHASE1_FREEZE_MANIFEST_PATH)
+    if not target_manifest.exists():
+        raise PermissionError(
+            f"PHASE 1 FREEZE MANIFEST MISSING: Trusted freeze manifest not found at '{target_manifest}'. "
+            "Phase 1 inference requires an independently approved freeze manifest recording the final frozen bank fingerprint."
+        )
+
+    try:
+        with open(target_manifest, "r", encoding="utf-8") as f:
+            manifest_data = json.load(f)
+    except Exception as e:
+        raise ValueError(f"Malformed Phase 1 freeze manifest JSON at '{target_manifest}': {e}")
+
+    manifest_status = manifest_data.get("status")
+    if manifest_status != "approved_frozen":
+        raise PermissionError(
+            f"PHASE 1 FREEZE MANIFEST UNAPPROVED: Trusted freeze manifest has status '{manifest_status}'. "
+            "Phase 1 inference is strictly prohibited until human semantic adjudication completes and the manifest "
+            "status is set to 'approved_frozen' with an approved SHA-256 fingerprint."
+        )
+
+    approved_hash = manifest_data.get("approved_frozen_bank_hash")
+    if not approved_hash or not isinstance(approved_hash, str) or len(approved_hash) != 64:
+        raise PermissionError(
+            f"PHASE 1 FREEZE MANIFEST INVALID: Approved frozen bank hash is missing or invalid in '{target_manifest}'. "
+            "Inference cannot proceed without an approved freeze fingerprint."
+        )
+
+    actual_hash = compute_file_hash(scenarios_path)
+    if actual_hash != approved_hash:
+        raise ValueError(
+            f"PHASE 1 BANK INTEGRITY ERROR: Bank fingerprint mismatch against trusted freeze manifest! "
+            f"Approved manifest fingerprint: {approved_hash}, Actual file hash: {actual_hash}. "
+            "Inference is aborted."
+        )
+
+    return approved_hash
 
 
 def run_experiment(
@@ -502,7 +546,7 @@ def run_experiment(
     prompt_mode: str = "standard_plaintext",
     split_filter: Optional[str] = None,
     authorize_phase1_run: bool = False,
-    expected_phase1_bank_hash: Optional[str] = None,
+    freeze_manifest_path: Optional[str] = None,
 ) -> Path:
     """Run evaluation of presentations on a specified model."""
     os.makedirs(output_dir, exist_ok=True)
@@ -546,15 +590,8 @@ def run_experiment(
                 "requires explicit scientific authorization (--authorize-phase1-run or ALLOW_PHASE1_RUN=true)."
             )
 
-        # Require mandatory SHA-256 fingerprint verification against approved freeze fingerprint
-        required_hash = expected_phase1_bank_hash or os.environ.get("PHASE1_APPROVED_HASH") or APPROVED_PHASE1_FREEZE_HASH
-        actual_hash = compute_file_hash(scenarios_path)
-        if actual_hash != required_hash:
-            raise ValueError(
-                f"PHASE 1 BANK INTEGRITY ERROR: Bank fingerprint mismatch! "
-                f"Expected approved fingerprint: {required_hash}, Actual file hash: {actual_hash}. "
-                f"Inference is aborted."
-            )
+        # Require verification against trusted freeze manifest (cannot be bypassed by caller hash)
+        verify_phase1_freeze_manifest(scenarios_path, manifest_path=freeze_manifest_path)
 
     scenarios = bank.scenarios
 
