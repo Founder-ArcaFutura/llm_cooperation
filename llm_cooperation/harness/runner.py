@@ -546,7 +546,7 @@ def run_experiment(
     prompt_mode: str = "standard_plaintext",
     split_filter: Optional[str] = None,
     authorize_phase1_run: bool = False,
-    freeze_manifest_path: Optional[str] = None,
+    _freeze_manifest_override: Optional[str] = None,
 ) -> Path:
     """Run evaluation of presentations on a specified model."""
     os.makedirs(output_dir, exist_ok=True)
@@ -591,7 +591,7 @@ def run_experiment(
             )
 
         # Require verification against trusted freeze manifest (cannot be bypassed by caller hash)
-        verify_phase1_freeze_manifest(scenarios_path, manifest_path=freeze_manifest_path)
+        verify_phase1_freeze_manifest(scenarios_path, manifest_path=_freeze_manifest_override)
 
     scenarios = bank.scenarios
 

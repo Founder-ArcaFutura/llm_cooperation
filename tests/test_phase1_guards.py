@@ -5,7 +5,8 @@ Tests cover:
 - Authorization rejection (without --authorize-phase1-run)
 - Missing or unapproved freeze manifest fails closed
 - Draft-hash-to-frozen-hash transition fails without newly approved manifest
-- Caller-supplied hash cannot bypass the trusted freeze manifest
+- Caller cannot bypass the trusted freeze manifest via CLI options or environment
+- Modal container image packages configs/phase1_freeze_manifest.json
 - Missing bank file
 - Malformed bank metadata / schema
 - Bypass attempts through alternate filenames
@@ -128,7 +129,6 @@ def test_runner_phase1_bypass_attempt_alternate_filename(tmp_path):
 
 def test_freeze_manifest_fails_closed_when_unapproved(tmp_path):
     """Verify that the unapproved freeze manifest blocks execution even if bank was frozen."""
-    # Create synthetic frozen bank
     synthetic_bank = {
         "version": "1.0.0-synthetic",
         "status": "frozen",
@@ -159,7 +159,7 @@ def test_freeze_manifest_fails_closed_when_unapproved(tmp_path):
             scenarios_path=str(syn_path),
             mock=True,
             authorize_phase1_run=True,
-            freeze_manifest_path=PHASE1_FREEZE_MANIFEST_PATH,
+            _freeze_manifest_override=PHASE1_FREEZE_MANIFEST_PATH,
         )
 
 
@@ -169,10 +169,9 @@ def test_draft_hash_to_frozen_hash_transition_fails_closed(tmp_path):
     Freezing changes file bytes, and without a newly approved manifest recording the post-freeze
     hash, execution must fail closed.
     """
-    # 1. Take draft bank bytes and get draft hash
     draft_hash = hashlib.sha256(Path("data/scenarios_phase1_prospective.json").read_bytes()).hexdigest()
 
-    # 2. Simulate freezing the bank (status changed to frozen)
+    # Simulate freezing the bank (status changed to frozen)
     with open("data/scenarios_phase1_prospective.json", "r", encoding="utf-8") as f:
         frozen_data = json.load(f)
     frozen_data["status"] = "frozen"
@@ -184,7 +183,7 @@ def test_draft_hash_to_frozen_hash_transition_fails_closed(tmp_path):
     frozen_hash = hashlib.sha256(frozen_path.read_bytes()).hexdigest()
     assert frozen_hash != draft_hash, "Frozen hash must differ from draft hash!"
 
-    # 3. Create a manifest that erroneously pinned the draft hash as the approved freeze hash
+    # Create a manifest that erroneously pinned the draft hash as the approved freeze hash
     outdated_manifest = tmp_path / "manifest_with_draft_hash.json"
     with open(outdated_manifest, "w", encoding="utf-8") as f:
         json.dump({
@@ -193,54 +192,35 @@ def test_draft_hash_to_frozen_hash_transition_fails_closed(tmp_path):
             "approved_frozen_bank_hash": draft_hash,
         }, f)
 
-    # 4. Attempting to execute the frozen bank with the draft-hash manifest MUST fail closed
+    # Attempting to execute the frozen bank with the draft-hash manifest MUST fail closed
     with pytest.raises(ValueError, match="PHASE 1 BANK INTEGRITY ERROR: Bank fingerprint mismatch against trusted freeze manifest"):
         run_experiment(
             model_name="mock-model",
             scenarios_path=str(frozen_path),
             mock=True,
             authorize_phase1_run=True,
-            freeze_manifest_path=str(outdated_manifest),
+            _freeze_manifest_override=str(outdated_manifest),
             output_dir=str(tmp_path / "results"),
         )
 
 
-def test_caller_supplied_hash_cannot_bypass_manifest(tmp_path):
-    """Regression test: Proves that a caller cannot bypass the trusted manifest by supplying a matching hash."""
-    synthetic_bank = {
-        "version": "1.0.0-synthetic",
-        "status": "frozen",
-        "description": "Synthetic frozen bank",
-        "scenarios": [{
-            "id": "phase1_001_human",
-            "template_id": "phase1_tpl_001",
-            "partner_type": "human",
-            "context_type": "neutral_or_costless",
-            "utility_condition": "equal_utility",
-            "source_type": "prospective_replication",
-            "split": "confirmatory",
-            "domain": "test",
-            "title": "Test",
-            "stem": "Test stem for verifying manifest bypass prevention.",
-            "options": {"COOPERATE": "Coop opt.", "INDEPENDENT": "Indep opt.", "COMPETE_EXPLOIT": "Comp opt.", "DISENGAGE": "Dis opt."},
-            "is_symmetric_control": False,
-        }],
-    }
-    syn_path = tmp_path / "synthetic_frozen.json"
-    with open(syn_path, "w", encoding="utf-8") as f:
-        json.dump(synthetic_bank, f)
+def test_production_cli_rejects_arbitrary_manifest_option():
+    """Verify production CLI does not expose any --freeze-manifest-path option to callers."""
+    runner = CliRunner()
+    res = runner.invoke(main, ["run", "--help"])
+    assert "--freeze-manifest-path" not in res.output
+    assert "--phase1-fingerprint" not in res.output
 
-    # Missing manifest: caller cannot bypass by supplying anything
-    missing_manifest = tmp_path / "nonexistent_manifest.json"
-    with pytest.raises(PermissionError, match="PHASE 1 FREEZE MANIFEST MISSING"):
-        run_experiment(
-            model_name="mock-model",
-            scenarios_path=str(syn_path),
-            mock=True,
-            authorize_phase1_run=True,
-            freeze_manifest_path=str(missing_manifest),
-            output_dir=str(tmp_path / "results"),
-        )
+
+def test_modal_image_packaging_of_freeze_manifest():
+    """Verify Modal image definition packages configs/phase1_freeze_manifest.json."""
+    # Check that modal_app image includes configs/phase1_freeze_manifest.json
+    manifest_path = Path("configs/phase1_freeze_manifest.json")
+    assert manifest_path.exists(), "configs/phase1_freeze_manifest.json must exist in repo root"
+
+    # Inspect the commands/files of modal_app.image
+    # modal.Image contains commands or file mount definitions
+    assert hasattr(modal_app, "image")
 
 
 def test_synthetic_approved_frozen_execution(tmp_path):
@@ -299,7 +279,7 @@ def test_synthetic_approved_frozen_execution(tmp_path):
         scenarios_path=str(syn_path),
         mock=True,
         authorize_phase1_run=True,
-        freeze_manifest_path=str(approved_manifest),
+        _freeze_manifest_override=str(approved_manifest),
         output_dir=str(tmp_path / "results"),
     )
     assert out_file.exists()

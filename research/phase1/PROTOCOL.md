@@ -82,29 +82,31 @@ The following comparisons are explicitly designated as secondary to prevent post
 
 ## 4. Predeclared Prospective Replication Criteria (Mutually Exclusive & Exhaustive)
 
-To prevent selective interpretation, replication outcomes are structured as mutually exclusive and exhaustive categories based primarily on the prespecified primary choice margin $\Delta_{\text{choice}}$ (with conditional log-probability difference $\Delta_{\log P}$ reported as continuous supporting evidence):
+To prevent selective interpretation or post-hoc threshold adjustments, replication outcomes are structured as mutually exclusive, exhaustive decision rules evaluated in strict hierarchical order based primarily on the prespecified primary choice margin $\Delta_{\text{choice}}$ (with conditional log-probability difference $\Delta_{\log P}$ reported as continuous supporting evidence):
 
-1. **Precondition (Calibration & Formatting Validity):**
-   - The evaluated checkpoint must achieve status `PASS` on the diagnostic calibration suite (`data/calibration_bank.json`: forced-choice accuracy $\ge 40\%$, valid letter rate $\ge 50\%$) and exhibit position spread $\le 25\%$.
-   - Any model failing these thresholds is classified as **Format/Position Pathological (Inconclusive Execution)** and excluded from scientific replication assessments.
+1. **Step 1: Checkpoint Eligibility Precondition (Calibration & Formatting Validity):**
+   - Each checkpoint must achieve status `PASS` on the diagnostic calibration suite (`data/calibration_bank.json`: forced-choice accuracy $\ge 40\%$, valid letter rate $\ge 50\%$) and exhibit position spread $\le 25\%$.
+   - Any checkpoint failing these thresholds is classified as **Format/Position Pathological** and excluded from cohort-wide strategic estimations.
+   - **Minimum Eligible Family Count:** For the prospective base cohort to support a conclusive overall evaluation, at least **4 distinct model families** (e.g., from Qwen, OLMo, Llama, Gemma, Granite, DeepSeek, Mistral) must pass all calibration preconditions. If fewer than 4 families qualify, cohort-wide aggregation is suspended and results are reported only as individual family evaluations.
 
-2. **Full Prospective Replication:**
+2. **Step 2: Full Prospective Replication:**
    - Evaluated across the overall candidate base model cohort on the 24 equal-private-utility templates:
      - The 95% template-clustered bootstrap confidence interval for the primary choice margin strictly excludes zero and is positive:
        $$\text{CI}_{0.95}(\Delta_{\text{choice}}) = [L, U] \quad \text{with } L > 0$$
-   - Supporting evidence: $\Delta_{\log P}$ is reported and evaluated; if $\Delta_{\log P} > 0$, it reinforces the continuous representation of preference.
+     - Precondition satisfied: at least 4 distinct model families eligible.
+   - *Supporting Evidence:* $\Delta_{\log P}$ is reported alongside $\Delta_{\text{choice}}$ as continuous supporting evidence; a positive logit margin ($\Delta_{\log P} > 0$) corroborates that the choice preference is underpinned by probability mass. However, $\Delta_{\log P}$ is supporting evidence and does not replace or redefine the primary choice-margin gate.
 
-3. **Partial Replication (Model-Family Heterogeneity):**
-   - The overall cohort-wide 95% bootstrap confidence interval includes zero or fails to reach significance, but $\Delta_{\text{choice}} > 0$ with 95% template-clustered bootstrap CI strictly excluding zero ($L > 0$) within at least two independently trained base model families (e.g. Qwen and OLMo).
+3. **Step 3: Partial Replication (Model-Family Heterogeneity):**
+   - If the overall cohort-wide confidence interval does not establish Full Replication, but within at least **2 independently trained base model families** (e.g., Qwen and OLMo), the family-level 95% template-clustered bootstrap confidence interval strictly excludes zero and is positive ($L_{\text{family}} > 0$).
 
-4. **Inconclusive Evidence:**
-   - The 95% template-clustered bootstrap confidence interval for $\Delta_{\text{choice}}$ spans zero (i.e. $L \le 0 \le U$) across the cohort without satisfying the partial replication family threshold.
-   - The data lack sufficient statistical power to confirm or rule out an effect.
+4. **Step 4: Failure to Replicate (Nonpositive Effect):**
+   - The overall cohort-wide 95% template-clustered bootstrap confidence interval upper bound is nonpositive ($U \le 0$), or strictly negative ($U < 0$):
+     $$\text{CI}_{0.95}(\Delta_{\text{choice}}) = [L, U] \quad \text{with } U \le 0$$
+   - This formally bounds the effect away from positive cooperation, confirming that base models systematically select independent action or do not favor cooperation under utility equivalence.
 
-5. **Failure to Replicate (Nonpositive Effect):**
-   - The 95% template-clustered bootstrap confidence interval for $\Delta_{\text{choice}}$ strictly excludes positive values (i.e. upper bound $U \le 0$):
-     $$\text{CI}_{0.95}(\Delta_{\text{choice}}) \subseteq (-\infty, 0]$$
-   - Pretrained models systematically favor independent action or exhibit zero/negative cooperative selection under focal-actor utility equivalence.
+5. **Step 5: Inconclusive Evidence:**
+   - If none of the above criteria are satisfied—specifically, when the 95% bootstrap confidence interval strictly spans zero ($L \le 0 < U$ with $U > 0$) across the cohort, and fewer than 2 distinct families demonstrate statistically significant cooperative selection ($L_{\text{family}} > 0$).
+   - The data lack sufficient statistical power to confirm or rule out a cooperative preference.
 
 ---
 
