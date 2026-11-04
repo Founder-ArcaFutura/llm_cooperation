@@ -294,21 +294,43 @@ def compute_utility_sensitivity_contrast(
     alpha: float = 0.05,
     seed: int = 42,
 ) -> Optional[Dict[str, float]]:
-    """Compute cooperation rates across the 3 utility conditions (advantageous, equal, disadvantageous)
-    and estimate the sensitivity slope/gradient.
+    """Compute cooperation rates across the 3 utility conditions (advantageous, equal, disadvantageous).
+
+    CRITICAL: To avoid confounding item differences, the equal-utility baseline must be evaluated
+    on the exact matched triad baseline situations (templates 27, 28, 57, 58 or corresponding situation stems),
+    rather than pooling across all 52 equal-utility items.
     """
     if "utility_condition" not in scenario_df.columns:
         return None
 
     adv_df = scenario_df[scenario_df["utility_condition"] == "coop_advantageous"]
-    eq_df = scenario_df[scenario_df["utility_condition"] == "equal_utility"]
     dis_df = scenario_df[scenario_df["utility_condition"] == "coop_disadvantageous"]
 
     if adv_df.empty or dis_df.empty:
         return None
 
+    # Identify the matched baseline templates for the triads:
+    # In Phase 0B, triads are:
+    # Triad A: template_025 (adv), template_027 (equal), template_029 (disadv)
+    # Triad B: template_026 (adv), template_028 (equal), template_030 (disadv)
+    # Triad C: template_055 (adv), template_057 (equal), template_059 (disadv)
+    # Triad D: template_056 (adv), template_058 (equal), template_060 (disadv)
+    triad_equal_templates = {"template_027", "template_028", "template_057", "template_058"}
+
+    all_eq_df = scenario_df[scenario_df["utility_condition"] == "equal_utility"]
+
+    # Filter for matched triad equal templates if template_id is present
+    if "template_id" in scenario_df.columns and not scenario_df["template_id"].isnull().all():
+        matched_eq_df = all_eq_df[all_eq_df["template_id"].isin(triad_equal_templates)]
+        if matched_eq_df.empty:
+            # Fallback if custom IDs or subsets are tested
+            matched_eq_df = all_eq_df
+    else:
+        matched_eq_df = all_eq_df
+
     adv_mean = float(adv_df["coop_argmax_rate"].mean())
-    eq_mean = float(eq_df["coop_argmax_rate"].mean())
+    eq_matched_mean = float(matched_eq_df["coop_argmax_rate"].mean())
+    eq_pooled_mean = float(all_eq_df["coop_argmax_rate"].mean()) if not all_eq_df.empty else eq_matched_mean
     dis_mean = float(dis_df["coop_argmax_rate"].mean())
 
     # Gradient: Advantageous vs Disadvantageous spread
@@ -316,10 +338,14 @@ def compute_utility_sensitivity_contrast(
 
     return {
         "coop_advantageous_mean": adv_mean,
-        "coop_equal_mean": eq_mean,
+        "coop_equal_mean": eq_matched_mean,
+        "coop_equal_pooled_mean": eq_pooled_mean,
         "coop_disadvantageous_mean": dis_mean,
         "adv_vs_disadv_spread": spread,
-        "monotonic_ordering": bool(adv_mean >= eq_mean >= dis_mean),
+        "monotonic_ordering": bool(adv_mean >= eq_matched_mean >= dis_mean),
+        "num_triad_advantageous_scenarios": len(adv_df),
+        "num_triad_equal_scenarios": len(matched_eq_df),
+        "num_triad_disadvantageous_scenarios": len(dis_df),
     }
 
 

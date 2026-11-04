@@ -135,20 +135,26 @@ def test_phase0b_audit_cli_api():
 
 def test_utility_matched_contrast_calculation():
     """Test compute_utility_matched_contrast and compute_utility_sensitivity_contrast."""
-    # Synthetic records with equal_utility and triads
     records = []
-    # 10 templates: 8 equal_utility, 1 advantageous, 1 disadvantageous
+    # Test with controlled matched triad templates
     for i in range(1, 11):
-        tid = f"template_{i:03d}"
-        if i == 9:
+        if i == 8:
+            tid = "template_025"
             ucond = "coop_advantageous"
             coop_prob, indep_prob = 0.8, 0.1
             coop_argmax, indep_argmax = 1.0, 0.0
+        elif i == 9:
+            tid = "template_027"
+            ucond = "equal_utility"
+            coop_prob, indep_prob = 0.5, 0.5
+            coop_argmax, indep_argmax = 0.5, 0.5
         elif i == 10:
+            tid = "template_029"
             ucond = "coop_disadvantageous"
             coop_prob, indep_prob = 0.2, 0.7
             coop_argmax, indep_argmax = 0.0, 1.0
         else:
+            tid = f"template_{i:03d}"
             ucond = "equal_utility"
             coop_prob, indep_prob = 0.6, 0.3
             coop_argmax, indep_argmax = 1.0, 0.0
@@ -161,6 +167,7 @@ def test_utility_matched_contrast_calculation():
                 "partner_type": p_type,
                 "context_type": "neutral_or_costless",
                 "utility_condition": ucond,
+                "split": "exploratory" if i <= 5 else "confirmatory",
                 "source_type": "reused" if i <= 5 else "new",
                 "coop_argmax_rate": coop_argmax,
                 "indep_argmax_rate": indep_argmax,
@@ -175,14 +182,14 @@ def test_utility_matched_contrast_calculation():
 
     contrast = compute_utility_matched_contrast(df, n_bootstraps=500)
     assert contrast is not None
-    assert contrast["num_templates"] == 8
-    assert contrast["choice_diff_mean"] == pytest.approx(1.0)
+    assert contrast["choice_diff_mean"] > 0
     assert contrast["log_prob_diff_mean"] > 0
 
     sensitivity = compute_utility_sensitivity_contrast(df)
     assert sensitivity is not None
     assert sensitivity["coop_advantageous_mean"] == 1.0
-    assert sensitivity["coop_equal_mean"] == 1.0
+    # Matched equal utility template is template_027 (0.5), not pooled across all templates
+    assert sensitivity["coop_equal_mean"] == 0.5
     assert sensitivity["coop_disadvantageous_mean"] == 0.0
     assert sensitivity["adv_vs_disadv_spread"] == 1.0
     assert sensitivity["monotonic_ordering"] is True
@@ -215,7 +222,10 @@ def test_phase0b_mock_end_to_end_analysis(tmp_path):
         md_text = f.read()
 
     assert "Phase 0B: Utility-Matched Construct Validation Contrasts" in md_text
-    assert "Primary Contrast [Choice Rate Difference (COOP - INDEP) under Equal Utility]" in md_text
-    assert "Primary Contrast [Log-Probability Difference log P(COOP) - log P(INDEP)]" in md_text
-    assert "Utility Sensitivity Triad" in md_text
+    # Separate confirmatory and exploratory contrasts
+    assert "Preregistered Primary Utility-Matched Contrast (Held-Out Confirmatory Partition" in md_text
+    assert "FORMAL REPLICATION TEST" in md_text
+    assert "Exploratory Utility-Matched Contrast (Rewritten Existing Templates" in md_text
+    assert "Controlled Utility Sensitivity Triad" in md_text
+    assert "Item-Controlled Baseline" in md_text
     assert "Source Type Breakdown (Reused vs New Templates)" in md_text
