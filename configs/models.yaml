@@ -1,73 +1,132 @@
 # Model Provenance Manifest for Phase 0 Multiple-Choice Screen
 # Specification Reference: §4 & §10
 
-experiment_version: "0.2.1"
-date: "2026-11-03"
-experiment_name: "Phase 0 - Pretrained Cooperation Representations Screen"
+experiment_version: "1.0.0-expanded"
+date: "2026-11-04"
+experiment_name: "Phase 0 - Pretrained Cooperation Representations Replication and Expansion Screen"
 
-# Primary base checkpoints across 3 independent families
+# Primary base checkpoints across independent families
 base_models:
   qwen2.5_3b:
     name: "Qwen/Qwen2.5-3B"
     hf_id: "Qwen/Qwen2.5-3B"
+    revision: "main"
     family: "qwen"
     size: "3B"
     is_base: true
     precision: "bfloat16"
+    recommended_gpu: "A10G"
     recommended_gpu_mem_gb: 8
+    prompt_mode_support: ["standard_plaintext"]
+    tokenizer_name: "Qwen/Qwen2.5-3B"
     notes: "Verified pretrained base checkpoint, no SFT or chat template."
 
   pythia_2.8b:
     name: "EleutherAI/pythia-2.8b"
     hf_id: "EleutherAI/pythia-2.8b"
+    revision: "main"
     family: "pythia"
     size: "2.8B"
     is_base: true
     precision: "bfloat16"
+    recommended_gpu: "A10G"
     recommended_gpu_mem_gb: 8
+    prompt_mode_support: ["standard_plaintext"]
+    tokenizer_name: "EleutherAI/pythia-2.8b"
     notes: "Pure pretraining on the Pile; explicit checkpoint sequence."
 
   olmo2_1b:
     name: "allenai/OLMo-2-1124-1B"
     hf_id: "allenai/OLMo-2-1124-1B"
+    revision: "main"
     family: "olmo"
     size: "1B"
     is_base: true
     precision: "bfloat16"
+    recommended_gpu: "A10G"
     recommended_gpu_mem_gb: 6
+    prompt_mode_support: ["standard_plaintext"]
+    tokenizer_name: "allenai/OLMo-2-1124-1B"
     notes: "Pretrained open weights and data mixture; verified no post-training alignment."
 
   olmo2_7b:
     name: "allenai/OLMo-2-1124-7B"
     hf_id: "allenai/OLMo-2-1124-7B"
+    revision: "main"
     family: "olmo"
     size: "7B"
     is_base: true
     precision: "bfloat16"
+    recommended_gpu: "L40S"
     recommended_gpu_mem_gb: 16
+    prompt_mode_support: ["standard_plaintext"]
+    tokenizer_name: "allenai/OLMo-2-1124-7B"
     notes: "Larger OLMo-2 base model for replication."
 
-# Optional 4th independent family base checkpoint and same-size comparator
+# Optional 4th independent family base checkpoint and scale comparisons
 optional_models:
   mistral_7b_v03:
     name: "mistralai/Mistral-7B-v0.3"
     hf_id: "mistralai/Mistral-7B-v0.3"
+    revision: "main"
     family: "mistral"
     size: "7B"
     is_base: true
     precision: "bfloat16"
+    recommended_gpu: "L40S"
     recommended_gpu_mem_gb: 16
+    prompt_mode_support: ["standard_plaintext"]
+    tokenizer_name: "mistralai/Mistral-7B-v0.3"
     notes: "Pretrained base variant, family diversity contingent on compute."
 
   pythia_12b_deduped_base:
     name: "EleutherAI/pythia-12b-deduped"
     hf_id: "EleutherAI/pythia-12b-deduped"
+    revision: "main"
     family: "pythia"
     size: "12B"
     is_base: true
     precision: "bfloat16"
+    recommended_gpu: "L40S"
     recommended_gpu_mem_gb: 32
+    prompt_mode_support: ["standard_plaintext"]
+    tokenizer_name: "EleutherAI/pythia-12b-deduped"
     notes: "Pretrained base checkpoint for same-size comparison with Pythia-12B SFT comparator."
+
+# Candidate base models documented for future multi-family expansion (unverified until licensed/tested)
+future_candidate_models:
+  llama3_2_1b_base:
+    name: "meta-llama/Llama-3.2-1B"
+    hf_id: "meta-llama/Llama-3.2-1B"
+    family: "llama"
+    size: "1B"
+    is_base: true
+    precision: "bfloat16"
+    recommended_gpu: "A10G"
+    recommended_gpu_mem_gb: 6
+    notes: "Gated weights, requires Meta license acceptance."
+
+  llama3_2_3b_base:
+    name: "meta-llama/Llama-3.2-3B"
+    hf_id: "meta-llama/Llama-3.2-3B"
+    family: "llama"
+    size: "3B"
+    is_base: true
+    precision: "bfloat16"
+    recommended_gpu: "A10G"
+    recommended_gpu_mem_gb: 8
+    notes: "Gated weights, requires Meta license acceptance."
+
+  gemma2_2b_base:
+    name: "google/gemma-2-2b"
+    hf_id: "google/gemma-2-2b"
+    family: "gemma"
+    size: "2B"
+    is_base: true
+    precision: "bfloat16"
+    recommended_gpu: "A10G"
+    recommended_gpu_mem_gb: 8
+    notes: "Gated weights, requires Google Gemma license acceptance."
 
 # Post-trained comparator for instrument sanity check (§4 & §4A.4)
 # Warning: NEVER treat comparator as evidence for unaligned pretraining!

@@ -53,6 +53,8 @@ image = (
     )
     .add_local_python_source("llm_cooperation")
     .add_local_file("data/scenarios.json", "/root/data/scenarios.json")
+    .add_local_file("data/scenarios_v1_expanded.json", "/root/data/scenarios_v1_expanded.json")
+    .add_local_file("data/calibration_bank.json", "/root/data/calibration_bank.json")
     .add_local_file("configs/models.yaml", "/root/configs/models.yaml")
 )
 
@@ -150,6 +152,7 @@ def _execute_evaluation(
     device: str,
     seed: int,
     prompt_mode: str,
+    bank: str = "pilot",
 ) -> str:
     """Internal helper to execute evaluation inside container and commit volumes."""
     os.environ["HF_HOME"] = "/root/hf_cache"
@@ -158,9 +161,11 @@ def _execute_evaluation(
     out_dir = "/root/results"
     os.makedirs(out_dir, exist_ok=True)
 
+    scenarios_path = "/root/data/scenarios.json" if bank == "pilot" else "/root/data/scenarios_v1_expanded.json"
+
     result_file = run_experiment(
         model_name=model_name,
-        scenarios_path="/root/data/scenarios.json",
+        scenarios_path=scenarios_path,
         output_dir=out_dir,
         revision=revision,
         precision=precision,
@@ -191,6 +196,7 @@ def run_evaluation_remote(
     mock: bool = False,
     seed: int = 42,
     prompt_mode: str = "standard_plaintext",
+    bank: str = "pilot",
 ) -> str:
     """Execute evaluation on standard A10G GPU (ideal for 1B-3B models)."""
     if mock:
@@ -205,6 +211,7 @@ def run_evaluation_remote(
         device=device,
         seed=seed,
         prompt_mode=prompt_mode,
+        bank=bank,
     )
 
 
@@ -223,6 +230,7 @@ def run_evaluation_remote_l40s(
     mock: bool = False,
     seed: int = 42,
     prompt_mode: str = "standard_plaintext",
+    bank: str = "pilot",
 ) -> str:
     """Execute evaluation on high-VRAM L40S GPU (ideal for 7B-12B models, e.g. Pythia-12B)."""
     if mock:
@@ -237,6 +245,7 @@ def run_evaluation_remote_l40s(
         device=device,
         seed=seed,
         prompt_mode=prompt_mode,
+        bank=bank,
     )
 
 
@@ -251,6 +260,7 @@ def run_evaluation_mock_remote(
     precision: str = "bfloat16",
     seed: int = 42,
     prompt_mode: str = "standard_plaintext",
+    bank: str = "pilot",
 ) -> str:
     """Execute synthetic mock validation in a zero-GPU CPU container and persist outputs to volume."""
     from llm_cooperation.harness.runner import run_experiment
@@ -258,9 +268,11 @@ def run_evaluation_mock_remote(
     out_dir = "/root/results"
     os.makedirs(out_dir, exist_ok=True)
 
+    scenarios_path = "/root/data/scenarios.json" if bank == "pilot" else "/root/data/scenarios_v1_expanded.json"
+
     result_file = run_experiment(
         model_name=model_name,
-        scenarios_path="/root/data/scenarios.json",
+        scenarios_path=scenarios_path,
         output_dir=out_dir,
         revision=revision,
         precision=precision,
@@ -282,6 +294,7 @@ def main(
     precision: str = "bfloat16",
     mock: bool = True,
     seed: int = 42,
+    bank: str = "pilot",
     prompt_mode: str = "standard_plaintext",
     authorize_paid_run: bool = False,
 ):
@@ -300,6 +313,7 @@ def main(
             precision=precision,
             seed=seed,
             prompt_mode=prompt_mode,
+            bank=bank,
         )
     else:
         # Explicit paid-run authorization guard
@@ -323,6 +337,7 @@ def main(
                 mock=False,
                 seed=seed,
                 prompt_mode=prompt_mode,
+                bank=bank,
             )
         elif selected_gpu == GPU_PROFILES["small"]:  # A10G
             print(f"[modal_app] Dispatching to A10G GPU container (precision={precision})...")
@@ -333,6 +348,7 @@ def main(
                 mock=False,
                 seed=seed,
                 prompt_mode=prompt_mode,
+                bank=bank,
             )
         else:
             # If large or unsupported GPU profile is selected, fail fast before provisioning
