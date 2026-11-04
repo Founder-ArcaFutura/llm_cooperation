@@ -486,6 +486,54 @@ def compute_file_hash(filepath: str) -> str:
     return h.hexdigest()
 
 
+PHASE1_FREEZE_MANIFEST_PATH = "configs/phase1_freeze_manifest.json"
+
+
+def verify_phase1_freeze_manifest(scenarios_path: str, manifest_path: Optional[str] = None) -> str:
+    """Verify that a trusted, review-approved freeze manifest exists and matches the bank SHA-256 fingerprint.
+
+    Fails closed if the manifest is missing, unapproved, null, or does not match the actual file hash.
+    Caller-supplied hashes cannot substitute for or bypass an approved freeze manifest.
+    """
+    target_manifest = Path(manifest_path or PHASE1_FREEZE_MANIFEST_PATH)
+    if not target_manifest.exists():
+        raise PermissionError(
+            f"PHASE 1 FREEZE MANIFEST MISSING: Trusted freeze manifest not found at '{target_manifest}'. "
+            "Phase 1 inference requires an independently approved freeze manifest recording the final frozen bank fingerprint."
+        )
+
+    try:
+        with open(target_manifest, "r", encoding="utf-8") as f:
+            manifest_data = json.load(f)
+    except Exception as e:
+        raise ValueError(f"Malformed Phase 1 freeze manifest JSON at '{target_manifest}': {e}")
+
+    manifest_status = manifest_data.get("status")
+    if manifest_status != "approved_frozen":
+        raise PermissionError(
+            f"PHASE 1 FREEZE MANIFEST UNAPPROVED: Trusted freeze manifest has status '{manifest_status}'. "
+            "Phase 1 inference is strictly prohibited until human semantic adjudication completes and the manifest "
+            "status is set to 'approved_frozen' with an approved SHA-256 fingerprint."
+        )
+
+    approved_hash = manifest_data.get("approved_frozen_bank_hash")
+    if not approved_hash or not isinstance(approved_hash, str) or len(approved_hash) != 64:
+        raise PermissionError(
+            f"PHASE 1 FREEZE MANIFEST INVALID: Approved frozen bank hash is missing or invalid in '{target_manifest}'. "
+            "Inference cannot proceed without an approved freeze fingerprint."
+        )
+
+    actual_hash = compute_file_hash(scenarios_path)
+    if actual_hash != approved_hash:
+        raise ValueError(
+            f"PHASE 1 BANK INTEGRITY ERROR: Bank fingerprint mismatch against trusted freeze manifest! "
+            f"Approved manifest fingerprint: {approved_hash}, Actual file hash: {actual_hash}. "
+            "Inference is aborted."
+        )
+
+    return approved_hash
+
+
 def run_experiment(
     model_name: str,
     scenarios_path: str = "data/scenarios.json",
@@ -497,13 +545,54 @@ def run_experiment(
     seed: int = 42,
     prompt_mode: str = "standard_plaintext",
     split_filter: Optional[str] = None,
+    authorize_phase1_run: bool = False,
+    _freeze_manifest_override: Optional[str] = None,
 ) -> Path:
-    """Run full Phase 0 evaluation of all 96 presentations on a specified model."""
+    """Run evaluation of presentations on a specified model."""
     os.makedirs(output_dir, exist_ok=True)
-    with open(scenarios_path, "r", encoding="utf-8") as f:
-        bank_data = json.load(f)
 
-    bank = ScenarioBank(**bank_data)
+    if not os.path.exists(scenarios_path):
+        raise FileNotFoundError(f"Scenario bank file not found: {scenarios_path}")
+
+    try:
+        with open(scenarios_path, "r", encoding="utf-8") as f:
+            bank_data = json.load(f)
+    except Exception as e:
+        raise ValueError(f"Failed to parse scenario bank JSON at {scenarios_path}: {e}")
+
+    try:
+        bank = ScenarioBank(**bank_data)
+    except Exception as e:
+        raise ValueError(f"Malformed scenario bank metadata or schema at {scenarios_path}: {e}")
+
+    # Fail-closed Phase 1 holdout protection guard
+    # Detects Phase 1 scenarios via filename, path, template_id prefix, or source_type
+    is_phase1 = "phase1" in Path(scenarios_path).name.lower() or any(
+        getattr(s, "source_type", None) == "prospective_replication"
+        or (s.template_id and s.template_id.startswith("phase1_"))
+        or (s.id and s.id.startswith("phase1_"))
+        for s in bank.scenarios
+    )
+    if is_phase1:
+        # Require bank status to be exactly 'frozen'
+        if bank.status != "frozen":
+            raise PermissionError(
+                f"PHASE 1 HOLDOUT PROTECTION TRIGGERED: Phase 1 scenario bank must have status exactly 'frozen' "
+                f"before inference can be executed (current status: '{bank.status}'). Draft banks ('draft_pending_review') "
+                f"or unapproved lifecycle states must remain strictly held out."
+            )
+
+        # Require explicit scientific authorization
+        env_auth = os.environ.get("ALLOW_PHASE1_RUN", "").lower() in ("1", "true", "yes")
+        if not (authorize_phase1_run or env_auth):
+            raise PermissionError(
+                "PHASE 1 INFERENCE AUTHORIZATION GUARD: Executing inference on the Phase 1 prospective replication bank "
+                "requires explicit scientific authorization (--authorize-phase1-run or ALLOW_PHASE1_RUN=true)."
+            )
+
+        # Require verification against trusted freeze manifest (cannot be bypassed by caller hash)
+        verify_phase1_freeze_manifest(scenarios_path, manifest_path=_freeze_manifest_override)
+
     scenarios = bank.scenarios
 
     if split_filter:
