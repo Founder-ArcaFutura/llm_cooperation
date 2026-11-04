@@ -374,6 +374,10 @@ class ModelRunner:
                 template_id=scenario_meta.get("template_id"),
                 split=scenario_meta.get("split"),
                 domain=scenario_meta.get("domain"),
+                utility_condition=scenario_meta.get("utility_condition"),
+                source_type=scenario_meta.get("source_type"),
+                triad_id=scenario_meta.get("triad_id"),
+                is_symmetric_control=scenario_meta.get("is_symmetric_control", False),
                 permutation_index=presentation.permutation_index,
                 partner_type=scenario_meta["partner_type"],
                 context_type=scenario_meta["context_type"],
@@ -447,6 +451,10 @@ class ModelRunner:
             template_id=scenario_meta.get("template_id"),
             split=scenario_meta.get("split"),
             domain=scenario_meta.get("domain"),
+            utility_condition=scenario_meta.get("utility_condition"),
+            source_type=scenario_meta.get("source_type"),
+            triad_id=scenario_meta.get("triad_id"),
+            is_symmetric_control=scenario_meta.get("is_symmetric_control", False),
             permutation_index=presentation.permutation_index,
             partner_type=scenario_meta["partner_type"],
             context_type=scenario_meta["context_type"],
@@ -488,6 +496,7 @@ def run_experiment(
     mock: bool = False,
     seed: int = 42,
     prompt_mode: str = "standard_plaintext",
+    split_filter: Optional[str] = None,
 ) -> Path:
     """Run full Phase 0 evaluation of all 96 presentations on a specified model."""
     os.makedirs(output_dir, exist_ok=True)
@@ -496,6 +505,12 @@ def run_experiment(
 
     bank = ScenarioBank(**bank_data)
     scenarios = bank.scenarios
+
+    if split_filter:
+        scenarios = [s for s in scenarios if getattr(s, "split", None) == split_filter]
+        if not scenarios:
+            raise ValueError(f"No scenarios found matching split_filter='{split_filter}'")
+
     scenario_meta_map = {
         s.id: {
             "partner_type": s.partner_type.value,
@@ -503,6 +518,10 @@ def run_experiment(
             "template_id": s.template_id,
             "split": s.split,
             "domain": s.domain,
+            "utility_condition": s.utility_condition.value if s.utility_condition else None,
+            "source_type": s.source_type,
+            "triad_id": getattr(s, "triad_id", None),
+            "is_symmetric_control": getattr(s, "is_symmetric_control", False),
         }
         for s in scenarios
     }

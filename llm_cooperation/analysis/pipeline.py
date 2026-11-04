@@ -13,6 +13,9 @@ from llm_cooperation.analysis.metrics import (
     scenario_cluster_bootstrap,
     template_cluster_bootstrap,
     compute_principal_contrast,
+    compute_utility_matched_contrast,
+    compute_utility_sensitivity_contrast,
+    compute_symmetric_control_contrast,
     audit_position_bias,
 )
 from llm_cooperation.analysis.plots import plot_summary_figures
@@ -92,6 +95,9 @@ def generate_markdown_report(
     exploratory_boot: Optional[Dict[str, float]] = None,
     confirmatory_boot: Optional[Dict[str, float]] = None,
     principal_contrast: Optional[Dict[str, float]] = None,
+    utility_matched_contrast: Optional[Dict[str, float]] = None,
+    utility_sensitivity: Optional[Dict[str, float]] = None,
+    symmetric_control_contrast: Optional[Dict[str, float]] = None,
 ) -> str:
     model_name = metadata.get("model_name", "Unknown")
     num_scenarios = len(scenario_df)
@@ -169,6 +175,64 @@ def generate_markdown_report(
         mean_argmax=("coop_argmax_rate", "mean"),
         mean_prob=("coop_cond_prob", "mean"),
     ).to_markdown()
+
+    # Phase 0B Utility-Matched Assay Section
+    phase0b_section = ""
+    if utility_matched_contrast:
+        u_lines = []
+        c_conf = utility_matched_contrast.get("confirmatory") if isinstance(utility_matched_contrast, dict) else None
+        c_exp = utility_matched_contrast.get("exploratory") if isinstance(utility_matched_contrast, dict) else None
+        c_comb = utility_matched_contrast.get("combined") if isinstance(utility_matched_contrast, dict) else utility_matched_contrast
+
+        if c_conf:
+            u_lines.append(
+                f"- **Preregistered Primary Utility-Matched Contrast (Held-Out Confirmatory Partition, N={c_conf.get('num_templates', 'N/A')} New Templates) [FORMAL REPLICATION TEST]:**\n"
+                f"  - Choice Rate Difference (COOP - INDEP): **{c_conf['choice_diff_mean']:.1%}** [95% CI: {c_conf['choice_diff_ci_lower']:.1%} – {c_conf['choice_diff_ci_upper']:.1%}] (Coop: {c_conf['coop_rate_mean']:.1%}, Indep: {c_conf['indep_rate_mean']:.1%})\n"
+                f"  - Log-Probability Difference [log P(COOP) - log P(INDEP)]: **{c_conf['log_prob_diff_mean']:.3f}** [95% CI: {c_conf['log_prob_diff_ci_lower']:.3f} – {c_conf['log_prob_diff_ci_upper']:.3f}]"
+            )
+        if c_exp:
+            u_lines.append(
+                f"- **Exploratory Utility-Matched Contrast (Rewritten Existing Templates, N={c_exp.get('num_templates', 'N/A')}) [Descriptive / Baseline]:**\n"
+                f"  - Choice Rate Difference (COOP - INDEP): **{c_exp['choice_diff_mean']:.1%}** [95% CI: {c_exp['choice_diff_ci_lower']:.1%} – {c_exp['choice_diff_ci_upper']:.1%}] (Coop: {c_exp['coop_rate_mean']:.1%}, Indep: {c_exp['indep_rate_mean']:.1%})\n"
+                f"  - Log-Probability Difference [log P(COOP) - log P(INDEP)]: **{c_exp['log_prob_diff_mean']:.3f}** [95% CI: {c_exp['log_prob_diff_ci_lower']:.3f} – {c_exp['log_prob_diff_ci_upper']:.3f}]"
+            )
+        if c_comb:
+            u_lines.append(
+                f"- **Pooled Bank Reference Contrast (All N={c_comb.get('num_templates', 'N/A')} Utility-Matched Templates) [Combined Reference]:**\n"
+                f"  - Choice Rate Difference (COOP - INDEP): **{c_comb['choice_diff_mean']:.1%}** [95% CI: {c_comb['choice_diff_ci_lower']:.1%} – {c_comb['choice_diff_ci_upper']:.1%}]\n"
+                f"  - Log-Probability Difference [log P(COOP) - log P(INDEP)]: **{c_comb['log_prob_diff_mean']:.3f}** [95% CI: {c_comb['log_prob_diff_ci_lower']:.3f} – {c_comb['log_prob_diff_ci_upper']:.3f}]"
+            )
+
+        if utility_sensitivity:
+            u_lines.append(
+                f"\n- **Controlled Utility Sensitivity Triad (Within-Triad Paired Effects, N={utility_sensitivity['num_triads']} Triads):**\n"
+                f"  - Coop Rate Advantageous: {utility_sensitivity['coop_advantageous_mean']:.1%}\n"
+                f"  - Coop Rate Matched Equal (Within-Triad Baseline): {utility_sensitivity['coop_equal_mean']:.1%}\n"
+                f"  - Coop Rate Disadvantageous: {utility_sensitivity['coop_disadvantageous_mean']:.1%}\n"
+                f"  - Mean Paired Sensitivity Spread (Adv - Disadv): {utility_sensitivity['adv_vs_disadv_spread']:.1%} (Monotonic: {utility_sensitivity['monotonic_ordering']})"
+            )
+
+        if symmetric_control_contrast:
+            u_lines.append(
+                f"\n- **Symmetric Outcome Control Subset (Coordination vs Welfare Maximization, N={symmetric_control_contrast['num_control_scenarios']} Scenarios):**\n"
+                f"  *(Actor and partner outcomes identical under both COOPERATE and INDEPENDENT)*\n"
+                f"  - Coop Choice Rate: {symmetric_control_contrast['coop_rate']:.1%}, Indep Rate: {symmetric_control_contrast['indep_rate']:.1%} (Diff: {symmetric_control_contrast['choice_diff']:.1%})\n"
+                f"  - Log-Probability Difference [log P(COOP) - log P(INDEP)]: {symmetric_control_contrast['log_prob_diff']:.3f}"
+            )
+
+        # Source type breakdown if present
+        if "source_type" in scenario_df.columns and not scenario_df["source_type"].isnull().all():
+            src_summary = scenario_df.groupby("source_type").agg(
+                scenarios=("scenario_id", "count"),
+                mean_coop_argmax=("coop_argmax_rate", "mean"),
+                mean_indep_argmax=("indep_argmax_rate", "mean"),
+            ).to_markdown()
+            u_lines.append(f"\n#### Source Type Breakdown (Reused vs New Templates)\n{src_summary}")
+
+        phase0b_section = f"""
+### Phase 0B: Utility-Matched Construct Validation Contrasts
+{chr(10).join(u_lines)}
+"""
 
     # Strategy distribution
     strat_dist = {
@@ -269,6 +333,7 @@ def generate_markdown_report(
 ### Partner Type Breakdown (Human vs AI)
 {partner_summary}
 {split_section}
+{phase0b_section}
 
 ---
 
@@ -361,6 +426,27 @@ def analyze_results(
     else:
         principal_contrast = compute_principal_contrast(scenario_df, n_bootstraps=num_bootstraps)
 
+    # Phase 0B Utility-Matched Contrasts: Separate Exploratory vs Confirmatory
+    utility_matched_contrast = None
+    utility_sensitivity = None
+    if "utility_condition" in scenario_df.columns and not scenario_df["utility_condition"].isnull().all():
+        if "split" in scenario_df.columns and not scenario_df["split"].isnull().all():
+            exp_u_df = scenario_df[scenario_df["split"] == "exploratory"]
+            conf_u_df = scenario_df[scenario_df["split"] == "confirmatory"]
+            utility_matched_contrast = {
+                "confirmatory": compute_utility_matched_contrast(conf_u_df, n_bootstraps=num_bootstraps) if not conf_u_df.empty else None,
+                "exploratory": compute_utility_matched_contrast(exp_u_df, n_bootstraps=num_bootstraps) if not exp_u_df.empty else None,
+                "combined": compute_utility_matched_contrast(scenario_df, n_bootstraps=num_bootstraps),
+            }
+        else:
+            utility_matched_contrast = {
+                "combined": compute_utility_matched_contrast(scenario_df, n_bootstraps=num_bootstraps)
+            }
+        utility_sensitivity = compute_utility_sensitivity_contrast(scenario_df, n_bootstraps=num_bootstraps)
+        symmetric_control_contrast = compute_symmetric_control_contrast(scenario_df, n_bootstraps=num_bootstraps)
+    else:
+        symmetric_control_contrast = None
+
     # 3. Position bias audit
     pos_bias = audit_position_bias(records)
 
@@ -395,6 +481,9 @@ def analyze_results(
         exploratory_boot=exploratory_boot,
         confirmatory_boot=confirmatory_boot,
         principal_contrast=principal_contrast,
+        utility_matched_contrast=utility_matched_contrast,
+        utility_sensitivity=utility_sensitivity,
+        symmetric_control_contrast=symmetric_control_contrast,
     )
     console.print(f"[bold cyan]Generated executive report at {report_path}[/bold cyan]")
 
