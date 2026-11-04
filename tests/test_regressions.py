@@ -531,3 +531,77 @@ def test_prompt_boundary_prefix_retokenization_error():
     tok = RetokenizingTokenizer()
     with pytest.raises(TokenizerCandidateError, match="prefix retokenization"):
         resolve_candidate_token_ids(tok, sample_prompt="Answer:")
+
+def test_real_model_runner_loading_and_presentation_preflight(monkeypatch):
+    """Verify ModelRunner._load_model loads model, sets effective precision, and validates all presentation boundaries."""
+    import torch
+    from llm_cooperation.harness.runner import ModelRunner
+    from llm_cooperation.items.schema import ScenarioBank
+    from llm_cooperation.items.permutations import generate_all_presentations
+
+    # Load all 96 presentations from scenarios.json
+    with open("data/scenarios.json", "r", encoding="utf-8") as f:
+        bank_data = json.load(f)
+    bank = ScenarioBank(**bank_data)
+    presentations = generate_all_presentations(bank.scenarios)
+    assert len(presentations) == 96
+
+    class FakeTokenizer:
+        def __init__(self):
+            self.pad_token = None
+            self.eos_token = "<eos>"
+
+        def encode(self, text, add_special_tokens=False):
+            if text == "A": return [1]
+            if text == "B": return [2]
+            if text == "C": return [3]
+            if text == "D": return [4]
+            if text == " A": return [11]
+            if text == " B": return [12]
+            if text == " C": return [13]
+            if text == " D": return [14]
+            # When ending with Answer: continuation is " A", etc.
+            if text.endswith("Answer:"):
+                return list(range(len(text.split())))
+            if text.endswith("Answer: A"):
+                prefix = list(range(len(text[:-2].split())))
+                return prefix + [11]
+            if text.endswith("Answer: B"):
+                prefix = list(range(len(text[:-2].split())))
+                return prefix + [12]
+            if text.endswith("Answer: C"):
+                prefix = list(range(len(text[:-2].split())))
+                return prefix + [13]
+            if text.endswith("Answer: D"):
+                prefix = list(range(len(text[:-2].split())))
+                return prefix + [14]
+            return [100]
+
+    class FakeModel:
+        def __init__(self):
+            self.dtype = torch.bfloat16
+            self.eval_called = False
+
+        def eval(self):
+            self.eval_called = True
+
+    monkeypatch.setattr(
+        "transformers.AutoTokenizer.from_pretrained",
+        lambda *args, **kwargs: FakeTokenizer(),
+    )
+    monkeypatch.setattr(
+        "transformers.AutoModelForCausalLM.from_pretrained",
+        lambda *args, **kwargs: FakeModel(),
+    )
+
+    # Initialize real (non-mock) ModelRunner
+    runner = ModelRunner("test-real-model", precision="bfloat16", mock=False)
+
+    # Verify model loading was completed within _load_model
+    assert runner.model is not None
+    assert runner.model.eval_called is True
+    assert runner.effective_precision == "bfloat16"
+    assert runner.candidate_token_ids == {"A": 11, "B": 12, "C": 13, "D": 14}
+
+    # Verify validate_presentation_boundaries runs preflight across all 96 presentations without error
+    runner.validate_presentation_boundaries(presentations)

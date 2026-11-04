@@ -28,6 +28,7 @@ from llm_cooperation.items.permutations import (
 from llm_cooperation.harness.tokenizer_probe import (
     probe_candidate_tokens,
     resolve_candidate_token_ids,
+    validate_candidate_tokens_at_boundary,
 )
 from llm_cooperation.harness.scorer import (
     ScoredPresentation,
@@ -158,15 +159,6 @@ class ModelRunner:
         )
         print(f"[ModelRunner] Validated candidate token IDs at prompt boundary: {self.candidate_token_ids}")
 
-    def validate_presentation_boundary(self, presentation: Presentation):
-        """Validate candidate tokenization at the actual rendered presentation prompt boundary."""
-        if not self.mock and self.tokenizer is not None:
-            validate_candidate_tokens_at_boundary(
-                self.tokenizer,
-                presentation.prompt_text,
-                self.candidate_token_ids,
-            )
-
         torch_dtype = self.resolve_torch_dtype(self.requested_precision)
         print(f"[ModelRunner] Loading model {self.model_name} (requested_dtype={torch_dtype}, device={self.device})...")
         self.model = AutoModelForCausalLM.from_pretrained(
@@ -179,6 +171,20 @@ class ModelRunner:
         self.model.eval()
         # Record effective loaded numerical dtype
         self.effective_precision = str(self.model.dtype).replace("torch.", "")
+
+    def validate_presentation_boundaries(self, presentations: List[Presentation]):
+        """Validate candidate tokenization at the actual rendered prompt boundary for every presentation.
+
+        Runs as a lightweight tokenizer-only preflight before model inference to ensure
+        all 96 presentations strictly conform to single-token continuation without retokenization.
+        """
+        if not self.mock and self.tokenizer is not None:
+            for p in presentations:
+                validate_candidate_tokens_at_boundary(
+                    self.tokenizer,
+                    p.prompt_text,
+                    self.candidate_token_ids,
+                )
 
     def _setup_mock(self):
         # Mock token IDs for A, B, C, D
@@ -362,10 +368,10 @@ def run_experiment(
         seed=seed,
     )
 
-    # Validate boundary tokenization on the first rendered presentation prompt before running
+    # Validate boundary tokenization across all rendered presentation prompts before running
     if presentations and not mock:
-        print(f"[run_experiment] Validating candidate tokens at actual rendered presentation boundary...")
-        runner.validate_presentation_boundary(presentations[0])
+        print(f"[run_experiment] Validating candidate tokens at actual rendered presentation boundary for all {len(presentations)} presentations...")
+        runner.validate_presentation_boundaries(presentations)
 
     scored_records: List[ScoredPresentation] = []
     print(f"[run_experiment] Running {len(presentations)} presentations on {model_name} (mock={mock})...")
