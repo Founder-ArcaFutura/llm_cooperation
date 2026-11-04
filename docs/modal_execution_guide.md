@@ -57,28 +57,32 @@ modal run modal_app.py --model "mock-qwen2.5-3b" --mock True
 ```
 *Note: Mock execution is routed through `run_evaluation_mock_remote` in a CPU-only container without attaching any GPU, ensuring strictly zero GPU compute costs. Real evaluations with `--mock False` route through `run_evaluation_remote` with GPU acceleration.*
 
-### B. Evaluating Pretrained Base Models
-Run on-demand evaluation of base checkpoints:
+### B. Evaluating Pretrained Base Models (Paid GPU Compute Guard)
+Real evaluation provisions cloud GPU resources (`A10G` for 1B-3B models, `L40S` for 7B-12B models). An explicit paid-run authorization guard `--authorize-paid-run True` (or env var `ALLOW_PAID_RUN=true`) is required to prevent accidental financial spend:
 ```powershell
-# Qwen 2.5 3B Base
-modal run modal_app.py --model "Qwen/Qwen2.5-3B" --precision "bfloat16" --mock False
+# Qwen 2.5 3B Base (A10G)
+modal run modal_app.py --model "Qwen/Qwen2.5-3B" --precision "bfloat16" --mock False --authorize-paid-run True
 
-# Pythia 2.8B Base
-modal run modal_app.py --model "EleutherAI/pythia-2.8b" --precision "bfloat16" --mock False
+# Pythia 2.8B Base (A10G)
+modal run modal_app.py --model "EleutherAI/pythia-2.8b" --precision "bfloat16" --mock False --authorize-paid-run True
 
-# OLMo 2 1B Base
-modal run modal_app.py --model "allenai/OLMo-2-1124-1B" --precision "bfloat16" --mock False
+# OLMo 2 1B Base (A10G)
+modal run modal_app.py --model "allenai/OLMo-2-1124-1B" --precision "bfloat16" --mock False --authorize-paid-run True
+
+# Pythia 12B Deduped Base (L40S)
+modal run modal_app.py --model "EleutherAI/pythia-12b-deduped" --precision "bfloat16" --mock False --authorize-paid-run True
 ```
 
-### C. Running the Pythia-12B SFT Comparator
-Run the post-trained comparator (OpenAssistant SFT pinned revision `293df535fe7711a5726987fc2f17dfc87de452a1`):
+### C. Running the Pythia-12B SFT Comparator (L40S)
+Run the post-trained comparator (OpenAssistant SFT pinned revision `293df535fe7711a5726987fc2f17dfc87de452a1` on L40S):
 ```powershell
 modal run modal_app.py `
     --model "OpenAssistant/oasst-sft-1-pythia-12b" `
     --revision "293df535fe7711a5726987fc2f17dfc87de452a1" `
     --precision "bfloat16" `
     --prompt-mode "openassistant" `
-    --mock False
+    --mock False `
+    --authorize-paid-run True
 ```
 
 ---

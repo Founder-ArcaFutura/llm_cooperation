@@ -363,7 +363,7 @@ def test_cross_model_gate_requires_independent_families(tmp_path):
     with open(report_multi_fam, "r", encoding="utf-8") as f:
         content_multi_fam = f.read()
 
-    assert "ADVANCE TO PHASE 1 (MECHANISM PILOT)" in content_multi_fam
+    assert "HUMAN SCIENTIFIC REVIEW RECOMMENDED (POTENTIAL PHASE 1 PILOT)" in content_multi_fam
     assert "Multiple independent base model families (2: OLMO, QWEN; 2 distinct model checkpoints)" in content_multi_fam
 
 
@@ -373,6 +373,13 @@ def test_modal_app_mock_and_gpu_routing(monkeypatch):
 
     assert hasattr(modal_app, "run_evaluation_mock_remote")
     assert hasattr(modal_app, "run_evaluation_remote")
+    assert hasattr(modal_app, "run_evaluation_remote_l40s")
+    assert hasattr(modal_app, "resolve_model_gpu")
+
+    # Verify 12B model selects L40S
+    assert modal_app.resolve_model_gpu("EleutherAI/pythia-12b-deduped") == "L40S"
+    assert modal_app.resolve_model_gpu("OpenAssistant/oasst-sft-1-pythia-12b") == "L40S"
+    assert modal_app.resolve_model_gpu("Qwen/Qwen2.5-3B") == "A10G"
 
     # run_evaluation_remote rejects mock=True
     with pytest.raises(ValueError, match="provisions paid GPU resources"):
@@ -398,8 +405,203 @@ def test_modal_app_mock_and_gpu_routing(monkeypatch):
     assert len(mock_calls) == 1
     assert len(gpu_calls) == 0
 
-    # Calling main with mock=False routes to GPU remote function
-    modal_app.main(model="test-model", mock=False)
+    # Calling main with mock=False without authorization raises PermissionError
+    with pytest.raises(PermissionError, match="PAID RUN GUARD TRIGGERED"):
+        modal_app.main(model="test-model", mock=False, authorize_paid_run=False)
+
+    # Calling main with mock=False and authorize_paid_run=True routes to GPU remote function
+    modal_app.main(model="test-model", mock=False, authorize_paid_run=True)
     assert len(mock_calls) == 1
     assert len(gpu_calls) == 1
     assert gpu_calls[0]["mock"] is False
+
+def test_prompt_boundary_token_validation():
+    """Verify prompt boundary token validation detects multi-token fragmentation and incompatible token IDs."""
+    from llm_cooperation.harness.tokenizer_probe import (
+        resolve_candidate_token_ids,
+        TokenizerCandidateError,
+        validate_candidate_tokens_at_boundary,
+    )
+
+    class GoodBoundaryTokenizer:
+        def encode(self, text, add_special_tokens=False):
+            if text == "A": return [1]
+            if text == "B": return [2]
+            if text == "C": return [3]
+            if text == "D": return [4]
+            if text == " A": return [11]
+            if text == " B": return [12]
+            if text == " C": return [13]
+            if text == " D": return [14]
+            if text == "Answer:": return [100, 101]
+            if text == "Answer: A": return [100, 101, 11]
+            if text == "Answer: B": return [100, 101, 12]
+            if text == "Answer: C": return [100, 101, 13]
+            if text == "Answer: D": return [100, 101, 14]
+            return [999]
+
+    tok = GoodBoundaryTokenizer()
+    res = resolve_candidate_token_ids(tok, sample_prompt="Answer:")
+    assert res == {"A": 11, "B": 12, "C": 13, "D": 14}
+
+    class IncompatibleBoundaryTokenizer(GoodBoundaryTokenizer):
+        def encode(self, text, add_special_tokens=False):
+            if text == "Answer: A": return [100, 101, 999]
+            return super().encode(text, add_special_tokens=add_special_tokens)
+
+    bad_tok = IncompatibleBoundaryTokenizer()
+    with pytest.raises(TokenizerCandidateError, match="Incompatible token substitution barred"):
+        resolve_candidate_token_ids(bad_tok, sample_prompt="Answer:")
+
+
+def test_scenario_banks_hash_traceability():
+    """Verify legacy and revised scenario banks exist with distinct sha256 hashes."""
+    import hashlib
+    p_rev = Path("data/scenarios.json")
+    p_leg = Path("data/scenarios_legacy_v020.json")
+    assert p_rev.exists()
+    assert p_leg.exists()
+
+    h_rev = hashlib.sha256(p_rev.read_bytes()).hexdigest()
+    h_leg = hashlib.sha256(p_leg.read_bytes()).hexdigest()
+    assert h_rev != h_leg
+
+def test_gpu_profile_numeric_parsing():
+    """Verify GPU hardware selection uses numeric parsing rather than naive substring matching."""
+    import modal_app
+    # 2.8B must resolve to small (A10G), not medium (L40S)
+    assert modal_app.resolve_model_gpu("EleutherAI/pythia-2.8b") == "A10G"
+    assert modal_app.resolve_model_gpu("Qwen/Qwen2.5-3B") == "A10G"
+    assert modal_app.resolve_model_gpu("allenai/OLMo-2-1124-1B") == "A10G"
+
+    # 7B and 12B must resolve to medium (L40S)
+    assert modal_app.resolve_model_gpu("allenai/OLMo-2-1124-7B") == "L40S"
+    assert modal_app.resolve_model_gpu("mistralai/Mistral-7B-v0.3") == "L40S"
+    assert modal_app.resolve_model_gpu("EleutherAI/pythia-12b-deduped") == "L40S"
+    assert modal_app.resolve_model_gpu("OpenAssistant/oasst-sft-1-pythia-12b") == "L40S"
+
+    # 70B must resolve to large (A100-80GB)
+    assert modal_app.resolve_model_gpu("meta-llama/Llama-2-70b-hf") == "A100-80GB"
+
+    # Unsupported large profile fails before provisioning
+    with pytest.raises(NotImplementedError, match="not currently provisioned"):
+        modal_app.main(model="meta-llama/Llama-2-70b-hf", mock=False, authorize_paid_run=True)
+
+
+def test_unverified_model_cohort_separation(tmp_path):
+    """Verify unknown/unverified models are isolated into a third cohort and excluded from base conclusions."""
+    out_dir = tmp_path / "reports"
+    run_unverified = tmp_path / "unknown_model.jsonl"
+    _create_synthetic_qualifying_run_file(run_unverified, "some-org/unverified-unknown-model", "run_unknown")
+
+    report_file = compare_models([str(run_unverified)], output_dir=str(out_dir), num_bootstraps=50)
+    with open(report_file, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    assert "Unverified / Unknown Provenance Cohort" in content
+    assert "some-org/unverified-unknown-model" in content
+    assert "STOP OR REVISE" in content
+    assert "ADVANCE" not in content
+
+
+def test_prompt_boundary_prefix_retokenization_error():
+    """Verify boundary validator detects when appending a letter causes prefix retokenization."""
+    from llm_cooperation.harness.tokenizer_probe import (
+        resolve_candidate_token_ids,
+        TokenizerCandidateError,
+    )
+
+    class RetokenizingTokenizer:
+        def encode(self, text, add_special_tokens=False):
+            if text == "A": return [1]
+            if text == "B": return [2]
+            if text == "C": return [3]
+            if text == "D": return [4]
+            if text == " A": return [11]
+            if text == " B": return [12]
+            if text == " C": return [13]
+            if text == " D": return [14]
+            if text == "Answer:": return [100, 101]
+            if text == "Answer: A": return [100, 999]  # retokenized previous token!
+            if text == "Answer: B": return [100, 101, 12]
+            if text == "Answer: C": return [100, 101, 13]
+            if text == "Answer: D": return [100, 101, 14]
+            return [500]
+
+    tok = RetokenizingTokenizer()
+    with pytest.raises(TokenizerCandidateError, match="prefix retokenization"):
+        resolve_candidate_token_ids(tok, sample_prompt="Answer:")
+
+def test_real_model_runner_loading_and_presentation_preflight(monkeypatch):
+    """Verify ModelRunner._load_model loads model, sets effective precision, and validates all presentation boundaries."""
+    import torch
+    from llm_cooperation.harness.runner import ModelRunner
+    from llm_cooperation.items.schema import ScenarioBank
+    from llm_cooperation.items.permutations import generate_all_presentations
+
+    # Load all 96 presentations from scenarios.json
+    with open("data/scenarios.json", "r", encoding="utf-8") as f:
+        bank_data = json.load(f)
+    bank = ScenarioBank(**bank_data)
+    presentations = generate_all_presentations(bank.scenarios)
+    assert len(presentations) == 96
+
+    class FakeTokenizer:
+        def __init__(self):
+            self.pad_token = None
+            self.eos_token = "<eos>"
+
+        def encode(self, text, add_special_tokens=False):
+            if text == "A": return [1]
+            if text == "B": return [2]
+            if text == "C": return [3]
+            if text == "D": return [4]
+            if text == " A": return [11]
+            if text == " B": return [12]
+            if text == " C": return [13]
+            if text == " D": return [14]
+            # When ending with Answer: continuation is " A", etc.
+            if text.endswith("Answer:"):
+                return list(range(len(text.split())))
+            if text.endswith("Answer: A"):
+                prefix = list(range(len(text[:-2].split())))
+                return prefix + [11]
+            if text.endswith("Answer: B"):
+                prefix = list(range(len(text[:-2].split())))
+                return prefix + [12]
+            if text.endswith("Answer: C"):
+                prefix = list(range(len(text[:-2].split())))
+                return prefix + [13]
+            if text.endswith("Answer: D"):
+                prefix = list(range(len(text[:-2].split())))
+                return prefix + [14]
+            return [100]
+
+    class FakeModel:
+        def __init__(self):
+            self.dtype = torch.bfloat16
+            self.eval_called = False
+
+        def eval(self):
+            self.eval_called = True
+
+    monkeypatch.setattr(
+        "transformers.AutoTokenizer.from_pretrained",
+        lambda *args, **kwargs: FakeTokenizer(),
+    )
+    monkeypatch.setattr(
+        "transformers.AutoModelForCausalLM.from_pretrained",
+        lambda *args, **kwargs: FakeModel(),
+    )
+
+    # Initialize real (non-mock) ModelRunner
+    runner = ModelRunner("test-real-model", precision="bfloat16", mock=False)
+
+    # Verify model loading was completed within _load_model
+    assert runner.model is not None
+    assert runner.model.eval_called is True
+    assert runner.effective_precision == "bfloat16"
+    assert runner.candidate_token_ids == {"A": 11, "B": 12, "C": 13, "D": 14}
+
+    # Verify validate_presentation_boundaries runs preflight across all 96 presentations without error
+    runner.validate_presentation_boundaries(presentations)

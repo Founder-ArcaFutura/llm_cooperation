@@ -28,6 +28,7 @@ from llm_cooperation.items.permutations import (
 from llm_cooperation.harness.tokenizer_probe import (
     probe_candidate_tokens,
     resolve_candidate_token_ids,
+    validate_candidate_tokens_at_boundary,
 )
 from llm_cooperation.harness.scorer import (
     ScoredPresentation,
@@ -150,8 +151,13 @@ class ModelRunner:
             self.tokenizer.pad_token = self.tokenizer.eos_token
 
         # Resolve candidate token IDs
-        self.candidate_token_ids = resolve_candidate_token_ids(self.tokenizer)
-        print(f"[ModelRunner] Candidate token IDs: {self.candidate_token_ids}")
+        # Validate candidate tokens against the standard prompt boundary "Answer:"
+        self.candidate_token_ids = resolve_candidate_token_ids(
+            self.tokenizer,
+            prompt_ends_with_space=False,
+            sample_prompt="Answer:"
+        )
+        print(f"[ModelRunner] Validated candidate token IDs at prompt boundary: {self.candidate_token_ids}")
 
         torch_dtype = self.resolve_torch_dtype(self.requested_precision)
         print(f"[ModelRunner] Loading model {self.model_name} (requested_dtype={torch_dtype}, device={self.device})...")
@@ -165,6 +171,20 @@ class ModelRunner:
         self.model.eval()
         # Record effective loaded numerical dtype
         self.effective_precision = str(self.model.dtype).replace("torch.", "")
+
+    def validate_presentation_boundaries(self, presentations: List[Presentation]):
+        """Validate candidate tokenization at the actual rendered prompt boundary for every presentation.
+
+        Runs as a lightweight tokenizer-only preflight before model inference to ensure
+        all 96 presentations strictly conform to single-token continuation without retokenization.
+        """
+        if not self.mock and self.tokenizer is not None:
+            for p in presentations:
+                validate_candidate_tokens_at_boundary(
+                    self.tokenizer,
+                    p.prompt_text,
+                    self.candidate_token_ids,
+                )
 
     def _setup_mock(self):
         # Mock token IDs for A, B, C, D
@@ -348,6 +368,11 @@ def run_experiment(
         seed=seed,
     )
 
+    # Validate boundary tokenization across all rendered presentation prompts before running
+    if presentations and not mock:
+        print(f"[run_experiment] Validating candidate tokens at actual rendered presentation boundary for all {len(presentations)} presentations...")
+        runner.validate_presentation_boundaries(presentations)
+
     scored_records: List[ScoredPresentation] = []
     print(f"[run_experiment] Running {len(presentations)} presentations on {model_name} (mock={mock})...")
 
@@ -358,9 +383,11 @@ def run_experiment(
         if i % 16 == 0 or i == len(presentations):
             print(f"  Processed {i}/{len(presentations)} presentations...")
 
+    import uuid
     safe_name = model_name.replace("/", "_")
     ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-    run_id = f"run_{safe_name}_{ts}"
+    entropy = uuid.uuid4().hex[:8]
+    run_id = f"run_{safe_name}_{ts}_{entropy}"
     filename = f"{run_id}.jsonl"
     out_path = Path(output_dir) / filename
 

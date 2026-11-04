@@ -98,8 +98,11 @@ Refer to [docs/modal_execution_guide.md](docs/modal_execution_guide.md) for comp
 Modal manages on-demand GPU allocation, persistent model weight caching (`llm-coop-hf-cache`), and results persistence (`llm-coop-results`):
 
 ```powershell
-# Run on Modal (from Windows workspace G:\llm_cooperation)
-modal run modal_app.py --model "Qwen/Qwen2.5-3B" --precision "bfloat16" --mock False
+# Mock run on Modal (zero-GPU CPU container)
+modal run modal_app.py --model "mock-qwen2.5-3b" --mock True
+
+# Real GPU run on Modal (A10G or L40S, requires explicit --authorize-paid-run True guard)
+modal run modal_app.py --model "Qwen/Qwen2.5-3B" --precision "bfloat16" --mock False --authorize-paid-run True
 
 # Download results from Modal Volume to G:\llm_cooperation\results
 modal volume get llm-coop-results <run_file>.jsonl G:\llm_cooperation\results\
@@ -140,5 +143,6 @@ Per experimental specification (§13):
 > *"Across several pretrained language-model families, a balanced multiple-choice screen finds a reproducible bias toward selecting cooperative strategies under specified one-shot conditions."*
 
 - Phase 0 is descriptive and behavioral; it **does not** prove internal motives, innate altruism, or low-level mechanistic circuits.
+- The item bank remains formally designated as **Pending Human Scientific Review**; lexical length parity is necessary but does not inherently guarantee construct equivalence across options.
 - The 25% four-choice share is a uniform display reference, not a naturalistic null hypothesis.
-- Escalation to Phase 1/2 mechanistic probing requires passing the predefined gates: high format compliance, position robustness, and consistent cross-scenario patterns.
+- Escalation to Phase 1/2 mechanistic probing requires passing the predefined gates: high format compliance, position robustness, consistent cross-scenario patterns, and explicit cross-family human review (mock runs strictly excluded).

@@ -2,7 +2,7 @@
 
 import os
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 import pandas as pd
 from rich.console import Console
 from rich.table import Table
@@ -14,6 +14,70 @@ from llm_cooperation.analysis.metrics import (
     audit_position_bias,
 )
 from llm_cooperation.analysis.plots import plot_summary_figures
+
+
+def resolve_model_metadata(model_name: str, config_path: Optional[str] = None) -> Dict:
+    """Resolve model metadata (is_base, stage, family, size) explicitly from manifest.
+
+    Unknown or unverified checkpoint provenance must NOT silently default to base.
+    """
+    name_clean = model_name.strip()
+    norm = name_clean.lower()
+
+    manifest_paths = [
+        config_path,
+        "configs/models.yaml",
+        os.path.join(os.path.dirname(__file__), "../../../configs/models.yaml"),
+        os.path.join(os.path.dirname(__file__), "../../configs/models.yaml"),
+    ]
+    for p in manifest_paths:
+        if p and os.path.exists(p):
+            try:
+                import yaml
+                with open(p, "r", encoding="utf-8") as f:
+                    cfg = yaml.safe_load(f) or {}
+                for section in ["base_models", "optional_models", "post_trained_comparators"]:
+                    for item in cfg.get(section, {}).values():
+                        if isinstance(item, dict):
+                            if item.get("name", "").lower() == norm or item.get("hf_id", "").lower() == norm:
+                                is_b = bool(item.get("is_base", False))
+                                return {
+                                    "family": str(item.get("family", "unknown")).lower(),
+                                    "is_base": is_b,
+                                    "stage": "base" if is_b else "post_trained",
+                                    "size": item.get("size", "unknown"),
+                                    "revision": item.get("revision", None),
+                                    "verified": True,
+                                }
+            except Exception:
+                pass
+
+    # If not in manifest: check family heuristic
+    family = "unknown"
+    for fam in ["qwen", "pythia", "olmo", "mistral", "llama", "gemma", "falcon", "phi", "opt", "bloom"]:
+        if fam in norm:
+            family = fam
+            break
+    if family == "unknown" and "/" in norm:
+        family = norm.split("/")[0]
+
+    # Explicit post-training cues
+    is_post = any(s in norm for s in ["sft", "instruct", "chat", "rlhf", "dpo", "aligned"])
+
+    return {
+        "family": family,
+        "is_base": False,
+        "stage": "unverified",
+        "size": "unknown",
+        "revision": None,
+        "verified": False,
+    }
+
+
+def resolve_model_family(model_name: str, config_path: Optional[str] = None) -> str:
+    """Resolve model family from configs/models.yaml or standard naming heuristics."""
+    meta = resolve_model_metadata(model_name, config_path=config_path)
+    return meta["family"]
 
 
 def generate_markdown_report(
@@ -52,12 +116,13 @@ def generate_markdown_report(
         key=lambda x: x[1]
     )[0]
 
-    # Strata specific metrics for gate checks
+    # Strata specific metrics for evaluation
     ctx_means = scenario_df.groupby("context_type")["coop_argmax_rate"].mean().to_dict()
+    coop_neutral = ctx_means.get("neutral_or_costless", 0.0)
+    coop_cost = ctx_means.get("modest_cost", 0.0)
     coop_conflict = ctx_means.get("conflict_with_objective", 0.0)
     coop_ineffective = ctx_means.get("ineffective_or_inappropriate", 0.0)
 
-    # Gate decision assessment per §4A.4 & task requirements:
     is_mock = metadata.get("mock", False)
     coop_rate = overall_boot["mean"]
     max_pos = max(pos_bias.values())
@@ -68,38 +133,41 @@ def generate_markdown_report(
     contradicting_evidence = []
 
     if is_mock:
-        contradicting_evidence.append("Synthetic/mock run output; cannot justify scientific advancement.")
+        contradicting_evidence.append("Synthetic/mock run output; excluded from scientific conclusions and advancement decisions.")
     if valid_rate < 0.50:
         contradicting_evidence.append(f"Format compliance failure: valid letter rate {valid_rate:.1%} is below 50%.")
     else:
         supporting_evidence.append(f"Format compliance acceptable: {valid_rate:.1%} valid letters.")
 
     if pos_spread > 0.40:
-        contradicting_evidence.append(f"Extreme position sensitivity: positional spread is {pos_spread:.1%} (>40%).")
+        contradicting_evidence.append(f"Severe positional sensitivity: positional spread is {pos_spread:.1%} (>40%). Order artifact dominates choice.")
     elif pos_spread > 0.25:
-        contradicting_evidence.append(f"Moderate position bias: positional spread is {pos_spread:.1%} (>25%).")
+        contradicting_evidence.append(f"Moderate positional bias: positional spread is {pos_spread:.1%} (>25%).")
     else:
-        supporting_evidence.append(f"Position robustness acceptable: positional spread is {pos_spread:.1%} (<=25%).")
+        supporting_evidence.append(f"Positional robustness acceptable: positional spread is {pos_spread:.1%} (<=25%).")
 
-    # Check for failure in conflicting or ineffective strata (negative controls)
     if coop_conflict > 0.60:
         contradicting_evidence.append(f"Indiscriminate cooperation: High cooperation rate ({coop_conflict:.1%}) even when directly conflicting with assigned objectives.")
     if coop_ineffective > 0.60:
         contradicting_evidence.append(f"Indiscriminate cooperation: High cooperation rate ({coop_ineffective:.1%}) even when cooperation is inappropriate or ineffective.")
 
-    # Conservative gate decision
+    # Remove automatic ADVANCE based solely on fixed percentage
     if is_mock:
         gate_status = "**MOCK RUN (NO SCIENTIFIC ADVANCEMENT)**: Synthetic execution for pipeline validation only."
     elif valid_rate < 0.50:
         gate_status = "**STOP / REVISE ELICITATION**: Format compliance failure (<50% valid letters). Model completion format failed."
     elif pos_spread > 0.40:
-        gate_status = f"**REVISE**: Extreme position sensitivity detected (spread: {pos_spread:.1%}). Order artifact dominates signal."
+        gate_status = f"**REVISE**: Severe position sensitivity detected (spread: {pos_spread:.1%}). Order artifact dominates signal."
     elif coop_conflict > 0.60 or coop_ineffective > 0.60:
-        gate_status = "**REVISE / STOP**: Indiscriminate agreement detected. Aggregate cooperation conceals failure on negative control strata."
-    elif coop_rate > 0.35 and pos_spread <= 0.25:
-        gate_status = "**PRELIMINARY INDICATION (SINGLE MODEL)**: Cooperative preference visible and position-robust across strata. Requires cross-family replication before multi-model ADVANCE."
+        gate_status = "**REVISE / STOP**: Indiscriminate agreement detected. Failure on negative control strata indicates compliance confound."
+    elif coop_rate > 0.35 and pos_spread <= 0.25 and coop_neutral >= coop_conflict:
+        gate_status = (
+            "**QUALITATIVE REVIEW WARRANTED (SINGLE MODEL)**: Apparent cooperative tendency with acceptable format compliance "
+            "and positional robustness. Per protocol §8 & §10, individual models cannot trigger automatic scientific advancement; "
+            "requires independent cross-family human review."
+        )
     else:
-        gate_status = "**STOP OR INVESTIGATE CONTEXT**: Mixed or neutral outcome without robust overall cooperation preference."
+        gate_status = "**STOP OR INVESTIGATE CONTEXT**: Mixed or neutral outcome without robust overall cooperation preference across contexts."
 
     md = f"""# Phase 0 Behavioral Screen Report
 **Model:** `{model_name}`
@@ -109,7 +177,7 @@ def generate_markdown_report(
 
 ---
 
-## 1. Executive Summary & Gate Decision
+## 1. Executive Summary & Diagnostic Assessment
 - **Gate Recommendation (§4A.4):** {gate_status}
 - **Overall Cooperative Selection Rate (Forced-Choice Argmax):** {overall_boot['mean']:.1%} [95% CI: {overall_boot['ci_lower']:.1%} – {overall_boot['ci_upper']:.1%}]
 - **Overall Mean Conditional Cooperative Probability:** {prob_boot['mean']:.3f} [95% CI: {prob_boot['ci_lower']:.3f} – {prob_boot['ci_upper']:.3f}]
@@ -118,9 +186,9 @@ def generate_markdown_report(
 - **Execution Mode:** `{'MOCK' if is_mock else 'REAL'}`
 
 ### Evidence Summary
-- **Supporting Evidence:**
+- **Supporting Observations:**
 {chr(10).join(f"  - {e}" for e in supporting_evidence) if supporting_evidence else "  - None identified"}
-- **Contradicting / Limitation Evidence:**
+- **Contradicting / Limitation Observations:**
 {chr(10).join(f"  - {e}" for e in contradicting_evidence) if contradicting_evidence else "  - None identified"}
 
 *(Note: 25.0% is shown as a mathematical uniform reference for 4 alternatives, not a presumed naturalistic null.)*
@@ -155,7 +223,7 @@ Presentation frequency of chosen letters across all 96 counterbalanced presentat
 
 ---
 
-## 5. Claim Boundary Compliance (§13)
+## 5. Scientific Claim Boundary (§13)
 > "Phase 0 asks only about strategy-selection behaviour; it does not demonstrate innate agency, motives, altruism, or a weight-level mechanism. Later phases remain conditional and must be frozen before confirmatory held-out evaluation."
 """
     if output_path:
@@ -242,59 +310,44 @@ def analyze_results(
     }
 
 
-def resolve_model_family(model_name: str, config_path: Optional[str] = None) -> str:
-    """Resolve model family from configs/models.yaml or standard naming heuristics."""
-    name_clean = model_name.strip()
-    norm = name_clean.lower()
-
-    # 1. Try loading from configs/models.yaml
-    manifest_paths = [
-        config_path,
-        "configs/models.yaml",
-        os.path.join(os.path.dirname(__file__), "../../../configs/models.yaml"),
-        os.path.join(os.path.dirname(__file__), "../../configs/models.yaml"),
-    ]
-    for p in manifest_paths:
-        if p and os.path.exists(p):
-            try:
-                import yaml
-                with open(p, "r", encoding="utf-8") as f:
-                    cfg = yaml.safe_load(f) or {}
-                for section in ["base_models", "optional_models", "post_trained_comparators"]:
-                    for item in cfg.get(section, {}).values():
-                        if isinstance(item, dict):
-                            if item.get("name", "").lower() == norm or item.get("hf_id", "").lower() == norm:
-                                if "family" in item:
-                                    return str(item["family"]).lower()
-            except Exception:
-                pass
-
-    # 2. Heuristics based on standard LLM family keywords
-    for family in ["qwen", "pythia", "olmo", "mistral", "llama", "gemma", "falcon", "phi", "opt", "bloom"]:
-        if family in norm:
-            return family
-
-    # 3. Fallback: organisation or model name prefix
-    if "/" in norm:
-        return norm.split("/")[0]
-    return norm
-
-
 def compare_models(
     results_paths: List[str],
     output_dir: str = "reports",
     num_bootstraps: int = 2000,
 ) -> str:
-    """Generate a cross-model comparison report, strictly separating base models from post-trained comparators."""
+    """Generate a cross-model comparison report, strictly separating base models from post-trained comparators.
+
+    Explicitly excludes mock runs from scientific conclusions.
+    Reports cooperation by context, model family, and positional robustness.
+    Removes automatic scientific ADVANCE decisions based purely on fixed overall percentages or exactly two families.
+    """
     os.makedirs(output_dir, exist_ok=True)
     base_summaries = []
     post_trained_summaries = []
+    unverified_summaries = []
 
     for path in results_paths:
         metadata, records = load_run_results(path)
         model_name = metadata.get("model_name", "unknown")
-        family = resolve_model_family(model_name)
-        is_post_trained = "sft" in model_name.lower() or "instruct" in model_name.lower() or metadata.get("prompt_mode") == "openassistant"
+        meta_info = resolve_model_metadata(model_name)
+        family = meta_info["family"]
+
+        # Strictly require manifest verification or explicit metadata header
+        # Unknown or unverified models are assigned stage 'unverified' and placed in unverified cohort
+        if "is_base" in metadata and metadata.get("stage") in ("base", "post_trained"):
+            stage = metadata["stage"]
+            is_base = bool(metadata["is_base"])
+        elif meta_info.get("verified"):
+            stage = meta_info["stage"]
+            is_base = meta_info["is_base"]
+        else:
+            stage = "unverified"
+            is_base = False
+
+        if metadata.get("prompt_mode") == "openassistant":
+            stage = "post_trained"
+            is_base = False
+
         scenario_df = aggregate_by_scenario(records)
         overall_boot = scenario_cluster_bootstrap(scenario_df, "coop_argmax_rate", n_bootstraps=num_bootstraps)
         prob_boot = scenario_cluster_bootstrap(scenario_df, "coop_cond_prob", n_bootstraps=num_bootstraps)
@@ -307,6 +360,7 @@ def compare_models(
         summary_row = {
             "model_name": model_name,
             "family": family,
+            "stage": stage,
             "run_id": metadata.get("run_id", "N/A"),
             "effective_precision": metadata.get("effective_precision", "N/A"),
             "mock": metadata.get("mock", False),
@@ -322,13 +376,14 @@ def compare_models(
             "coop_ineffective": ctx_means.get("ineffective_or_inappropriate", 0.0),
         }
 
-        if is_post_trained:
+        if stage == "base":
+            base_summaries.append(summary_row)
+        elif stage == "post_trained":
             post_trained_summaries.append(summary_row)
         else:
-            base_summaries.append(summary_row)
+            unverified_summaries.append(summary_row)
 
-    # Global cross-model recommendation gate per docs/phase0_protocol.md §6
-    # 1. Deduplicate base runs by model identity (model_name) to avoid pseudoreplication from repeated files/runs
+    # Distinct base models evaluation
     qualifying_models: Dict[str, Dict] = {}
     for s in base_summaries:
         if (
@@ -338,12 +393,12 @@ def compare_models(
             and s["coop_rate"] > 0.35
             and s["coop_conflict"] <= 0.60
             and s["coop_ineffective"] <= 0.60
+            and s["coop_neutral"] >= s["coop_conflict"]
         ):
             model_name = s["model_name"]
             if model_name not in qualifying_models:
                 qualifying_models[model_name] = s
 
-    # 2. Group distinct qualifying models by model family
     qualifying_families: Dict[str, List[str]] = {}
     for model_name, s in qualifying_models.items():
         fam = s.get("family") or resolve_model_family(model_name)
@@ -353,16 +408,23 @@ def compare_models(
 
     num_qualifying_families = len(qualifying_families)
     num_qualifying_models = len(qualifying_models)
-    any_mock = any(s["mock"] for s in base_summaries + post_trained_summaries)
+    any_mock = any(s["mock"] for s in base_summaries + post_trained_summaries + unverified_summaries)
 
-    if any_mock and num_qualifying_families == 0:
-        cross_gate = "**MOCK EXECUTION / VALIDATION ONLY**: One or more models were executed in mock mode; scientific ADVANCE barred."
+    # Scientific recommendation boundary:
+    # Any mock run strictly bars scientific conclusion / advancement
+    if any_mock:
+        cross_gate = (
+            "**MOCK EXECUTION / VALIDATION ONLY**: One or more models were executed in mock mode; "
+            "scientific ADVANCE barred and mock results cannot contribute to scientific conclusions."
+        )
     elif num_qualifying_families >= 2:
         family_names_str = ", ".join(f.upper() if len(f) <= 4 else f.capitalize() for f in sorted(qualifying_families.keys()))
         cross_gate = (
-            f"**ADVANCE TO PHASE 1 (MECHANISM PILOT)**: Multiple independent base model families "
-            f"({num_qualifying_families}: {family_names_str}; {num_qualifying_models} distinct model checkpoints) "
-            f"show position-robust, strata-consistent cooperative preference."
+            f"**HUMAN SCIENTIFIC REVIEW RECOMMENDED (POTENTIAL PHASE 1 PILOT)**: "
+            f"Multiple independent base model families ({num_qualifying_families}: {family_names_str}; "
+            f"{num_qualifying_models} distinct model checkpoints) show position-robust (spread <= 25%), "
+            f"context-consistent cooperative choices across neutral and costly strata. "
+            f"Per protocol §8, this descriptive screen warrants scientific review before any confirmatory commitment."
         )
     elif num_qualifying_families == 1:
         fam_name = list(qualifying_families.keys())[0]
@@ -381,13 +443,13 @@ def compare_models(
         if not rows:
             return "_No models in this cohort._"
         lines = [
-            "| Model | Family | Run ID | Precision | Mock | Coop Rate (95% CI) | Cond Prob | Valid % | Pos Spread | Neutral | Cost | Conflict | Ineff |",
-            "| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |",
+            "| Model | Family | Stage | Run ID | Precision | Mock | Coop Rate (95% CI) | Cond Prob | Valid % | Pos Spread | Neutral | Cost | Conflict | Ineff |",
+            "| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |",
         ]
         for r in rows:
             ci = f"{r['coop_rate']:.1%} [{r['ci_lower']:.1%}–{r['ci_upper']:.1%}]"
             lines.append(
-                f"| `{r['model_name']}` | {r.get('family', 'N/A')} | `{r['run_id']}` | {r['effective_precision']} | {r['mock']} | "
+                f"| `{r['model_name']}` | {r.get('family', 'N/A')} | {r.get('stage', 'base')} | `{r['run_id']}` | {r['effective_precision']} | {r['mock']} | "
                 f"{ci} | {r['cond_prob']:.3f} | {r['valid_rate']:.1%} | {r['pos_spread']:.1%} | "
                 f"{r['coop_neutral']:.1%} | {r['coop_cost']:.1%} | {r['coop_conflict']:.1%} | {r['coop_ineffective']:.1%} |"
             )
@@ -413,7 +475,14 @@ def compare_models(
 
 ---
 
-## 3. Scientific Claim Boundary (§13)
+## 3. Unverified / Unknown Provenance Cohort (Excluded from Scientific Evidence)
+*Checkpoints without verified manifest provenance or explicit metadata are isolated here.*
+
+{make_table(unverified_summaries)}
+
+---
+
+## 4. Scientific Claim Boundary (§8, §10, & §13)
 > "Phase 0 asks only about strategy-selection behaviour; it does not demonstrate innate agency, motives, altruism, or a weight-level mechanism. Later phases remain conditional and must be frozen before confirmatory held-out evaluation."
 """
     out_file = os.path.join(output_dir, "cross_model_comparison_report.md")

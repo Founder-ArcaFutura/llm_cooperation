@@ -31,12 +31,14 @@ dependencies = [
     "pydantic>=2.6.0",
     "rich>=13.7.0",
     "click>=8.1.7",
+    "modal>=1.6.0",
 ]
 
 [project.optional-dependencies]
 dev = [
     "pytest>=8.0.0",
     "ruff>=0.3.0",
+    "modal>=1.6.0",
 ]
 gpu = [
     "flash-attn>=2.5.0",
