@@ -36,6 +36,10 @@ class Scenario(BaseModel):
     title: str
     stem: str = Field(..., min_length=20, description="The situational prompt stem.")
     options: Dict[StrategyType, str] = Field(..., description="Mapping of strategy to option text.")
+    # Optional extensions for expanded bank
+    template_id: Optional[str] = Field(None, description="Shared template ID for matched human/AI pair, e.g. template_001")
+    split: Optional[str] = Field(None, description="Dataset split: 'exploratory' or 'confirmatory'")
+    domain: Optional[str] = Field(None, description="Substantive scenario domain classification")
 
     @model_validator(mode="after")
     def validate_options(self) -> "Scenario":
@@ -52,5 +56,33 @@ class Scenario(BaseModel):
 
 class ScenarioBank(BaseModel):
     version: str = "0.2.0"
+    status: Optional[str] = Field("frozen", description="Status of the bank, e.g. frozen or pending_human_scientific_review")
     description: str
+    split_assignment_method: Optional[str] = None
+    split_manifest: Optional[Dict[str, List[str]]] = None
+    author_metadata: Optional[Dict[str, str]] = None
     scenarios: List[Scenario]
+
+
+class CalibrationItem(BaseModel):
+    id: str = Field(..., description="Unique identifier for diagnostic calibration item, e.g. calib_01")
+    domain: str = Field(..., description="General domain, e.g. arithmetic, science, facts, reasoning")
+    stem: str = Field(..., min_length=10, description="Stem text formulating an objective question.")
+    options: Dict[str, str] = Field(..., description="Mapping of invariant option IDs (e.g. opt_1, opt_2, opt_3, opt_4) to text.")
+    correct_option_id: str = Field(..., description="Invariant option ID that is objectively correct.")
+    difficulty: str = Field("elementary", description="Difficulty tier: elementary, intermediate")
+
+    @model_validator(mode="after")
+    def validate_calibration_item(self) -> "CalibrationItem":
+        if len(self.options) != 4:
+            raise ValueError(f"Calibration item {self.id} must have exactly 4 options, got {len(self.options)}")
+        if self.correct_option_id not in self.options:
+            raise ValueError(f"Calibration item {self.id} correct_option_id '{self.correct_option_id}' not found in options {list(self.options.keys())}")
+        return self
+
+
+class CalibrationBank(BaseModel):
+    version: str = "1.0.0"
+    status: str = "frozen"
+    description: str
+    items: List[CalibrationItem]
