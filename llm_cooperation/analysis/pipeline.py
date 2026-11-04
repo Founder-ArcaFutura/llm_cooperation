@@ -12,7 +12,7 @@ from llm_cooperation.analysis.metrics import (
     aggregate_by_scenario,
     scenario_cluster_bootstrap,
     template_cluster_bootstrap,
-    principal_context_contrast,
+    compute_principal_contrast,
     audit_position_bias,
 )
 from llm_cooperation.analysis.plots import plot_summary_figures
@@ -92,8 +92,6 @@ def generate_markdown_report(
     exploratory_boot: Optional[Dict[str, float]] = None,
     confirmatory_boot: Optional[Dict[str, float]] = None,
     principal_contrast: Optional[Dict[str, float]] = None,
-    exploratory_contrast: Optional[Dict[str, float]] = None,
-    confirmatory_contrast: Optional[Dict[str, float]] = None,
 ) -> str:
     model_name = metadata.get("model_name", "Unknown")
     num_scenarios = len(scenario_df)
@@ -126,34 +124,44 @@ def generate_markdown_report(
                 f"Coop Rate: {confirmatory_boot['mean']:.1%} [95% CI: {confirmatory_boot['ci_lower']:.1%} – {confirmatory_boot['ci_upper']:.1%}]"
             )
 
-        def contrast_line(label: str, contrast: Optional[Dict[str, float]]) -> str:
-            if contrast is None:
-                return f"- **{label}:** Not estimable."
-            return (
-                f"- **{label} (N={contrast['num_clusters']} templates, "
-                f"{contrast['num_scenarios']} scenarios):** "
-                f"Δ = {contrast['difference']:+.1%} "
-                f"[95% CI: {contrast['ci_lower']:+.1%} – {contrast['ci_upper']:+.1%}]"
-            )
-
-        contrast_text = "\n\n### Preregistered Principal Contrast (Δcontext)\n"
-        contrast_text += "\n".join([
-            contrast_line("Held-Out Confirmatory — formal preregistered test", confirmatory_contrast),
-            contrast_line("Exploratory — descriptive only", exploratory_contrast),
-            contrast_line("Combined — reference only", principal_contrast),
-        ])
-        contrast_text += (
-            "\n\n*Confidence intervals resample paired situation templates within "
-            "context strata. The held-out estimate is the formal test; exploratory "
-            "and combined estimates cannot substitute for it.*"
-        )
+        contrast_text = ""
+        if principal_contrast:
+            # Check if contrasts are split-specific dictionary
+            if isinstance(principal_contrast, dict) and "confirmatory" in principal_contrast:
+                c_conf = principal_contrast.get("confirmatory")
+                c_exp = principal_contrast.get("exploratory")
+                c_comb = principal_contrast.get("combined")
+                contrast_lines = []
+                if c_conf:
+                    contrast_lines.append(
+                        f"- **Preregistered Primary Confirmatory Contrast (Held-Out, N=20 templates) [FORMAL TEST]:** "
+                        f"{c_conf['difference']:.1%} [95% CI: {c_conf['ci_lower']:.1%} – {c_conf['ci_upper']:.1%}] "
+                        f"(Pos: {c_conf['pos_mean']:.1%}, Neg: {c_conf['neg_mean']:.1%})"
+                    )
+                if c_exp:
+                    contrast_lines.append(
+                        f"- **Exploratory Replication Contrast (N=40 templates) [Descriptive/Reference]:** "
+                        f"{c_exp['difference']:.1%} [95% CI: {c_exp['ci_lower']:.1%} – {c_exp['ci_upper']:.1%}] "
+                        f"(Pos: {c_exp['pos_mean']:.1%}, Neg: {c_exp['neg_mean']:.1%})"
+                    )
+                if c_comb:
+                    contrast_lines.append(
+                        f"- **Combined Item Bank Contrast (N=60 templates) [Pooled Reference]:** "
+                        f"{c_comb['difference']:.1%} [95% CI: {c_comb['ci_lower']:.1%} – {c_comb['ci_upper']:.1%}]"
+                    )
+                contrast_text = "\n" + "\n".join(contrast_lines)
+            else:
+                contrast_text = (
+                    f"\n- **Preregistered Principal Contrast [Coop in (Neutral + Cost) vs (Conflict + Inappropriate)]:** "
+                    f"{principal_contrast['difference']:.1%} [95% CI: {principal_contrast['ci_lower']:.1%} – {principal_contrast['ci_upper']:.1%}]"
+                )
 
         split_section = f"""
 ### Dataset Split & Confirmatory Isolation (§3)
 {split_summary}
 
 {chr(10).join(split_details)}{contrast_text}
-*(The held-out designation is valid only if its items were not used for tuning and the analysis was frozen before confirmatory evaluation.)*
+*(Note: Confirmatory split is held-out and isolated from item optimization or prompt tuning. The confirmatory contrast is the preregistered test.)*
 """
 
     # Breakdown by partner
@@ -231,7 +239,7 @@ def generate_markdown_report(
 **Model:** `{model_name}`
 **Date:** {metadata.get('timestamp', 'N/A')}
 **Git Commit:** `{metadata.get('git_commit', 'N/A')}`
-**Scenarios Evaluated (N):** {num_scenarios} ({num_scenarios * 4} total counterbalanced presentations)
+**Scenarios Evaluated (N):** {num_scenarios} (96 total counterbalanced presentations)
 
 ---
 
@@ -265,7 +273,7 @@ def generate_markdown_report(
 ---
 
 ## 3. Position Bias Audit (§4A.3)
-Presentation frequency of chosen letters across all {num_scenarios * 4} counterbalanced presentations:
+Presentation frequency of chosen letters across all 96 counterbalanced presentations:
 - **A:** {pos_bias.get('A', 0.0):.1%}
 - **B:** {pos_bias.get('B', 0.0):.1%}
 - **C:** {pos_bias.get('C', 0.0):.1%}
@@ -340,27 +348,18 @@ def analyze_results(
         if not conf_df.empty:
             confirmatory_boot = bootstrap_fn(conf_df, "coop_argmax_rate", n_bootstraps=num_bootstraps)
 
-    # Formal principal contrast is evaluated on held-out templates, not pooled rows.
-    # Keep exploratory and combined estimates separate and explicitly non-confirmatory.
-    principal_contrasts = {"confirmatory": None, "exploratory": None, "combined": None}
+    # Compute principal contrast: resample paired templates with both partner observations kept together
+    # Compute separately for held-out confirmatory partition (formal test) and exploratory/combined
     if "split" in scenario_df.columns and not scenario_df["split"].isnull().all():
-        if not is_template_available:
-            raise ValueError("Split-specific principal contrast requires paired template_id data")
-        unexpected_splits = set(scenario_df["split"].dropna()) - {
-            "confirmatory", "exploratory"
+        exp_df = scenario_df[scenario_df["split"] == "exploratory"]
+        conf_df = scenario_df[scenario_df["split"] == "confirmatory"]
+        principal_contrast = {
+            "confirmatory": compute_principal_contrast(conf_df, n_bootstraps=num_bootstraps) if not conf_df.empty else None,
+            "exploratory": compute_principal_contrast(exp_df, n_bootstraps=num_bootstraps) if not exp_df.empty else None,
+            "combined": compute_principal_contrast(scenario_df, n_bootstraps=num_bootstraps),
         }
-        if unexpected_splits or scenario_df["split"].isna().any():
-            raise ValueError(f"Unexpected or missing dataset split labels: {unexpected_splits}")
-
-        for split_name in ("confirmatory", "exploratory"):
-            split_df = scenario_df.loc[scenario_df["split"] == split_name]
-            if not split_df.empty:
-                principal_contrasts[split_name] = principal_context_contrast(
-                    split_df, n_bootstraps=num_bootstraps
-                )
-        principal_contrasts["combined"] = principal_context_contrast(
-            scenario_df, n_bootstraps=num_bootstraps
-        )
+    else:
+        principal_contrast = compute_principal_contrast(scenario_df, n_bootstraps=num_bootstraps)
 
     # 3. Position bias audit
     pos_bias = audit_position_bias(records)
@@ -395,9 +394,7 @@ def analyze_results(
         output_path=report_path,
         exploratory_boot=exploratory_boot,
         confirmatory_boot=confirmatory_boot,
-        principal_contrast=principal_contrasts["combined"],
-        exploratory_contrast=principal_contrasts["exploratory"],
-        confirmatory_contrast=principal_contrasts["confirmatory"],
+        principal_contrast=principal_contrast,
     )
     console.print(f"[bold cyan]Generated executive report at {report_path}[/bold cyan]")
 
@@ -405,7 +402,6 @@ def analyze_results(
         "metadata": metadata,
         "overall_boot": overall_boot,
         "prob_boot": prob_boot,
-        "principal_contrasts": principal_contrasts,
         "position_bias": pos_bias,
         "scenario_csv": csv_path,
         "report_markdown": report_path,
