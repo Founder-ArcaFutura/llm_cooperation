@@ -65,28 +65,31 @@ def validate_candidate_tokens_at_boundary(
     errors = []
 
     for cand, expected_id in candidate_token_ids.items():
-        # Try continuation
+        # Strictly test continuation matching prompt spacing
         continuation = cand if sample_prompt.endswith(" ") else f" {cand}"
         full_text = sample_prompt + continuation
         full_ids = tokenizer.encode(full_text, add_special_tokens=False)
 
-        if full_ids[:num_prompt_tokens] == prompt_ids:
-            continuation_ids = full_ids[num_prompt_tokens:]
-        else:
-            continuation_ids = full_ids[len(tokenizer.encode(sample_prompt.rstrip(), add_special_tokens=False)):]
-
-        if len(continuation_ids) != 1:
+        # Reject non-prefix matches strictly: full_ids MUST begin exactly with prompt_ids.
+        # Fallback slicing on rstrip() is barred because merging or retokenizing across the
+        # boundary alters previous tokens and misinterprets boundary behavior.
+        if full_ids[:num_prompt_tokens] != prompt_ids:
+            # Check if unprefixed continuation works cleanly without mutating prefix
             alt_continuation = cand if not sample_prompt.endswith(" ") else f" {cand}"
             alt_full = sample_prompt + alt_continuation
             alt_full_ids = tokenizer.encode(alt_full, add_special_tokens=False)
             if alt_full_ids[:num_prompt_tokens] == prompt_ids:
-                alt_continuation_ids = alt_full_ids[num_prompt_tokens:]
+                continuation_ids = alt_full_ids[num_prompt_tokens:]
             else:
-                alt_continuation_ids = []
-
-            if len(alt_continuation_ids) == 1 and alt_continuation_ids[0] == expected_id:
+                errors.append(
+                    f"Candidate '{cand}' at prompt boundary caused prefix retokenization "
+                    f"(full: {full_ids}, prompt: {prompt_ids}). Single-token prompt boundary contract violated."
+                )
                 continue
+        else:
+            continuation_ids = full_ids[num_prompt_tokens:]
 
+        if len(continuation_ids) != 1:
             errors.append(
                 f"Candidate '{cand}' at prompt boundary tokenizes to {continuation_ids} "
                 f"(expected single token [{expected_id}])."

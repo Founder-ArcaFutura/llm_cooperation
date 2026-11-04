@@ -143,5 +143,6 @@ Per experimental specification (§13):
 > *"Across several pretrained language-model families, a balanced multiple-choice screen finds a reproducible bias toward selecting cooperative strategies under specified one-shot conditions."*
 
 - Phase 0 is descriptive and behavioral; it **does not** prove internal motives, innate altruism, or low-level mechanistic circuits.
+- The item bank remains formally designated as **Pending Human Scientific Review**; lexical length parity is necessary but does not inherently guarantee construct equivalence across options.
 - The 25% four-choice share is a uniform display reference, not a naturalistic null hypothesis.
-- Escalation to Phase 1/2 mechanistic probing requires passing the predefined gates: high format compliance, position robustness, and consistent cross-scenario patterns.
+- Escalation to Phase 1/2 mechanistic probing requires passing the predefined gates: high format compliance, position robustness, consistent cross-scenario patterns, and explicit cross-family human review (mock runs strictly excluded).

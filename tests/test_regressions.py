@@ -465,3 +465,69 @@ def test_scenario_banks_hash_traceability():
     h_rev = hashlib.sha256(p_rev.read_bytes()).hexdigest()
     h_leg = hashlib.sha256(p_leg.read_bytes()).hexdigest()
     assert h_rev != h_leg
+
+def test_gpu_profile_numeric_parsing():
+    """Verify GPU hardware selection uses numeric parsing rather than naive substring matching."""
+    import modal_app
+    # 2.8B must resolve to small (A10G), not medium (L40S)
+    assert modal_app.resolve_model_gpu("EleutherAI/pythia-2.8b") == "A10G"
+    assert modal_app.resolve_model_gpu("Qwen/Qwen2.5-3B") == "A10G"
+    assert modal_app.resolve_model_gpu("allenai/OLMo-2-1124-1B") == "A10G"
+
+    # 7B and 12B must resolve to medium (L40S)
+    assert modal_app.resolve_model_gpu("allenai/OLMo-2-1124-7B") == "L40S"
+    assert modal_app.resolve_model_gpu("mistralai/Mistral-7B-v0.3") == "L40S"
+    assert modal_app.resolve_model_gpu("EleutherAI/pythia-12b-deduped") == "L40S"
+    assert modal_app.resolve_model_gpu("OpenAssistant/oasst-sft-1-pythia-12b") == "L40S"
+
+    # 70B must resolve to large (A100-80GB)
+    assert modal_app.resolve_model_gpu("meta-llama/Llama-2-70b-hf") == "A100-80GB"
+
+    # Unsupported large profile fails before provisioning
+    with pytest.raises(NotImplementedError, match="not currently provisioned"):
+        modal_app.main(model="meta-llama/Llama-2-70b-hf", mock=False, authorize_paid_run=True)
+
+
+def test_unverified_model_cohort_separation(tmp_path):
+    """Verify unknown/unverified models are isolated into a third cohort and excluded from base conclusions."""
+    out_dir = tmp_path / "reports"
+    run_unverified = tmp_path / "unknown_model.jsonl"
+    _create_synthetic_qualifying_run_file(run_unverified, "some-org/unverified-unknown-model", "run_unknown")
+
+    report_file = compare_models([str(run_unverified)], output_dir=str(out_dir), num_bootstraps=50)
+    with open(report_file, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    assert "Unverified / Unknown Provenance Cohort" in content
+    assert "some-org/unverified-unknown-model" in content
+    assert "STOP OR REVISE" in content
+    assert "ADVANCE" not in content
+
+
+def test_prompt_boundary_prefix_retokenization_error():
+    """Verify boundary validator detects when appending a letter causes prefix retokenization."""
+    from llm_cooperation.harness.tokenizer_probe import (
+        resolve_candidate_token_ids,
+        TokenizerCandidateError,
+    )
+
+    class RetokenizingTokenizer:
+        def encode(self, text, add_special_tokens=False):
+            if text == "A": return [1]
+            if text == "B": return [2]
+            if text == "C": return [3]
+            if text == "D": return [4]
+            if text == " A": return [11]
+            if text == " B": return [12]
+            if text == " C": return [13]
+            if text == " D": return [14]
+            if text == "Answer:": return [100, 101]
+            if text == "Answer: A": return [100, 999]  # retokenized previous token!
+            if text == "Answer: B": return [100, 101, 12]
+            if text == "Answer: C": return [100, 101, 13]
+            if text == "Answer: D": return [100, 101, 14]
+            return [500]
+
+    tok = RetokenizingTokenizer()
+    with pytest.raises(TokenizerCandidateError, match="prefix retokenization"):
+        resolve_candidate_token_ids(tok, sample_prompt="Answer:")

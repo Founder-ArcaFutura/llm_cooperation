@@ -69,11 +69,25 @@ GPU_PROFILES = {
 }
 
 
-def resolve_model_gpu(model_name: str) -> str:
-    """Select appropriate GPU hardware profile based on model manifest or size heuristic.
+def parse_parameter_count_b(name_or_size: str) -> Optional[float]:
+    """Parse numeric parameter count in billions (e.g. '2.8B' -> 2.8, '12b' -> 12.0)."""
+    import re
+    m = re.search(r'(?:^|[^0-9.])([0-9]+(?:\.[0-9]+)?)\s*[Bb](?:$|[^0-9a-zA-Z])', name_or_size)
+    if m:
+        try:
+            return float(m.group(1))
+        except ValueError:
+            return None
+    return None
 
-    Ensures 12B models (e.g. Pythia-12B base or SFT comparator) and 7B models select L40S
-    or equivalent hardware profile.
+
+def resolve_model_gpu(model_name: str) -> str:
+    """Select appropriate GPU hardware profile based on model manifest or numeric size.
+
+    - 1B - 3B models: A10G (small)
+    - 7B - 14B models (e.g. Pythia-12B base or SFT comparator, OLMo-7B): L40S (medium)
+    - Large / unsupported models: A100-80GB (large)
+    Never confuses '2.8B' with '8B'.
     """
     clean_name = model_name.strip()
     norm = clean_name.lower()
@@ -91,26 +105,31 @@ def resolve_model_gpu(model_name: str) -> str:
                         if item.get("name", "").lower() == norm or item.get("hf_id", "").lower() == norm:
                             if item.get("recommended_gpu"):
                                 return str(item["recommended_gpu"])
-                            size = str(item.get("size", "")).upper()
-                            if "12B" in size or "13B" in size or "14B" in size or "7B" in size or "8B" in size:
-                                return GPU_PROFILES["medium"]  # L40S
+                            size_str = str(item.get("size", ""))
+                            param_b = parse_parameter_count_b(size_str)
                             mem = item.get("recommended_gpu_mem_gb", 0)
-                            if mem >= 32:
-                                return GPU_PROFILES["medium"]  # L40S
-                            if mem >= 60:
+
+                            if mem >= 60 or (param_b is not None and param_b > 14.0):
                                 return GPU_PROFILES["large"]
-                            return GPU_PROFILES["small"]  # A10G
+                            if mem >= 32 or (param_b is not None and 6.0 <= param_b <= 14.0):
+                                return GPU_PROFILES["medium"]
+                            if (param_b is not None and param_b <= 4.0) or mem <= 16:
+                                return GPU_PROFILES["small"]
         except Exception:
             pass
 
-    # 2. Heuristics based on model name string
-    if any(s in norm for s in ["12b", "13b", "14b", "7b", "8b"]):
-        return GPU_PROFILES["medium"]  # L40S
-    if any(s in norm for s in ["70b", "34b", "32b"]):
-        return GPU_PROFILES["large"]  # A100-80GB
+    # 2. Heuristics based on parsed parameter count from model name
+    param_b = parse_parameter_count_b(clean_name)
+    if param_b is not None:
+        if param_b > 14.0:
+            return GPU_PROFILES["large"]
+        elif param_b >= 6.0:
+            return GPU_PROFILES["medium"]
+        else:
+            return GPU_PROFILES["small"]
 
-    # Default for 1B-3B base models
-    return GPU_PROFILES["small"]  # A10G
+    # Default for unknown small models
+    return GPU_PROFILES["small"]
 
 
 def _get_secrets() -> List[modal.Secret]:
@@ -295,7 +314,7 @@ def main(
         selected_gpu = resolve_model_gpu(model)
         print(f"[modal_app] Selected GPU hardware profile for {model}: {selected_gpu}")
 
-        if selected_gpu == "L40S":
+        if selected_gpu == GPU_PROFILES["medium"]:  # L40S
             print(f"[modal_app] Dispatching to L40S high-memory GPU container (precision={precision})...")
             remote_path = run_evaluation_remote_l40s.remote(
                 model_name=model,
@@ -305,7 +324,7 @@ def main(
                 seed=seed,
                 prompt_mode=prompt_mode,
             )
-        else:
+        elif selected_gpu == GPU_PROFILES["small"]:  # A10G
             print(f"[modal_app] Dispatching to A10G GPU container (precision={precision})...")
             remote_path = run_evaluation_remote.remote(
                 model_name=model,
@@ -314,6 +333,13 @@ def main(
                 mock=False,
                 seed=seed,
                 prompt_mode=prompt_mode,
+            )
+        else:
+            # If large or unsupported GPU profile is selected, fail fast before provisioning
+            raise NotImplementedError(
+                f"Selected GPU profile '{selected_gpu}' for model '{model}' is not currently provisioned. "
+                "Phase 0 compute is constrained to small/medium base models (<= 12B). "
+                "Failing immediately before provisioning paid resources."
             )
 
     print(f"[modal_app] Successfully finished run! Output persisted on Modal Volume at: {remote_path}")

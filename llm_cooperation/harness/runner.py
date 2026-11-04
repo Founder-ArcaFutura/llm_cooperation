@@ -158,6 +158,15 @@ class ModelRunner:
         )
         print(f"[ModelRunner] Validated candidate token IDs at prompt boundary: {self.candidate_token_ids}")
 
+    def validate_presentation_boundary(self, presentation: Presentation):
+        """Validate candidate tokenization at the actual rendered presentation prompt boundary."""
+        if not self.mock and self.tokenizer is not None:
+            validate_candidate_tokens_at_boundary(
+                self.tokenizer,
+                presentation.prompt_text,
+                self.candidate_token_ids,
+            )
+
         torch_dtype = self.resolve_torch_dtype(self.requested_precision)
         print(f"[ModelRunner] Loading model {self.model_name} (requested_dtype={torch_dtype}, device={self.device})...")
         self.model = AutoModelForCausalLM.from_pretrained(
@@ -352,6 +361,11 @@ def run_experiment(
         mock=mock,
         seed=seed,
     )
+
+    # Validate boundary tokenization on the first rendered presentation prompt before running
+    if presentations and not mock:
+        print(f"[run_experiment] Validating candidate tokens at actual rendered presentation boundary...")
+        runner.validate_presentation_boundary(presentations[0])
 
     scored_records: List[ScoredPresentation] = []
     print(f"[run_experiment] Running {len(presentations)} presentations on {model_name} (mock={mock})...")

@@ -91,6 +91,7 @@ DISENGAGE                11.3       1.4     9    14
 
 ## 5. Unresolved Scientific Limitations & Review Notes
 
-1. **Semantic Connotation:** While overt moral words are absent, linguistic phrases like "assist", "accommodate", or "share" carry positive societal valence. Automated audits cannot guarantee that language models treat options as neutrally weighted.
-2. **Action Framing:** In some scenarios, INDEPENDENT might be perceived as standard duty rather than an equal choice. This is deliberate in negative controls (`conflict_with_objective`), but must be evaluated carefully during scientific review.
-3. **Pending Review:** This item bank must undergo formal human scientific review before allocating full GPU compute for Phase 0.
+1. **Status Formally Designated as Pending Human Scientific Review:** Automated audits and lexical balance checks cannot establish true semantic neutrality or construct validity. The item bank remains formally designated as **Pending Human Scientific Review** before allocating full GPU resources for Phase 0.
+2. **Lexical Balance vs Construct Validity:** While word counts are tightly balanced across all 4 action options (means ~11.2 – 12.4 words) and overt moral vocabulary is absent, certain alternatives may remain qualitatively less appealing depending on contextual priors (for example, manual formatting in Scenario 03 or conservative maintenance scaling in Scenario 07). Lexical parity does not constitute proof that options have equal psychological or decision-theoretic valence.
+3. **Unsolicited Framing vs Observability:** In real-world multi-agent coordination, recognizing an opportunity to cooperate requires environmental perception. The scenario stems provide this perception neutrally, but whether base LLMs interpret environmental cues as an invitation to cooperate remains to be tested empirically.
+4. **Secondary Status of Partner Type:** The human-versus-AI contrast provides an exploratory check on social framing biases, but remains secondary to whether models show a basic preference for cooperation across balanced one-shot strategic dilemmas.

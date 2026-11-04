@@ -52,7 +52,7 @@ def resolve_model_metadata(model_name: str, config_path: Optional[str] = None) -
             except Exception:
                 pass
 
-    # If not in manifest: check explicit naming conventions
+    # If not in manifest: check family heuristic
     family = "unknown"
     for fam in ["qwen", "pythia", "olmo", "mistral", "llama", "gemma", "falcon", "phi", "opt", "bloom"]:
         if fam in norm:
@@ -63,13 +63,11 @@ def resolve_model_metadata(model_name: str, config_path: Optional[str] = None) -
 
     # Explicit post-training cues
     is_post = any(s in norm for s in ["sft", "instruct", "chat", "rlhf", "dpo", "aligned"])
-    # If not in manifest and not explicitly marked as base, mark as unverified (cannot default to base)
-    is_base = False if is_post else (True if "base" in norm else False)
 
     return {
         "family": family,
-        "is_base": is_base,
-        "stage": "base" if is_base else ("post_trained" if is_post else "unverified"),
+        "is_base": False,
+        "stage": "unverified",
         "size": "unknown",
         "revision": None,
         "verified": False,
@@ -326,6 +324,7 @@ def compare_models(
     os.makedirs(output_dir, exist_ok=True)
     base_summaries = []
     post_trained_summaries = []
+    unverified_summaries = []
 
     for path in results_paths:
         metadata, records = load_run_results(path)
@@ -333,16 +332,20 @@ def compare_models(
         meta_info = resolve_model_metadata(model_name)
         family = meta_info["family"]
 
-        # Use explicit manifest metadata; metadata in file overrides if present
-        if "is_base" in metadata:
+        # Strictly require manifest verification or explicit metadata header
+        # Unknown or unverified models are assigned stage 'unverified' and placed in unverified cohort
+        if "is_base" in metadata and metadata.get("stage") in ("base", "post_trained"):
+            stage = metadata["stage"]
             is_base = bool(metadata["is_base"])
         elif meta_info.get("verified"):
+            stage = meta_info["stage"]
             is_base = meta_info["is_base"]
         else:
-            # Unverified provenance: cannot default to base!
+            stage = "unverified"
             is_base = False
 
         if metadata.get("prompt_mode") == "openassistant":
+            stage = "post_trained"
             is_base = False
 
         scenario_df = aggregate_by_scenario(records)
@@ -357,7 +360,7 @@ def compare_models(
         summary_row = {
             "model_name": model_name,
             "family": family,
-            "stage": "base" if is_base else "post_trained",
+            "stage": stage,
             "run_id": metadata.get("run_id", "N/A"),
             "effective_precision": metadata.get("effective_precision", "N/A"),
             "mock": metadata.get("mock", False),
@@ -373,10 +376,12 @@ def compare_models(
             "coop_ineffective": ctx_means.get("ineffective_or_inappropriate", 0.0),
         }
 
-        if is_base:
+        if stage == "base":
             base_summaries.append(summary_row)
-        else:
+        elif stage == "post_trained":
             post_trained_summaries.append(summary_row)
+        else:
+            unverified_summaries.append(summary_row)
 
     # Distinct base models evaluation
     qualifying_models: Dict[str, Dict] = {}
@@ -403,7 +408,7 @@ def compare_models(
 
     num_qualifying_families = len(qualifying_families)
     num_qualifying_models = len(qualifying_models)
-    any_mock = any(s["mock"] for s in base_summaries + post_trained_summaries)
+    any_mock = any(s["mock"] for s in base_summaries + post_trained_summaries + unverified_summaries)
 
     # Scientific recommendation boundary:
     # Any mock run strictly bars scientific conclusion / advancement
@@ -470,7 +475,14 @@ def compare_models(
 
 ---
 
-## 3. Scientific Claim Boundary (§8, §10, & §13)
+## 3. Unverified / Unknown Provenance Cohort (Excluded from Scientific Evidence)
+*Checkpoints without verified manifest provenance or explicit metadata are isolated here.*
+
+{make_table(unverified_summaries)}
+
+---
+
+## 4. Scientific Claim Boundary (§8, §10, & §13)
 > "Phase 0 asks only about strategy-selection behaviour; it does not demonstrate innate agency, motives, altruism, or a weight-level mechanism. Later phases remain conditional and must be frozen before confirmatory held-out evaluation."
 """
     out_file = os.path.join(output_dir, "cross_model_comparison_report.md")
