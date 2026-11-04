@@ -47,7 +47,9 @@ class Scenario(BaseModel):
     split: Optional[str] = Field(None, description="Dataset split: 'exploratory' or 'confirmatory'")
     domain: Optional[str] = Field(None, description="Substantive scenario domain classification")
     utility_condition: Optional[UtilityCondition] = Field(None, description="Phase 0B utility condition: equal_utility, coop_advantageous, coop_disadvantageous")
-    source_type: Optional[str] = Field(None, description="Phase 0B template provenance: 'reused' or 'new'")
+    source_type: Optional[str] = Field(None, description="Phase 0B template provenance: 'reused', 'new', or 'control'")
+    triad_id: Optional[str] = Field(None, description="Shared identifier for matched sensitivity triad situations")
+    is_symmetric_control: Optional[bool] = Field(False, description="Flag for control items matching both actor and partner outcomes under coop vs indep")
     payoff_spec: Optional[Dict[str, Dict[str, str]]] = Field(None, description="Objectively specified payoffs/costs for each strategy (success, time, cost, risk, actor_payoff, partner_payoff)")
 
     @model_validator(mode="after")

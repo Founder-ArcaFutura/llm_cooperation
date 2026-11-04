@@ -51,12 +51,15 @@ def audit_scenarios(bank_path: str = "data/scenarios.json") -> bool:
     success = True
 
     # 1. Check counts
-    is_expanded = len(scenarios) == 120
     is_phase0b = any(getattr(s, "utility_condition", None) is not None for s in scenarios)
-    expected_cell_count = 15 if (is_expanded and not is_phase0b) else 3
+    is_expanded = len(scenarios) == 120 and not is_phase0b
+    expected_cell_count = 15 if is_expanded else 3
 
-    if len(scenarios) not in (24, 120):
+    if not is_phase0b and len(scenarios) not in (24, 120):
         console.print(f"[bold red]FAIL: Expected 24 or 120 scenarios, found {len(scenarios)}[/bold red]")
+        success = False
+    elif is_phase0b and len(scenarios) not in (120, 124):
+        console.print(f"[bold red]FAIL: Expected 120 or 124 Phase 0B scenarios, found {len(scenarios)}[/bold red]")
         success = False
 
     partner_counts = {PartnerType.HUMAN: 0, PartnerType.AI: 0}
@@ -79,13 +82,13 @@ def audit_scenarios(bank_path: str = "data/scenarios.json") -> bool:
                     console.print(f"[bold red]FAIL: Cell {cell} has count {count}, expected {expected_cell_count}[/bold red]")
                     success = False
     else:
-        # Phase 0B check partner balance (60 human, 60 AI)
-        if partner_counts[PartnerType.HUMAN] != 60 or partner_counts[PartnerType.AI] != 60:
-            console.print(f"[bold red]FAIL: Phase 0B partner counts {partner_counts}, expected 60/60[/bold red]")
+        # Phase 0B check partner balance (equal human and AI)
+        if partner_counts[PartnerType.HUMAN] != partner_counts[PartnerType.AI]:
+            console.print(f"[bold red]FAIL: Phase 0B partner mismatch: {partner_counts}[/bold red]")
             success = False
 
     # For expanded and Phase 0B banks: verify template pairing and split integrity
-    if is_expanded:
+    if is_expanded or is_phase0b:
         templates_map = {}
         for s in scenarios:
             if not s.template_id:
@@ -96,8 +99,9 @@ def audit_scenarios(bank_path: str = "data/scenarios.json") -> bool:
                 templates_map[s.template_id] = []
             templates_map[s.template_id].append(s)
 
-        if len(templates_map) != 60:
-            console.print(f"[bold red]FAIL: Expected 60 unique templates, found {len(templates_map)}[/bold red]")
+        expected_tpl_count = 62 if (is_phase0b and len(scenarios) == 124) else 60
+        if len(templates_map) != expected_tpl_count:
+            console.print(f"[bold red]FAIL: Expected {expected_tpl_count} unique templates, found {len(templates_map)}[/bold red]")
             success = False
 
         exploratory_count = 0
@@ -121,11 +125,12 @@ def audit_scenarios(bank_path: str = "data/scenarios.json") -> bool:
                 confirmatory_count += 1
 
         if is_phase0b:
-            if exploratory_count != 30 or confirmatory_count != 30:
-                console.print(f"[bold red]FAIL: Phase 0B expected 30 exploratory & 30 confirmatory templates, got {exploratory_count}/{confirmatory_count}[/bold red]")
+            exp_conf = 32 if len(scenarios) == 124 else 30
+            if exploratory_count != 30 or confirmatory_count != exp_conf:
+                console.print(f"[bold red]FAIL: Phase 0B expected 30 exploratory & {exp_conf} confirmatory templates, got {exploratory_count}/{confirmatory_count}[/bold red]")
                 success = False
             else:
-                console.print(f"[green]PASS: Phase 0B template pairing verified: 60 templates (30 exploratory reused, 30 confirmatory new).[/green]")
+                console.print(f"[green]PASS: Phase 0B template pairing verified: {len(templates_map)} templates (30 exploratory reused, {confirmatory_count} confirmatory new/control).[/green]")
         elif exploratory_count != 40 or confirmatory_count != 20:
             console.print(f"[bold red]FAIL: Expected 40 exploratory & 20 confirmatory templates, got {exploratory_count}/{confirmatory_count}[/bold red]")
             success = False

@@ -15,6 +15,7 @@ from llm_cooperation.analysis.metrics import (
     compute_principal_contrast,
     compute_utility_matched_contrast,
     compute_utility_sensitivity_contrast,
+    compute_symmetric_control_contrast,
     audit_position_bias,
 )
 from llm_cooperation.analysis.plots import plot_summary_figures
@@ -96,6 +97,7 @@ def generate_markdown_report(
     principal_contrast: Optional[Dict[str, float]] = None,
     utility_matched_contrast: Optional[Dict[str, float]] = None,
     utility_sensitivity: Optional[Dict[str, float]] = None,
+    symmetric_control_contrast: Optional[Dict[str, float]] = None,
 ) -> str:
     model_name = metadata.get("model_name", "Unknown")
     num_scenarios = len(scenario_df)
@@ -203,11 +205,19 @@ def generate_markdown_report(
 
         if utility_sensitivity:
             u_lines.append(
-                f"\n- **Controlled Utility Sensitivity Triad (Advantageous vs Matched Equal vs Disadvantageous):**\n"
+                f"\n- **Controlled Utility Sensitivity Triad (Within-Triad Paired Effects, N={utility_sensitivity['num_triads']} Triads):**\n"
                 f"  - Coop Rate Advantageous: {utility_sensitivity['coop_advantageous_mean']:.1%}\n"
-                f"  - Coop Rate Matched Equal (Item-Controlled Baseline): {utility_sensitivity['coop_equal_mean']:.1%}\n"
+                f"  - Coop Rate Matched Equal (Within-Triad Baseline): {utility_sensitivity['coop_equal_mean']:.1%}\n"
                 f"  - Coop Rate Disadvantageous: {utility_sensitivity['coop_disadvantageous_mean']:.1%}\n"
-                f"  - Sensitivity Spread (Adv - Disadv): {utility_sensitivity['adv_vs_disadv_spread']:.1%} (Monotonic: {utility_sensitivity['monotonic_ordering']})"
+                f"  - Mean Paired Sensitivity Spread (Adv - Disadv): {utility_sensitivity['adv_vs_disadv_spread']:.1%} (Monotonic: {utility_sensitivity['monotonic_ordering']})"
+            )
+
+        if symmetric_control_contrast:
+            u_lines.append(
+                f"\n- **Symmetric Outcome Control Subset (Coordination vs Welfare Maximization, N={symmetric_control_contrast['num_control_scenarios']} Scenarios):**\n"
+                f"  *(Actor and partner outcomes identical under both COOPERATE and INDEPENDENT)*\n"
+                f"  - Coop Choice Rate: {symmetric_control_contrast['coop_rate']:.1%}, Indep Rate: {symmetric_control_contrast['indep_rate']:.1%} (Diff: {symmetric_control_contrast['choice_diff']:.1%})\n"
+                f"  - Log-Probability Difference [log P(COOP) - log P(INDEP)]: {symmetric_control_contrast['log_prob_diff']:.3f}"
             )
 
         # Source type breakdown if present
@@ -433,6 +443,9 @@ def analyze_results(
                 "combined": compute_utility_matched_contrast(scenario_df, n_bootstraps=num_bootstraps)
             }
         utility_sensitivity = compute_utility_sensitivity_contrast(scenario_df, n_bootstraps=num_bootstraps)
+        symmetric_control_contrast = compute_symmetric_control_contrast(scenario_df, n_bootstraps=num_bootstraps)
+    else:
+        symmetric_control_contrast = None
 
     # 3. Position bias audit
     pos_bias = audit_position_bias(records)
@@ -470,6 +483,7 @@ def analyze_results(
         principal_contrast=principal_contrast,
         utility_matched_contrast=utility_matched_contrast,
         utility_sensitivity=utility_sensitivity,
+        symmetric_control_contrast=symmetric_control_contrast,
     )
     console.print(f"[bold cyan]Generated executive report at {report_path}[/bold cyan]")
 

@@ -45,7 +45,7 @@ def test_phase0b_bank_schema_and_balance():
 
     bank = ScenarioBank(**data)
     scenarios = bank.scenarios
-    assert len(scenarios) == 120
+    assert len(scenarios) == 124
     assert bank.version == "1.0.0-phase0b"
     assert bank.status == "pending_human_scientific_review"
 
@@ -54,7 +54,7 @@ def test_phase0b_bank_schema_and_balance():
     for s in scenarios:
         assert s.template_id is not None
         assert s.utility_condition is not None
-        assert s.source_type in ("reused", "new")
+        assert s.source_type in ("reused", "new", "control")
         assert s.split in ("exploratory", "confirmatory")
         assert s.payoff_spec is not None
         # Check payoff spec keys
@@ -70,13 +70,15 @@ def test_phase0b_bank_schema_and_balance():
 
         templates.setdefault(s.template_id, []).append(s)
 
-    assert len(templates) == 60
+    assert len(templates) == 62
 
     reused_count = 0
     new_count = 0
+    control_count = 0
     equal_count = 0
     adv_count = 0
     disadv_count = 0
+    triad_ids = set()
 
     for tid, scs in templates.items():
         assert len(scs) == 2
@@ -95,9 +97,16 @@ def test_phase0b_bank_schema_and_balance():
         assert len(uconds) == 1
         ucond_val = list(uconds)[0]
 
+        for sc in scs:
+            if sc.triad_id:
+                triad_ids.add(sc.triad_id)
+
         if src_val == "reused":
             reused_count += 1
             assert split_val == "exploratory"
+        elif src_val == "control":
+            control_count += 1
+            assert split_val == "confirmatory"
         else:
             new_count += 1
             assert split_val == "confirmatory"
@@ -111,13 +120,15 @@ def test_phase0b_bank_schema_and_balance():
 
     assert reused_count == 30
     assert new_count == 30
-    assert equal_count == 52  # 24 reused + 2 triad baseline + 24 new + 2 triad baseline
+    assert control_count == 2
+    assert equal_count == 54  # 52 regular equal + 2 symmetric control
     assert adv_count == 4      # 2 reused triad + 2 new triad
     assert disadv_count == 4   # 2 reused triad + 2 new triad
+    assert len(triad_ids) == 4
 
     # 4-position counterbalancing
     all_pres = generate_all_presentations(scenarios)
-    assert len(all_pres) == 480
+    assert len(all_pres) == 496
     letter_counts = {l: {st: 0 for st in StrategyType} for l in ["A", "B", "C", "D"]}
     for p in all_pres:
         for opt in p.options:
@@ -125,7 +136,7 @@ def test_phase0b_bank_schema_and_balance():
 
     for l in ["A", "B", "C", "D"]:
         for st in StrategyType:
-            assert letter_counts[l][st] == 120
+            assert letter_counts[l][st] == 124
 
 
 def test_phase0b_audit_cli_api():
@@ -180,6 +191,16 @@ def test_utility_matched_contrast_calculation():
 
     df = pd.DataFrame(records)
 
+    # Add triad_id to df
+    for r in records:
+        if r["template_id"] in ("template_025", "template_027", "template_029"):
+            r["triad_id"] = "triad_01"
+        else:
+            r["triad_id"] = None
+        r["is_symmetric_control"] = False
+
+    df = pd.DataFrame(records)
+
     contrast = compute_utility_matched_contrast(df, n_bootstraps=500)
     assert contrast is not None
     assert contrast["choice_diff_mean"] > 0
@@ -188,7 +209,7 @@ def test_utility_matched_contrast_calculation():
     sensitivity = compute_utility_sensitivity_contrast(df)
     assert sensitivity is not None
     assert sensitivity["coop_advantageous_mean"] == 1.0
-    # Matched equal utility template is template_027 (0.5), not pooled across all templates
+    # Paired within-triad baseline is 0.5
     assert sensitivity["coop_equal_mean"] == 0.5
     assert sensitivity["coop_disadvantageous_mean"] == 0.0
     assert sensitivity["adv_vs_disadv_spread"] == 1.0
@@ -227,5 +248,6 @@ def test_phase0b_mock_end_to_end_analysis(tmp_path):
     assert "FORMAL REPLICATION TEST" in md_text
     assert "Exploratory Utility-Matched Contrast (Rewritten Existing Templates" in md_text
     assert "Controlled Utility Sensitivity Triad" in md_text
-    assert "Item-Controlled Baseline" in md_text
+    assert "Within-Triad Baseline" in md_text
+    assert "Symmetric Outcome Control Subset" in md_text
     assert "Source Type Breakdown (Reused vs New Templates)" in md_text

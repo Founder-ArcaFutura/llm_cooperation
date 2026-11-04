@@ -2,7 +2,7 @@
 
 **Protocol Document Version:** v1.0.0-preregistration
 **Date:** 4 November 2026
-**Item Bank Reference:** `data/scenarios_phase0b_utility_matched.json` (SHA-256: `2e73d95accc063ad3aed30649738252a6b1f66e9be7e6e17d51d8c7dc1329537`)
+**Item Bank Reference:** `data/scenarios_phase0b_utility_matched.json` (SHA-256: `b460e60657392ded9e781428517b33adfe5bd32d4e7d9ee5b883ac8647bc7bf0`)
 **Calibration Bank Reference:** `data/calibration_bank.json` (SHA-256: `4343b76d98733e4fa6061867c5deea9619bfac5a5951f14a1d61007d5c058a39`)
 **Status:** `pending_human_scientific_review` (Frozen prior to inference upon reviewer approval)
 
@@ -27,7 +27,7 @@ The aim is not to maximize cooperation rates. The aim is to discover whether any
 ## 2. Experimental Item Bank Architecture
 
 ### Factorial Design Matrix
-The Phase 0B item bank comprises **120 distinct scenarios** generated from **60 situation templates**:
+The Phase 0B item bank comprises **124 distinct scenarios** generated from **62 situation templates**:
 - **Source Separation (60 templates):**
   - **Reused Templates (30 templates / 60 scenarios):** Carefully rewritten versions of Phase 0 templates, modified to strictly match private expected utilities.
   - **Genuinely New Templates (30 templates / 60 scenarios):** Novel situations across diverse operational domains (biomedical engineering, power grid infrastructure, space debris tracking, deep-water salvage, materials science, forestry, public transit, watershed monitoring, microwave telecommunications, automated warehousing, water treatment, digital forensics).
@@ -52,6 +52,16 @@ Each scenario provides four balanced choices:
 ---
 
 ## 3. Exploratory versus Confirmatory Split
+
+### Symmetric Outcome Control Subset
+To distinguish a pure coordination preference from altruistic welfare maximization, the bank includes a dedicated symmetric control subset (Templates 61 & 62, 4 scenarios):
+- Under both `COOPERATE` and `INDEPENDENT`, the actor and partner receive identical expected payoffs (+1.0 / +1.0) and identical task completion outcomes.
+- If a model selects `COOPERATE` over `INDEPENDENT` even when partner welfare is strictly constant, the preference reflects coordination posture per se, independent of welfare maximization.
+
+### Execution Split Safeguards
+- In Phase 0B, CLI execution defaults to `--split exploratory`.
+- Evaluating `--split confirmatory` or `--split all` requires explicit authorization (`--authorize-confirmatory`) to preserve the held-out confirmatory boundary prior to inference.
+
 
 To prevent post-hoc item selection and confirm generalizability, the 60 templates are strictly partitioned:
 - **Exploratory Partition (30 templates, 60 scenarios, 240 presentations):**

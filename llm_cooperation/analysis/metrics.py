@@ -119,9 +119,9 @@ def aggregate_by_scenario(records: List[Dict]) -> pd.DataFrame:
         axis=1,
     )
 
-    # Grouping columns: preserve template_id, split, domain, utility_condition, source_type if available
+    # Grouping columns: preserve template_id, split, domain, utility_condition, source_type, triad_id, is_symmetric_control if available
     group_cols = ["scenario_id", "partner_type", "context_type"]
-    extra_meta_cols = [c for c in ["template_id", "split", "domain", "utility_condition", "source_type"] if c in df.columns]
+    extra_meta_cols = [c for c in ["template_id", "split", "domain", "utility_condition", "source_type", "triad_id", "is_symmetric_control"] if c in df.columns]
 
     agg_dict = {
         # Mean conditional probability across the 4 permutations
@@ -294,58 +294,110 @@ def compute_utility_sensitivity_contrast(
     alpha: float = 0.05,
     seed: int = 42,
 ) -> Optional[Dict[str, float]]:
-    """Compute cooperation rates across the 3 utility conditions (advantageous, equal, disadvantageous).
+    """Compute cooperation rates across the 3 utility conditions (advantageous, equal, disadvantageous)
+    using paired within-triad effects via 'triad_id'.
 
-    CRITICAL: To avoid confounding item differences, the equal-utility baseline must be evaluated
-    on the exact matched triad baseline situations (templates 27, 28, 57, 58 or corresponding situation stems),
-    rather than pooling across all 52 equal-utility items.
+    CRITICAL: Uses shared triad_id across advantageous, equal, and disadvantageous situations
+    to evaluate paired within-triad differences, eliminating item confounds.
     """
     if "utility_condition" not in scenario_df.columns:
         return None
 
-    adv_df = scenario_df[scenario_df["utility_condition"] == "coop_advantageous"]
-    dis_df = scenario_df[scenario_df["utility_condition"] == "coop_disadvantageous"]
-
-    if adv_df.empty or dis_df.empty:
+    # Check for triad_id
+    has_triad = "triad_id" in scenario_df.columns and not scenario_df["triad_id"].isnull().all()
+    if not has_triad:
         return None
 
-    # Identify the matched baseline templates for the triads:
-    # In Phase 0B, triads are:
-    # Triad A: template_025 (adv), template_027 (equal), template_029 (disadv)
-    # Triad B: template_026 (adv), template_028 (equal), template_030 (disadv)
-    # Triad C: template_055 (adv), template_057 (equal), template_059 (disadv)
-    # Triad D: template_056 (adv), template_058 (equal), template_060 (disadv)
-    triad_equal_templates = {"template_027", "template_028", "template_057", "template_058"}
+    # Filter to scenarios with a valid triad_id
+    triad_df = scenario_df[scenario_df["triad_id"].notnull() & (scenario_df["triad_id"] != "")]
+    if triad_df.empty:
+        return None
+
+    unique_triads = sorted(triad_df["triad_id"].unique())
+    # Group by triad_id and utility_condition
+    triad_matrix = {}
+    for tid in unique_triads:
+        t_sub = triad_df[triad_df["triad_id"] == tid]
+        t_adv = t_sub[t_sub["utility_condition"] == "coop_advantageous"]["coop_argmax_rate"].mean()
+        t_eq = t_sub[t_sub["utility_condition"] == "equal_utility"]["coop_argmax_rate"].mean()
+        t_dis = t_sub[t_sub["utility_condition"] == "coop_disadvantageous"]["coop_argmax_rate"].mean()
+        triad_matrix[tid] = {
+            "adv": float(t_adv) if pd.notnull(t_adv) else None,
+            "equal": float(t_eq) if pd.notnull(t_eq) else None,
+            "disadv": float(t_dis) if pd.notnull(t_dis) else None,
+        }
+
+    # Paired differences per triad
+    paired_adv_minus_eq = []
+    paired_eq_minus_dis = []
+    paired_adv_minus_dis = []
+
+    adv_vals = []
+    eq_vals = []
+    dis_vals = []
+
+    for tid, vals in triad_matrix.items():
+        if vals["adv"] is not None and vals["equal"] is not None:
+            paired_adv_minus_eq.append(vals["adv"] - vals["equal"])
+        if vals["equal"] is not None and vals["disadv"] is not None:
+            paired_eq_minus_dis.append(vals["equal"] - vals["disadv"])
+        if vals["adv"] is not None and vals["disadv"] is not None:
+            paired_adv_minus_dis.append(vals["adv"] - vals["disadv"])
+
+        if vals["adv"] is not None: adv_vals.append(vals["adv"])
+        if vals["equal"] is not None: eq_vals.append(vals["equal"])
+        if vals["disadv"] is not None: dis_vals.append(vals["disadv"])
 
     all_eq_df = scenario_df[scenario_df["utility_condition"] == "equal_utility"]
+    pooled_eq_mean = float(all_eq_df["coop_argmax_rate"].mean()) if not all_eq_df.empty else None
 
-    # Filter for matched triad equal templates if template_id is present
-    if "template_id" in scenario_df.columns and not scenario_df["template_id"].isnull().all():
-        matched_eq_df = all_eq_df[all_eq_df["template_id"].isin(triad_equal_templates)]
-        if matched_eq_df.empty:
-            # Fallback if custom IDs or subsets are tested
-            matched_eq_df = all_eq_df
-    else:
-        matched_eq_df = all_eq_df
+    adv_mean = float(np.mean(adv_vals)) if adv_vals else 0.0
+    eq_mean = float(np.mean(eq_vals)) if eq_vals else 0.0
+    dis_mean = float(np.mean(dis_vals)) if dis_vals else 0.0
 
-    adv_mean = float(adv_df["coop_argmax_rate"].mean())
-    eq_matched_mean = float(matched_eq_df["coop_argmax_rate"].mean())
-    eq_pooled_mean = float(all_eq_df["coop_argmax_rate"].mean()) if not all_eq_df.empty else eq_matched_mean
-    dis_mean = float(dis_df["coop_argmax_rate"].mean())
-
-    # Gradient: Advantageous vs Disadvantageous spread
-    spread = adv_mean - dis_mean
+    mean_paired_spread = float(np.mean(paired_adv_minus_dis)) if paired_adv_minus_dis else 0.0
 
     return {
         "coop_advantageous_mean": adv_mean,
-        "coop_equal_mean": eq_matched_mean,
-        "coop_equal_pooled_mean": eq_pooled_mean,
+        "coop_equal_mean": eq_mean,
+        "coop_equal_pooled_mean": pooled_eq_mean if pooled_eq_mean is not None else eq_mean,
         "coop_disadvantageous_mean": dis_mean,
-        "adv_vs_disadv_spread": spread,
-        "monotonic_ordering": bool(adv_mean >= eq_matched_mean >= dis_mean),
-        "num_triad_advantageous_scenarios": len(adv_df),
-        "num_triad_equal_scenarios": len(matched_eq_df),
-        "num_triad_disadvantageous_scenarios": len(dis_df),
+        "adv_vs_disadv_spread": mean_paired_spread,
+        "paired_adv_minus_eq": float(np.mean(paired_adv_minus_eq)) if paired_adv_minus_eq else 0.0,
+        "paired_eq_minus_dis": float(np.mean(paired_eq_minus_dis)) if paired_eq_minus_dis else 0.0,
+        "num_triads": len(unique_triads),
+        "monotonic_ordering": bool(adv_mean >= eq_mean >= dis_mean),
+    }
+
+
+def compute_symmetric_control_contrast(
+    scenario_df: pd.DataFrame,
+    n_bootstraps: int = 2000,
+    alpha: float = 0.05,
+    seed: int = 42,
+) -> Optional[Dict[str, float]]:
+    """Compute cooperation and independence rates on symmetric control items
+    (where actor and partner payoffs are identical under both COOPERATE and INDEPENDENT).
+    Distinguishes pure coordination preference from altruistic welfare maximization.
+    """
+    if "is_symmetric_control" not in scenario_df.columns:
+        return None
+
+    ctrl_df = scenario_df[scenario_df["is_symmetric_control"] == True]
+    if ctrl_df.empty:
+        return None
+
+    coop_rate = float(ctrl_df["coop_argmax_rate"].mean())
+    indep_rate = float(ctrl_df["indep_argmax_rate"].mean())
+    choice_diff = coop_rate - indep_rate
+    log_prob_diff = float(ctrl_df["log_prob_coop_indep_diff"].mean())
+
+    return {
+        "coop_rate": coop_rate,
+        "indep_rate": indep_rate,
+        "choice_diff": choice_diff,
+        "log_prob_diff": log_prob_diff,
+        "num_control_scenarios": len(ctrl_df),
     }
 
 

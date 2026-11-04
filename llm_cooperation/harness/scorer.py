@@ -13,6 +13,8 @@ class ScoredPresentation(BaseModel):
     domain: Optional[str] = None
     utility_condition: Optional[str] = None
     source_type: Optional[str] = None
+    triad_id: Optional[str] = None
+    is_symmetric_control: Optional[bool] = False
     permutation_index: int
     partner_type: str
     context_type: str

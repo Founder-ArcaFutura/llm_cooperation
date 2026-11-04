@@ -61,17 +61,21 @@ def cmd_calibrate(model, calibration_path, revision, output_dir, precision, devi
 @click.option("--revision", default=None, help="Specific commit SHA or branch revision.")
 @click.option("--bank", type=click.Choice(["pilot", "expanded", "phase0b", "utility-matched"]), default=None, help="Convenience bank selector ('pilot', 'expanded', or 'utility-matched' / 'phase0b').")
 @click.option("--scenarios-path", default=None, help="Custom path to scenarios JSON file (defaults to data/scenarios.json or bank choice).")
+@click.option("--split", type=click.Choice(["exploratory", "confirmatory", "all"]), default=None, help="Dataset split execution filter. In Phase 0B, defaults to 'exploratory'. Evaluating 'confirmatory' or 'all' requires authorization.")
+@click.option("--authorize-confirmatory", is_flag=True, default=False, help="Explicit authorization flag required to evaluate the held-out confirmatory split.")
 @click.option("--output-dir", "-o", default="results", help="Directory to save raw results.")
 @click.option("--precision", default="bfloat16", type=click.Choice(["bfloat16", "float16", "float32"]))
 @click.option("--device", default="auto", help="Device map (e.g. 'auto', 'cuda', 'cpu').")
 @click.option("--mock", is_flag=True, default=False, help="Run with mock predictions without loading model weights.")
 @click.option("--seed", default=42, help="Random seed for mock generator.")
 @click.option("--prompt-mode", default="standard_plaintext", type=click.Choice(["standard_plaintext", "openassistant"]), help="Prompt format mode.")
-def cmd_run(model, revision, bank, scenarios_path, output_dir, precision, device, mock, seed, prompt_mode):
+def cmd_run(model, revision, bank, scenarios_path, split, authorize_confirmatory, output_dir, precision, device, mock, seed, prompt_mode):
     """Run Phase 0 or Phase 0B behavioural evaluation."""
+    is_phase0b = False
     target_path = "data/scenarios.json"
     if bank in ("phase0b", "utility-matched"):
         target_path = "data/scenarios_phase0b_utility_matched.json"
+        is_phase0b = True
     elif bank == "expanded":
         target_path = "data/scenarios_v1_expanded.json"
     elif bank == "pilot":
@@ -79,6 +83,21 @@ def cmd_run(model, revision, bank, scenarios_path, output_dir, precision, device
 
     if scenarios_path is not None:
         target_path = scenarios_path
+        if "phase0b" in target_path.lower():
+            is_phase0b = True
+
+    # Default split logic
+    effective_split = split
+    if is_phase0b and effective_split is None:
+        effective_split = "exploratory"
+
+    # Confirmatory split authorization guard
+    if effective_split in ("confirmatory", "all") and is_phase0b and not authorize_confirmatory:
+        raise click.ClickException(
+            f"CONFIRMATORY SPLIT GUARD: Executing held-out confirmatory partition in Phase 0B "
+            f"requires explicit scientific authorization (--authorize-confirmatory). "
+            f"Phase 0B defaults to '--split exploratory' to protect confirmatory held-out isolation."
+        )
 
     run_experiment(
         model_name=model,
@@ -90,6 +109,7 @@ def cmd_run(model, revision, bank, scenarios_path, output_dir, precision, device
         mock=mock,
         seed=seed,
         prompt_mode=prompt_mode,
+        split_filter=effective_split if effective_split != "all" else None,
     )
 
 
