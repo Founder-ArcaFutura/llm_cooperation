@@ -18,6 +18,7 @@ import hashlib
 import json
 import os
 import re
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -472,7 +473,10 @@ def _generate_set(llm, generation_tokenizer, measurement_tokenizer, scenario,
 @app.function(gpu="H100", timeout=14400, retries=0,
               volumes={"/hf-cache": HF_CACHE, "/runs": RUN_VOLUME})
 def generate_candidates(source_bytes: bytes, source_sha256: str, start: int, limit: int,
-                        run_name: str, max_attempts: int, reuse_run: str = ""):
+                        run_name: str, max_attempts: int, reuse_run: str = "",
+                        max_runtime_minutes: int = 60):
+    launched_at = time.monotonic()
+    deadline = launched_at + max_runtime_minutes * 60
     os.environ["HF_HOME"] = "/hf-cache"
     from huggingface_hub import HfApi
     from transformers import AutoTokenizer
@@ -516,12 +520,21 @@ def generate_candidates(source_bytes: bytes, source_sha256: str, start: int, lim
     generation_tokenizer = llm.get_tokenizer()
     HF_CACHE.commit()
 
-    counts = {bank: {"accepted": 0, "newly_accepted": 0, "reused": 0, "unresolved": 0}
+    counts = {bank: {"accepted": 0, "newly_accepted": 0, "reused": 0,
+                     "unresolved": 0, "errors": 0, "not_attempted": 0}
               for bank in BANKS}
+    if not 15 <= max_runtime_minutes <= 180:
+        raise ValueError("max_runtime_minutes must be between 15 and 180")
+    stop_reason = None
+    error_streak = 0
+    completed_keys = set()
     results = {bank: [] for bank in BANKS}
     unresolved = []
     try:
         for index, scenario in enumerate(selected, start=start):
+            if time.monotonic() + 45 >= deadline:
+                stop_reason = "runtime_budget_reached"
+                break
             # Keep successful four-action sets from a previous run. Load the
             # *records* rather than a candidate-bank file, retaining exact
             # scenario/index identity and audit metadata.
@@ -562,6 +575,9 @@ def generate_candidates(source_bytes: bytes, source_sha256: str, start: int, lim
 
             prior = {}
             for bank in BANKS:
+                if time.monotonic() + 45 >= deadline:
+                    stop_reason = "runtime_budget_reached"
+                    break
                 if bank in retained:
                     record = {
                         key: copy.deepcopy(value)
@@ -602,13 +618,33 @@ def generate_candidates(source_bytes: bytes, source_sha256: str, start: int, lim
                                     for strategy in STRATEGIES
                                     if isinstance(old_record["options"].get(strategy), str)
                                 }
-                    record = _generate_set(
-                        llm, generation_tokenizer, measure_tokenizer,
-                        scenario, bank, avoid, max_attempts,
-                        seed_pool=seed_pool,
-                    )
-                    if record["accepted_automatic_constraints"]:
-                        counts[bank]["newly_accepted"] += 1
+                    try:
+                        record = _generate_set(
+                            llm, generation_tokenizer, measure_tokenizer,
+                            scenario, bank, avoid, max_attempts,
+                            seed_pool=seed_pool,
+                        )
+                    except Exception as exc:
+                        # An inference/parse/validation exception affects
+                        # this candidate, not the whole production batch.
+                        # A streak of systemic exceptions trips a circuit
+                        # breaker instead of consuming more paid GPU time.
+                        record = {
+                            "accepted_automatic_constraints": False,
+                            "status": "error",
+                            "issues": [f"{type(exc).__name__}: {str(exc)[:500]}"],
+                            "error_type": type(exc).__name__,
+                            "semantic_review": "UNADJUDICATED",
+                            "candidate_pool": seed_pool or {},
+                        }
+                        counts[bank]["errors"] += 1
+                        error_streak += 1
+                        print(f"ERROR {scenario['id']} bank {bank}: "
+                              f"{type(exc).__name__}: {str(exc)[:300]}", flush=True)
+                    else:
+                        error_streak = 0
+                        if record["accepted_automatic_constraints"]:
+                            counts[bank]["newly_accepted"] += 1
 
                 row = {
                     "scenario_id": scenario["id"], "source_index": index,
@@ -618,6 +654,7 @@ def generate_candidates(source_bytes: bytes, source_sha256: str, start: int, lim
                 (target / "records" / filename).write_text(
                     json.dumps(row, indent=2, ensure_ascii=False), encoding="utf-8"
                 )
+                completed_keys.add((index, bank))
                 if record["accepted_automatic_constraints"]:
                     edited = copy.deepcopy(scenario)
                     edited["original_options"] = copy.deepcopy(scenario["options"])
@@ -636,9 +673,43 @@ def generate_candidates(source_bytes: bytes, source_sha256: str, start: int, lim
                           if record["accepted_automatic_constraints"] else "UNRESOLVED")
                 print(f"scenario {index + 1}/{len(scenarios)} bank {bank}: {status}",
                       flush=True)
-            if (index - start + 1) % 10 == 0:
-                RUN_VOLUME.commit()
+                if error_streak >= 5:
+                    stop_reason = "circuit_breaker_five_consecutive_errors"
+                    print(f"Stopping gracefully: {stop_reason}", flush=True)
+                    break
+            # Checkpoint every scenario so even an external termination loses
+            # at most the currently executing scenario-bank work.
+            RUN_VOLUME.commit()
+            if stop_reason:
+                break
     finally:
+        # Write an explicit record for each unattempted item, so a stopped
+        # production run never masquerades as a complete three-bank corpus.
+        for index, scenario in enumerate(selected, start=start):
+            for bank in BANKS:
+                if (index, bank) in completed_keys:
+                    continue
+                counts[bank]["not_attempted"] += 1
+                row = {
+                    "scenario_id": scenario["id"], "source_index": index,
+                    "bank": bank, "status": "not_attempted",
+                    "accepted_automatic_constraints": False,
+                    "issues": [stop_reason or "interrupted_before_generation"],
+                    "semantic_review": "UNADJUDICATED",
+                }
+                (target / "records" / f"{index:03d}_{bank}.json").write_text(
+                    json.dumps(row, indent=2), encoding="utf-8"
+                )
+                unresolved.append({
+                    "scenario_id": scenario["id"], "bank": bank,
+                    "status": "not_attempted", "issues": row["issues"],
+                })
+        run_status = (
+            "STOPPED_EARLY_WITH_CHECKPOINT" if stop_reason
+            else "FINISHED_WITH_UNRESOLVED"
+            if any(counts[b]["unresolved"] for b in BANKS)
+            else "FINISHED_AUTOMATIC_CHECKS_ONLY"
+        )
         manifest = {
             "version": "model_generated_controlled_banks_candidate_v1",
             "status": "PROVISIONAL_PENDING_INDEPENDENT_SEMANTIC_REVIEW",
@@ -649,6 +720,10 @@ def generate_candidates(source_bytes: bytes, source_sha256: str, start: int, lim
             "measurement_tokenizer_revision": MEASUREMENT_REVISION,
             "start": start, "limit": limit, "max_attempts": max_attempts,
             "reuse_run": reuse_run or None,
+            "max_runtime_minutes": max_runtime_minutes,
+            "elapsed_minutes": round((time.monotonic() - launched_at) / 60, 2),
+            "run_status": run_status,
+            "stop_reason": stop_reason,
             "counts": counts, "unresolved_count": len(unresolved),
             "scientific_use_allowed": False,
         }
@@ -674,6 +749,7 @@ def generate_candidates(source_bytes: bytes, source_sha256: str, start: int, lim
 def main(source: str = "data/scenarios_phase0b_utility_matched.json",
          limit: int = 6, start: int = 0, max_attempts: int = 6,
          run_name: str = "pilot01", reuse_run: str = "",
+         max_runtime_minutes: int = 60,
          authorize_paid_run: bool = False):
     path = Path(source)
     if not path.is_file():
@@ -688,16 +764,22 @@ def main(source: str = "data/scenarios_phase0b_utility_matched.json",
         raise ValueError("Choose 0 <= start < 124 and 1 <= limit <= 124-start")
     if not 1 <= max_attempts <= 12:
         raise ValueError("max_attempts must be 1..12")
+    if not 15 <= max_runtime_minutes <= 180:
+        raise ValueError("max_runtime_minutes must be 15..180")
     payload = path.read_bytes()
     digest = hashlib.sha256(payload).hexdigest()
     if not authorize_paid_run:
         print(f"DRY RUN: would attempt up to {limit * 3} scenario-bank rewrites on paid H100.")
         if reuse_run:
             print(f"Previously accepted scenario-bank variants from {reuse_run} will be reused; no GPU inference on those.")
+        print(f"Maximum target runtime: {max_runtime_minutes} minutes, including model initialization.")
+        print(f"Maximum repair rounds per unresolved set: {max_attempts}.")
+        print("Unresolved sets are recorded, never silently accepted.")
         print(f"Source SHA256: {digest}. To execute, add --authorize-paid-run.")
         return
     output, counts = generate_candidates.remote(
         payload, digest, start, limit, run_name, max_attempts, reuse_run,
+        max_runtime_minutes,
     )
     print(json.dumps({"volume_path": output, "counts": counts}, indent=2))
     print(f"Retrieve with: modal volume get llm-coop-controlled-rewrites "
