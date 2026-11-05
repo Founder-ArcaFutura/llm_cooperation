@@ -85,3 +85,35 @@ generative pipeline lets the LLM write natural action alternatives **jointly**,
 while deterministic code checks the measurable constraints after each attempt.
 It does not confuse a model's own rewriting judgments with independent
 scientific adjudication.
+
+## Incremental reuse of accepted candidates
+
+A successful token-matched set is saved as an immutable record in the original
+run and can be reused in subsequent runs. This is **automatic-constraint
+acceptance only**, not independent semantic validation.
+
+After the `pilot02` results, do not regenerate its six accepted sets. Fetch
+the latest branch, then inspect the dry run:
+
+```powershell
+git fetch origin
+git switch --detach origin/controlled-strategy-banks-v1-13918473886041179938
+modal run modal_controlled_bank_rewrite.py --limit 6 --reuse-run pilot02 --run-name pilot03
+```
+
+When you separately authorize paid compute:
+
+```powershell
+modal run modal_controlled_bank_rewrite.py --limit 6 --reuse-run pilot02 --run-name pilot03 --authorize-paid-run
+```
+
+The new run checks source SHA-256, pinned measurement tokenizer, model ID,
+source scenario identity and each accepted record's tokenizer and duplication
+checks again. Only unresolved variants are sent to the writer. The new
+manifest counts `reused`, `newly_accepted`, and `unresolved` separately.
+The old volume run remains unchanged. Subsequent runs should reuse the latest
+run name to accumulate accepted samples. Do not use a pilot source as the
+resume base for a full 124-scenario run without reviewing the exact coverage.
+
+**Important:** this feature has been committed but has not yet completed an
+integration test on Modal. Keep the next run to the existing six-scenario pilot.
