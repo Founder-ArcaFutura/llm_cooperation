@@ -101,7 +101,7 @@ def test_full_prompt_token_span_is_controlled(bank_data, tokenizer):
     for name, bank in banks.items():
         for row in bank["scenarios"]:
             lengths = [
-                _length(tokenizer, f"{row['stem'].strip()}\\n\\nAction: {row['options'][s].strip()}\\nDecision:")
+                _length(tokenizer, f"{row['stem'].strip()}\n\nAction: {row['options'][s].strip()}\nDecision:")
                 for s in STRATEGIES
             ]
             if max(lengths) - min(lengths) > 1:
@@ -138,10 +138,10 @@ def test_known_mechanical_padding_artifacts_absent(bank_data):
     _, banks = bank_data
     # These catch demonstrated generator errors; passing is not a grammar review.
     patterns = [
-        re.compile(r"\\baccording in order to\\b", re.I),
-        re.compile(r"\\buntil (?:the |a )?[^.]{0,90}\\buntil\\b", re.I),
-        re.compile(r"\\bexactly (?:first|until)\\b", re.I),
-        re.compile(r"\\bin order to to\\b", re.I),
+        re.compile(r"\baccording in order to\b", re.I),
+        re.compile(r"\buntil (?:the |a )?[^.]{0,90}\buntil\b", re.I),
+        re.compile(r"\bexactly (?:first|until)\b", re.I),
+        re.compile(r"\bin order to to\b", re.I),
     ]
     failures = []
     for name, bank in banks.items():
