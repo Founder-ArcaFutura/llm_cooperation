@@ -1,0 +1,87 @@
+# Model-authored controlled-bank rewrites on Modal (experimental)
+
+This runner produces **provisional candidate** scenario banks from the frozen
+124-scenario Phase 0B source. It does NOT modify that source or silently
+replace the PR's current bank files. It does not certify semantic equivalence.
+
+## Inference model and controls
+
+- Writer: `Qwen/Qwen3-30B-A3B-Instruct-2507-FP8` on a Modal H100.
+- Exact model commit SHA is resolved once per run and written to its manifest.
+- Measurement tokenizer: `Qwen/Qwen2.5-1.5B`, pinned to
+  `8faed761d45a263340a0528343f099c05c9a4323`.
+- Each call rewrites one complete set of four actions, preserving the original
+  scenario, original strategy labels, and payoff specification.
+- Three separate generations per scenario (A, B, C) are based on the original
+  source actions. Prior-bank wording is *only* a collision-avoidance reference.
+- A response is accepted automatically only when its four action descriptions
+  are nonempty, distinct, grammatical-pattern checks pass, both action-only
+  and full-prompt token span are <=1, and it does not duplicate or nearly
+  duplicate the same labelled action in a prior bank.
+- Failed candidates receive detailed token-count and similarity feedback and
+  are retried up to the configured limit. Unresolved cases remain unresolved:
+  no automatic padding, and **no silent acceptance**.
+- All accepted automatic candidates retain
+  `semantic_review: UNADJUDICATED`. All outputs remain **PROVISIONAL**.
+- No paid inference occurs without `--authorize-paid-run`.
+
+## Run commands (PowerShell, from repository root)
+
+First inspect the dry-run guard (no GPU):
+
+```powershell
+modal run modal_controlled_bank_rewrite.py --limit 6 --run-name pilot01
+```
+
+Pilot on six scenarios: **18 four-action generation tasks**, plus any retries:
+
+```powershell
+modal run modal_controlled_bank_rewrite.py --limit 6 --run-name pilot01 --authorize-paid-run
+```
+
+Download and review the pilot:
+
+```powershell
+modal volume get llm-coop-controlled-rewrites pilot01 research/controlled_rewrites/pilot01
+```
+
+If the pilot results justify the paid run, generate the complete bank:
+
+```powershell
+modal run modal_controlled_bank_rewrite.py --limit 124 --run-name full01 --authorize-paid-run
+modal volume get llm-coop-controlled-rewrites full01 research/controlled_rewrites/full01
+```
+
+Use a distinct run name for every run; the runner refuses to overwrite an
+existing run directory. Repeated runs charge paid GPU time. Weight download
+and initial model setup may be significant. **We have not run a pilot or full
+GPU job yet**, so runtime, success rate, and cost are not established.
+
+## Output contract
+
+Inside each run's Modal volume directory:
+
+- `records/NNN_A.json`, `NNN_B.json`, `NNN_C.json`: the raw candidate
+  outcome, attempted action set, token counts, any failure reasons, and
+  attempts.
+- `bank_a_candidates.json`, `bank_b_candidates.json`,
+  `bank_c_candidates.json`: **only automatically accepted** scenario
+  variants; partial banks if failures occurred, or if running a pilot.
+- `unresolved.json`: items needing another generation or repair pass.
+- `manifest.json`: model revision, tokenizer revision, original corpus
+  checksum, bounds, counts, and provisional status.
+
+The full three-bank candidate output is **not** the frozen corpus. Before it
+can be used scientifically, independently review semantic equivalence,
+partner identity, tradeoffs, naturalness and any hidden distributional cues.
+Then rerun the complete acceptance tests, create new inventories and hashes,
+and only then freeze a validated version.
+
+### Why this workflow is preferable
+
+The earlier Jules implementation used string substitutions and token padding,
+which left malformed prose and 235 scenario-bank length violations. This
+generative pipeline lets the LLM write natural action alternatives **jointly**,
+while deterministic code checks the measurable constraints after each attempt.
+It does not confuse a model's own rewriting judgments with independent
+scientific adjudication.
