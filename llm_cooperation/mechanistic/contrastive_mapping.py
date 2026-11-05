@@ -113,6 +113,8 @@ def prepare(
     discovery_fraction: float = 0.5,
     seed: int = 42,
     smoke: bool = False,
+    model_id: str = DEFAULT_MODEL_ID,
+    revision: str = DEFAULT_REVISION,
 ) -> Dict[str, Any]:
     """Offline preparation of single-action contrastive prompts and manifests."""
     out = Path(output_dir)
@@ -203,8 +205,8 @@ def prepare(
         "seed": seed,
         "trailing_marker": TRAILING_MARKER,
         "strategies": list(STRATEGIES),
-        "target_model": DEFAULT_MODEL_ID,
-        "target_revision": DEFAULT_REVISION,
+        "target_model": model_id,
+        "target_revision": revision,
     }
     manifest_file = out / "manifest.json"
     manifest_file.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
@@ -276,10 +278,8 @@ def run_inference(
     act_dir = out / "activations"
     act_dir.mkdir(parents=True, exist_ok=False)
 
-    if model_id != DEFAULT_MODEL_ID:
-        raise ValueError(f"Model ID must be {DEFAULT_MODEL_ID}, got {model_id}")
-    if revision != DEFAULT_REVISION:
-        raise ValueError(f"Immutable model revision must be {DEFAULT_REVISION}, got {revision}")
+    if model_id != prep_manifest.get("target_model") or revision != prep_manifest.get("target_revision"):
+        raise ValueError("Requested model/revision does not match the prepared plan")
 
     if mock:
         num_layers = 28
@@ -311,7 +311,11 @@ def run_inference(
         )
         model.eval()
 
-        layers = model.model.layers
+        resolved_model_commit = getattr(model.config, "_commit_hash", None)
+        if resolved_model_commit and len(revision) == 40 and resolved_model_commit != revision:
+            raise ValueError(f"Loaded model commit {resolved_model_commit} does not match requested immutable SHA {revision}")
+
+        layers = resolve_transformer_layers(model)
         num_layers = len(layers)
         hidden_size = model.config.hidden_size
 
@@ -321,37 +325,43 @@ def run_inference(
             "dtype": "float32",
             "device": str(model.device),
             "torch_version": torch.__version__,
+            "resolved_commit_sha": getattr(model.config, "_commit_hash", None),
+            "tokenizer_commit_sha": getattr(tokenizer, "init_kwargs", {}).get("_commit_hash"),
+            "capture_definition": "post-block residual stream at final input token; one independent prompt per scenario/action",
         })
 
+        tokenization_rows = []
         for p in prompts:
             prompt_text = p["prompt_text"]
-            inputs = tokenizer(prompt_text, return_tensors="pt").to(model.device)
+            if p.get("trailing_marker") != TRAILING_MARKER or not prompt_text.endswith(TRAILING_MARKER):
+                raise ValueError(f"Prompt {p['prompt_id']} does not end in the common trailing marker")
+            inputs = tokenizer(prompt_text, return_tensors="pt", return_token_type_ids=False).to(model.device)
+            if inputs.get("input_ids") is None or inputs["input_ids"].shape[1] < 2:
+                raise ValueError(f"Invalid tokenization for prompt {p['prompt_id']}")
+            tokenization_rows.append({"prompt_id": p["prompt_id"], "input_token_count": int(inputs["input_ids"].shape[1]),
+                                     "captured_token_index": -1, "captured_token_id": int(inputs["input_ids"][0, -1].item())})
 
-            cache: Dict[int, np.ndarray] = {}
-            handles = []
-            for l_idx, layer in enumerate(layers):
-                def make_hook(idx: int):
-                    def hook_fn(module: Any, args: Any, output: Any):
-                        hidden = output[0] if isinstance(output, tuple) else output
-                        cache[idx] = hidden[0, -1, :].detach().float().cpu().numpy()
-                    return hook_fn
-                handles.append(layer.register_forward_hook(make_hook(l_idx)))
-
-            try:
-                with torch.inference_mode():
-                    model(**inputs, use_cache=False)
-            finally:
-                for h in handles:
-                    h.remove()
-
-            stacked = np.stack([cache[i] for i in range(num_layers)], axis=0).astype(np.float32)
+            stacked = capture_final_token_residuals(model, inputs)
+            if stacked.shape != (num_layers, hidden_size) or not np.isfinite(stacked).all():
+                raise ValueError(f"Invalid captured residual tensor for {p['prompt_id']}: {stacked.shape}")
             np.savez_compressed(act_dir / f"{p['prompt_id']}.npz", residual=stacked)
+
+        lengths = [row["input_token_count"] for row in tokenization_rows]
+        run_manifest["tokenization"] = {"tokenizer_id": model_id,
+            "tokenizer_revision": getattr(tokenizer, "init_kwargs", {}).get("_commit_hash"),
+            "add_special_tokens": "Transformers tokenizer default",
+            "trailing_marker": TRAILING_MARKER, "num_prompts": len(tokenization_rows),
+            "min_input_tokens": min(lengths), "max_input_tokens": max(lengths),
+            "capture_position": "final model input token; verified prompt text ends with the common trailing marker"}
+        (out / "tokenization_audit.json").write_text(json.dumps(tokenization_rows, indent=2), encoding="utf-8")
 
     import shutil
     shutil.copyfile(prompts_path, out / "prompts.jsonl")
 
     evidence_hashes = {}
     evidence_hashes["prompts.jsonl"] = sha256_file(out / "prompts.jsonl")
+    if (out / "tokenization_audit.json").is_file():
+        evidence_hashes["tokenization_audit.json"] = sha256_file(out / "tokenization_audit.json")
     for npz_path in sorted(act_dir.glob("*.npz")):
         evidence_hashes[f"activations/{npz_path.name}"] = sha256_file(npz_path)
 
@@ -362,6 +372,48 @@ def run_inference(
     (out / "manifest.json").write_text(json.dumps(run_manifest, indent=2), encoding="utf-8")
 
     return run_manifest
+
+
+def resolve_transformer_layers(model):
+    """Return decoder blocks across supported Transformers model wrappers."""
+    candidates = (
+        getattr(getattr(model, "model", None), "layers", None),
+        getattr(getattr(model, "transformer", None), "h", None),
+        getattr(getattr(getattr(model, "gpt_neox", None), "layers", None), "layers", None),
+    )
+    for layers in candidates:
+        if layers is not None and len(layers):
+            return layers
+    raise TypeError(f"Unsupported causal-LM decoder block layout: {type(model).__name__}")
+
+
+def capture_final_token_residuals(model, inputs):
+    """Capture every decoder block output at the final token, removing hooks reliably."""
+    import torch
+    layers = resolve_transformer_layers(model)
+    cache: Dict[int, np.ndarray] = {}
+    handles = []
+    for index, layer in enumerate(layers):
+        def make_hook(idx):
+            def hook_fn(module, args, output):
+                hidden = output[0] if isinstance(output, tuple) else output
+                if hidden.ndim != 3 or hidden.shape[0] != 1 or hidden.shape[1] != inputs["input_ids"].shape[1]:
+                    raise ValueError(f"Unexpected block output tensor for layer {idx}: {tuple(hidden.shape)}")
+                cache[idx] = hidden[0, -1, :].detach().float().cpu().numpy()
+            return hook_fn
+        handles.append(layer.register_forward_hook(make_hook(index)))
+    try:
+        with torch.inference_mode():
+            model(**inputs, use_cache=False)
+    finally:
+        for handle in handles:
+            handle.remove()
+    if set(cache) != set(range(len(layers))):
+        raise RuntimeError(f"Activation hooks missed layers: {sorted(set(range(len(layers))) - set(cache))}")
+    residual = np.stack([cache[index] for index in range(len(layers))], axis=0).astype(np.float32)
+    if not np.isfinite(residual).all():
+        raise ValueError("Captured residual stream contains non-finite values")
+    return residual
 
 
 def bootstrap_ci(

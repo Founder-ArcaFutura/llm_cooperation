@@ -30,7 +30,8 @@ def _sha(path: str | Path) -> str:
 
 
 def load_dataset(run_dir: str | Path, prompts_path: str | Path, *, expected_prompts_path: str | Path | None = None,
-                 expected_manifest_path: str | Path | None = None, allow_mock: bool = False):
+                 expected_manifest_path: str | Path | None = None, allow_mock: bool = False,
+                 expected_model_id: str | None = None, expected_revision: str | None = None):
     """Load and integrity-check all prompt-aligned residual arrays."""
     run_dir, prompts_path = Path(run_dir), Path(prompts_path)
     manifest_path = run_dir / "manifest.json"
@@ -42,7 +43,11 @@ def load_dataset(run_dir: str | Path, prompts_path: str | Path, *, expected_prom
     hashes_bytes = hashes_path.read_bytes()
     if manifest.get("status") != "completed":
         raise ValueError("Run is not marked completed")
-    if manifest.get("model_id") != DEFAULT_MODEL_ID or manifest.get("model_revision") != DEFAULT_REVISION:
+    if expected_model_id is None:
+        expected_model_id = DEFAULT_MODEL_ID
+    if expected_revision is None and expected_model_id == DEFAULT_MODEL_ID:
+        expected_revision = DEFAULT_REVISION
+    if manifest.get("model_id") != expected_model_id or (expected_revision is not None and manifest.get("model_revision") != expected_revision):
         raise ValueError("Unexpected model identity or immutable revision")
     if manifest.get("mock") and not allow_mock:
         raise ValueError("Synthetic run refused; pass allow_mock only for test fixtures")
@@ -107,7 +112,22 @@ def load_dataset(run_dir: str | Path, prompts_path: str | Path, *, expected_prom
     actual_names = {p.name for p in activation_files}
     if expected_names != actual_names:
         raise ValueError(f"Activation inventory mismatch; missing={sorted(expected_names-actual_names)[:3]}, extra={sorted(actual_names-expected_names)[:3]}")
-    if set(hashes) != {"prompts.jsonl", *(f"activations/{name}" for name in expected_names)}:
+    expected_hash_names = {"prompts.jsonl", *(f"activations/{name}" for name in expected_names)}
+    tokenization_audit = run_dir / "tokenization_audit.json"
+    if tokenization_audit.is_file():
+        if hashes.get("tokenization_audit.json") != _sha(tokenization_audit):
+            raise ValueError("Tokenization audit SHA256 does not match evidence hashes")
+        audit_rows = json.loads(tokenization_audit.read_text(encoding="utf-8"))
+        if not isinstance(audit_rows, list) or {row.get("prompt_id") for row in audit_rows} != prompt_ids:
+            raise ValueError("Tokenization audit prompt inventory does not match prompts")
+        if any(row.get("captured_token_index") != -1 or row.get("input_token_count", 0) < 2 for row in audit_rows):
+            raise ValueError("Tokenization audit contains invalid capture positions or sequence lengths")
+        if manifest.get("tokenization", {}).get("num_prompts") != len(prompts):
+            raise ValueError("Tokenization audit count does not match run manifest")
+        expected_hash_names.add("tokenization_audit.json")
+    elif not manifest.get("mock") and expected_model_id == "allenai/OLMo-2-0425-1B":
+        raise ValueError("OLMo real run is missing its tokenization audit")
+    if set(hashes) != expected_hash_names:
         raise ValueError("Evidence hash inventory has missing or unexpected entries")
     arrays = {}
     shape = None
@@ -131,8 +151,10 @@ def load_dataset(run_dir: str | Path, prompts_path: str | Path, *, expected_prom
         arrays[pid] = arr.astype(np.float64, copy=False)
     if tuple(shape) != (manifest.get("num_layers"), manifest.get("hidden_size")):
         raise ValueError(f"Tensor shape {shape} disagrees with manifest dimensions")
-    if not manifest.get("mock") and (len(by_sid) != 124 or len(prompts) != 496 or shape != (28, 1536)):
-        raise ValueError("Real run does not match expected 124-scenario, 496-prompt, [28,1536] inventory")
+    if not manifest.get("mock") and expected_model_id == DEFAULT_MODEL_ID and (len(by_sid) != 124 or len(prompts) != 496 or shape != (28, 1536)):
+        raise ValueError("Real Qwen run does not match expected 124-scenario, 496-prompt, [28,1536] inventory")
+    if not manifest.get("mock") and (len(by_sid) != 124 or len(prompts) != 496):
+        raise ValueError("Real four-strategy run does not match expected 124-scenario, 496-prompt inventory")
     return manifest, prompts, arrays
 
 
@@ -282,11 +304,13 @@ def _layer_eval(x, discovery, evaluation, cluster_keys, lexical_centered, *, n_b
 
 
 def analyze_four_strategy(run_dir, prompts_path, output_dir, *, expected_prompts_path=None, expected_manifest_path=None,
-                          n_boot=1000, permutations=100, allow_mock=False, seed=42, progress=False):
+                          n_boot=1000, permutations=100, allow_mock=False, seed=42, progress=False,
+                          expected_model_id=None, expected_revision=None):
     """Compute layerwise strategy means, OVR directions, probes and controls."""
     from sklearn.metrics import balanced_accuracy_score
     manifest, prompts, arrays = load_dataset(run_dir, prompts_path, expected_prompts_path=expected_prompts_path,
-                                             expected_manifest_path=expected_manifest_path, allow_mock=allow_mock)
+                                             expected_manifest_path=expected_manifest_path, allow_mock=allow_mock,
+                                             expected_model_id=expected_model_id, expected_revision=expected_revision)
     sids, meta, x = scenario_center(prompts, arrays)
     family = np.asarray([m["group_key"] for m in meta])
     domain = np.asarray([m["domain"] for m in meta])
@@ -424,7 +448,9 @@ def analyze_four_strategy(run_dir, prompts_path, output_dir, *, expected_prompts
                 "lexically_adjusted_heldout_domain_direction_alignment_cosine": ci(adj_alignment),
                 "lexically_adjusted_heldout_domain_projection_margin": ci(adj_margin),
                 "heldout_domain_alignment_by_domain": dict(zip(heldout_domains,alignment)),
-                "heldout_domain_margin_by_domain": dict(zip(heldout_domains,margin))}
+                "heldout_domain_margin_by_domain": dict(zip(heldout_domains,margin)),
+                "lexically_adjusted_heldout_domain_alignment_by_domain": dict(zip(heldout_domains,adj_alignment)),
+                "lexically_adjusted_heldout_domain_margin_by_domain": dict(zip(heldout_domains,adj_margin))}
         domain_directional.append({"layer":li,"by_strategy":by_strategy})
     report = {
         "version": VERSION, "analysis_timestamp_utc": datetime.now(timezone.utc).isoformat(),
@@ -434,7 +460,7 @@ def analyze_four_strategy(run_dir, prompts_path, output_dir, *, expected_prompts
         "source_evidence_hashes_sha256": manifest["evidence_hashes_sha256"], "num_scenarios": len(sids),
         "expected_prompt_inventory_sha256": _sha(expected_prompts_path) if expected_prompts_path else None,
         "prepared_plan_manifest_sha256": _sha(expected_manifest_path) if expected_manifest_path else None,
-        "provenance": {k: manifest.get(k) for k in ("bank_path", "bank_sha256", "script_sha256", "prompts_sha256", "created_utc", "started_utc", "ended_utc", "dtype", "device", "mock")},
+        "provenance": {k: manifest.get(k) for k in ("bank_path", "bank_sha256", "script_sha256", "prompts_sha256", "created_utc", "started_utc", "ended_utc", "dtype", "device", "mock", "resolved_commit_sha", "tokenization", "checkpoint_provenance", "checkpoint_provenance_sha256")},
         "num_prompts": len(prompts), "tensor_shape": list(next(iter(arrays.values())).shape),
         "scenario_centering": "For each scenario and layer, subtract the mean of its four strategy residual vectors.",
         "strategy_order": list(STRATEGIES), "family_held_out": {"discovery_families": sorted(set(family[fam_disc])),
