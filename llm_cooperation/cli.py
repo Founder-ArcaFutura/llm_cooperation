@@ -264,5 +264,118 @@ def cmd_cm_smoke(output):
     click.echo(f"Smoke test succeeded! Reports generated at {analysis_dir}")
 
 
+
+
+@main.command("audit-controlled-banks")
+@click.option(
+    "--bank-dir",
+    type=click.Path(exists=True, file_okay=False, dir_okay=True, path_type=Path),
+    default=Path("data/controlled_strategy_banks_v1"),
+    help="Directory containing controlled banks A, B, C.",
+)
+@click.option(
+    "--output-report",
+    type=click.Path(file_okay=True, dir_okay=False, path_type=Path),
+    default=Path("data/controlled_strategy_banks_v1/audit_report.md"),
+    help="Path to markdown output report.",
+)
+def cmd_audit_controlled_banks(bank_dir: Path, output_report: Path):
+    """Audit length-matching and lexical diversity of controlled strategy banks."""
+    from llm_cooperation.items.audit_controlled_banks import (
+        compute_bank_metrics,
+        compute_cross_bank_diversity,
+    )
+    from llm_cooperation.items.controlled_banks import load_phase0b_scenarios
+
+    orig_scenarios = load_phase0b_scenarios()
+    click.echo(f"Loaded {len(orig_scenarios)} authoritative Phase 0B scenarios.")
+
+    banks = {"Original": orig_scenarios}
+    bank_files = {
+        "Bank A": bank_dir / "bank_a_length_matched.json",
+        "Bank B": bank_dir / "bank_b_lexically_diversified.json",
+        "Bank C": bank_dir / "bank_c_independent_replication.json",
+    }
+
+    for name, path in bank_files.items():
+        if path.exists():
+            import json
+            with path.open("r", encoding="utf-8") as f:
+                d = json.load(f)
+                scs = d.get("scenarios", d) if isinstance(d, dict) else d
+                banks[name] = scs
+                click.echo(f"Loaded {len(scs)} scenarios from {name} ({path.name}).")
+        else:
+            click.echo(f"Notice: {name} not found at {path}")
+
+    metrics = {name: compute_bank_metrics(scs) for name, scs in banks.items()}
+    diversity = compute_cross_bank_diversity(banks)
+
+    click.echo("Summary of Within-Scenario Token Spans (Max - Min Tokens):")
+    for name, m in metrics.items():
+        ts = m["token_spans"]
+        click.echo(f"  {name:10s}: Mean {ts['mean']:.2f} (std={ts['std']:.2f}, min={ts['min']}, max={ts['max']})")
+
+    md_lines = [
+        "# Audit Report: Controlled Strategy Scenario Banks",
+        "",
+        "## 1. Within-Scenario Length Balance",
+        "",
+        "| Bank | Mean Token Span | Std Token Span | Min Span | Max Span | Mean Word Span | Mean Char Span |",
+        "| --- | --- | --- | --- | --- | --- | --- |",
+    ]
+    for name, m in metrics.items():
+        ts = m["token_spans"]
+        ws = m["word_spans"]
+        cs = m["char_spans"]
+        md_lines.append(
+            f"| {name} | {ts['mean']:.2f} | {ts['std']:.2f} | {ts['min']} | {ts['max']} | {ws['mean']:.2f} | {cs['mean']:.2f} |"
+        )
+
+    md_lines.extend([
+        "",
+        "## 2. Strategy-Level Action Token Lengths",
+        "",
+        "| Bank | Strategy | Mean Tokens | Std Tokens | Min Tokens | Max Tokens |",
+        "| --- | --- | --- | --- | --- | --- |",
+    ])
+    for name, m in metrics.items():
+        for strat, s_stat in m["action_tokens"].items():
+            md_lines.append(
+                f"| {name} | {strat} | {s_stat['mean']:.2f} | {s_stat['std']:.2f} | {s_stat['min']} | {s_stat['max']} |"
+            )
+
+    md_lines.extend([
+        "",
+        "## 3. Cross-Bank Lexical Diversity and Phrasing Overlap",
+        "",
+        "| Comparison | Total Pairs | Exact Text Matches | Mean Word Jaccard Similarity |",
+        "| --- | --- | --- | --- |",
+    ])
+    for comp, d_stat in diversity.items():
+        md_lines.append(
+            f"| {comp} | {d_stat['total_action_pairs']} | {d_stat['exact_matches']} | {d_stat['mean_word_jaccard_similarity']:.3f} |"
+        )
+
+    md_lines.extend([
+        "",
+        "## 4. Strategy Vocabulary and N-Gram Frequencies",
+        "",
+    ])
+    for name, m in metrics.items():
+        md_lines.append(f"### {name}")
+        for strat in ["COOPERATE", "INDEPENDENT", "COMPETE_EXPLOIT", "DISENGAGE"]:
+            top_w = ", ".join(f"{w} ({c})" for w, c in list(m["top_words"][strat].items())[:6])
+            top_bg = ", ".join(f"\"{bg}\" ({c})" for bg, c in list(m["top_bigrams"][strat].items())[:5])
+            md_lines.append(f"- **{strat}**:")
+            md_lines.append(f"  - Common words: {top_w}")
+            md_lines.append(f"  - Common bigrams: {top_bg}")
+        md_lines.append("")
+
+    output_report.parent.mkdir(parents=True, exist_ok=True)
+    output_report.write_text("\n".join(md_lines), encoding="utf-8")
+    click.echo(f"Audit report written to {output_report}")
+
+
 if __name__ == "__main__":
     main()
