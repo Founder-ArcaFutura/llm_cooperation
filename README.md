@@ -146,3 +146,7 @@ Per experimental specification (§13):
 - The item bank remains formally designated as **Pending Human Scientific Review**; lexical length parity is necessary but does not inherently guarantee construct equivalence across options.
 - The 25% four-choice share is a uniform display reference, not a naturalistic null hypothesis.
 - Escalation to Phase 1/2 mechanistic probing requires passing the predefined gates: high format compliance, position robustness, consistent cross-scenario patterns, and explicit cross-family human review (mock runs strictly excluded).
+
+### Exploratory mechanistic work
+
+See [the mechanistic exploration guide](docs/mechanistic_exploration.md) for the template-separated MLP-neuron screen, held-out ablation, random-neuron controls, calibration, and explicit Modal authorization. This uses the Phase 0B exploratory bank; the protected prospective Phase 1 bank remains gated.
