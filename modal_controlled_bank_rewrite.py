@@ -145,14 +145,86 @@ def _score_candidate(tokenizer, scenario: dict, options: dict, earlier: dict) ->
     }
 
 
+def _candidate_pool_solution(tokenizer, scenario, pool, earlier):
+    """Find a four-action combination whose *measured* lengths satisfy both
+    constraints. Every sentence comes from model-authored output: no padding.
+    Pooling avoids throwing away three useful sentences because the fourth
+    missed its target. The final combination still requires semantic review.
+    """
+    from itertools import product
+
+    stem = scenario["stem"].strip()
+    eligible = {}
+    for strategy in STRATEGIES:
+        candidates = []
+        for action in dict.fromkeys(pool[strategy]):  # preserve order, dedupe
+            if any(pattern.search(action) for pattern in BAD_PATTERNS):
+                continue
+            if any(
+                action.casefold() == prev[strategy].casefold()
+                or len(_words(action) & _words(prev[strategy]))
+                   / max(1, len(_words(action) | _words(prev[strategy]))) > 0.85
+                for prev in earlier.values()
+            ):
+                continue
+            action_length = len(tokenizer.encode(action, add_special_tokens=False))
+            prompt_length = len(tokenizer.encode(
+                f"{stem}\n\nAction: {action}\nDecision:", add_special_tokens=False
+            ))
+            candidates.append((action, action_length, prompt_length))
+        eligible[strategy] = candidates
+        if not candidates:
+            return None
+
+    all_targets = sorted({count for candidates in eligible.values()
+                          for _, count, _ in candidates})
+    for action_target in all_targets:
+        # Restrict combinatorial search using measured action and full-prompt
+        # lengths before attempting any cross-bank/structural checks.
+        active = {
+            strategy: [c for c in eligible[strategy]
+                       if action_target <= c[1] <= action_target + 1]
+            for strategy in STRATEGIES
+        }
+        if any(not active[s] for s in STRATEGIES):
+            continue
+        prompt_targets = sorted({c[2] for s in STRATEGIES for c in active[s]})
+        for prompt_target in prompt_targets:
+            choices = [
+                [c[0] for c in active[strategy]
+                 if prompt_target <= c[2] <= prompt_target + 1]
+                for strategy in STRATEGIES
+            ]
+            if any(not choice for choice in choices):
+                continue
+            # Prefer earlier successful generations; cap per-strategy search.
+            for combination in product(*(choice[:12] for choice in choices)):
+                options = dict(zip(STRATEGIES, combination))
+                report = _score_candidate(tokenizer, scenario, options, earlier)
+                if report["accepted_automatic_constraints"]:
+                    return options, report
+    return None
+
+
 def _generate_set(llm, generation_tokenizer, measurement_tokenizer, scenario, bank, previous, max_attempts):
     from vllm import SamplingParams
 
     original = {s: scenario["options"][s] for s in STRATEGIES}
-    target = max(len(measurement_tokenizer.encode(t, add_special_tokens=False)) for t in original.values())
+    original_counts = [len(measurement_tokenizer.encode(t, add_special_tokens=False))
+                       for t in original.values()]
+    # A middle target is easier than padding all short options to the longest.
+    target = sorted(original_counts)[len(original_counts) // 2]
     feedback = []
-    last = None
+    candidate_pool = {strategy: [] for strategy in STRATEGIES}
+    last_options = None
+    best = None
+    best_penalty = float("inf")
+
     for attempt in range(1, max_attempts + 1):
+        previous_report = (
+            _score_candidate(measurement_tokenizer, scenario, last_options, previous)
+            if last_options else None
+        )
         instructions = {
             "bank": bank,
             "style": STYLES[bank],
@@ -161,7 +233,25 @@ def _generate_set(llm, generation_tokenizer, measurement_tokenizer, scenario, ba
             "scenario": scenario["stem"],
             "original_actions": original,
             "original_payoffs": scenario.get("payoff_spec"),
-            "length_target_hint_per_action": f"approximately {target} Qwen2.5 tokens",
+            "token_count_target": target,
+            "token_constraint": (
+                "All four actions should have exactly this many Qwen2.5 tokens "
+                "or differ by at most one token. Counts are checked by code."
+            ),
+            "previous_attempt_actions": last_options,
+            "previous_attempt_measured_action_tokens": (
+                previous_report["action_tokens"] if previous_report else None
+            ),
+            "previous_attempt_measured_prompt_tokens": (
+                previous_report["full_prompt_tokens"] if previous_report else None
+            ),
+            "revision_instruction": (
+                "If a previous attempt is given, EDIT those actual sentences "
+                "to correct the measured counts. Preserve any already near "
+                "the token target, and preserve strategic intent. Do not "
+                "regenerate all four randomly or insert meaningless filler."
+                if last_options else "Author four concise and natural actions."
+            ),
             "other_bank_wording_to_avoid": previous,
             "prior_validation_feedback": feedback[-2:],
         }
@@ -172,29 +262,62 @@ def _generate_set(llm, generation_tokenizer, measurement_tokenizer, scenario, ba
         )
         generated = llm.generate(
             [rendered],
-            SamplingParams(temperature=0.55 if attempt == 1 else 0.40,
+            SamplingParams(temperature=0.55 if attempt == 1 else 0.35,
                            top_p=0.9, max_tokens=650),
             use_tqdm=False,
         )[0].outputs[0].text
         options = _json_object(generated)
         if options is None:
             feedback.append(["Output was not valid four-field JSON. Return JSON only."])
-            last = {"accepted_automatic_constraints": False, "issues": feedback[-1],
-                    "raw_output_excerpt": generated[:500], "attempts": attempt,
-                    "semantic_review": "UNADJUDICATED"}
+            if best is None:
+                best = {"accepted_automatic_constraints": False,
+                        "issues": feedback[-1],
+                        "raw_output_excerpt": generated[:500], "attempts": attempt,
+                        "semantic_review": "UNADJUDICATED"}
             continue
-        report = _score_candidate(measurement_tokenizer, scenario, options, previous)
-        last = {"options": options, "validation": report, "attempts": attempt,
-                "semantic_review": "UNADJUDICATED"}
-        if report["accepted_automatic_constraints"]:
-            last["accepted_automatic_constraints"] = True
-            return last
-        feedback.append(report["issues"])
-    if last is None:
-        last = {"issues": ["No model response"], "attempts": max_attempts}
-    last["accepted_automatic_constraints"] = False
-    return last
 
+        last_options = options
+        for strategy in STRATEGIES:
+            if options[strategy] not in candidate_pool[strategy]:
+                candidate_pool[strategy].append(options[strategy])
+        report = _score_candidate(measurement_tokenizer, scenario, options, previous)
+        if report["accepted_automatic_constraints"]:
+            return {"options": options, "validation": report, "attempts": attempt,
+                    "assembly": "complete_model_generation",
+                    "accepted_automatic_constraints": True,
+                    "semantic_review": "UNADJUDICATED"}
+
+        # Retain useful sentences from every generation; test whether a
+        # combination satisfies both tokenizer constraints before retrying.
+        assembled = _candidate_pool_solution(
+            measurement_tokenizer, scenario, candidate_pool, previous
+        )
+        if assembled is not None:
+            pooled_options, pooled_report = assembled
+            return {"options": pooled_options, "validation": pooled_report,
+                    "attempts": attempt, "assembly": "pooled_model_sentences",
+                    "accepted_automatic_constraints": True,
+                    "semantic_review": "UNADJUDICATED"}
+
+        token_span = max(report["action_tokens"].values()) - min(report["action_tokens"].values())
+        prompt_span = max(report["full_prompt_tokens"].values()) - min(report["full_prompt_tokens"].values())
+        penalty = max(0, token_span - 1) + max(0, prompt_span - 1) + (
+            3 * sum(not issue.startswith(("action token span=", "full prompt token span="))
+                    for issue in report["issues"])
+        )
+        if penalty < best_penalty:
+            best_penalty = penalty
+            best = {"options": options, "validation": report, "attempts": attempt,
+                    "semantic_review": "UNADJUDICATED"}
+        feedback.append(report["issues"])
+
+    if best is None:
+        best = {"issues": ["No usable model response"], "attempts": max_attempts,
+                "semantic_review": "UNADJUDICATED"}
+    best["accepted_automatic_constraints"] = False
+    best["attempts_used"] = max_attempts
+    best["candidate_counts"] = {s: len(candidate_pool[s]) for s in STRATEGIES}
+    return best
 
 @app.function(gpu="H100", timeout=14400, retries=0,
               volumes={"/hf-cache": HF_CACHE, "/runs": RUN_VOLUME})
