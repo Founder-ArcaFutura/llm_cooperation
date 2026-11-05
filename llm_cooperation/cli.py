@@ -228,8 +228,14 @@ def cmd_cm_analyze(run_dir, prompts, output, n_boot):
 @cmd_contrastive_mapping.command("smoke-test")
 @click.option("--output", "-o", required=True, help="Output directory for smoke test artifacts.")
 def cmd_cm_smoke(output):
-    """Run complete mock end-to-end smoke test."""
-    from llm_cooperation.mechanistic.contrastive_mapping import prepare, run_inference, analyze_contrastive_mapping
+    """Run complete mock end-to-end smoke test including failure mode assertions."""
+    from llm_cooperation.mechanistic.contrastive_mapping import (
+        DEFAULT_REVISION,
+        prepare,
+        run_inference,
+        analyze_contrastive_mapping,
+    )
+    import json
     out_p = Path(output)
     plan_dir = out_p / "plan"
     run_dir = out_p / "run"
@@ -240,6 +246,21 @@ def cmd_cm_smoke(output):
     run_inference(plan_dir, run_dir, mock=True)
     click.echo("3. Analyzing contrastive representations...")
     analyze_contrastive_mapping(run_dir, plan_dir / "prompts.jsonl", analysis_dir, n_boot=200)
+
+    click.echo("4. Verifying fail-closed assertions on corrupted inputs...")
+    manifest_p = run_dir / "manifest.json"
+    tampered_manifest = json.loads(manifest_p.read_text(encoding="utf-8"))
+    tampered_manifest["model_revision"] = "badrevision0000000000000000000000000000000"
+    manifest_p.write_text(json.dumps(tampered_manifest), encoding="utf-8")
+    try:
+        analyze_contrastive_mapping(run_dir, plan_dir / "prompts.jsonl", analysis_dir / "bad")
+        raise AssertionError("Tampered manifest failed to raise ValueError")
+    except ValueError:
+        click.echo("  ✓ Detected tampered manifest")
+    finally:
+        tampered_manifest["model_revision"] = DEFAULT_REVISION
+        manifest_p.write_text(json.dumps(tampered_manifest), encoding="utf-8")
+
     click.echo(f"Smoke test succeeded! Reports generated at {analysis_dir}")
 
 

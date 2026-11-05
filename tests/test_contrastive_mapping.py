@@ -153,3 +153,30 @@ def test_smoke_end_to_end_and_fail_closed_checks(tmp_path):
     (run_dir / "evidence_hashes.json").write_text(json.dumps(ev_hashes), encoding="utf-8")
     with pytest.raises(ValueError, match="evidence_hashes.json SHA256 does not match run manifest record"):
         analyze_contrastive_mapping(run_dir, plan_dir / "prompts.jsonl")
+
+
+def test_binary_plan_transport_and_hash_guards(tmp_path):
+    from modal_contrastive_mapping import main as modal_main
+
+    plan_dir = tmp_path / "plan"
+    prepare(plan_dir, smoke=True)
+
+    # 1. Paid run guard
+    with pytest.raises(ValueError, match="PAID RUN GUARD"):
+        modal_main(str(plan_dir), authorize_paid_run=False)
+
+    # 2. Immutable revision check
+    with pytest.raises(ValueError, match="Immutable revision mismatch"):
+        modal_main(str(plan_dir), revision="wrongrevision0000000000000000000000000", authorize_paid_run=True)
+
+    # 3. Model check
+    with pytest.raises(ValueError, match="strictly targets"):
+        modal_main(str(plan_dir), model="other/model", authorize_paid_run=True)
+
+    # 4. Tampered prompt file hash in plan
+    prompts_p = plan_dir / "prompts.jsonl"
+    original_bytes = prompts_p.read_bytes()
+    prompts_p.write_bytes(original_bytes + b"\n")
+    with pytest.raises(ValueError, match="Plan prompts sha256"):
+        modal_main(str(plan_dir), authorize_paid_run=True)
+    prompts_p.write_bytes(original_bytes)

@@ -276,6 +276,11 @@ def run_inference(
     act_dir = out / "activations"
     act_dir.mkdir(parents=True, exist_ok=False)
 
+    if model_id != DEFAULT_MODEL_ID:
+        raise ValueError(f"Model ID must be {DEFAULT_MODEL_ID}, got {model_id}")
+    if revision != DEFAULT_REVISION:
+        raise ValueError(f"Immutable model revision must be {DEFAULT_REVISION}, got {revision}")
+
     if mock:
         num_layers = 28
         hidden_size = 1536
@@ -293,8 +298,6 @@ def run_inference(
             raise PermissionError(
                 "Execution requires explicit authorization flag (--authorize-inference locally or --authorize-paid-run on Modal)"
             )
-        if model_id != DEFAULT_MODEL_ID or not re.fullmatch(r"[0-9a-f]{40}", revision):
-            raise ValueError(f"Model ID must be {DEFAULT_MODEL_ID} with exact 40-char SHA revision, got {model_id} @ {revision}")
 
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -489,9 +492,13 @@ def analyze_contrastive_mapping(
     if run_manifest.get("status") != "completed":
         raise ValueError(f"Run status is '{run_manifest.get('status')}'; expected 'completed'")
 
-    # Validate immutable revision
+    # Validate immutable revision and model
+    model_id = run_manifest.get("model_id")
+    if model_id != DEFAULT_MODEL_ID:
+        raise ValueError(f"Model ID mismatch: expected {DEFAULT_MODEL_ID}, found {model_id}")
+
     model_revision = run_manifest.get("model_revision")
-    if not run_manifest.get("mock") and model_revision != DEFAULT_REVISION:
+    if model_revision != DEFAULT_REVISION:
         raise ValueError(f"Model revision mismatch: expected {DEFAULT_REVISION}, found {model_revision}")
 
     # Evidence hash verification
@@ -689,11 +696,15 @@ def analyze_contrastive_mapping(
                 alt_projs_by_layer.append(float(np.mean(fam_means)) if fam_means else 0.0)
             alt_contrasts[pair_name] = alt_projs_by_layer
 
+    is_mock = bool(run_manifest.get("mock", False))
+
     report = {
         "version": VERSION,
         "analysis_timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "model_id": run_manifest.get("model_id"),
         "model_revision": run_manifest.get("model_revision"),
+        "is_mock": is_mock,
+        "run_provenance": "synthetic_mock_execution" if is_mock else "frozen_pretrained_model_run",
         "num_layers": num_layers,
         "hidden_size": hidden_size,
         "template_family_split": {
@@ -724,6 +735,9 @@ def analyze_contrastive_mapping(
         },
         "alternative_strategy_contrasts": alt_contrasts,
         "scientific_boundary": (
+            "MOCK SYNTHETIC PROVENANCE NOTICE: Synthetic activations are for instrument validation only "
+            "and do NOT reflect neural representations or model capabilities. "
+            if is_mock else
             "Exploratory representation-mapping analysis. Clustered strictly by template/domain family; "
             "paired variants kept together. Linear decodability indicates representation availability, "
             "not preference or causal mechanism."
@@ -748,6 +762,7 @@ def _write_markdown_report(report: Dict[str, Any], path: Path) -> None:
         "# Exploratory Contrastive Representation-Mapping Report",
         "",
         f"- **Model:** `{report.get('model_id')}` (revision `{report.get('model_revision')}`)",
+        f"- **Run Provenance:** `{report.get('run_provenance')}` (is_mock={report.get('is_mock')})",
         f"- **Timestamp:** `{report['analysis_timestamp_utc']}`",
         f"- **Layers Analyzed:** {report['num_layers']} (hidden dimension: {report['hidden_size']})",
         "",
