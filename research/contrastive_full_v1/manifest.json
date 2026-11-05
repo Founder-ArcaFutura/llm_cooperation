@@ -1,0 +1,30 @@
+{
+  "version": "contrastive-mapping-v1",
+  "status": "prepared",
+  "created_utc": "2026-11-05T10:34:10.427513+00:00",
+  "bank_path": "data\\scenarios_phase0b_utility_matched.json",
+  "bank_sha256": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+  "prompts_sha256": "45df40c837844b08dfdc07e5697155e37fa444d19c5358caf7a347b6a981a752",
+  "script_sha256": "4b2275adbb8f48d632b10a0dd5744b489d7d654ef3232e84222919a7bb9ca2dc",
+  "num_scenarios": 124,
+  "num_prompts": 496,
+  "num_families": 54,
+  "num_domains": 24,
+  "discovery_scenarios": 58,
+  "evaluation_scenarios": 66,
+  "domain_discovery_scenarios": 62,
+  "domain_evaluation_scenarios": 62,
+  "discovery_families": 27,
+  "evaluation_families": 27,
+  "smoke": false,
+  "seed": 42,
+  "trailing_marker": "\nDecision:",
+  "strategies": [
+    "COOPERATE",
+    "INDEPENDENT",
+    "COMPETE_EXPLOIT",
+    "DISENGAGE"
+  ],
+  "target_model": "Qwen/Qwen2.5-1.5B",
+  "target_revision": "8faed761d45a263340a0528343f099c05c9a4323"
+}
