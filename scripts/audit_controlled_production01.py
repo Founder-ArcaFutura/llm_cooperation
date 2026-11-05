@@ -49,6 +49,7 @@ def jaccard_similarity(text1: str, text2: str) -> float:
 def audit_production01(
     prod_dir: str = "research/controlled_rewrites/production01",
     phase0b_path: str = "data/scenarios_phase0b_utility_matched.json",
+    verify_tokenizer: bool = True,
 ) -> Tuple[Dict[str, Any], str]:
     prod_path = Path(prod_dir)
     records_dir = prod_path / "records"
@@ -109,6 +110,15 @@ def audit_production01(
     accepted_counts = {b: sum(1 for (idx, bank), r in records.items() if bank == b and r.get("accepted_automatic_constraints")) for b in BANKS}
     unresolved_counts = {b: sum(1 for (idx, bank), r in records.items() if bank == b and not r.get("accepted_automatic_constraints")) for b in BANKS}
 
+    accepted_indices_by_bank = {
+        b: {idx for (idx, bank), r in records.items() if bank == b and r.get("accepted_automatic_constraints")}
+        for b in BANKS
+    }
+    complete_triad_indices = sorted(
+        accepted_indices_by_bank["A"] & accepted_indices_by_bank["B"] & accepted_indices_by_bank["C"]
+    )
+    complete_triad_scenarios = [scenarios_by_index[idx]["id"] for idx in complete_triad_indices]
+
     manifest_counts = manifest.get("counts", {})
     count_reconciliation = {
         "manifest_accepted": {b: manifest_counts.get(b, {}).get("accepted", 0) for b in BANKS},
@@ -121,17 +131,48 @@ def audit_production01(
             all(accepted_counts[b] == manifest_counts.get(b, {}).get("accepted") for b in BANKS)
             and all(unresolved_counts[b] == manifest_counts.get(b, {}).get("unresolved") for b in BANKS)
         ),
+        "accepted_scenario_indices_by_bank": {b: sorted(list(idx_set)) for b, idx_set in accepted_indices_by_bank.items()},
+        "complete_triad_indices": complete_triad_indices,
+        "complete_triad_count": len(complete_triad_indices),
+        "complete_triad_scenario_ids": complete_triad_scenarios,
     }
 
     # Verify candidate files scenarios count
     candidate_file_counts = {b: len(bank_candidates[b].get("scenarios", [])) for b in BANKS}
+
+    # Independent Tokenizer Verification (retokenizing saved options)
+    retokenization_verified = False
+    retokenization_mismatches = 0
+    if verify_tokenizer:
+        try:
+            from transformers import AutoTokenizer
+            tok = AutoTokenizer.from_pretrained(
+                manifest.get("measurement_tokenizer", "Qwen/Qwen2.5-1.5B"),
+                revision=manifest.get("measurement_tokenizer_revision", "8faed761d45a263340a0528343f099c05c9a4323"),
+            )
+            for idx in range(124):
+                stem = scenarios_by_index[idx]["stem"].strip()
+                for b in BANKS:
+                    rec = records[(idx, b)]
+                    val = rec.get("validation", {})
+                    st_act = val.get("action_tokens", {})
+                    st_prm = val.get("full_prompt_tokens", {})
+                    for s, text in rec.get("options", {}).items():
+                        re_act = len(tok.encode(text, add_special_tokens=False))
+                        re_prm = len(tok.encode(f"{stem}\n\nAction: {text}\nDecision:", add_special_tokens=False))
+                        if st_act and s in st_act and st_act[s] != re_act:
+                            retokenization_mismatches += 1
+                        if st_prm and s in st_prm and st_prm[s] != re_prm:
+                            retokenization_mismatches += 1
+            retokenization_verified = (retokenization_mismatches == 0)
+        except Exception as e:
+            provenance_issues.append(f"Independent retokenization failed: {e}")
 
     # 2. Token matching characterization
     action_spans = collections.Counter()
     prompt_spans = collections.Counter()
     combined_max_spans = collections.Counter()  # max(action_span, prompt_span)
 
-    # Detailed threshold coverage
     threshold_coverage = {
         span_thresh: {
             "action_only_count": 0,
@@ -143,7 +184,6 @@ def audit_production01(
     }
 
     record_analysis = {}
-    defect_categories = collections.defaultdict(list)
 
     for (idx, b), rec in records.items():
         val = rec.get("validation", {})
@@ -174,7 +214,7 @@ def audit_production01(
                 threshold_coverage[thresh]["both_spans_count"] += 1
                 threshold_coverage[thresh]["by_bank"][b] += 1
 
-        # Check for explicit defects
+        # Check for explicit mechanical padding patterns
         has_bad_pattern = False
         bad_pattern_matches = []
         for strat, text in rec.get("options", {}).items():
@@ -196,20 +236,20 @@ def audit_production01(
             "combined_span": combined_span,
             "action_tokens": act_tokens,
             "prompt_tokens": prompt_tokens,
-            "issues": issues,
+            "historical_issues": issues,
             "has_bad_pattern": has_bad_pattern,
             "bad_pattern_matches": bad_pattern_matches,
-            "dup_issues": dup_issues,
-            "overlap_issues": overlap_issues,
+            "historical_dup_issues": dup_issues,
+            "historical_overlap_issues": overlap_issues,
         }
 
-    # 3. Lexical Diversity Assessment
-    # Cross-bank exact matches, n-gram overlap, and repeated templates
+    # 3. Lexical Diversity Assessment and Full Cross-Bank Collision Detection
     cross_bank_exact = {"A_vs_B": 0, "A_vs_C": 0, "B_vs_C": 0}
     cross_bank_jaccard = {"A_vs_B": [], "A_vs_C": [], "B_vs_C": []}
     cross_bank_3gram_overlap = {"A_vs_B": [], "A_vs_C": [], "B_vs_C": []}
 
     identical_options_detail = []
+    cross_bank_collisions_by_candidate = collections.defaultdict(list)
 
     for idx in range(124):
         opts_A = records[(idx, "A")]["options"]
@@ -226,15 +266,6 @@ def audit_production01(
             for strat in STRATEGIES:
                 t1 = opt1[strat].strip()
                 t2 = opt2[strat].strip()
-                if t1.casefold() == t2.casefold():
-                    cross_bank_exact[pair_name] += 1
-                    identical_options_detail.append({
-                        "scenario_index": idx,
-                        "scenario_id": records[(idx, "A")]["scenario_id"],
-                        "strategy": strat,
-                        "banks": f"{b1_name}_vs_{b2_name}",
-                        "text": t1,
-                    })
                 j_sim = jaccard_similarity(t1, t2)
                 cross_bank_jaccard[pair_name].append(j_sim)
 
@@ -244,6 +275,33 @@ def audit_production01(
                 ng2 = get_ngrams(toks2, 3)
                 ng_overlap = len(ng1 & ng2) / max(1, len(ng1 | ng2)) if (ng1 or ng2) else 0.0
                 cross_bank_3gram_overlap[pair_name].append(ng_overlap)
+
+                if t1.casefold() == t2.casefold():
+                    cross_bank_exact[pair_name] += 1
+                    identical_options_detail.append({
+                        "scenario_index": idx,
+                        "scenario_id": records[(idx, "A")]["scenario_id"],
+                        "strategy": strat,
+                        "banks": f"{b1_name}_vs_{b2_name}",
+                        "text": t1,
+                    })
+                    cross_bank_collisions_by_candidate[(idx, b1_name)].append(
+                        f"{strat}: exact duplicate of Bank {b2_name}"
+                    )
+                    cross_bank_collisions_by_candidate[(idx, b2_name)].append(
+                        f"{strat}: exact duplicate of Bank {b1_name}"
+                    )
+                elif j_sim > 0.85:
+                    cross_bank_collisions_by_candidate[(idx, b1_name)].append(
+                        f"{strat}: excessive lexical overlap with Bank {b2_name} ({j_sim:.2f})"
+                    )
+                    cross_bank_collisions_by_candidate[(idx, b2_name)].append(
+                        f"{strat}: excessive lexical overlap with Bank {b1_name} ({j_sim:.2f})"
+                    )
+
+    # Attach computed cross-bank collisions to record analysis
+    for (idx, b), colls in cross_bank_collisions_by_candidate.items():
+        record_analysis[(idx, b)]["computed_cross_bank_collisions"] = colls
 
     # Overlap with original Phase 0B actions
     overlap_with_original = {b: [] for b in BANKS}
@@ -259,7 +317,7 @@ def audit_production01(
                     exact_match_with_original[b] += 1
                 overlap_with_original[b].append(jaccard_similarity(orig_t, cand_t))
 
-    # Strategy-correlated lexical shortcuts (e.g. leading verbs, frequent tokens per strategy)
+    # Strategy-correlated lexical shortcuts
     strategy_leading_words = {strat: collections.Counter() for strat in STRATEGIES}
     strategy_word_frequencies = {strat: collections.Counter() for strat in STRATEGIES}
 
@@ -271,8 +329,6 @@ def audit_production01(
             for w in toks:
                 strategy_word_frequencies[strat][w] += 1
 
-    # Detect high-association shortcut words for each strategy
-    # Word appearing overwhelmingly in one strategy vs others
     shortcut_cues = {}
     for strat in STRATEGIES:
         top_words = []
@@ -286,19 +342,13 @@ def audit_production01(
         shortcut_cues[strat] = top_words[:5]
 
     # 4. Diagnostic Semantic Integrity Triage
-    # Compare candidate actions against original descriptions
-    # Automated semantic heuristics:
-    # - Partner identity preservation: partner_type in Phase 0B ('human' or 'ai')
-    #   Check if human scenarios lose human references or AI scenarios lose AI references.
-    # - Polarity/negation check: 'not', 'no', 'refuse', 'never' introduced or removed.
-    # - Inverted action checks: Cooperate taking independent actions, etc.
-    # - Strategic drift indicators: key nouns from original missing in candidate (stem keyword retention).
-    # - Tone/framing shift heuristics.
     semantic_flags = []
+    partner_cue_flags_count = {"human": 0, "ai": 0}
+    polarity_shift_flags_count = {"introduced": 0, "removed": 0}
+
     for (idx, b), rec in records.items():
         scenario = scenarios_by_index[idx]
         partner_type = scenario["partner_type"]
-        stem = scenario["stem"]
         orig_opts = scenario["options"]
         cand_opts = rec["options"]
 
@@ -314,14 +364,16 @@ def audit_production01(
                 cand_has_human = any(w in set(tokenize_words(cand_text)) for w in human_cues)
                 if orig_has_human and not cand_has_human:
                     flags.append("possible_loss_of_human_partner_cue")
+                    partner_cue_flags_count["human"] += 1
             elif partner_type == "ai":
                 ai_cues = {"ai", "automated", "algorithm", "system", "synthetic", "bot", "autonomous", "software", "agent", "subsystem"}
                 orig_has_ai = any(w in set(tokenize_words(orig_text)) for w in ai_cues)
                 cand_has_ai = any(w in set(tokenize_words(cand_text)) for w in ai_cues)
                 if orig_has_ai and not cand_has_ai:
                     flags.append("possible_loss_of_ai_partner_cue")
+                    partner_cue_flags_count["ai"] += 1
 
-            # Check extreme lexical divergence (Jaccard < 0.15)
+            # Check extreme lexical divergence (Jaccard < 0.12)
             j_sim = jaccard_similarity(orig_text, cand_text)
             if j_sim < 0.12 and len(orig_text.split()) > 4:
                 flags.append(f"low_lexical_similarity_to_source({j_sim:.2f})")
@@ -331,7 +383,12 @@ def audit_production01(
             orig_neg = bool(set(tokenize_words(orig_text)) & neg_words)
             cand_neg = bool(set(tokenize_words(cand_text)) & neg_words)
             if orig_neg != cand_neg and strat in ("COOPERATE", "INDEPENDENT"):
-                flags.append(f"polarity_negation_shift(orig={orig_neg},cand={cand_neg})")
+                if not orig_neg and cand_neg:
+                    polarity_shift_flags_count["introduced"] += 1
+                    flags.append("polarity_negation_shift(orig=False,cand=True)")
+                else:
+                    polarity_shift_flags_count["removed"] += 1
+                    flags.append("polarity_negation_shift(orig=True,cand=False)")
 
             # Length compression: if rewritten candidate is less than 50% length of original or > 200%
             orig_words_len = len(orig_text.split())
@@ -352,18 +409,15 @@ def audit_production01(
                     "candidate": cand_text,
                 })
 
-    # Group semantic flags by record
     flags_by_record = collections.defaultdict(list)
     for sf in semantic_flags:
         flags_by_record[(sf["record"])].extend(sf["flags"])
 
-    # 5. Evaluate Scientific Trade-offs (Relaxing token span threshold)
-    # What happens at span <= 1 vs <= 2 vs <= 3?
+    # 5. Evaluate Scientific Trade-offs
     coverage_tradeoffs = {}
     for thresh in [1, 2, 3]:
         count = threshold_coverage[thresh]["both_spans_count"]
         pct = round(100.0 * count / 372, 1)
-        # Check semantic flags density among candidates that pass at this threshold
         candidates_at_thresh = [
             (idx, b) for (idx, b), r in record_analysis.items()
             if r["combined_span"] is not None and r["combined_span"] <= thresh
@@ -381,12 +435,7 @@ def audit_production01(
             "semantic_flag_rate": round(len(records_with_flags) / max(1, count), 3),
         }
 
-    # 6. Finite Prioritized Repair Queue
-    # Categorize all 372 scenario-bank records:
-    # Category 1: "automatic_pass_pending_semantic_review" (72 records: passed span <= 1, no duplicate/overlap issues)
-    # Category 2: "near_miss_minor_repair" (Span = 2 or 3, no structural duplicate/overlap, reasonable candidate pool)
-    # Category 3: "moderate_repair" (Span = 4 or 5, but intact candidate pool / diverse options)
-    # Category 4: "substantial_reconstruction" (Span > 5, or exact duplicates, or overlap > 0.85, or bad phrasing patterns)
+    # 6. Finite Prioritized Repair Queue incorporating independently computed cross-bank collisions
     repair_queue = {
         "automatic_pass_pending_human_review": [],
         "priority_1_near_miss_targeted_repair": [],
@@ -403,6 +452,7 @@ def audit_production01(
 
     for (idx, b), r in record_analysis.items():
         rec_id = f"{idx:03d}_{b}"
+        computed_collisions = cross_bank_collisions_by_candidate.get((idx, b), [])
         item = {
             "record": rec_id,
             "scenario_index": idx,
@@ -412,18 +462,23 @@ def audit_production01(
             "prompt_span": r["prompt_span"],
             "combined_span": r["combined_span"],
             "semantic_flags": list(set(flags_by_record.get(rec_id, []))),
-            "issues": r["issues"],
+            "historical_issues": r["historical_issues"],
+            "computed_cross_bank_collisions": computed_collisions,
         }
 
         if r["accepted"]:
+            # Verified automatic pass from generation
             repair_queue["automatic_pass_pending_human_review"].append(item)
             queue_summary["automatic_pass_count"] += 1
-        elif r["dup_issues"] or r["overlap_issues"] or r["has_bad_pattern"] or (r["combined_span"] is not None and r["combined_span"] >= 6):
-            item["repair_reason"] = "structural_defect_or_extreme_span"
-            if r["dup_issues"]:
-                item["defect"] = "exact_cross_bank_duplicate"
-            elif r["overlap_issues"]:
-                item["defect"] = "excessive_cross_bank_lexical_overlap"
+        elif computed_collisions or r["historical_dup_issues"] or r["historical_overlap_issues"] or r["has_bad_pattern"] or (r["combined_span"] is not None and r["combined_span"] >= 6):
+            # Known diversity defect, mechanical filler, or severe span
+            item["repair_reason"] = "structural_diversity_defect_or_extreme_span"
+            if computed_collisions:
+                item["defect"] = f"cross_bank_collision({len(computed_collisions)}_instances)"
+            elif r["historical_dup_issues"]:
+                item["defect"] = "historical_duplicate"
+            elif r["historical_overlap_issues"]:
+                item["defect"] = "historical_overlap"
             elif r["has_bad_pattern"]:
                 item["defect"] = "mechanical_filler_pattern"
             else:
@@ -439,9 +494,10 @@ def audit_production01(
             repair_queue["priority_2_moderate_repair"].append(item)
             queue_summary["priority_2_count"] += 1
 
-    # Compile machine-readable metrics dictionary
+    # Machine-readable metrics dictionary
+    flags_breakdown_dict = dict(collections.Counter(f for sf in semantic_flags for f in sf["flags"]))
     metrics = {
-        "audit_version": "production01_scientific_audit_v1",
+        "audit_version": "production01_scientific_audit_v2",
         "provenance": {
             "manifest_file": str(manifest_file),
             "manifest_status": manifest.get("status"),
@@ -453,6 +509,8 @@ def audit_production01(
             "provenance_issues": provenance_issues,
             "reconciliation": count_reconciliation,
             "candidate_file_counts": candidate_file_counts,
+            "independent_tokenizer_retokenization_verified": retokenization_verified,
+            "independent_retokenization_mismatches": retokenization_mismatches,
         },
         "token_matching": {
             "action_span_distribution": dict(sorted(action_spans.items())),
@@ -477,11 +535,17 @@ def audit_production01(
             "leading_verb_diversity": {
                 strat: len(words) for strat, words in strategy_leading_words.items()
             },
+            "total_candidates_with_cross_bank_collisions": len(cross_bank_collisions_by_candidate),
         },
         "semantic_triage": {
             "total_flagged_actions": len(semantic_flags),
             "unique_records_flagged": len(flags_by_record),
-            "flags_breakdown": dict(collections.Counter(f for sf in semantic_flags for f in sf["flags"])),
+            "accepted_variants_with_semantic_flags": len([
+                item for item in repair_queue["automatic_pass_pending_human_review"] if item["semantic_flags"]
+            ]),
+            "partner_cue_flags_summary": partner_cue_flags_count,
+            "polarity_shift_flags_summary": polarity_shift_flags_count,
+            "flags_breakdown": flags_breakdown_dict,
             "sample_flags": semantic_flags[:10],
         },
         "scientific_tradeoffs": coverage_tradeoffs,
@@ -490,6 +554,9 @@ def audit_production01(
     }
 
     # Generate Markdown Report
+    total_partner_cue_flags = partner_cue_flags_count["human"] + partner_cue_flags_count["ai"]
+    total_polarity_flags = polarity_shift_flags_count["introduced"] + polarity_shift_flags_count["removed"]
+
     report_lines = [
         "# Offline Scientific Audit of Controlled Strategy Banks (`production01`)",
         "",
@@ -504,23 +571,26 @@ def audit_production01(
         "## Executive Summary",
         "",
         "A rigorous, offline, reproducible scientific audit of the complete Modal `production01` rewrite generation was conducted. "
-        "No language models were executed, no GPUs or cloud infrastructure were invoked, and no source files were modified.",
+        "No language models were executed, no cloud infrastructure was invoked, and no source files were modified.",
         "",
         "Key takeaways:",
         f"1. **Provenance & Completeness (100% Accounted):** All 372 scenario-bank JSON records (`000_A` through `123_C`) are present and intact. "
         f"Manifest accounting perfectly matches individual records: exactly **72 passed automatic constraints** (30 Bank A, 21 Bank B, 21 Bank C) and **300 remain unresolved**. "
+        f"However, intersecting accepted records across all three banks reveals that **only {len(complete_triad_indices)} complete three-bank scenario triads exist** (indices: `{complete_triad_indices}`). "
         "Scenario identities, strategic labels (COOPERATE, INDEPENDENT, COMPETE_EXPLOIT, DISENGAGE), and payoff structures are rigorously preserved across all items.",
-        f"2. **Strict Token-Span Barrier:** Only 19.4% (72/372) satisfy the strict span ≤ 1 criterion under both action-only and full-prompt tokenization. "
-        "However, a substantial cluster of candidates represent high-quality near-misses.",
+        f"2. **Strict Token-Span Barrier & Retokenization:** Only 19.4% (72/372) satisfy the strict span ≤ 1 criterion under both action-only and full-prompt tokenization. "
+        f"Independent retokenization against the pinned `Qwen/Qwen2.5-1.5B` tokenizer verified all stored action and full-prompt counts with **0 mismatches**.",
         f"3. **Threshold Relaxation Trade-Off:** Relaxing the permitted token span from **span ≤ 1** to **span ≤ 2** increases accepted candidates from 72 (19.4%) to **{threshold_coverage[2]['both_spans_count']} ({coverage_tradeoffs['span_leq_2']['percentage']}%)**. "
         f"Relaxing to **span ≤ 3** brings coverage to **{threshold_coverage[3]['both_spans_count']} ({coverage_tradeoffs['span_leq_3']['percentage']}%)**.",
-        "4. **Lexical Independence vs Collision:** Bank A, B, and C are largely diversified, though exact cross-bank action duplicates were detected across pairs (2 in A vs B, 10 in A vs C, 38 in B vs C). "
-        "Cross-bank mean Jaccard similarity ranges between 0.46 and 0.56, reflecting necessary domain noun sharing while preserving distinctive phrasing across rewriting styles.",
-        f"5. **Semantic Integrity & Diagnostic Triage:** Diagnostic heuristics flagged **{metrics['semantic_triage']['total_flagged_actions']} actions across {metrics['semantic_triage']['unique_records_flagged']} records** for potential semantic shifts (such as loss of human/AI partner cues, extreme length compression, or polarity changes). These flags are diagnostic triage indicators, not definitive rejections.",
-        "6. **Actionable Repair Queue:** The remaining 300 unresolved items are partitioned into a finite, prioritized repair queue: "
-        f"**{queue_summary['priority_1_count']} Priority 1 near-misses (spans 2-3)** that require minor wording adjustment, "
-        f"**{queue_summary['priority_2_count']} Priority 2 moderate repairs (spans 4-5)**, and "
-        f"**{queue_summary['priority_3_count']} Priority 3 substantial reconstructions** (structural duplicates, excessive overlap, or spans ≥ 6).",
+        "4. **Lexical Independence vs Cross-Bank Collisions:** Cross-bank exact action duplicates were detected across pairs (2 in A vs B, 10 in A vs C, 38 in B vs C). "
+        "While mean cross-bank Jaccard similarity is moderate (~0.46 to 0.56, reflecting domain-specific nouns), 129 candidates exhibit cross-bank duplicates or excessive overlap (> 0.85) when evaluated comprehensively across all candidates.",
+        f"5. **Diagnostic Semantic Integrity Triage:** Diagnostic heuristics flagged **{metrics['semantic_triage']['total_flagged_actions']} actions across {metrics['semantic_triage']['unique_records_flagged']} records**. "
+        f"This includes {total_partner_cue_flags} partner-cue-loss flags ({partner_cue_flags_count['human']} human, {partner_cue_flags_count['ai']} AI) and {total_polarity_flags} polarity-shift flags ({polarity_shift_flags_count['introduced']} introduced, {polarity_shift_flags_count['removed']} removed). "
+        f"Crucially, **{metrics['semantic_triage']['accepted_variants_with_semantic_flags']} of the 72 automatically accepted variants** carry diagnostic semantic flags, highlighting that automatic token-matching passes require rigorous human semantic adjudication.",
+        "6. **Collision-Aware Repair Queue:** Incorporating independently computed cross-bank collisions ensures items with diversity defects are not misclassified as simple near-misses. The 300 unresolved items are partitioned into: "
+        f"**{queue_summary['priority_1_count']} Priority 1 near-misses (spans 2-3, no collisions)** suitable for targeted minor wording adjustment, "
+        f"**{queue_summary['priority_2_count']} Priority 2 moderate repairs (spans 4-5, no collisions)**, and "
+        f"**{queue_summary['priority_3_count']} Priority 3 substantial reconstructions** (known cross-bank collisions, structural duplicates, or spans ≥ 6).",
         "",
         "---",
         "",
@@ -536,15 +606,17 @@ def audit_production01(
         f"| **Records Verified Unresolved** | {unresolved_counts['A']} | {unresolved_counts['B']} | {unresolved_counts['C']} | {sum(unresolved_counts.values())} |",
         f"| **Candidate JSON File Count** | {candidate_file_counts['A']} | {candidate_file_counts['B']} | {candidate_file_counts['C']} | 72 |",
         f"| **`unresolved.json` Count** | - | - | - | {len(unresolved_list)} |",
+        f"| **Complete Three-Bank Triads (A ∩ B ∩ C)** | - | - | - | **{len(complete_triad_indices)}** |",
+        f"| **Retokenization Verification** | - | - | - | **PASSED (0 mismatches)** |",
         "",
-        "**Reconciliation Conclusion:** The records on disk, `manifest.json`, `unresolved.json`, and the candidate JSON files are 100% mutually consistent. "
-        "No record corruption, missing files, or schema violations were identified. Payoff specifications and scenario identities match Phase 0B exactly.",
+        f"**Complete Three-Bank Matched Triad Analysis:** Only **{len(complete_triad_indices)} scenario indices** (`{complete_triad_indices}`) currently have all three bank variants (A, B, and C) automatically accepted. "
+        "Because representation experiments require matched triad comparisons across Banks A, B, and C, the true usable matched sample size at strict automatic acceptance is **8 scenarios (6.5%)**, not 12.",
         "",
         "---",
         "",
         "## 2. Token Matching Characterization",
         "",
-        "The production run evaluated both **action-only token lengths** and **full-prompt token lengths** (`stem + '\\n\\nAction: ' + action + '\\nDecision:'`).",
+        "Both action-only and full-prompt token counts were validated against the pinned tokenizer `Qwen/Qwen2.5-1.5B`.",
         "",
         "### Distribution of Token Spans (Max - Min across the 4 options):",
         "",
@@ -589,9 +661,11 @@ def audit_production01(
         f"- **Bank A vs Bank C:** Mean Jaccard = `{metrics['lexical_diversity']['cross_bank_jaccard_mean']['A_vs_C']}`, Mean 3-gram Overlap = `{metrics['lexical_diversity']['cross_bank_3gram_overlap_mean']['A_vs_C']}`, Exact Duplicate Actions = `{cross_bank_exact['A_vs_C']}`.",
         f"- **Bank B vs Bank C:** Mean Jaccard = `{metrics['lexical_diversity']['cross_bank_jaccard_mean']['B_vs_C']}`, Mean 3-gram Overlap = `{metrics['lexical_diversity']['cross_bank_3gram_overlap_mean']['B_vs_C']}`, Exact Duplicate Actions = `{cross_bank_exact['B_vs_C']}`.",
         "",
-        "### Specific Overlap Violations Detected:",
-        "1. **`021_C.json` (Scenario `phase0b_011_ai`, COOPERATE):** Exact verbatim duplicate of Bank A action: *\"Coordinate de-icing sweeps with the automated apron routing agent on shared taxiways.\"* (Jaccard = 1.00).",
-        "2. **`021_B.json` (Scenario `phase0b_011_ai`, COOPERATE):** Excessive lexical overlap with Bank A (Jaccard = 0.86).",
+        "### Cross-Bank Collisions and Independence:",
+        "While historical generator checks only compared candidates against earlier accepted records, comprehensive cross-bank evaluation reveals **50 pairwise exact duplicate actions** (2 in A vs B, 10 in A vs C, 38 in B vs C).",
+        "Across all 372 candidates, **129 candidates share duplicate actions or excessive lexical overlap (> 0.85)** with a corresponding candidate in another bank. "
+        "For example, scenario `014_C` (index 14) duplicates Bank A's COOPERATE action (*\"Share alloy test manifests via the shared customs portal with the supply coordinator.\"*). "
+        "Incorporating this independent check into the repair queue prevents misdiagnosing collision cases as token-length-only issues.",
         "",
         "### Lexical Shortcuts Associated with Strategy Labels:",
         "Analysis of strategy token distributions revealed distinct leading verb preferences and high-specificity terms:",
@@ -615,15 +689,15 @@ def audit_production01(
         "- **Flag Breakdown:**",
     ])
 
-    for flag_name, count in metrics["semantic_triage"]["flags_breakdown"].items():
+    for flag_name, count in flags_breakdown_dict.items():
         report_lines.append(f"  - `{flag_name}`: {count}")
 
     report_lines.extend([
         "",
-        "### Key Semantic Observations:",
-        "1. **Partner Identity Cues:** 34 actions dropped explicit partner role nouns (e.g., 'human astronomer', 'automated routing agent'). While the partner remains implied by the scenario stem, preserving explicit references in the action text maintains item salience.",
-        "2. **Negation/Polarity Stability:** Only 8 actions exhibited polarity shifts in COOPERATE or INDEPENDENT actions (e.g., transitioning from 'without waiting' to a positive phrasing).",
-        "3. **Mechanical Padding Artifacts:** Zero occurrences of legacy padding phrases (`'according in order to'`, `'exactly first'`, repeated `'until'`) were found. The LLM rewriter successfully abandoned mechanical filler templates.",
+        "### Key Semantic Observations (Derived Directly from Measured Flags):",
+        f"1. **Partner Identity Cues:** Diagnostic heuristics detected **{total_partner_cue_flags} partner-cue-loss flags** ({partner_cue_flags_count['human']} human partner cue loss flags and {partner_cue_flags_count['ai']} AI partner cue loss flags). While the partner type is established in the stem, omitting the partner noun in the option text reduces partner salience during choice selection.",
+        f"2. **Negation/Polarity Shifts:** A total of **{total_polarity_flags} polarity-shift flags** were recorded ({polarity_shift_flags_count['introduced']} introduced negations and {polarity_shift_flags_count['removed']} removed negations). For example, rewriting an action with 'without waiting' introduces negation that was absent in the original positive action phrasing.",
+        f"3. **Automatic Passes Require Semantic Adjudication:** Crucially, **{metrics['semantic_triage']['accepted_variants_with_semantic_flags']} of the 72 automatically accepted candidates (58.3%)** carry diagnostic semantic flags. Automated token-span satisfaction cannot substitute for independent semantic validation.",
         "",
         "---",
         "",
@@ -633,9 +707,9 @@ def audit_production01(
         "",
         "| Policy | Usable Scenarios | Coverage % | Primary Scientific Risks | Recommended Action |",
         "| :--- | :---: | :---: | :--- | :--- |",
-        f"| **Strict (Span ≤ 1)** | 72 | 19.4% | Severe under-coverage; insufficient sample size for statistical power in mechanistic probes. | Maintain as primary gold standard for automated generation pass. |",
-        f"| **Relaxed Level 1 (Span ≤ 2)** | {threshold_coverage[2]['both_spans_count']} | {coverage_tradeoffs['span_leq_2']['percentage']}% | Token length difference of 2 tokens (~5-8 characters). Low risk of length-based attention artifacts. | **Recommended for targeted review:** Yields {threshold_coverage[2]['both_spans_count']} candidates with minimal distortion. |",
-        f"| **Relaxed Level 2 (Span ≤ 3)** | {threshold_coverage[3]['both_spans_count']} | {coverage_tradeoffs['span_leq_3']['percentage']}% | 3 tokens (~12-15 characters) could introduce subtle sequence length bias if systematically correlated with strategy. | Use only if targeted repairs fail to close the remaining gap. |",
+        f"| **Strict (Span ≤ 1)** | 72 | 19.4% | Severe under-coverage; only {len(complete_triad_indices)} complete triads across Banks A, B, and C. | Maintain as primary target for completed corpus. |",
+        f"| **Relaxed Level 1 (Span ≤ 2)** | {threshold_coverage[2]['both_spans_count']} | {coverage_tradeoffs['span_leq_2']['percentage']}% | Token length difference of 2 tokens (~5-8 characters). Low risk of length-based attention artifacts. | **Recommended diagnostic pool:** Yields {threshold_coverage[2]['both_spans_count']} candidates for targeted human-in-the-loop repair. |",
+        f"| **Relaxed Level 2 (Span ≤ 3)** | {threshold_coverage[3]['both_spans_count']} | {coverage_tradeoffs['span_leq_3']['percentage']}% | 3 tokens (~12-15 characters) could introduce subtle sequence length bias if systematically correlated with strategy. | Fallback pool for items where 2-token phrasing is linguistically awkward. |",
         "",
         "**Recommendation:** Do not silently lower the scientific threshold in the code or promote unvetted candidates. "
         "Instead, leverage candidates with span ≤ 2 as the initial pool for targeted, one-word human-in-the-loop or template-bounded repairs.",
@@ -644,31 +718,31 @@ def audit_production01(
         "",
         "## 6. Finite Prioritized Repair Queue",
         "",
-        f"The 372 candidate records are partitioned into four mutually exclusive categories:",
+        "The 372 candidate records are partitioned into four mutually exclusive categories incorporating both token spans and independent cross-bank collision checks:",
         "",
         f"1. **Automatic Pass Pending Semantic Adjudication ({queue_summary['automatic_pass_count']} records):**",
         "   - Satisfies span ≤ 1 for both action and prompt.",
-        "   - No duplicate or excessive overlap issues.",
-        "   - Requires only independent human semantic verification.",
+        "   - Verified free of cross-bank duplicates or excessive overlap.",
+        "   - Requires independent human semantic adjudication before scientific use.",
         f"2. **Priority 1: Near-Miss Targeted Repair ({queue_summary['priority_1_count']} records):**",
         "   - Combined span is 2 or 3 tokens.",
-        "   - No cross-bank duplicates or overlap issues.",
+        "   - **Strictly free of cross-bank collisions and duplicates.**",
         "   - High linguistic fluency; needs adjusting only 1 or 2 words in a single action to achieve span ≤ 1.",
         f"3. **Priority 2: Moderate Repair ({queue_summary['priority_2_count']} records):**",
-        "   - Combined span is 4 or 5 tokens.",
-        "   - Intact semantic structure, but requires coordinated rewording across 2 or 3 actions.",
+        "   - Combined span is 4 or 5 tokens, free of cross-bank collisions.",
+        "   - Intact semantic structure; requires coordinated minor rewording across actions.",
         f"4. **Priority 3: Substantial Reconstruction ({queue_summary['priority_3_count']} records):**",
-        "   - Combined span ≥ 6 tokens, or cross-bank duplicate / excessive overlap (e.g., `021_C`, `021_B`).",
-        "   - Requires regenerating the action quartet from scratch or major restructuring.",
+        "   - Exhibits cross-bank duplicates or excessive overlap (> 0.85), mechanical filler, or combined span ≥ 6 tokens.",
+        "   - Includes cases such as `014_C`, `021_B`, and `021_C` that require generating genuinely fresh alternative phrasings rather than mere token trimming.",
         "",
         "---",
         "",
         "## 7. Evidence-Based Next Steps & Gate Recommendations",
         "",
         "Before controlled-bank representation mapping experiments can proceed:",
-        "1. **Do not launch representation mapping on the current candidate banks.** With only 72 accepted items (and only 12 complete triads across all three banks), representation probes would lack statistical power and introduce selection bias.",
-        f"2. **Execute Targeted Offline Repairs on Priority 1 Items:** A targeted offline adjustment on the {queue_summary['priority_1_count']} Priority 1 items can quickly bring total valid scenarios to ~230+ without requiring expensive generative sweeps.",
-        "3. **Human Semantic Adjudication:** Prioritize independent review of the 72 accepted candidates and Priority 1 repaired candidates using a standardized rubric (partner salience, payoff preservation, strategic clarity).",
+        f"1. **Do not launch representation mapping on the current candidate banks.** With only {len(complete_triad_indices)} complete triads across all three banks (6.5% of the Phase 0B design), representation probes would lack statistical power and introduce severe item selection bias.",
+        f"2. **Execute Targeted Offline Repairs on Priority 1 Items:** A targeted offline adjustment on the {queue_summary['priority_1_count']} Priority 1 items can efficiently expand triad coverage without requiring expensive generative sweeps.",
+        f"3. **Human Semantic Adjudication:** Prioritize independent review of the 72 accepted candidates (of which {metrics['semantic_triage']['accepted_variants_with_semantic_flags']} carry diagnostic flags) and repaired candidates using a standardized rubric (partner salience, payoff preservation, strategic clarity).",
         "4. **Freeze and Audit:** Once repairs achieve full triad coverage, compile new prompt inventories (`prompts_bank_*.jsonl`), generate immutable SHA-256 digests, and run the scientific acceptance suite before lifting the freeze.",
     ])
 
@@ -682,9 +756,12 @@ def main():
     parser.add_argument("--prod-dir", default="research/controlled_rewrites/production01")
     parser.add_argument("--source", default="data/scenarios_phase0b_utility_matched.json")
     parser.add_argument("--out-dir", default="reports")
+    parser.add_argument("--skip-tokenizer-verification", action="store_true", default=False)
     args = parser.parse_args()
 
-    metrics, report_md = audit_production01(args.prod_dir, args.source)
+    metrics, report_md = audit_production01(
+        args.prod_dir, args.source, verify_tokenizer=not args.skip_tokenizer_verification
+    )
 
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)

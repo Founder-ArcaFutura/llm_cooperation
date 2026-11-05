@@ -10,15 +10,15 @@
 
 ## Executive Summary
 
-A rigorous, offline, reproducible scientific audit of the complete Modal `production01` rewrite generation was conducted. No language models were executed, no GPUs or cloud infrastructure were invoked, and no source files were modified.
+A rigorous, offline, reproducible scientific audit of the complete Modal `production01` rewrite generation was conducted. No language models were executed, no cloud infrastructure was invoked, and no source files were modified.
 
 Key takeaways:
-1. **Provenance & Completeness (100% Accounted):** All 372 scenario-bank JSON records (`000_A` through `123_C`) are present and intact. Manifest accounting perfectly matches individual records: exactly **72 passed automatic constraints** (30 Bank A, 21 Bank B, 21 Bank C) and **300 remain unresolved**. Scenario identities, strategic labels (COOPERATE, INDEPENDENT, COMPETE_EXPLOIT, DISENGAGE), and payoff structures are rigorously preserved across all items.
-2. **Strict Token-Span Barrier:** Only 19.4% (72/372) satisfy the strict span ≤ 1 criterion under both action-only and full-prompt tokenization. However, a substantial cluster of candidates represent high-quality near-misses.
+1. **Provenance & Completeness (100% Accounted):** All 372 scenario-bank JSON records (`000_A` through `123_C`) are present and intact. Manifest accounting perfectly matches individual records: exactly **72 passed automatic constraints** (30 Bank A, 21 Bank B, 21 Bank C) and **300 remain unresolved**. However, intersecting accepted records across all three banks reveals that **only 8 complete three-bank scenario triads exist** (indices: `[2, 3, 28, 29, 35, 65, 72, 114]`). Scenario identities, strategic labels (COOPERATE, INDEPENDENT, COMPETE_EXPLOIT, DISENGAGE), and payoff structures are rigorously preserved across all items.
+2. **Strict Token-Span Barrier & Retokenization:** Only 19.4% (72/372) satisfy the strict span ≤ 1 criterion under both action-only and full-prompt tokenization. Independent retokenization against the pinned `Qwen/Qwen2.5-1.5B` tokenizer verified all stored action and full-prompt counts with **0 mismatches**.
 3. **Threshold Relaxation Trade-Off:** Relaxing the permitted token span from **span ≤ 1** to **span ≤ 2** increases accepted candidates from 72 (19.4%) to **157 (42.2%)**. Relaxing to **span ≤ 3** brings coverage to **240 (64.5%)**.
-4. **Lexical Independence vs Collision:** Bank A, B, and C are largely diversified, though exact cross-bank action duplicates were detected across pairs (2 in A vs B, 10 in A vs C, 38 in B vs C). Cross-bank mean Jaccard similarity ranges between 0.46 and 0.56, reflecting necessary domain noun sharing while preserving distinctive phrasing across rewriting styles.
-5. **Semantic Integrity & Diagnostic Triage:** Diagnostic heuristics flagged **297 actions across 238 records** for potential semantic shifts (such as loss of human/AI partner cues, extreme length compression, or polarity changes). These flags are diagnostic triage indicators, not definitive rejections.
-6. **Actionable Repair Queue:** The remaining 300 unresolved items are partitioned into a finite, prioritized repair queue: **166 Priority 1 near-misses (spans 2-3)** that require minor wording adjustment, **100 Priority 2 moderate repairs (spans 4-5)**, and **34 Priority 3 substantial reconstructions** (structural duplicates, excessive overlap, or spans ≥ 6).
+4. **Lexical Independence vs Cross-Bank Collisions:** Cross-bank exact action duplicates were detected across pairs (2 in A vs B, 10 in A vs C, 38 in B vs C). While mean cross-bank Jaccard similarity is moderate (~0.46 to 0.56, reflecting domain-specific nouns), 129 candidates exhibit cross-bank duplicates or excessive overlap (> 0.85) when evaluated comprehensively across all candidates.
+5. **Diagnostic Semantic Integrity Triage:** Diagnostic heuristics flagged **297 actions across 238 records**. This includes 103 partner-cue-loss flags (72 human, 31 AI) and 182 polarity-shift flags (179 introduced, 3 removed). Crucially, **42 of the 72 automatically accepted variants** carry diagnostic semantic flags, highlighting that automatic token-matching passes require rigorous human semantic adjudication.
+6. **Collision-Aware Repair Queue:** Incorporating independently computed cross-bank collisions ensures items with diversity defects are not misclassified as simple near-misses. The 300 unresolved items are partitioned into: **103 Priority 1 near-misses (spans 2-3, no collisions)** suitable for targeted minor wording adjustment, **58 Priority 2 moderate repairs (spans 4-5, no collisions)**, and **139 Priority 3 substantial reconstructions** (known cross-bank collisions, structural duplicates, or spans ≥ 6).
 
 ---
 
@@ -34,14 +34,16 @@ Key takeaways:
 | **Records Verified Unresolved** | 94 | 103 | 103 | 300 |
 | **Candidate JSON File Count** | 30 | 21 | 21 | 72 |
 | **`unresolved.json` Count** | - | - | - | 300 |
+| **Complete Three-Bank Triads (A ∩ B ∩ C)** | - | - | - | **8** |
+| **Retokenization Verification** | - | - | - | **PASSED (0 mismatches)** |
 
-**Reconciliation Conclusion:** The records on disk, `manifest.json`, `unresolved.json`, and the candidate JSON files are 100% mutually consistent. No record corruption, missing files, or schema violations were identified. Payoff specifications and scenario identities match Phase 0B exactly.
+**Complete Three-Bank Matched Triad Analysis:** Only **8 scenario indices** (`[2, 3, 28, 29, 35, 65, 72, 114]`) currently have all three bank variants (A, B, and C) automatically accepted. Because representation experiments require matched triad comparisons across Banks A, B, and C, the true usable matched sample size at strict automatic acceptance is **8 scenarios (6.5%)**, not 12.
 
 ---
 
 ## 2. Token Matching Characterization
 
-The production run evaluated both **action-only token lengths** and **full-prompt token lengths** (`stem + '\n\nAction: ' + action + '\nDecision:'`).
+Both action-only and full-prompt token counts were validated against the pinned tokenizer `Qwen/Qwen2.5-1.5B`.
 
 ### Distribution of Token Spans (Max - Min across the 4 options):
 
@@ -78,9 +80,9 @@ The production run evaluated both **action-only token lengths** and **full-promp
 - **Bank A vs Bank C:** Mean Jaccard = `0.4719`, Mean 3-gram Overlap = `0.1804`, Exact Duplicate Actions = `10`.
 - **Bank B vs Bank C:** Mean Jaccard = `0.5577`, Mean 3-gram Overlap = `0.2981`, Exact Duplicate Actions = `38`.
 
-### Specific Overlap Violations Detected:
-1. **`021_C.json` (Scenario `phase0b_011_ai`, COOPERATE):** Exact verbatim duplicate of Bank A action: *"Coordinate de-icing sweeps with the automated apron routing agent on shared taxiways."* (Jaccard = 1.00).
-2. **`021_B.json` (Scenario `phase0b_011_ai`, COOPERATE):** Excessive lexical overlap with Bank A (Jaccard = 0.86).
+### Cross-Bank Collisions and Independence:
+While historical generator checks only compared candidates against earlier accepted records, comprehensive cross-bank evaluation reveals **50 pairwise exact duplicate actions** (2 in A vs B, 10 in A vs C, 38 in B vs C).
+Across all 372 candidates, **129 candidates share duplicate actions or excessive lexical overlap (> 0.85)** with a corresponding candidate in another bank. For example, scenario `014_C` (index 14) duplicates Bank A's COOPERATE action (*"Share alloy test manifests via the shared customs portal with the supply coordinator."*). Incorporating this independent check into the repair queue prevents misdiagnosing collision cases as token-length-only issues.
 
 ### Lexical Shortcuts Associated with Strategy Labels:
 Analysis of strategy token distributions revealed distinct leading verb preferences and high-specificity terms:
@@ -109,10 +111,10 @@ Automated semantic evaluation was conducted as a diagnostic filter against the f
   - `low_lexical_similarity_to_source(0.09)`: 1
   - `low_lexical_similarity_to_source(0.04)`: 1
 
-### Key Semantic Observations:
-1. **Partner Identity Cues:** 34 actions dropped explicit partner role nouns (e.g., 'human astronomer', 'automated routing agent'). While the partner remains implied by the scenario stem, preserving explicit references in the action text maintains item salience.
-2. **Negation/Polarity Stability:** Only 8 actions exhibited polarity shifts in COOPERATE or INDEPENDENT actions (e.g., transitioning from 'without waiting' to a positive phrasing).
-3. **Mechanical Padding Artifacts:** Zero occurrences of legacy padding phrases (`'according in order to'`, `'exactly first'`, repeated `'until'`) were found. The LLM rewriter successfully abandoned mechanical filler templates.
+### Key Semantic Observations (Derived Directly from Measured Flags):
+1. **Partner Identity Cues:** Diagnostic heuristics detected **103 partner-cue-loss flags** (72 human partner cue loss flags and 31 AI partner cue loss flags). While the partner type is established in the stem, omitting the partner noun in the option text reduces partner salience during choice selection.
+2. **Negation/Polarity Shifts:** A total of **182 polarity-shift flags** were recorded (179 introduced negations and 3 removed negations). For example, rewriting an action with 'without waiting' introduces negation that was absent in the original positive action phrasing.
+3. **Automatic Passes Require Semantic Adjudication:** Crucially, **42 of the 72 automatically accepted candidates (58.3%)** carry diagnostic semantic flags. Automated token-span satisfaction cannot substitute for independent semantic validation.
 
 ---
 
@@ -122,9 +124,9 @@ A central question for the experimental protocol is whether to maintain the stri
 
 | Policy | Usable Scenarios | Coverage % | Primary Scientific Risks | Recommended Action |
 | :--- | :---: | :---: | :--- | :--- |
-| **Strict (Span ≤ 1)** | 72 | 19.4% | Severe under-coverage; insufficient sample size for statistical power in mechanistic probes. | Maintain as primary gold standard for automated generation pass. |
-| **Relaxed Level 1 (Span ≤ 2)** | 157 | 42.2% | Token length difference of 2 tokens (~5-8 characters). Low risk of length-based attention artifacts. | **Recommended for targeted review:** Yields 157 candidates with minimal distortion. |
-| **Relaxed Level 2 (Span ≤ 3)** | 240 | 64.5% | 3 tokens (~12-15 characters) could introduce subtle sequence length bias if systematically correlated with strategy. | Use only if targeted repairs fail to close the remaining gap. |
+| **Strict (Span ≤ 1)** | 72 | 19.4% | Severe under-coverage; only 8 complete triads across Banks A, B, and C. | Maintain as primary target for completed corpus. |
+| **Relaxed Level 1 (Span ≤ 2)** | 157 | 42.2% | Token length difference of 2 tokens (~5-8 characters). Low risk of length-based attention artifacts. | **Recommended diagnostic pool:** Yields 157 candidates for targeted human-in-the-loop repair. |
+| **Relaxed Level 2 (Span ≤ 3)** | 240 | 64.5% | 3 tokens (~12-15 characters) could introduce subtle sequence length bias if systematically correlated with strategy. | Fallback pool for items where 2-token phrasing is linguistically awkward. |
 
 **Recommendation:** Do not silently lower the scientific threshold in the code or promote unvetted candidates. Instead, leverage candidates with span ≤ 2 as the initial pool for targeted, one-word human-in-the-loop or template-bounded repairs.
 
@@ -132,29 +134,29 @@ A central question for the experimental protocol is whether to maintain the stri
 
 ## 6. Finite Prioritized Repair Queue
 
-The 372 candidate records are partitioned into four mutually exclusive categories:
+The 372 candidate records are partitioned into four mutually exclusive categories incorporating both token spans and independent cross-bank collision checks:
 
 1. **Automatic Pass Pending Semantic Adjudication (72 records):**
    - Satisfies span ≤ 1 for both action and prompt.
-   - No duplicate or excessive overlap issues.
-   - Requires only independent human semantic verification.
-2. **Priority 1: Near-Miss Targeted Repair (166 records):**
+   - Verified free of cross-bank duplicates or excessive overlap.
+   - Requires independent human semantic adjudication before scientific use.
+2. **Priority 1: Near-Miss Targeted Repair (103 records):**
    - Combined span is 2 or 3 tokens.
-   - No cross-bank duplicates or overlap issues.
+   - **Strictly free of cross-bank collisions and duplicates.**
    - High linguistic fluency; needs adjusting only 1 or 2 words in a single action to achieve span ≤ 1.
-3. **Priority 2: Moderate Repair (100 records):**
-   - Combined span is 4 or 5 tokens.
-   - Intact semantic structure, but requires coordinated rewording across 2 or 3 actions.
-4. **Priority 3: Substantial Reconstruction (34 records):**
-   - Combined span ≥ 6 tokens, or cross-bank duplicate / excessive overlap (e.g., `021_C`, `021_B`).
-   - Requires regenerating the action quartet from scratch or major restructuring.
+3. **Priority 2: Moderate Repair (58 records):**
+   - Combined span is 4 or 5 tokens, free of cross-bank collisions.
+   - Intact semantic structure; requires coordinated minor rewording across actions.
+4. **Priority 3: Substantial Reconstruction (139 records):**
+   - Exhibits cross-bank duplicates or excessive overlap (> 0.85), mechanical filler, or combined span ≥ 6 tokens.
+   - Includes cases such as `014_C`, `021_B`, and `021_C` that require generating genuinely fresh alternative phrasings rather than mere token trimming.
 
 ---
 
 ## 7. Evidence-Based Next Steps & Gate Recommendations
 
 Before controlled-bank representation mapping experiments can proceed:
-1. **Do not launch representation mapping on the current candidate banks.** With only 72 accepted items (and only 12 complete triads across all three banks), representation probes would lack statistical power and introduce selection bias.
-2. **Execute Targeted Offline Repairs on Priority 1 Items:** A targeted offline adjustment on the 166 Priority 1 items can quickly bring total valid scenarios to ~230+ without requiring expensive generative sweeps.
-3. **Human Semantic Adjudication:** Prioritize independent review of the 72 accepted candidates and Priority 1 repaired candidates using a standardized rubric (partner salience, payoff preservation, strategic clarity).
+1. **Do not launch representation mapping on the current candidate banks.** With only 8 complete triads across all three banks (6.5% of the Phase 0B design), representation probes would lack statistical power and introduce severe item selection bias.
+2. **Execute Targeted Offline Repairs on Priority 1 Items:** A targeted offline adjustment on the 103 Priority 1 items can efficiently expand triad coverage without requiring expensive generative sweeps.
+3. **Human Semantic Adjudication:** Prioritize independent review of the 72 accepted candidates (of which 42 carry diagnostic flags) and repaired candidates using a standardized rubric (partner salience, payoff preservation, strategic clarity).
 4. **Freeze and Audit:** Once repairs achieve full triad coverage, compile new prompt inventories (`prompts_bank_*.jsonl`), generate immutable SHA-256 digests, and run the scientific acceptance suite before lifting the freeze.

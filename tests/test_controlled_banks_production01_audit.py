@@ -17,7 +17,7 @@ from scripts.audit_controlled_production01 import (
 def audit_results():
     prod_dir = "research/controlled_rewrites/production01"
     phase0b_path = "data/scenarios_phase0b_utility_matched.json"
-    metrics, report_md = audit_production01(prod_dir, phase0b_path)
+    metrics, report_md = audit_production01(prod_dir, phase0b_path, verify_tokenizer=True)
     return metrics, report_md
 
 
@@ -32,6 +32,14 @@ def test_provenance_and_accounting(audit_results):
     assert recon["records_unresolved"] == {"A": 94, "B": 103, "C": 103}
     assert recon["unresolved_file_length"] == 300
     assert prov["candidate_file_counts"] == {"A": 30, "B": 21, "C": 21}
+
+    # Complete triads verification: exactly 8 complete triads exist
+    assert recon["complete_triad_count"] == 8
+    assert recon["complete_triad_indices"] == [2, 3, 28, 29, 35, 65, 72, 114]
+
+    # Retokenization verification against authoritative pinned tokenizer
+    assert prov["independent_tokenizer_retokenization_verified"] is True
+    assert prov["independent_retokenization_mismatches"] == 0
 
 
 def test_token_matching_distributions(audit_results):
@@ -65,7 +73,27 @@ def test_lexical_diversity_metrics(audit_results):
         assert 0.3 < sim < 0.65, f"Unexpected cross-bank similarity for {pair}: {sim}"
 
 
-def test_repair_queue_partitioning(audit_results):
+def test_semantic_flags_counts_and_triads(audit_results):
+    metrics, _ = audit_results
+    sem = metrics["semantic_triage"]
+    p_cues = sem["partner_cue_flags_summary"]
+    p_shifts = sem["polarity_shift_flags_summary"]
+
+    # 103 partner cue loss flags (72 human, 31 AI)
+    assert p_cues["human"] == 72
+    assert p_cues["ai"] == 31
+    assert p_cues["human"] + p_cues["ai"] == 103
+
+    # 182 polarity shift flags (179 introduced, 3 removed)
+    assert p_shifts["introduced"] == 179
+    assert p_shifts["removed"] == 3
+    assert p_shifts["introduced"] + p_shifts["removed"] == 182
+
+    # 42 of 72 accepted variants carry semantic flags
+    assert sem["accepted_variants_with_semantic_flags"] == 42
+
+
+def test_repair_queue_partitioning_incorporates_collisions(audit_results):
     metrics, _ = audit_results
     q_sum = metrics["repair_queue_summary"]
     queue = metrics["repair_queue"]
@@ -83,6 +111,15 @@ def test_repair_queue_partitioning(audit_results):
     assert len(queue["priority_1_near_miss_targeted_repair"]) == q_sum["priority_1_count"]
     assert len(queue["priority_2_moderate_repair"]) == q_sum["priority_2_count"]
     assert len(queue["priority_3_substantial_reconstruction"]) == q_sum["priority_3_count"]
+
+    # Verify that Priority 1 items have NO cross-bank collisions
+    for item in queue["priority_1_near_miss_targeted_repair"]:
+        assert len(item["computed_cross_bank_collisions"]) == 0, f"Item {item['record']} in Priority 1 has collisions!"
+
+    # Verify scenario 014_C (index 14, Bank C) is in Priority 3 due to cross-bank collision with Bank A
+    p3_records = {item["record"]: item for item in queue["priority_3_substantial_reconstruction"]}
+    assert "014_C" in p3_records
+    assert any("exact duplicate of Bank A" in col for col in p3_records["014_C"]["computed_cross_bank_collisions"])
 
 
 def test_helper_nlp_functions():
