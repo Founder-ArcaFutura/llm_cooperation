@@ -42,7 +42,7 @@ def run_remote_inference(
     model: str,
     revision: str,
     run_id: str,
-    plan_files: Dict[str, str],
+    plan_files: Dict[str, bytes],
 ) -> str:
     os.environ["HF_HOME"] = "/hf-cache"
     from llm_cooperation.mechanistic.contrastive_mapping import run_inference, analyze_contrastive_mapping, sha256_file
@@ -50,7 +50,9 @@ def run_remote_inference(
     plan_dir = Path("/tmp") / f"{run_id}-plan"
     plan_dir.mkdir(parents=True, exist_ok=True)
     for name, content in plan_files.items():
-        (plan_dir / name).write_text(content, encoding="utf-8")
+        if not isinstance(content, bytes):
+            raise ValueError(f"Expected binary bytes for plan file {name}")
+        (plan_dir / name).write_bytes(content)
 
     # Verify exact-byte plan integrity
     manifest = json.loads((plan_dir / "manifest.json").read_text(encoding="utf-8"))
@@ -123,8 +125,8 @@ def main(
         raise ValueError(f"Plan prompts sha256 {manifest['prompts_sha256']} does not match file sha {actual_prompt_sha}")
 
     plan_files = {
-        "manifest.json": manifest_file.read_text(encoding="utf-8"),
-        "prompts.jsonl": prompts_file.read_text(encoding="utf-8"),
+        "manifest.json": manifest_file.read_bytes(),
+        "prompts.jsonl": prompts_file.read_bytes(),
     }
 
     run_id = f"contrastive-mapping-{uuid.uuid4().hex}"
