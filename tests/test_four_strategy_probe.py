@@ -68,7 +68,8 @@ def test_loader_rejects_tampered_activation_hash(tmp_path):
 
 def test_end_to_end_synthetic_analysis(tmp_path):
     run, prompts, _ = make_fixture(tmp_path)
-    report = analyze_four_strategy(run, prompts, tmp_path / "analysis", n_boot=50, permutations=3, allow_mock=True)
+    report = analyze_four_strategy(run, prompts, tmp_path / "analysis", expected_prompts_path=str(prompts),
+                                   n_boot=50, permutations=3, allow_mock=True)
     assert len(report["family_held_out"]["layer_metrics"]) == 2
     assert len(report["domain_held_out"]["layer_metrics"]) == 2
     assert len(report["geometry"]["pairwise_direction_cosines"]) == 2

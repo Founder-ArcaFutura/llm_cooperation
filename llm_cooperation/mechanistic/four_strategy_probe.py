@@ -20,7 +20,8 @@ from .contrastive_mapping import DEFAULT_MODEL_ID, DEFAULT_REVISION, STRATEGIES
 VERSION = "four-strategy-probe-v1"
 
 
-def _sha(path: Path) -> str:
+def _sha(path: str | Path) -> str:
+    path = Path(path)
     h = hashlib.sha256()
     with path.open("rb") as f:
         for block in iter(lambda: f.read(1024 * 1024), b""):
@@ -174,15 +175,14 @@ def _cluster_bootstrap(metric, y, pred, groups, *, n_boot, seed):
     per_cluster = {g: np.flatnonzero(np.asarray(groups) == g) for g in unique}
     rng = np.random.default_rng(seed)
     cluster_values = {g: float(metric(y[ix], pred[ix])) for g, ix in per_cluster.items()}
-    vals = []
-    for _ in range(n_boot):
-        sample = rng.choice(unique, size=len(unique), replace=True)
-        vals.append(np.mean([cluster_values[g] for g in sample]))
+    value_array = np.asarray([cluster_values[g] for g in unique], dtype=float)
+    sampled = rng.integers(0, len(unique), size=(n_boot, len(unique)))
+    vals = value_array[sampled].mean(axis=1)
     point = float(np.mean(list(cluster_values.values())))
     return [float(point), float(np.quantile(vals, .025)), float(np.quantile(vals, .975))]
 
 
-def _layer_eval(x, discovery, evaluation, cluster_keys, lexical_centered, *, n_boot, seed, permutations):
+def _layer_eval(x, discovery, evaluation, cluster_keys, lexical_centered, *, n_boot, seed, permutations, label="split", progress=False):
     from sklearn.metrics import (balanced_accuracy_score, f1_score, confusion_matrix,
                                  roc_auc_score, classification_report)
     layers = x.shape[2]
@@ -246,11 +246,13 @@ def _layer_eval(x, discovery, evaluation, cluster_keys, lexical_centered, *, n_b
                                                "q975": float(np.quantile(perm_acc,.975)) if perm_acc else None,
                                                "n": permutations},
         })
+        if progress and (layer == layers - 1 or (layer + 1) % 4 == 0):
+            print(f"{label}: completed layer {layer + 1}/{layers}", flush=True)
     return result
 
 
 def analyze_four_strategy(run_dir, prompts_path, output_dir, *, expected_prompts_path=None, expected_manifest_path=None,
-                          n_boot=1000, permutations=100, allow_mock=False, seed=42):
+                          n_boot=1000, permutations=100, allow_mock=False, seed=42, progress=False):
     """Compute layerwise strategy means, OVR directions, probes and controls."""
     from sklearn.metrics import balanced_accuracy_score
     manifest, prompts, arrays = load_dataset(run_dir, prompts_path, expected_prompts_path=expected_prompts_path,
@@ -307,9 +309,9 @@ def analyze_four_strategy(run_dir, prompts_path, output_dir, *, expected_prompts
         domain_strategy_means[li] = np.mean(per_domain, axis=0)
     domain_ovr = domain_strategy_means - (domain_strategy_means.sum(axis=1, keepdims=True) - domain_strategy_means) / 3
     fam_metrics = _layer_eval(x, fam_disc, fam_eval, family, lexical, n_boot=n_boot, seed=seed,
-                              permutations=permutations)
+                              permutations=permutations, label="family held-out", progress=progress)
     dom_metrics = _layer_eval(x, dom_disc, dom_eval, domain, lexical, n_boot=n_boot, seed=seed + 10000,
-                              permutations=permutations)
+                              permutations=permutations, label="domain held-out", progress=progress)
     # Layerwise projections onto discovery-only one-vs-rest mean residual directions.
     projections = {s: [] for s in STRATEGIES}
     direction_corr = {s: [] for s in STRATEGIES}
@@ -431,6 +433,7 @@ def analyze_four_strategy(run_dir, prompts_path, output_dir, *, expected_prompts
                                      "mean_chars": float(np.mean([p["action_char_count"] for p in prompts if p["strategy"]==s]))} for s in STRATEGIES}},
         "interpretation_boundary": "Tests linear distinguishability of the four presented action descriptions in residual-stream activations. Does not establish preference, action selection, or distinct causal decision mechanisms. First detectable layer is not an origin claim."
     }
+    report["empirical_summary"] = _empirical_summary(report)
     out = Path(output_dir); out.mkdir(parents=True, exist_ok=True)
     (out/"four_strategy_report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     _write_report(report, out/"four_strategy_report.md")
@@ -439,13 +442,85 @@ def analyze_four_strategy(run_dir, prompts_path, output_dir, *, expected_prompts
     return report
 
 
+def _empirical_summary(r):
+    """Compact descriptive findings derived only from saved evaluation metrics."""
+    strategies = r["strategy_order"]
+    directional = r["domain_held_out"]["directional_consistency_primary_outcome"]
+    domain_metrics = r["domain_held_out"]["layer_metrics"]
+    family_metrics = r["family_held_out"]["layer_metrics"]
+    adjusted_candidate_layers = []
+    raw_all_positive = True
+    per_strategy = {}
+    for strategy in strategies:
+        raw = [entry["by_strategy"][strategy]["heldout_domain_direction_alignment_cosine"] for entry in directional]
+        adj = [entry["by_strategy"][strategy]["lexically_adjusted_heldout_domain_direction_alignment_cosine"] for entry in directional]
+        per_strategy[strategy] = {
+            "raw_alignment_mean_range": [float(min(x[0] for x in raw)), float(max(x[0] for x in raw))],
+            "raw_alignment_min_pointwise_ci_lower": float(min(x[1] for x in raw)),
+            "length_adjusted_alignment_mean_range": [float(min(x[0] for x in adj)), float(max(x[0] for x in adj))],
+            "length_adjusted_alignment_layers_ci_lower_above_zero": [i for i,x in enumerate(adj) if x[1] > 0],
+        }
+        raw_all_positive &= all(x[1] > 0 for x in raw)
+    for entry, metric in zip(directional, domain_metrics):
+        all_directions_positive = all(
+            entry["by_strategy"][s]["lexically_adjusted_heldout_domain_direction_alignment_cosine"][1] > 0
+            and entry["by_strategy"][s]["lexically_adjusted_heldout_domain_projection_margin"][1] > 0
+            for s in strategies
+        )
+        if all_directions_positive and metric["lexical_adjusted_balanced_accuracy"] >= 0.85:
+            adjusted_candidate_layers.append(entry["layer"])
+    example_layers = [i for i in (18,22) if i < len(domain_metrics)]
+    examples = {}
+    for i in example_layers:
+        examples[str(i)] = {
+            "family_balanced_accuracy": family_metrics[i]["balanced_accuracy"],
+            "domain_balanced_accuracy": domain_metrics[i]["balanced_accuracy"],
+            "domain_macro_f1": domain_metrics[i]["macro_f1"],
+            "direction_normalized_balanced_accuracy": domain_metrics[i]["direction_normalized_balanced_accuracy"],
+            "lexical_adjusted_balanced_accuracy": domain_metrics[i]["lexical_adjusted_balanced_accuracy"],
+            "permutation_balanced_accuracy": domain_metrics[i]["permutation_balanced_accuracy"],
+            "one_vs_rest_auroc": domain_metrics[i]["one_vs_rest_auroc"],
+            "confusion_matrix": domain_metrics[i]["confusion_matrix"],
+            "strategy_direction_alignment": {s: {
+                "raw": directional[i]["by_strategy"][s]["heldout_domain_direction_alignment_cosine"],
+                "length_adjusted": directional[i]["by_strategy"][s]["lexically_adjusted_heldout_domain_direction_alignment_cosine"],
+                "raw_projection_margin": directional[i]["by_strategy"][s]["heldout_domain_projection_margin"],
+                "length_adjusted_projection_margin": directional[i]["by_strategy"][s]["lexically_adjusted_heldout_domain_projection_margin"],
+            } for s in strategies},
+            "pairwise_strategy_direction_cosines": r["geometry"]["pairwise_direction_cosines"][i],
+            "strategy_subspace_effective_rank": r["geometry"]["effective_rank"][i],
+        }
+    return {
+        "family_balanced_accuracy_range": [float(min(x["balanced_accuracy"][0] for x in family_metrics)), float(max(x["balanced_accuracy"][0] for x in family_metrics))],
+        "domain_balanced_accuracy_range": [float(min(x["balanced_accuracy"][0] for x in domain_metrics)), float(max(x["balanced_accuracy"][0] for x in domain_metrics))],
+        "domain_macro_f1_range": [float(min(x["macro_f1"][0] for x in domain_metrics)), float(max(x["macro_f1"][0] for x in domain_metrics))],
+        "direction_normalized_domain_balanced_accuracy_range": [float(min(x["direction_normalized_balanced_accuracy"] for x in domain_metrics)), float(max(x["direction_normalized_balanced_accuracy"] for x in domain_metrics))],
+        "length_adjusted_domain_balanced_accuracy_range": [float(min(x["lexical_adjusted_balanced_accuracy"] for x in domain_metrics)), float(max(x["lexical_adjusted_balanced_accuracy"] for x in domain_metrics))],
+        "raw_domain_alignment_pointwise_ci_positive_for_all_strategies_all_layers": bool(raw_all_positive),
+        "length_adjusted_candidate_layers": adjusted_candidate_layers,
+        "candidate_layer_rule": "Exploratory candidates require all four strategies' pointwise 95% cluster-CI lower bounds above zero for length-adjusted held-out-domain direction alignment and projection margin, plus length-adjusted four-class balanced accuracy >= 0.85.",
+        "strategy_directional_ranges": per_strategy,
+        "illustrative_layers": examples,
+    }
+
+
 def _write_report(r, path):
+    summary = r.get("empirical_summary") or _empirical_summary(r)
+    candidate_layers = ", ".join(map(str, summary["length_adjusted_candidate_layers"])) or "none"
     lines = ["# Four-strategy linear-probe analysis", "", f"- Model: `{r['model_id']}` revision `{r['model_revision']}`",
         f"- Source run: `{r['source_run']}`", f"- Scenarios/prompts: {r['num_scenarios']} / {r['num_prompts']}",
         f"- Tensor: {r['tensor_shape']} per prompt", "", r["interpretation_boundary"], "",
         "Scenario-centered residual vectors are evaluated with discovery-only regularization selection and grouped held-out evaluation.", "",
+        "See [EMPIRICAL_INTERPRETATION.md](EMPIRICAL_INTERPRETATION.md) for a run-specific scientific interpretation.", "",
         "![Layerwise held-out probe performance](four_strategy_layerwise.png)", "", "![Cross-domain direction consistency and strategy geometry](four_strategy_geometry.png)", "",
-        "## Template/triad-family held-out", "", "| Layer | Balanced accuracy (cluster 95% CI) | Macro-F1 (cluster 95% CI) | Direction-normalized BA | Permutation mean | C |", "|---:|---:|---:|---:|---:|---:|"]
+        "## Empirical summary", "",
+        f"Family-held-out balanced accuracy spans {summary['family_balanced_accuracy_range'][0]:.3f}–{summary['family_balanced_accuracy_range'][1]:.3f}; strict domain-held-out balanced accuracy spans {summary['domain_balanced_accuracy_range'][0]:.3f}–{summary['domain_balanced_accuracy_range'][1]:.3f} (macro-F1 {summary['domain_macro_f1_range'][0]:.3f}–{summary['domain_macro_f1_range'][1]:.3f}). Unit-normalized domain accuracy spans {summary['direction_normalized_domain_balanced_accuracy_range'][0]:.3f}–{summary['direction_normalized_domain_balanced_accuracy_range'][1]:.3f}; length-adjusted accuracy spans {summary['length_adjusted_domain_balanced_accuracy_range'][0]:.3f}–{summary['length_adjusted_domain_balanced_accuracy_range'][1]:.3f}.", "",
+        f"Raw held-out-domain direction-alignment pointwise 95% cluster intervals are positive for all four strategies at every layer: {summary['raw_domain_alignment_pointwise_ci_positive_for_all_strategies_all_layers']}. The length-adjusted exploratory candidate layers are {candidate_layers}, requiring all four alignment and projection-margin intervals to exclude zero and adjusted four-class balanced accuracy ≥ 0.85. These pointwise scans are not multiplicity-corrected and do not localize representational origins.", "",
+        "| Strategy | Raw domain alignment mean range | Length-adjusted alignment mean range |", "|---|---:|---:|"]
+    for strategy in r["strategy_order"]:
+        stats=summary["strategy_directional_ranges"][strategy]
+        lines.append(f"| {strategy} | {stats['raw_alignment_mean_range'][0]:.3f}–{stats['raw_alignment_mean_range'][1]:.3f} | {stats['length_adjusted_alignment_mean_range'][0]:.3f}–{stats['length_adjusted_alignment_mean_range'][1]:.3f} |")
+    lines += ["", "## Template/triad-family held-out", "", "| Layer | Balanced accuracy (cluster 95% CI) | Macro-F1 (cluster 95% CI) | Direction-normalized BA | Permutation mean | C |", "|---:|---:|---:|---:|---:|---:|"]
     for m in r["family_held_out"]["layer_metrics"]:
         ba, f1 = m["balanced_accuracy"], m["macro_f1"]
         lines.append(f"| {m['layer']} | {ba[0]:.3f} [{ba[1]:.3f}, {ba[2]:.3f}] | {f1[0]:.3f} [{f1[1]:.3f}, {f1[2]:.3f}] | {m['direction_normalized_balanced_accuracy']:.3f} | {m['permutation_balanced_accuracy']['mean'] if m['permutation_balanced_accuracy']['mean'] is not None else float('nan'):.3f} | {m['selected_C']:g} |")
@@ -521,7 +596,7 @@ def main():
     p.add_argument("--expected-manifest",default="research/contrastive_full_v1/manifest.json")
     p.add_argument("--bootstrap",type=int,default=1000); p.add_argument("--permutations",type=int,default=100)
     a=p.parse_args(); analyze_four_strategy(a.run_dir,a.prompts,a.output,expected_prompts_path=a.expected_prompts,
-        expected_manifest_path=a.expected_manifest,n_boot=a.bootstrap,permutations=a.permutations)
+        expected_manifest_path=a.expected_manifest,n_boot=a.bootstrap,permutations=a.permutations,progress=True)
     print(f"Report written to {a.output}")
 
 if __name__ == "__main__": main()
