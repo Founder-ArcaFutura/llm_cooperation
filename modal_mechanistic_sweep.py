@@ -14,7 +14,7 @@ image = (modal.Image.debian_slim(python_version='3.11')
 app = modal.App('llm-cooperation-mechanistic-sweep-v1', image=image)
 secrets = [modal.Secret.from_name('huggingface-secret')]
 
-@app.function(gpu='A10G', timeout=14400, volumes={'/runs': volume, '/hf-cache': cache}, secrets=secrets)
+@app.function(gpu='A100-80GB', timeout=14400, volumes={'/runs': volume, '/hf-cache': cache}, secrets=secrets)
 def sweep(model: str, revision: str, run_id: str, doses: list[int], random_controls: int):
     os.chdir('/root')
     os.environ['HF_HOME'] = '/hf-cache'
@@ -33,7 +33,7 @@ def main(model: str, revision: str, authorize_paid_run: bool = False,
          doses: str = '10,100,500,1000', random_controls: int = 3):
     if not authorize_paid_run:
         raise ValueError('Paid execution requires --authorize-paid-run')
-    allowed = {'Qwen/Qwen2.5-1.5B', 'Qwen/Qwen2.5-3B', 'meta-llama/Llama-3.2-1B', 'meta-llama/Llama-3.2-3B'}
+    allowed = {'Qwen/Qwen2.5-1.5B', 'Qwen/Qwen2.5-3B', 'Qwen/Qwen2.5-14B', 'meta-llama/Llama-3.2-1B', 'meta-llama/Llama-3.2-3B'}
     if model not in allowed or not re.fullmatch(r'[0-9a-f]{40}', revision):
         raise ValueError('Unsupported model or immutable revision')
     values = [int(v) for v in doses.split(',')]

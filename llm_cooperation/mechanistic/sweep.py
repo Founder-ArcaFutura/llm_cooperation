@@ -78,7 +78,7 @@ def run_sweep(model_id, revision, output, doses=(10, 100, 500, 1000), random_con
     import torch
     import transformers
     from transformers import AutoModelForCausalLM, AutoTokenizer
-    if model_id not in ('Qwen/Qwen2.5-1.5B', 'Qwen/Qwen2.5-3B', 'meta-llama/Llama-3.2-1B', 'meta-llama/Llama-3.2-3B'):
+    if model_id not in ('Qwen/Qwen2.5-1.5B', 'Qwen/Qwen2.5-3B', 'Qwen/Qwen2.5-14B', 'meta-llama/Llama-3.2-1B', 'meta-llama/Llama-3.2-3B'):
         raise ValueError('Model is outside the supported small base-model list')
     if not re.fullmatch(r'[0-9a-f]{40}', revision):
         raise ValueError('Supply an immutable 40-character model revision SHA')

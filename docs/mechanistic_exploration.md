@@ -105,3 +105,20 @@ modal run modal_mechanistic_bands.py `
 ```
 
 The local-only `python -m llm_cooperation.mechanistic.analyze_reversal <run-directory> --band-ends 100,500,1000,1250,1500,1750,2000 --output <new-path>.json` inspects existing observations and ranks, with no inference. It reports exact-score ties in addition to argmax flips. Never overwrite source outputs.
+
+## Focused 101–500 follow-up (prepared, not executed)
+
+`modal_mechanistic_focus.py` reads the exact candidate ranking of the completed source sweep and tests ten overlapping candidate sets: the 400-neuron ranks 101–500, its four 100-neuron rank blocks, positive and negative discovery-correlation subsets, and subgroups in layers 20–22, 23–25, and other layers. Every set has three independently seeded layer-matched random controls, sampled outside the first 2,000 candidates. The source manifest, candidate provenance, bank fingerprints and split are checked, and the used source files, coordinate sets and controls are recorded. Controls are not matched for activation magnitude or output influence. No new candidate ranking is computed.
+
+For each set the summary records margin shifts and matched-control differences overall and stratified by the letter assigned to cooperation, plus tie-aware unique-winner flips and factual calibration. These are overlapping exploratory comparisons on the same eight previously analyzed groups; bootstrap intervals are not corrected for selection or multiplicity. Results cannot by themselves separate semantic strategy from position or establish a circuit. Scores remain BF16 and exact ties depend on that precision. True specificity requires reviewed new scenarios, other task formats, matched controls and higher-precision replay.
+
+The default has 41 conditions × 176 presentations = 7,216 forward passes; an A10G has a four-hour timeout, no enforced dollar cap, and no automatic retries. A `huggingface-secret` Modal secret is configured, consistent with the existing local bands runner. Check resource cost before authorizing. Basic subgroup and summary logic passed local synthetic tests; the model/Modal path is untested. No paid run has been launched.
+
+```powershell
+modal run modal_mechanistic_focus.py `
+  --source 'G:\llm_cooperation\mechanistic_artifacts\mechanistic-sweep-f0942041aa324255a2969f3b3ae38466' `
+  --random-controls 3 `
+  --authorize-paid-run
+```
+
+Download the printed run ID from `llm-coop-mechanistic`, and inspect the manifest, exact subgroup and control coordinates, raw observations and summary. Run `python -m llm_cooperation.mechanistic.analyze_focus <run-directory>` to regenerate a completed run's summary. As with earlier runners, a hard container termination can lose uncommitted volume writes.

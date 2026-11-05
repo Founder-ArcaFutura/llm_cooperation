@@ -13,7 +13,7 @@ image = (modal.Image.debian_slim(python_version='3.11')
     .add_local_file('data/scenarios_phase0b_utility_matched.json', '/root/data/scenarios_phase0b_utility_matched.json')
     .add_local_file('data/calibration_bank.json', '/root/data/calibration_bank.json'))
 app = modal.App('llm-cooperation-rank-bands-v1', image=image)
-secrets = [modal.Secret.from_name('huggingface-secret')] if os.environ.get('MODAL_USE_HF_SECRET') == '1' else []
+secrets = [modal.Secret.from_name('huggingface-secret')]
 
 @app.function(gpu='A10G', timeout=14400, volumes={'/runs': volume, '/hf-cache': cache}, secrets=secrets)
 def bands(model: str, revision: str, run_id: str, source_manifest: dict, source_candidates: dict, random_controls: int):
