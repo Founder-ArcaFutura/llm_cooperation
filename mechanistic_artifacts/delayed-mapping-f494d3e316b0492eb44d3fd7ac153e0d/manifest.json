@@ -1,0 +1,38 @@
+{
+  "version": "delayed-mapping-v1",
+  "status": "completed",
+  "exploratory": true,
+  "bank_status": "draft_not_independently_validated",
+  "smoke": true,
+  "formats": [
+    "letters",
+    "numbers"
+  ],
+  "all_orders": false,
+  "scenarios": 9,
+  "presentations": 288,
+  "prefixes": 36,
+  "bank_sha256": "f53d9d59284b0df2fb855145ef19a23eac4534c2b98d955c631ebf442fed8eeb",
+  "presentations_sha256": "6c6f4b6cbd64cb1c1bf2228cb22ac84b00bf0597b13f954847f89efe017ea383",
+  "source_sha256": "ed07ae7f4dfc79f9c968461a57a33c70709754fa9fe816bf460b010b1c7563a4",
+  "max_forward_calls_without_generation": 1476,
+  "note": "Byte-based conservative forward-call bound; actual token counts checked at run time. No probe fitting, causal interventions, model loading or inference during preparation.",
+  "model": "Qwen/Qwen2.5-1.5B",
+  "revision": "8faed761d45a263340a0528343f099c05c9a4323",
+  "dtype": "float32",
+  "generate": true,
+  "started_unix": 1793847950.42538,
+  "python": "3.11.12",
+  "layers": [
+    6,
+    13,
+    20
+  ],
+  "torch": "2.5.1+cu124",
+  "transformers": "4.46.3",
+  "capture": "post-block residual, last token; prefix and response boundary",
+  "score": "sum full continuation log probabilities; four-candidate conditional probability",
+  "forward_calls": 900,
+  "finished_unix": 1793848312.6483657,
+  "evidence_hashes_sha256": "fa5f44fb6a1839bc4cdf202087152323c66a7ab442e1bc4467301da39ab26dc2"
+}

@@ -150,3 +150,5 @@ Per experimental specification (§13):
 ### Exploratory mechanistic work
 
 See [the mechanistic exploration guide](docs/mechanistic_exploration.md) for the template-separated MLP-neuron screen, held-out ablation, random-neuron controls, calibration, and explicit Modal authorization. This uses the Phase 0B exploratory bank; the protected prospective Phase 1 bank remains gated.
+
+The separate [delayed-mapping pilot](docs/delayed_mapping_pilot.md) captures residual activity before the answer key is revealed, crosses action order with label assignment, and reports format sensitivity before fitting an exploratory semantic-choice probe. It includes offline plan preparation and explicit local/Modal launch commands. Earlier mechanistic evidence remains preserved; this pilot does not establish a cooperation circuit.
