@@ -83,8 +83,8 @@ def run_sweep(model_id, revision, output, doses=(10, 100, 500, 1000), random_con
     if not re.fullmatch(r'[0-9a-f]{40}', revision):
         raise ValueError('Supply an immutable 40-character model revision SHA')
     doses = tuple(doses)
-    if not doses or tuple(sorted(set(doses))) != doses or doses[0] < 1 or doses[-1] > 1000:
-        raise ValueError('Doses must be unique increasing integers from 1 to 1000')
+    if not doses or tuple(sorted(set(doses))) != doses or doses[0] < 1 or doses[-1] > 100000:
+        raise ValueError('Doses must be unique increasing integers from 1 to 100000')
     if not 1 <= random_controls <= 5:
         raise ValueError('random_controls must be between 1 and 5')
     top_k = max(doses)
@@ -191,7 +191,7 @@ def run_sweep(model_id, revision, output, doses=(10, 100, 500, 1000), random_con
                 for layer, count in sorted(counts.items()):
                     pool = [i for i in range(width) if i not in excluded[layer]]
                     if len(pool) < count:
-                        raise ValueError('Insufficient noncandidate controls')
+                        raise ValueError(f'Insufficient layer-matched noncandidate controls in layer {layer}: need {count}, available {len(pool)}')
                     sample.extend({'layer': layer, 'neuron': i} for i in rng.sample(pool, count))
                 name = f'random_{dose}_{replicate}'
                 controls[name] = sample

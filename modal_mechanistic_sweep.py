@@ -12,7 +12,7 @@ image = (modal.Image.debian_slim(python_version='3.11')
     .add_local_file('data/scenarios_phase0b_utility_matched.json', '/root/data/scenarios_phase0b_utility_matched.json')
     .add_local_file('data/calibration_bank.json', '/root/data/calibration_bank.json'))
 app = modal.App('llm-cooperation-mechanistic-sweep-v1', image=image)
-secrets = [modal.Secret.from_name('huggingface-secret')] if os.environ.get('MODAL_USE_HF_SECRET') == '1' else []
+secrets = [modal.Secret.from_name('huggingface-secret')]
 
 @app.function(gpu='A10G', timeout=14400, volumes={'/runs': volume, '/hf-cache': cache}, secrets=secrets)
 def sweep(model: str, revision: str, run_id: str, doses: list[int], random_controls: int):
@@ -37,8 +37,8 @@ def main(model: str, revision: str, authorize_paid_run: bool = False,
     if model not in allowed or not re.fullmatch(r'[0-9a-f]{40}', revision):
         raise ValueError('Unsupported model or immutable revision')
     values = [int(v) for v in doses.split(',')]
-    if not values or values != sorted(set(values)) or values[0] < 1 or values[-1] > 1000 or not 1 <= random_controls <= 5:
-        raise ValueError('Doses must increase within 1..1000; random controls must be 1..5')
+    if not values or values != sorted(set(values)) or values[0] < 1 or values[-1] > 100000 or not 1 <= random_controls <= 5:
+        raise ValueError('Doses must increase within 1..100000; random controls must be 1..5')
     run_id = 'mechanistic-sweep-' + uuid.uuid4().hex
     print(f'Run ID: {run_id}; results volume: llm-coop-mechanistic')
     print(sweep.remote(model, revision, run_id, values, random_controls))

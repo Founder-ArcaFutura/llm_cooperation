@@ -37,7 +37,7 @@ Local GPU execution uses `python run_mechanistic.py --model <model> --revision <
 
 The sweep uses a new deterministic split: one complete sensitivity triad plus seven ordinary templates for evaluation, with all paired partners and permutations together. The other triad is in discovery. This permits descriptive utility-stratified effects, but each advantageous and disadvantageous estimate comes from only one independent triad: a bootstrap interval for either stratum cannot quantify generalization. This split shares scenarios with the previous experiment, including discovery/evaluation overlap across runs; it is exploratory, not a fresh confirmatory test. Increasing intervention size, selecting doses after inspection, and trying multiple controls creates multiplicity; none of the intervals are adjusted for it. A selective, reproducible effect would be evidence for a causal influence on this measurement, not proof of a cooperation circuit.
 
-Default configuration executes approximately 3,152 individual forward passes (160 discovery and 176 baseline/intervention presentations for 17 conditions), versus approximately 720 in the first screen. It has a four-hour GPU timeout, no automatic retry, and no dollar cap. Check the cost and decide whether to authorize it before launching. Both the implementation and the Modal execution path are prepared but have **not** been tested or executed as a sweep. A shorter diagnostic configuration is possible via `--doses 10,100 --random-controls 1`, but changing the planned sweep after inspecting results changes the interpretation. Preserve failed attempts.
+Default configuration executes approximately 3,152 individual forward passes (160 discovery and 176 baseline/intervention presentations for 17 conditions), versus approximately 720 in the first screen. It has a four-hour GPU timeout, no automatic retry, and no dollar cap. Check the cost and decide whether to authorize it before launching. An earlier 10–1,000 sweep was reported as completed; the subsequently expanded caps have not been tested. A shorter diagnostic configuration is possible via `--doses 10,100 --random-controls 1`, but changing the planned sweep after inspecting results changes the interpretation. Preserve failed attempts.
 
 ```powershell
 modal run modal_mechanistic_sweep.py `
@@ -49,3 +49,59 @@ modal run modal_mechanistic_sweep.py `
 ```
 
 Retrieve the printed ID with `modal volume get llm-coop-mechanistic <run-id> results/<run-id>`. Review `manifest.json`, `candidates.json`, `observations.jsonl` and `summary.json`. Recompute the summary with `python -m llm_cooperation.mechanistic.analyze_sweep results/<run-id>`. The summary reports paired candidate changes, candidate versus mean random-control effects, individual random controls, choice flips, calibration, and utility strata. Do not interpret net choice rate as the number of individual flips. The bootstrap is over independent template/triad groups, conditional on the observed random sets; it does not capture uncertainty over random-control sampling or compensate for the small number of groups. BF16 output quantization remains a limitation. Partial volume data is committed on normal exit and caught failures; hard termination can lose uncommitted results.
+
+## Amplification and sign-separated interventions
+
+`modal_mechanistic_amplification.py` is a separate exploratory experiment. It uses the deterministic split described for the larger sweep, ranks all varying discovery neurons by absolute correlation, then constructs three sets of `group_size` neurons (100 by default): the top overall, the top positively correlated, and the top negatively correlated from the full ranking. The sets overlap; positive/negative labels describe observational correlations, not causal signs. If there are too few candidates of either sign the run stops and records failure.
+
+For each set, multiply the existing `down_proj` input activation at the last prompt token by 0, 1.5, or 2. Factor 1 is the shared unmodified baseline; 0 is zero ablation. Multiplication preserves the sign of a negative activation and does little to a near-zero activation. For each set, two independently seeded layer-matched random sets are sampled excluding the top 1,000 and every selected neuron across the three groups; the same random sets are used across all factors for that group. `candidates.json` records all sets, correlations, and the mean absolute group-average activation, which is not the distribution of individual activations. Larger factors can move activations outside their natural range. BF16 output precision remains a limitation.
+
+This is exploratory, with overlapping candidate sets, shared data with previous runs, only eight held-out groups, one utility triad, and multiple comparisons. Bootstrap intervals resample groups and do not account for selection, multiplicity, or uncertainty across random-control draws. Unchanged calibration accuracy does not demonstrate intact general capability. The intervention and analysis scripts have not been tested or run. No inference takes place until the user runs a command.
+
+The default has about 5,088 forward passes (160 discovery plus 176 presentations for 28 conditions). Modal uses an A10G with a four-hour timeout, no automatic retries, and no dollar cap. Check budget before launching. Preserve failure artifacts. The prior Modal volume commit caveats apply.
+
+```powershell
+modal run modal_mechanistic_amplification.py `
+  --model Qwen/Qwen2.5-1.5B `
+  --revision 8faed761d45a263340a0528343f099c05c9a4323 `
+  --group-size 100 `
+  --random-controls 2 `
+  --authorize-paid-run
+```
+
+Retrieve the printed ID with `modal volume get llm-coop-mechanistic <run-id> results/<run-id>`. Inspect `manifest.json`, `candidates.json`, `observations.jsonl` and `summary.json`; reanalyze with `python -m llm_cooperation.mechanistic.analyze_amplification results/<run-id>`. The summary includes group-clustered paired margins, candidate versus mean random controls, calibration and individual argmax flips. As always, a model choice flip is not itself evidence of a cooperation-specific mechanism.
+
+
+## Raising intervention sizes
+
+Both Modal entry points and their workers now permit a maximum dose or amplification group size of 100,000; defaults remain unchanged. This is a software ceiling, not a guarantee that a dose is scientifically interpretable or that a matched control can be constructed. Qwen2.5-1.5B has 8,960 intermediate neurons per layer. For each layer, random controls must contain as many coordinates as that layer's candidate set while excluding the relevant candidate pool. If there are too few available, the run explicitly fails after discovery, potentially after GPU charges. There must also be enough varying neurons of each correlation sign for amplification. Larger ablations may impair general computation; monitor calibration and use additional selectivity checks. The output logs preserve the exact selected and random sets.
+
+For example, explicitly extending the prior sweep:
+
+```powershell
+modal run modal_mechanistic_sweep.py `
+  --model Qwen/Qwen2.5-1.5B `
+  --revision 8faed761d45a263340a0528343f099c05c9a4323 `
+  --doses 10,100,500,1000,2000,5000,10000 `
+  --random-controls 3 `
+  --authorize-paid-run
+```
+
+That configuration performs about 5,264 forward passes and has a four-hour timeout, with no dollar cap. Random sets at earlier doses can differ from the previous run because controls exclude the entire largest candidate set for the new run. Record this when comparing results. The larger-cap code has not been tested or executed.
+
+For sign-separated ablation and amplification of 1,000 neurons per group, use `modal run modal_mechanistic_amplification.py --model Qwen/Qwen2.5-1.5B --revision 8faed761d45a263340a0528343f099c05c9a4323 --group-size 1000 --random-controls 2 --authorize-paid-run`. It retains the 0, 1.5, and 2 multipliers and approximately 5,088 forward passes regardless of group size.
+
+## Disjoint rank-band follow-up (prepared, not executed)
+
+The separately prepared `modal_mechanistic_bands.py` reads the exact ranked coordinates from a supplied completed sweep, then independently zeros ranks 1–100, 101–500, 501–1,000, 1,001–1,250, and 1,251–2,000 with three layer-matched random controls per band. The run validates the model revision, bank fingerprints, and split against the source manifest and records canonical JSON hashes and copies of the supplied inputs. Source files are not cryptographically bound to one another by the old manifest, so verify their common origin. Controls exclude the first 2,000 candidates but are not activation- or output-influence matched. Separate-band ablations estimate effects on baseline; they cannot alone explain interactions when multiple bands are ablated together. Both datasets have already informed analysis, so this is exploratory.
+
+The completed local 2,000-candidate source is `mechanistic_artifacts/mechanistic-sweep-f0942041aa324255a2969f3b3ae38466`. The full follow-up is 21 conditions × 176 presentations = 3,696 forward passes, with a four-hour A10G timeout, no dollar cap and no automatic retries. It is a newly prepared, untested script; review cost and obtain explicit paid authorization before running. No such run has been launched by preparing it.
+
+```powershell
+modal run modal_mechanistic_bands.py `
+  --source 'G:\llm_cooperation\mechanistic_artifacts\mechanistic-sweep-f0942041aa324255a2969f3b3ae38466' `
+  --random-controls 3 `
+  --authorize-paid-run
+```
+
+The local-only `python -m llm_cooperation.mechanistic.analyze_reversal <run-directory> --band-ends 100,500,1000,1250,1500,1750,2000 --output <new-path>.json` inspects existing observations and ranks, with no inference. It reports exact-score ties in addition to argmax flips. Never overwrite source outputs.
