@@ -206,54 +206,120 @@ def _candidate_pool_solution(tokenizer, scenario, pool, earlier):
     return None
 
 
-def _generate_set(llm, generation_tokenizer, measurement_tokenizer, scenario, bank, previous, max_attempts):
+def _one_action_json(text: str) -> str | None:
+    """Parse only a single nonempty model-written replacement sentence."""
+    text = text.strip()
+    if text.startswith("```"):
+        text = re.sub(r"^\s*```(?:json)?\s*", "", text)
+        text = re.sub(r"\s*```\s*$", "", text)
+    try:
+        obj = json.loads(text)
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(obj, dict) or set(obj) != {"action"}:
+        return None
+    candidate = obj["action"]
+    return candidate.strip() if isinstance(candidate, str) and candidate.strip() else None
+
+
+def _repair_target(tokenizer, candidate_pool: dict[str, list[str]]) -> int:
+    """Prefer a feasible shared token count based on the *actual* sentences
+    the model has written. Shortening is penalized more than expansion to
+    discourage deleting necessary actors or operational details.
+    """
+    lengths = {
+        strategy: sorted({
+            len(tokenizer.encode(action, add_special_tokens=False))
+            for action in candidate_pool[strategy]
+        })
+        for strategy in STRATEGIES
+    }
+    values = [n for counts in lengths.values() for n in counts]
+    if not values:
+        return 14
+
+    def cost(target):
+        total = 0.0
+        for strategy in STRATEGIES:
+            if not lengths[strategy]:
+                total += 8
+                continue
+            total += min(
+                (n - target - 1) * 1.7 if n > target + 1
+                else (target - n) if n < target else 0
+                for n in lengths[strategy]
+            )
+        return total
+
+    middle = sorted(values)[len(values) // 2]
+    return min(range(min(values), max(values) + 1),
+               key=lambda t: (cost(t), abs(t - middle), t))
+
+
+def _generate_set(llm, generation_tokenizer, measurement_tokenizer, scenario,
+                  bank, previous, max_attempts, seed_pool=None):
+    """Create one joint draft, then *targeted single-action repairs*.
+
+    Earlier attempts are not erased: all valid single-sentence candidates are
+    pooled and can form a compliant four-action set. A previous unsuccessful
+    run may provide the seed pool. Every resulting set still requires human
+    semantic adjudication.
+    """
     from vllm import SamplingParams
 
-    original = {s: scenario["options"][s] for s in STRATEGIES}
-    original_counts = [len(measurement_tokenizer.encode(t, add_special_tokens=False))
-                       for t in original.values()]
-    # A middle target is easier than padding all short options to the longest.
-    target = sorted(original_counts)[len(original_counts) // 2]
-    feedback = []
+    original = {strategy: scenario["options"][strategy] for strategy in STRATEGIES}
     candidate_pool = {strategy: [] for strategy in STRATEGIES}
-    last_options = None
-    best = None
-    best_penalty = float("inf")
+    if seed_pool:
+        for strategy in STRATEGIES:
+            for action in seed_pool.get(strategy, []):
+                if isinstance(action, str) and action.strip() and action not in candidate_pool[strategy]:
+                    candidate_pool[strategy].append(action.strip())
 
-    for attempt in range(1, max_attempts + 1):
-        previous_report = (
-            _score_candidate(measurement_tokenizer, scenario, last_options, previous)
-            if last_options else None
+    total_model_requests = 0
+    attempts = 0
+    last_raw = None
+
+    def add_options(options):
+        for strategy in STRATEGIES:
+            action = options.get(strategy)
+            if isinstance(action, str) and action.strip() and action.strip() not in candidate_pool[strategy]:
+                candidate_pool[strategy].append(action.strip())
+
+    def accepted(assembly):
+        solution = _candidate_pool_solution(
+            measurement_tokenizer, scenario, candidate_pool, previous
         )
+        if solution is None:
+            return None
+        options, report = solution
+        return {
+            "options": options, "validation": report, "attempts": attempts,
+            "model_requests": total_model_requests, "assembly": assembly,
+            "accepted_automatic_constraints": True,
+            "semantic_review": "UNADJUDICATED",
+            "candidate_pool": candidate_pool,
+        }
+
+    existing = accepted("pooled_previous_candidates")
+    if existing is not None:
+        return existing
+
+    # Only make a joint draft when a previous failed run has not already
+    # supplied at least one usable candidate for each strategy.
+    if any(not candidate_pool[strategy] for strategy in STRATEGIES):
+        original_lengths = [
+            len(measurement_tokenizer.encode(original[strategy], add_special_tokens=False))
+            for strategy in STRATEGIES
+        ]
+        target = sorted(original_lengths)[len(original_lengths) // 2]
         instructions = {
-            "bank": bank,
-            "style": STYLES[bank],
-            "scenario_id": scenario["id"],
-            "partner_type": scenario["partner_type"],
-            "scenario": scenario["stem"],
-            "original_actions": original,
+            "bank": bank, "style": STYLES[bank],
+            "scenario_id": scenario["id"], "partner_type": scenario["partner_type"],
+            "scenario": scenario["stem"], "original_actions": original,
             "original_payoffs": scenario.get("payoff_spec"),
             "token_count_target": target,
-            "token_constraint": (
-                "All four actions should have exactly this many Qwen2.5 tokens "
-                "or differ by at most one token. Counts are checked by code."
-            ),
-            "previous_attempt_actions": last_options,
-            "previous_attempt_measured_action_tokens": (
-                previous_report["action_tokens"] if previous_report else None
-            ),
-            "previous_attempt_measured_prompt_tokens": (
-                previous_report["full_prompt_tokens"] if previous_report else None
-            ),
-            "revision_instruction": (
-                "If a previous attempt is given, EDIT those actual sentences "
-                "to correct the measured counts. Preserve any already near "
-                "the token target, and preserve strategic intent. Do not "
-                "regenerate all four randomly or insert meaningless filler."
-                if last_options else "Author four concise and natural actions."
-            ),
+            "constraints": "Four actions, each within one Qwen2.5 token of the others.",
             "other_bank_wording_to_avoid": previous,
-            "prior_validation_feedback": feedback[-2:],
         }
         rendered = generation_tokenizer.apply_chat_template(
             [{"role": "system", "content": SYSTEM},
@@ -261,63 +327,147 @@ def _generate_set(llm, generation_tokenizer, measurement_tokenizer, scenario, ba
             tokenize=False, add_generation_prompt=True,
         )
         generated = llm.generate(
-            [rendered],
-            SamplingParams(temperature=0.55 if attempt == 1 else 0.35,
-                           top_p=0.9, max_tokens=650),
-            use_tqdm=False,
+            [rendered], SamplingParams(temperature=0.45, top_p=0.9, max_tokens=650),
+            use_tqdm=False
         )[0].outputs[0].text
-        options = _json_object(generated)
-        if options is None:
-            feedback.append(["Output was not valid four-field JSON. Return JSON only."])
-            if best is None:
-                best = {"accepted_automatic_constraints": False,
-                        "issues": feedback[-1],
-                        "raw_output_excerpt": generated[:500], "attempts": attempt,
-                        "semantic_review": "UNADJUDICATED"}
-            continue
+        total_model_requests += 1
+        attempts += 1
+        last_raw = generated[:500]
+        quartet = _json_object(generated)
+        if quartet is not None:
+            add_options(quartet)
+            result = accepted("joint_model_generation")
+            if result is not None:
+                return result
 
-        last_options = options
+    # One round handles *only* actions whose current candidates do not meet
+    # the measured common target, so successful individual sentences survive.
+    for _ in range(max(0, max_attempts - attempts)):
+        attempts += 1
+        target = _repair_target(measurement_tokenizer, candidate_pool)
+        requests = []
+        labels = []
         for strategy in STRATEGIES:
-            if options[strategy] not in candidate_pool[strategy]:
-                candidate_pool[strategy].append(options[strategy])
-        report = _score_candidate(measurement_tokenizer, scenario, options, previous)
-        if report["accepted_automatic_constraints"]:
-            return {"options": options, "validation": report, "attempts": attempt,
-                    "assembly": "complete_model_generation",
-                    "accepted_automatic_constraints": True,
-                    "semantic_review": "UNADJUDICATED"}
+            scored = [
+                (len(measurement_tokenizer.encode(action, add_special_tokens=False)), action)
+                for action in candidate_pool[strategy]
+            ]
+            if scored:
+                # Prefer an existing candidate inside the target window;
+                # otherwise choose closest text to repair.
+                closest_length, closest = min(
+                    scored, key=lambda x: (
+                        max(target - x[0], x[0] - (target + 1), 0),
+                        abs(x[0] - target), len(x[1])
+                    )
+                )
+                if target <= closest_length <= target + 1:
+                    continue
+            else:
+                closest_length, closest = None, original[strategy]
+            instructions = {
+                "strategy": strategy,
+                "bank": bank,
+                "style": STYLES[bank],
+                "scenario_id": scenario["id"],
+                "partner_type": scenario["partner_type"],
+                "scenario": scenario["stem"],
+                "all_original_actions_for_semantic_context": original,
+                "payoff_spec": scenario.get("payoff_spec"),
+                "original_meaning_to_preserve": original[strategy],
+                "current_sentence": closest,
+                "current_exact_qwen25_token_count": closest_length,
+                "target_qwen25_action_token_count": target,
+                "acceptable_token_counts": [target, target + 1],
+                "other_bank_wording_to_avoid": {
+                    key: value[strategy] for key, value in previous.items()
+                },
+                "instruction": (
+                    "Rewrite ONLY this action sentence. Fix its token length, "
+                    "preserve the agent, action, partner type and strategic "
+                    "payoff. Do not insert meaningless filler or change "
+                    "incentives. Respond with a JSON object containing one "
+                    "field, 'action', whose value is the revised sentence."
+                ),
+            }
+            prompt = generation_tokenizer.apply_chat_template(
+                [{"role": "system", "content": (
+                    "You are an expert psychometric item editor. Repair one "
+                    "action description without changing its semantic role. "
+                    'Return ONLY valid JSON of the form {"action":"..."}.'  )},
+                 {"role": "user", "content": json.dumps(instructions, ensure_ascii=False)}],
+                tokenize=False, add_generation_prompt=True,
+            )
+            requests.append(prompt)
+            labels.append(strategy)
 
-        # Retain useful sentences from every generation; test whether a
-        # combination satisfies both tokenizer constraints before retrying.
-        assembled = _candidate_pool_solution(
-            measurement_tokenizer, scenario, candidate_pool, previous
+        if not requests:
+            # A full prompt may tokenize differently at the action boundary,
+            # even when all stand-alone action counts are within one token.
+            # Change one candidate to seek another tokenization.
+            strategy = STRATEGIES[-1]
+            action = candidate_pool[strategy][-1]
+            instructions = {
+                "strategy": strategy, "scenario": scenario["stem"],
+                "original": original[strategy], "current_sentence": action,
+                "target_action_tokens": target,
+                "instruction": (
+                    "Give a different natural paraphrase with the same meaning "
+                    "and nearly the same Qwen2.5 token length. Return only "
+                    'JSON {"action":"..."}'
+                ),
+            }
+            requests.append(generation_tokenizer.apply_chat_template(
+                [{"role": "system", "content": 'Return only JSON {"action":"..."}. Preserve meaning.'},
+                 {"role": "user", "content": json.dumps(instructions, ensure_ascii=False)}],
+                tokenize=False, add_generation_prompt=True,
+            ))
+            labels.append(strategy)
+
+        generations = llm.generate(
+            requests,
+            SamplingParams(temperature=0.35, top_p=0.9, max_tokens=180),
+            use_tqdm=False,
         )
-        if assembled is not None:
-            pooled_options, pooled_report = assembled
-            return {"options": pooled_options, "validation": pooled_report,
-                    "attempts": attempt, "assembly": "pooled_model_sentences",
-                    "accepted_automatic_constraints": True,
-                    "semantic_review": "UNADJUDICATED"}
+        total_model_requests += len(requests)
+        for strategy, result in zip(labels, generations):
+            raw = result.outputs[0].text
+            last_raw = raw[:500]
+            new_action = _one_action_json(raw)
+            if new_action and new_action not in candidate_pool[strategy]:
+                candidate_pool[strategy].append(new_action)
 
-        token_span = max(report["action_tokens"].values()) - min(report["action_tokens"].values())
-        prompt_span = max(report["full_prompt_tokens"].values()) - min(report["full_prompt_tokens"].values())
-        penalty = max(0, token_span - 1) + max(0, prompt_span - 1) + (
-            3 * sum(not issue.startswith(("action token span=", "full prompt token span="))
-                    for issue in report["issues"])
-        )
-        if penalty < best_penalty:
-            best_penalty = penalty
-            best = {"options": options, "validation": report, "attempts": attempt,
-                    "semantic_review": "UNADJUDICATED"}
-        feedback.append(report["issues"])
+        result = accepted("pooled_targeted_repairs")
+        if result is not None:
+            return result
 
-    if best is None:
-        best = {"issues": ["No usable model response"], "attempts": max_attempts,
-                "semantic_review": "UNADJUDICATED"}
-    best["accepted_automatic_constraints"] = False
-    best["attempts_used"] = max_attempts
-    best["candidate_counts"] = {s: len(candidate_pool[s]) for s in STRATEGIES}
-    return best
+    # Preserve *all* good individual sentences and report the best overall
+    # near-miss. A subsequent run can reuse this pool and focus remaining
+    # effort on whichever actions still fail.
+    best_options = {}
+    target = _repair_target(measurement_tokenizer, candidate_pool)
+    for strategy in STRATEGIES:
+        if candidate_pool[strategy]:
+            best_options[strategy] = min(
+                candidate_pool[strategy],
+                key=lambda action: abs(
+                    len(measurement_tokenizer.encode(action, add_special_tokens=False))
+                    - target
+                )
+            )
+        else:
+            best_options[strategy] = original[strategy]
+    report = _score_candidate(measurement_tokenizer, scenario, best_options, previous)
+    return {
+        "options": best_options, "validation": report,
+        "attempts": attempts, "model_requests": total_model_requests,
+        "accepted_automatic_constraints": False,
+        "semantic_review": "UNADJUDICATED",
+        "candidate_pool": candidate_pool, "last_raw_excerpt": last_raw,
+        "repair_target": target,
+        "candidate_counts": {strategy: len(candidate_pool[strategy])
+                             for strategy in STRATEGIES},
+    }
 
 @app.function(gpu="H100", timeout=14400, retries=0,
               volumes={"/hf-cache": HF_CACHE, "/runs": RUN_VOLUME})
@@ -432,9 +582,30 @@ def generate_candidates(source_bytes: bytes, source_sha256: str, start: int, lim
                         other: old_record["options"]
                         for other, old_record in retained.items() if other != bank
                     })
+                    # Failed runs can still contain useful model-authored
+                    # individual sentences. Reuse them instead of resetting
+                    # the candidate pool to a single last/nearest quartet.
+                    seed_pool = None
+                    if reuse_root is not None:
+                        old_file = reuse_root / "records" / f"{index:03d}_{bank}.json"
+                        if old_file.is_file():
+                            old_record = json.loads(old_file.read_text(encoding="utf-8"))
+                            if (old_record.get("source_index") != index
+                                    or old_record.get("scenario_id") != scenario["id"]
+                                    or old_record.get("bank") != bank):
+                                raise ValueError(f"Previous record identity mismatch: {old_file}")
+                            if isinstance(old_record.get("candidate_pool"), dict):
+                                seed_pool = old_record["candidate_pool"]
+                            elif isinstance(old_record.get("options"), dict):
+                                seed_pool = {
+                                    strategy: [old_record["options"][strategy]]
+                                    for strategy in STRATEGIES
+                                    if isinstance(old_record["options"].get(strategy), str)
+                                }
                     record = _generate_set(
                         llm, generation_tokenizer, measure_tokenizer,
                         scenario, bank, avoid, max_attempts,
+                        seed_pool=seed_pool,
                     )
                     if record["accepted_automatic_constraints"]:
                         counts[bank]["newly_accepted"] += 1
