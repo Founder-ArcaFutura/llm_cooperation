@@ -4,7 +4,7 @@ Scientific objective:
 Determine whether a reproducible, distributed activation direction distinguishes
 cooperative actions from independent actions across the Phase 0B scenario bank.
 Scientific boundary:
-A reproducible direction would establish linear accessibility of action-related
+A reproducible direction establishes linear accessibility of action-related
 information, not that the model prefers cooperation or uses that direction causally.
 
 No model calls occur on import. Paid/real GPU inference requires explicit authorization.
@@ -59,7 +59,7 @@ def partition_families(
     discovery_fraction: float = 0.5,
     seed: int = 42,
 ) -> Tuple[List[str], List[str]]:
-    """Partition scenarios into discovery and evaluation sets by template/domain family.
+    """Partition scenarios into discovery and evaluation sets by template/triad family.
 
     Crucially, keep human/AI variants and sensitivity-triad relatives together:
     group_key = triad_id or template_id.
@@ -73,7 +73,6 @@ def partition_families(
 
     # Deterministic seeded ordering of family keys
     sorted_groups = sorted(clusters.keys())
-    # Sort deterministically using hash with salt
     sorted_groups.sort(key=lambda g: hashlib.sha256(f"contrastive-split:{seed}:{g}".encode()).hexdigest())
 
     n_discovery = max(1, int(math.ceil(len(sorted_groups) * discovery_fraction)))
@@ -82,6 +81,29 @@ def partition_families(
 
     discovery_ids = [sid for g in sorted_groups if g in disc_groups for sid in clusters[g]]
     evaluation_ids = [sid for g in sorted_groups if g in eval_groups for sid in clusters[g]]
+    return discovery_ids, evaluation_ids
+
+
+def partition_domains(
+    scenarios: Sequence[Dict[str, Any]],
+    discovery_fraction: float = 0.5,
+    seed: int = 42,
+) -> Tuple[List[str], List[str]]:
+    """Partition scenarios strictly by domain family, keeping all related templates together."""
+    domain_clusters: Dict[str, List[str]] = {}
+    for s in scenarios:
+        domain = s.get("domain", "unknown")
+        domain_clusters.setdefault(domain, []).append(s["id"])
+
+    sorted_domains = sorted(domain_clusters.keys())
+    sorted_domains.sort(key=lambda d: hashlib.sha256(f"domain-split:{seed}:{d}".encode()).hexdigest())
+
+    n_discovery = max(1, int(math.ceil(len(sorted_domains) * discovery_fraction)))
+    disc_domains = set(sorted_domains[:n_discovery])
+    eval_domains = set(sorted_domains[n_discovery:])
+
+    discovery_ids = [sid for d in sorted_domains if d in disc_domains for sid in domain_clusters[d]]
+    evaluation_ids = [sid for d in sorted_domains if d in eval_domains for sid in domain_clusters[d]]
     return discovery_ids, evaluation_ids
 
 
@@ -110,14 +132,20 @@ def prepare(
             smoke_scenarios.append(s)
         scenarios = smoke_scenarios
 
+    # Template/triad-level family partition
     discovery_ids, evaluation_ids = partition_families(scenarios, discovery_fraction, seed)
     disc_set = set(discovery_ids)
+
+    # Separate domain-level partition diagnostic
+    dom_disc_ids, dom_eval_ids = partition_domains(scenarios, discovery_fraction, seed)
+    dom_disc_set = set(dom_disc_ids)
 
     prompts: List[Dict[str, Any]] = []
     for s in scenarios:
         sid = s["id"]
         group_key = s.get("triad_id") or s.get("template_id")
         split = "discovery" if sid in disc_set else "evaluation"
+        domain_split = "discovery" if sid in dom_disc_set else "evaluation"
         domain = s.get("domain", "unknown")
         partner_type = s.get("partner_type", "unknown")
         context_type = s.get("context_type", "unknown")
@@ -135,6 +163,7 @@ def prepare(
                 "triad_id": s.get("triad_id"),
                 "group_key": group_key,
                 "split": split,
+                "domain_split": domain_split,
                 "strategy": strat,
                 "partner_type": partner_type,
                 "context_type": context_type,
@@ -158,12 +187,16 @@ def prepare(
         "created_utc": datetime.now(timezone.utc).isoformat(),
         "bank_path": str(bank_path),
         "bank_sha256": sha256_file(bank_path),
+        "prompts_sha256": sha256_file(prompts_file),
         "script_sha256": sha256_file(__file__),
         "num_scenarios": len(scenarios),
         "num_prompts": len(prompts),
         "num_families": len({p["group_key"] for p in prompts}),
+        "num_domains": len({p["domain"] for p in prompts}),
         "discovery_scenarios": len(discovery_ids),
         "evaluation_scenarios": len(evaluation_ids),
+        "domain_discovery_scenarios": len(dom_disc_ids),
+        "domain_evaluation_scenarios": len(dom_eval_ids),
         "discovery_families": len({p["group_key"] for p in prompts if p["split"] == "discovery"}),
         "evaluation_families": len({p["group_key"] for p in prompts if p["split"] == "evaluation"}),
         "smoke": smoke,
@@ -188,13 +221,10 @@ def mock_forward_pass(
 
     Generates deterministic pseudo-random residual vectors [num_layers, hidden_size] in FP32.
     """
-    rng = np.random.RandomState(seed)
     activations = {}
     for pid in prompt_ids:
-        # Seed slightly by prompt id hash to make repeatable
         h = int(hashlib.md5(pid.encode()).hexdigest()[:8], 16)
         local_rng = np.random.RandomState(h % (2**31 - 1))
-        # [num_layers, hidden_size] in FP32
         arr = local_rng.randn(num_layers, hidden_size).astype(np.float32)
         activations[pid] = arr
     return activations
@@ -217,7 +247,17 @@ def run_inference(
 
     prep_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     prompts_path = plan_path / "prompts.jsonl"
+    if not prompts_path.exists():
+        raise FileNotFoundError(f"Prompts file not found at {prompts_path}")
+
+    # Exact-byte fingerprint validation
+    current_prompts_sha = sha256_file(prompts_path)
+    if "prompts_sha256" in prep_manifest and prep_manifest["prompts_sha256"] != current_prompts_sha:
+        raise ValueError("Prompts file hash does not match prepared manifest fingerprint")
+
     prompts = [json.loads(line) for line in prompts_path.read_text(encoding="utf-8").splitlines()]
+    if len(prompts) != prep_manifest["num_prompts"]:
+        raise ValueError(f"Prompt count mismatch: expected {prep_manifest['num_prompts']}, found {len(prompts)}")
 
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=False)
@@ -237,13 +277,15 @@ def run_inference(
     act_dir.mkdir(parents=True, exist_ok=False)
 
     if mock:
+        num_layers = 28
+        hidden_size = 1536
         run_manifest.update({
-            "num_layers": 28,
-            "hidden_size": 1536,
+            "num_layers": num_layers,
+            "hidden_size": hidden_size,
             "dtype": "float32",
             "device": "mock_cpu",
         })
-        act_map = mock_forward_pass([p["prompt_id"] for p in prompts])
+        act_map = mock_forward_pass([p["prompt_id"] for p in prompts], num_layers=num_layers, hidden_size=hidden_size)
         for pid, tensor in act_map.items():
             np.savez_compressed(act_dir / f"{pid}.npz", residual=tensor)
     else:
@@ -252,7 +294,7 @@ def run_inference(
                 "Execution requires explicit authorization flag (--authorize-inference locally or --authorize-paid-run on Modal)"
             )
         if model_id != DEFAULT_MODEL_ID or not re.fullmatch(r"[0-9a-f]{40}", revision):
-            raise ValueError(f"Model ID must be {DEFAULT_MODEL_ID} with exact 40-char SHA revision")
+            raise ValueError(f"Model ID must be {DEFAULT_MODEL_ID} with exact 40-char SHA revision, got {model_id} @ {revision}")
 
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -288,7 +330,6 @@ def run_inference(
                 def make_hook(idx: int):
                     def hook_fn(module: Any, args: Any, output: Any):
                         hidden = output[0] if isinstance(output, tuple) else output
-                        # Capture residual at the final prompt token (index -1)
                         cache[idx] = hidden[0, -1, :].detach().float().cpu().numpy()
                     return hook_fn
                 handles.append(layer.register_forward_hook(make_hook(l_idx)))
@@ -300,13 +341,14 @@ def run_inference(
                 for h in handles:
                     h.remove()
 
-            # Stack layers: [num_layers, hidden_size] in FP32
             stacked = np.stack([cache[i] for i in range(num_layers)], axis=0).astype(np.float32)
             np.savez_compressed(act_dir / f"{p['prompt_id']}.npz", residual=stacked)
 
-    # Save evidence hashes
+    import shutil
+    shutil.copyfile(prompts_path, out / "prompts.jsonl")
+
     evidence_hashes = {}
-    evidence_hashes["prompts.jsonl"] = sha256_file(prompts_path)
+    evidence_hashes["prompts.jsonl"] = sha256_file(out / "prompts.jsonl")
     for npz_path in sorted(act_dir.glob("*.npz")):
         evidence_hashes[f"activations/{npz_path.name}"] = sha256_file(npz_path)
 
@@ -330,7 +372,6 @@ def bootstrap_ci(
     if not family_keys:
         return 0.0, 0.0, 0.0
 
-    # Family-level mean values
     family_means = np.array([np.mean(values_by_family[k]) for k in family_keys])
     point_estimate = float(np.mean(family_means))
     if len(family_keys) < 2:
@@ -359,7 +400,6 @@ def compute_paired_differences(
     Returns dict mapping scenario_id -> np.ndarray of shape [num_layers, hidden_size].
     """
     diffs = {}
-    # Determine all candidate scenario IDs from activation keys
     if scenario_ids is None:
         candidates = set()
         for k in activations.keys():
@@ -376,6 +416,62 @@ def compute_paired_differences(
     return diffs
 
 
+def evaluate_projections_and_nulls(
+    diffs: Dict[str, np.ndarray],
+    disc_directions: np.ndarray,
+    eval_families: Dict[str, List[str]],
+    num_layers: int,
+    n_boot: int = 1000,
+    seed: int = 42,
+) -> Tuple[List[Dict[str, Any]], Dict[str, np.ndarray]]:
+    """Compute layerwise projections and sign-shuffled nulls at the family level."""
+    eval_projections_by_sid: Dict[str, np.ndarray] = {}
+    for sids in eval_families.values():
+        for sid in sids:
+            if sid in diffs:
+                eval_projections_by_sid[sid] = np.sum(diffs[sid] * disc_directions, axis=-1)
+
+    layer_metrics: List[Dict[str, Any]] = []
+    for l in range(num_layers):
+        projs_by_fam: Dict[str, List[float]] = {}
+        for gk, sids in eval_families.items():
+            projs_by_fam[gk] = [float(eval_projections_by_sid[sid][l]) for sid in sids if sid in eval_projections_by_sid]
+
+        mean_proj, ci_low, ci_high = bootstrap_ci(projs_by_fam, n_boot=n_boot, seed=seed)
+
+        fam_means = [np.mean(vals) for vals in projs_by_fam.values() if vals]
+        fam_std = float(np.std(fam_means, ddof=1)) if len(fam_means) > 1 else 1.0
+        cohens_d = float(mean_proj / fam_std) if fam_std > 1e-12 else 0.0
+
+        # Sign-shuffled null at the INDEPENDENT FAMILY level:
+        # Flip sign uniformly across all scenarios belonging to the family
+        rng = np.random.RandomState(seed + l)
+        null_dist = []
+        family_list = [gk for gk, vals in projs_by_fam.items() if vals]
+        for _ in range(500):
+            fam_signs = rng.choice([-1.0, 1.0], size=len(family_list))
+            shuffled_means = [
+                np.mean(projs_by_fam[gk]) * fam_signs[i]
+                for i, gk in enumerate(family_list)
+            ]
+            null_dist.append(float(np.mean(shuffled_means)))
+
+        null_mean = float(np.mean(null_dist)) if null_dist else 0.0
+        null_ci_low = float(np.percentile(null_dist, 2.5)) if null_dist else 0.0
+        null_ci_high = float(np.percentile(null_dist, 97.5)) if null_dist else 0.0
+
+        layer_metrics.append({
+            "layer": l,
+            "held_out_mean_projection": mean_proj,
+            "held_out_ci_95": [ci_low, ci_high],
+            "cohens_d": cohens_d,
+            "sign_shuffled_null_mean": null_mean,
+            "sign_shuffled_null_ci_95": [null_ci_low, null_ci_high],
+        })
+
+    return layer_metrics, eval_projections_by_sid
+
+
 def analyze_contrastive_mapping(
     run_dir: Path | str,
     prompts_path: Path | str,
@@ -383,24 +479,74 @@ def analyze_contrastive_mapping(
     n_boot: int = 1000,
     seed: int = 42,
 ) -> Dict[str, Any]:
-    """Execute rigorous statistical analysis of contrastive representations."""
+    """Execute rigorous statistical analysis of contrastive representations with fail-closed checks."""
     run_path = Path(run_dir)
-    act_dir = run_path / "activations"
-    prompts = [json.loads(line) for line in Path(prompts_path).read_text(encoding="utf-8").splitlines()]
+    manifest_file = run_path / "manifest.json"
+    if not manifest_file.exists():
+        raise FileNotFoundError(f"Run manifest not found at {manifest_file}")
 
-    # Load all activations
+    run_manifest = json.loads(manifest_file.read_text(encoding="utf-8"))
+    if run_manifest.get("status") != "completed":
+        raise ValueError(f"Run status is '{run_manifest.get('status')}'; expected 'completed'")
+
+    # Validate immutable revision
+    model_revision = run_manifest.get("model_revision")
+    if not run_manifest.get("mock") and model_revision != DEFAULT_REVISION:
+        raise ValueError(f"Model revision mismatch: expected {DEFAULT_REVISION}, found {model_revision}")
+
+    # Evidence hash verification
+    evidence_hash_path = run_path / "evidence_hashes.json"
+    if not evidence_hash_path.exists():
+        raise FileNotFoundError("Missing evidence_hashes.json")
+
+    actual_evidence_hash = sha256_file(evidence_hash_path)
+    if run_manifest.get("evidence_hashes_sha256") != actual_evidence_hash:
+        raise ValueError("evidence_hashes.json SHA256 does not match run manifest record")
+
+    evidence_hashes = json.loads(evidence_hash_path.read_text(encoding="utf-8"))
+    for rel_path, expected_hash in evidence_hashes.items():
+        full_path = run_path / rel_path
+        if not full_path.exists():
+            raise FileNotFoundError(f"Expected evidence file missing: {full_path}")
+        if sha256_file(full_path) != expected_hash:
+            raise ValueError(f"Evidence hash mismatch for {rel_path}")
+
+    # Load prompts and verify count and hash
+    prompts_p = Path(prompts_path)
+    if sha256_file(prompts_p) != evidence_hashes.get("prompts.jsonl"):
+        raise ValueError("Prompts file does not match evidence hash index")
+
+    prompts = [json.loads(line) for line in prompts_p.read_text(encoding="utf-8").splitlines()]
+    act_dir = run_path / "activations"
+
+    # Verify that every expected prompt has a valid, non-corrupted activation file
     activations: Dict[str, np.ndarray] = {}
+    expected_shape: Optional[Tuple[int, int]] = None
     for p in prompts:
         pid = p["prompt_id"]
         npz_file = act_dir / f"{pid}.npz"
-        if npz_file.exists():
-            data = np.load(npz_file)
-            activations[pid] = data["residual"]
+        if not npz_file.exists():
+            raise FileNotFoundError(f"Missing activation artifact for prompt: {pid}")
+        try:
+            with np.load(npz_file) as data:
+                if "residual" not in data:
+                    raise KeyError(f"'residual' array missing in {npz_file}")
+                arr = data["residual"]
+                if arr.ndim != 2:
+                    raise ValueError(f"Malformed activation shape {arr.shape} in {npz_file}; expected 2D [layers, hidden]")
+                if np.isnan(arr).any() or np.isinf(arr).any():
+                    raise ValueError(f"Activation array contains NaN/Inf values in {npz_file}")
+                if expected_shape is None:
+                    expected_shape = arr.shape
+                elif arr.shape != expected_shape:
+                    raise ValueError(f"Inconsistent activation shape {arr.shape} vs expected {expected_shape} in {npz_file}")
+                activations[pid] = arr
+        except Exception as e:
+            raise ValueError(f"Corrupted or unreadable activation file {npz_file}: {e}") from e
 
-    if not activations:
-        raise ValueError(f"No activations found in {act_dir}")
+    num_layers, hidden_size = expected_shape
 
-    # Metadata lookups
+    # Scenario metadata lookups
     scenarios_meta: Dict[str, Dict[str, Any]] = {}
     for p in prompts:
         sid = p["scenario_id"]
@@ -409,43 +555,40 @@ def analyze_contrastive_mapping(
                 "scenario_id": sid,
                 "group_key": p["group_key"],
                 "split": p["split"],
+                "domain_split": p.get("domain_split", p["split"]),
                 "domain": p["domain"],
                 "partner_type": p["partner_type"],
                 "context_type": p["context_type"],
                 "utility_condition": p["utility_condition"],
                 "action_word_counts": {},
+                "action_char_counts": {},
             }
         scenarios_meta[sid]["action_word_counts"][p["strategy"]] = p["action_word_count"]
-
-    first_act = next(iter(activations.values()))
-    num_layers, hidden_size = first_act.shape
+        scenarios_meta[sid]["action_char_counts"][p["strategy"]] = p["action_char_count"]
 
     # 1. Primary Paired Differences: COOPERATE - INDEPENDENT
     coop_indep_diffs = compute_paired_differences(activations, "COOPERATE", "INDEPENDENT")
 
-    # Split scenarios into discovery and evaluation
+    # Group discovery scenarios by family
     discovery_sids = [sid for sid, meta in scenarios_meta.items() if meta["split"] == "discovery" and sid in coop_indep_diffs]
     evaluation_sids = [sid for sid, meta in scenarios_meta.items() if meta["split"] == "evaluation" and sid in coop_indep_diffs]
 
-    # Compute discovery mean directions per layer: shape [hidden_size]
-    # Clustered across discovery families
     disc_families: Dict[str, List[str]] = {}
     for sid in discovery_sids:
         gk = scenarios_meta[sid]["group_key"]
         disc_families.setdefault(gk, []).append(sid)
 
     # Average diff within each discovery family first (equal family weighting)
-    disc_family_diffs = []
-    for gk, sids in disc_families.items():
-        fam_diff = np.mean([coop_indep_diffs[sid] for sid in sids], axis=0)  # [num_layers, hidden_size]
-        disc_family_diffs.append(fam_diff)
+    disc_family_diffs = [
+        np.mean([coop_indep_diffs[sid] for sid in sids], axis=0)
+        for sids in disc_families.values()
+    ]
     disc_mean_diff = np.mean(disc_family_diffs, axis=0)  # [num_layers, hidden_size]
 
-    # Discovery unit directions
-    disc_norm = np.linalg.norm(disc_mean_diff, axis=-1, keepdims=True)  # [num_layers, 1]
+    disc_norm = np.linalg.norm(disc_mean_diff, axis=-1, keepdims=True)
     disc_directions = np.divide(disc_mean_diff, disc_norm, out=np.zeros_like(disc_mean_diff), where=disc_norm > 1e-12)
 
-    # Split-half direction cosine similarity: Fold A vs Fold B of discovery families
+    # Split-half direction cosine similarity: Fold A vs Fold B across discovery families
     disc_family_keys = sorted(disc_families.keys())
     split_half_cosines = []
     if len(disc_family_keys) >= 2:
@@ -462,76 +605,71 @@ def analyze_contrastive_mapping(
     else:
         split_half_cosines = [0.0] * num_layers
 
-    # Held-out evaluation projections: p_s = diff_s . v_disc
-    # Projections shape: [len(eval_sids), num_layers]
-    eval_projections_by_sid: Dict[str, np.ndarray] = {}
-    for sid in evaluation_sids:
-        # dot product for each layer: (num_layers, hidden_size) * (num_layers, hidden_size) sum along axis 1
-        proj = np.sum(coop_indep_diffs[sid] * disc_directions, axis=-1)  # [num_layers]
-        eval_projections_by_sid[sid] = proj
-
-    # Group evaluation projections by family
+    # Evaluation partition: family-level
     eval_families: Dict[str, List[str]] = {}
     for sid in evaluation_sids:
         gk = scenarios_meta[sid]["group_key"]
         eval_families.setdefault(gk, []).append(sid)
 
-    # 2. Layer-by-layer evaluation metrics
-    layer_metrics: List[Dict[str, Any]] = []
+    layer_metrics, eval_projections_by_sid = evaluate_projections_and_nulls(
+        coop_indep_diffs, disc_directions, eval_families, num_layers, n_boot=n_boot, seed=seed
+    )
     for l in range(num_layers):
-        projs_by_fam: Dict[str, List[float]] = {}
-        for gk, sids in eval_families.items():
-            projs_by_fam[gk] = [float(eval_projections_by_sid[sid][l]) for sid in sids]
+        layer_metrics[l]["split_half_cosine_similarity"] = float(split_half_cosines[l])
 
-        mean_proj, ci_low, ci_high = bootstrap_ci(projs_by_fam, n_boot=n_boot, seed=seed)
+    # 2. Separate DOMAIN-held-out diagnostic
+    dom_disc_sids = [sid for sid, meta in scenarios_meta.items() if meta["domain_split"] == "discovery" and sid in coop_indep_diffs]
+    dom_eval_sids = [sid for sid, meta in scenarios_meta.items() if meta["domain_split"] == "evaluation" and sid in coop_indep_diffs]
 
-        # Cohen's d: mean / std across family means
-        fam_means = [np.mean(vals) for vals in projs_by_fam.values()]
-        fam_std = float(np.std(fam_means, ddof=1)) if len(fam_means) > 1 else 1.0
-        cohens_d = float(mean_proj / fam_std) if fam_std > 1e-12 else 0.0
+    dom_disc_domains: Dict[str, List[str]] = {}
+    for sid in dom_disc_sids:
+        d = scenarios_meta[sid]["domain"]
+        dom_disc_domains.setdefault(d, []).append(sid)
 
-        # Sign-shuffled paired difference null: randomly flip sign of diff_s
-        rng = np.random.RandomState(seed + l)
-        null_dist = []
-        for _ in range(500):
-            shuffled_fam_means = []
-            for gk, sids in eval_families.items():
-                signs = rng.choice([-1.0, 1.0], size=len(sids))
-                shuffled_fam_means.append(np.mean([eval_projections_by_sid[sid][l] * signs[i] for i, sid in enumerate(sids)]))
-            null_dist.append(float(np.mean(shuffled_fam_means)))
+    dom_eval_domains: Dict[str, List[str]] = {}
+    for sid in dom_eval_sids:
+        d = scenarios_meta[sid]["domain"]
+        dom_eval_domains.setdefault(d, []).append(sid)
 
-        null_mean = float(np.mean(null_dist))
-        null_ci_low = float(np.percentile(null_dist, 2.5))
-        null_ci_high = float(np.percentile(null_dist, 97.5))
+    dom_disc_diffs = [
+        np.mean([coop_indep_diffs[sid] for sid in sids], axis=0)
+        for sids in dom_disc_domains.values()
+    ]
+    dom_mean_diff = np.mean(dom_disc_diffs, axis=0)
+    dom_norm = np.linalg.norm(dom_mean_diff, axis=-1, keepdims=True)
+    dom_directions = np.divide(dom_mean_diff, dom_norm, out=np.zeros_like(dom_mean_diff), where=dom_norm > 1e-12)
 
-        layer_metrics.append({
-            "layer": l,
-            "split_half_cosine_similarity": float(split_half_cosines[l]),
-            "held_out_mean_projection": mean_proj,
-            "held_out_ci_95": [ci_low, ci_high],
-            "cohens_d": cohens_d,
-            "sign_shuffled_null_mean": null_mean,
-            "sign_shuffled_null_ci_95": [null_ci_low, null_ci_high],
-        })
+    domain_held_out_metrics, _ = evaluate_projections_and_nulls(
+        coop_indep_diffs, dom_directions, dom_eval_domains, num_layers, n_boot=n_boot, seed=seed + 500
+    )
 
-    # 3. Lexical Length Control: Test if projection is driven by action word count differences
-    # delta_words = len(COOPERATE words) - len(INDEPENDENT words)
+    # 3. Comprehensive Lexical / Action Length Confound Diagnostics
+    # Compute differences in word count and character count
     delta_words = np.array([
         scenarios_meta[sid]["action_word_counts"]["COOPERATE"] - scenarios_meta[sid]["action_word_counts"]["INDEPENDENT"]
         for sid in evaluation_sids
     ], dtype=np.float64)
+    delta_chars = np.array([
+        scenarios_meta[sid]["action_char_counts"]["COOPERATE"] - scenarios_meta[sid]["action_char_counts"]["INDEPENDENT"]
+        for sid in evaluation_sids
+    ], dtype=np.float64)
 
-    lexical_correlations = []
+    lexical_word_correlations = []
+    lexical_char_correlations = []
     for l in range(num_layers):
         proj_vals = np.array([eval_projections_by_sid[sid][l] for sid in evaluation_sids], dtype=np.float64)
         if np.std(delta_words) > 1e-12 and np.std(proj_vals) > 1e-12:
-            r = float(np.corrcoef(delta_words, proj_vals)[0, 1])
+            rw = float(np.corrcoef(delta_words, proj_vals)[0, 1])
         else:
-            r = 0.0
-        lexical_correlations.append(r)
+            rw = 0.0
+        if np.std(delta_chars) > 1e-12 and np.std(proj_vals) > 1e-12:
+            rc = float(np.corrcoef(delta_chars, proj_vals)[0, 1])
+        else:
+            rc = 0.0
+        lexical_word_correlations.append(rw)
+        lexical_char_correlations.append(rc)
 
     # 4. Alternative Strategy Contrasts:
-    # Estimate alignment between COOP-INDEP direction and other contrasts
     alt_contrasts = {}
     for pair_name, (s1, s2) in [
         ("coop_minus_compete", ("COOPERATE", "COMPETE_EXPLOIT")),
@@ -540,7 +678,6 @@ def analyze_contrastive_mapping(
     ]:
         alt_diffs = compute_paired_differences(activations, s1, s2, evaluation_sids)
         if alt_diffs:
-            # Held-out projection onto discovery COOP-INDEP direction
             alt_projs_by_layer = []
             for l in range(num_layers):
                 fam_means = []
@@ -555,17 +692,39 @@ def analyze_contrastive_mapping(
     report = {
         "version": VERSION,
         "analysis_timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        "model_id": run_manifest.get("model_id"),
+        "model_revision": run_manifest.get("model_revision"),
         "num_layers": num_layers,
         "hidden_size": hidden_size,
-        "num_discovery_scenarios": len(discovery_sids),
-        "num_discovery_families": len(disc_families),
-        "num_evaluation_scenarios": len(evaluation_sids),
-        "num_evaluation_families": len(eval_families),
-        "layer_metrics": layer_metrics,
-        "lexical_length_correlations": lexical_correlations,
+        "template_family_split": {
+            "num_discovery_scenarios": len(discovery_sids),
+            "num_discovery_families": len(disc_families),
+            "num_evaluation_scenarios": len(evaluation_sids),
+            "num_evaluation_families": len(eval_families),
+            "layer_metrics": layer_metrics,
+        },
+        "domain_held_out_diagnostic": {
+            "num_discovery_scenarios": len(dom_disc_sids),
+            "num_discovery_domains": len(dom_disc_domains),
+            "num_evaluation_scenarios": len(dom_eval_sids),
+            "num_evaluation_domains": len(dom_eval_domains),
+            "layer_metrics": domain_held_out_metrics,
+        },
+        "lexical_confound_diagnostics": {
+            "mean_delta_words_coop_minus_indep": float(np.mean(delta_words)),
+            "mean_delta_chars_coop_minus_indep": float(np.mean(delta_chars)),
+            "word_count_correlations": lexical_word_correlations,
+            "char_count_correlations": lexical_char_correlations,
+            "confound_boundary_note": (
+                "IMPORTANT SCIENTIFIC LIMITATION: In Phase 0B, COOPERATE actions average ~13.75 words "
+                "versus ~10.61 words for INDEPENDENT actions. Correlation or lack thereof between projections "
+                "and length metrics is a diagnostic heuristic and DOES NOT rule out lexical/length confounding "
+                "or demonstrate semantic specificity."
+            ),
+        },
         "alternative_strategy_contrasts": alt_contrasts,
-        "note": (
-            "Exploratory representation-mapping analysis. Clustered by template/domain family; "
+        "scientific_boundary": (
+            "Exploratory representation-mapping analysis. Clustered strictly by template/domain family; "
             "paired variants kept together. Linear decodability indicates representation availability, "
             "not preference or causal mechanism."
         ),
@@ -581,30 +740,57 @@ def analyze_contrastive_mapping(
 
 
 def _write_markdown_report(report: Dict[str, Any], path: Path) -> None:
+    fam_part = report["template_family_split"]
+    dom_part = report["domain_held_out_diagnostic"]
+    lex_diag = report["lexical_confound_diagnostics"]
+
     lines = [
         "# Exploratory Contrastive Representation-Mapping Report",
         "",
+        f"- **Model:** `{report.get('model_id')}` (revision `{report.get('model_revision')}`)",
         f"- **Timestamp:** `{report['analysis_timestamp_utc']}`",
         f"- **Layers Analyzed:** {report['num_layers']} (hidden dimension: {report['hidden_size']})",
-        f"- **Discovery Split:** {report['num_discovery_scenarios']} scenarios across {report['num_discovery_families']} independent families",
-        f"- **Held-Out Split:** {report['num_evaluation_scenarios']} scenarios across {report['num_evaluation_families']} independent families",
         "",
         "## Scientific Boundary Note",
-        report["note"],
+        report["scientific_boundary"],
         "",
-        "## Layer-by-Layer Geometry & Evaluation",
+        "## Confound Notice: Lexical and Length Diagnostics",
+        lex_diag["confound_boundary_note"],
+        f"- Mean $\\Delta$ words (COOP − INDEP): {lex_diag['mean_delta_words_coop_minus_indep']:.2f}",
+        f"- Mean $\\Delta$ chars (COOP − INDEP): {lex_diag['mean_delta_chars_coop_minus_indep']:.2f}",
         "",
-        "| Layer | Split-Half Cosine Sim | Held-Out Proj [95% CI] | Cohen's d | Sign-Shuffled Null [95% CI] | Lexical Length r |",
-        "|---|---|---|---|---|---|",
+        "## Primary Evaluation: Template/Triad-Family Held-Out Geometry",
+        f"- Discovery: {fam_part['num_discovery_scenarios']} scenarios across {fam_part['num_discovery_families']} families",
+        f"- Held-Out: {fam_part['num_evaluation_scenarios']} scenarios across {fam_part['num_evaluation_families']} families",
+        "",
+        "| Layer | Split-Half Cos Sim | Held-Out Proj [95% CI] | Cohen's d | Sign-Shuffled Null (Family-Level) [95% CI] | Length r (Words) | Length r (Chars) |",
+        "|---|---|---|---|---|---|---|",
     ]
-    for lm in report["layer_metrics"]:
+    for lm in fam_part["layer_metrics"]:
         l = lm["layer"]
         sim = f"{lm['split_half_cosine_similarity']:.3f}"
         proj = f"{lm['held_out_mean_projection']:.3f} [{lm['held_out_ci_95'][0]:.3f}, {lm['held_out_ci_95'][1]:.3f}]"
         d = f"{lm['cohens_d']:.2f}"
         null = f"{lm['sign_shuffled_null_mean']:.3f} [{lm['sign_shuffled_null_ci_95'][0]:.3f}, {lm['sign_shuffled_null_ci_95'][1]:.3f}]"
-        r_lex = f"{report['lexical_length_correlations'][l]:.3f}"
-        lines.append(f"| {l} | {sim} | {proj} | {d} | {null} | {r_lex} |")
+        rw = f"{lex_diag['word_count_correlations'][l]:.3f}"
+        rc = f"{lex_diag['char_count_correlations'][l]:.3f}"
+        lines.append(f"| {l} | {sim} | {proj} | {d} | {null} | {rw} | {rc} |")
+
+    lines.extend([
+        "",
+        "## Domain-Held-Out Diagnostic (Strict Domain Generalization)",
+        f"- Discovery: {dom_part['num_discovery_scenarios']} scenarios across {dom_part['num_discovery_domains']} domains",
+        f"- Held-Out: {dom_part['num_evaluation_scenarios']} scenarios across {dom_part['num_evaluation_domains']} domains",
+        "",
+        "| Layer | Domain Held-Out Proj [95% CI] | Cohen's d | Sign-Shuffled Null [95% CI] |",
+        "|---|---|---|---|",
+    ])
+    for lm in dom_part["layer_metrics"]:
+        l = lm["layer"]
+        proj = f"{lm['held_out_mean_projection']:.3f} [{lm['held_out_ci_95'][0]:.3f}, {lm['held_out_ci_95'][1]:.3f}]"
+        d = f"{lm['cohens_d']:.2f}"
+        null = f"{lm['sign_shuffled_null_mean']:.3f} [{lm['sign_shuffled_null_ci_95'][0]:.3f}, {lm['sign_shuffled_null_ci_95'][1]:.3f}]"
+        lines.append(f"| {l} | {proj} | {d} | {null} |")
 
     lines.extend([
         "",
@@ -613,7 +799,7 @@ def _write_markdown_report(report: Dict[str, Any], path: Path) -> None:
         "| Layer | COOP - INDEP (Primary) | COOP - COMPETE | COOP - DISENGAGE | COMPETE - DISENGAGE |",
         "|---|---|---|---|---|",
     ])
-    for lm in report["layer_metrics"]:
+    for lm in fam_part["layer_metrics"]:
         l = lm["layer"]
         p_prim = f"{lm['held_out_mean_projection']:.3f}"
         p_comp = f"{report['alternative_strategy_contrasts'].get('coop_minus_compete', [0.0]*report['num_layers'])[l]:.3f}"
@@ -654,7 +840,7 @@ def main():
     p_ana.add_argument("--n-boot", type=int, default=1000, help="Bootstrap resamples")
 
     # smoke-test
-    p_smoke = sub.add_parser("smoke-test", help="Run complete mock end-to-end smoke test")
+    p_smoke = sub.add_parser("smoke-test", help="Run complete mock end-to-end smoke test verifying failure modes")
     p_smoke.add_argument("--output", required=True, help="Output directory for smoke test artifacts")
 
     args = parser.parse_args()
@@ -684,8 +870,24 @@ def main():
         prepare(plan_dir, smoke=True)
         print("2. Running mock inference...")
         run_inference(plan_dir, run_dir, mock=True)
-        print("3. Analyzing contrastive representations...")
+        print("3. Analyzing contrastive representations and diagnostics...")
         res = analyze_contrastive_mapping(run_dir, plan_dir / "prompts.jsonl", analysis_dir, n_boot=200)
+
+        # 4. Explicitly verify failure modes
+        print("4. Verifying fail-closed mechanisms on corrupt inputs...")
+        # Check tampering detection
+        tampered_manifest = json.loads((run_dir / "manifest.json").read_text(encoding="utf-8"))
+        tampered_manifest["model_revision"] = "badrevision0000000000000000000000000000000"
+        (run_dir / "manifest.json").write_text(json.dumps(tampered_manifest), encoding="utf-8")
+        try:
+            analyze_contrastive_mapping(run_dir, plan_dir / "prompts.jsonl", analysis_dir / "bad")
+            raise AssertionError("Tampered manifest failed to raise ValueError")
+        except ValueError:
+            print("  ✓ Detected tampered manifest")
+        finally:
+            tampered_manifest["model_revision"] = DEFAULT_REVISION
+            (run_dir / "manifest.json").write_text(json.dumps(tampered_manifest), encoding="utf-8")
+
         print(f"Smoke test succeeded! Reports generated at {analysis_dir}")
 
 
