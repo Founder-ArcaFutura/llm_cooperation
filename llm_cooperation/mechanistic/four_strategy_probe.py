@@ -17,7 +17,7 @@ import numpy as np
 
 from .contrastive_mapping import DEFAULT_MODEL_ID, DEFAULT_REVISION, STRATEGIES
 
-VERSION = "four-strategy-probe-v1"
+VERSION = "four-strategy-probe-v1.1"
 
 
 def _sha(path: str | Path) -> str:
@@ -180,6 +180,36 @@ def _cluster_bootstrap(metric, y, pred, groups, *, n_boot, seed):
     vals = value_array[sampled].mean(axis=1)
     point = float(np.mean(list(cluster_values.values())))
     return [float(point), float(np.quantile(vals, .025)), float(np.quantile(vals, .975))]
+
+
+def _cluster_bootstrap_pairwise_cosine(cosine_matrix, *, n_boot=1000, seed=42):
+    """Bootstrap a pairwise cosine U-statistic without domain self-pairs.
+
+    A repeated bootstrap draw changes domain weight, but is not a new domain.
+    Weight each distinct original pair by count[i]*count[j] and exclude i == j.
+    """
+    matrix = np.asarray(cosine_matrix, dtype=float)
+    if matrix.ndim != 2 or matrix.shape[0] != matrix.shape[1] or matrix.shape[0] < 2:
+        raise ValueError("Pairwise cosine bootstrap requires a square matrix for at least two domains")
+    if n_boot < 1:
+        raise ValueError("n_boot must be positive")
+    i, j = np.triu_indices(matrix.shape[0], 1)
+    pair_values = matrix[i, j]
+    if not np.isfinite(pair_values).all():
+        raise ValueError("Pairwise cosine matrix has non-finite off-diagonal values")
+    point = float(pair_values.mean())
+    rng = np.random.default_rng(seed)
+    n = matrix.shape[0]
+    boot = np.empty(n_boot, dtype=float)
+    for b in range(n_boot):
+        while True:
+            counts = np.bincount(rng.integers(0, n, size=n), minlength=n)
+            weights = counts[i] * counts[j]
+            total = weights.sum()
+            if total:
+                boot[b] = float(np.dot(weights, pair_values) / total)
+                break
+    return [point, float(np.quantile(boot, .025)), float(np.quantile(boot, .975))]
 
 
 def _layer_eval(x, discovery, evaluation, cluster_keys, lexical_centered, *, n_boot, seed, permutations, label="split", progress=False):
@@ -377,7 +407,7 @@ def analyze_four_strategy(run_dir, prompts_path, output_dir, *, expected_prompts
                 if len(vals)<2: return [float(vals.mean()),float(vals.mean()),float(vals.mean())]
                 boot=np.mean(rng_domains.choice(vals,size=(n_boot,len(vals)),replace=True),axis=1)
                 return [float(vals.mean()),float(np.quantile(boot,.025)),float(np.quantile(boot,.975))]
-            cos_matrix=np.ones((len(discovery_domains),len(discovery_domains)),dtype=float)
+            cos_matrix=np.zeros((len(discovery_domains),len(discovery_domains)),dtype=float)
             pair_map={}
             for ia,da in enumerate(discovery_domains):
                 for ib in range(ia+1,len(discovery_domains)):
@@ -385,14 +415,7 @@ def analyze_four_strategy(run_dir, prompts_path, output_dir, *, expected_prompts
                     value=float(split_dirs[da] @ split_dirs[db] / max(np.linalg.norm(split_dirs[da])*np.linalg.norm(split_dirs[db]),1e-12))
                     cos_matrix[ia,ib]=cos_matrix[ib,ia]=value
                     pair_map[f"{da}|{db}"]=value
-            boot_pair=[]
-            for _ in range(n_boot):
-                ix=rng_domains.integers(0,len(discovery_domains),size=len(discovery_domains))
-                sub=cos_matrix[np.ix_(ix,ix)]
-                boot_pair.append(float(sub[np.triu_indices(len(ix),1)].mean()) if len(ix)>1 else 0.0)
-            discovery_pair_ci=[float(np.mean(discovery_cos)) if discovery_cos else 0.0,
-                float(np.quantile(boot_pair,.025)) if boot_pair else 0.0,
-                float(np.quantile(boot_pair,.975)) if boot_pair else 0.0]
+            discovery_pair_ci=_cluster_bootstrap_pairwise_cosine(cos_matrix,n_boot=n_boot,seed=seed+li*4+si)
             by_strategy[strat] = {"discovery_domain_pairwise_cosine_mean": float(np.mean(discovery_cos)) if discovery_cos else 0.0,
                 "discovery_domain_pairwise_cosine_cluster_ci": discovery_pair_ci,
                 "discovery_domain_pairwise_cosines": pair_map,
@@ -405,6 +428,7 @@ def analyze_four_strategy(run_dir, prompts_path, output_dir, *, expected_prompts
         domain_directional.append({"layer":li,"by_strategy":by_strategy})
     report = {
         "version": VERSION, "analysis_timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        "analysis_module_sha256": _sha(Path(__file__)),
         "model_id": manifest["model_id"], "model_revision": manifest["model_revision"],
         "source_run": str(Path(run_dir).resolve()), "source_manifest_sha256": _sha(Path(run_dir)/"manifest.json"),
         "source_evidence_hashes_sha256": manifest["evidence_hashes_sha256"], "num_scenarios": len(sids),

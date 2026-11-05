@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 
 from llm_cooperation.mechanistic.four_strategy_probe import (
-    analyze_four_strategy, load_dataset, scenario_center,
+    analyze_four_strategy, load_dataset, scenario_center, _cluster_bootstrap_pairwise_cosine,
 )
 from llm_cooperation.mechanistic.contrastive_mapping import STRATEGIES, DEFAULT_MODEL_ID, DEFAULT_REVISION
 
@@ -64,6 +64,18 @@ def test_loader_rejects_tampered_activation_hash(tmp_path):
     target.write_bytes(target.read_bytes() + b"tamper")
     with pytest.raises(ValueError, match="Evidence hash mismatch"):
         load_dataset(run, prompts, allow_mock=True)
+
+
+def test_pairwise_cosine_bootstrap_excludes_duplicate_domain_self_pairs():
+    # With two domains, every valid pair is the same cross-domain cosine.
+    # Large diagonal values would reveal any accidental self-pair contribution.
+    matrix = np.array([[1.0, 0.2], [0.2, 1.0]])
+    point, low, high = _cluster_bootstrap_pairwise_cosine(matrix, n_boot=200, seed=7)
+    assert point == pytest.approx(0.2)
+    assert low == pytest.approx(0.2)
+    assert high == pytest.approx(0.2)
+    matrix[0, 0] = matrix[1, 1] = 99.0
+    np.testing.assert_allclose(_cluster_bootstrap_pairwise_cosine(matrix, n_boot=200, seed=7), [0.2, 0.2, 0.2])
 
 
 def test_end_to_end_synthetic_analysis(tmp_path):

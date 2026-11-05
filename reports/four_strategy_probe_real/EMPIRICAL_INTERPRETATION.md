@@ -2,6 +2,8 @@
 
 This interpretation accompanies [`four_strategy_report.md`](four_strategy_report.md), the full machine-generated layerwise report, and [`four_strategy_report.json`](four_strategy_report.json), which contains every layer's metrics, confusion matrices, projections, permutation results, and geometry. The two PNGs show the layerwise probe scores and strategy geometry.
 
+**Uncertainty correction:** The discovery-domain pairwise-cosine intervals were regenerated after excluding self-pairs created by duplicate domain draws in the bootstrap. The cosine point estimates and all held-out-domain and classifier results are unchanged. This correction reused the saved pairwise cosines and did not refit probes or rerun inference.
+
 ## Data and procedure
 
 The source is the completed, non-mock `Qwen/Qwen2.5-1.5B` run at revision `8faed761d45a263340a0528343f099c05c9a4323`. Before analysis, all 496 activation archives were checked against the 497-entry evidence index (prompt inventory plus activations); all hashes matched. The prompt file matched the prepared full-run inventory exactly. Every tensor was finite and shaped `[28, 1536]`. The data contain 124 scenarios, 54 template/triad families, and 24 domains. Evaluation used 27 held-out families and 12 held-out domains; all four action labels from a scenario remained together, and no family crossed either split.
