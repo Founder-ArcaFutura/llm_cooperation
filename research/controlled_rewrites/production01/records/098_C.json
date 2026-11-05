@@ -1,0 +1,62 @@
+{
+  "scenario_id": "phase0b_050_human",
+  "source_index": 98,
+  "bank": "C",
+  "options": {
+    "COOPERATE": "Link transfer hoses through the dual-manifold heat exchanger to coordinate with the cryogenic technician.",
+    "INDEPENDENT": "Offload liquid nitrogen exclusively via your dedicated bay transfer valve, avoiding any shared infrastructure.",
+    "COMPETE_EXPLOIT": "Seize control of the bulk manifold to expedite your tanker's delivery ahead of others.",
+    "DISENGAGE": "Remove the transfer hoses from the storage tank and postpone the cryogenic delivery."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 19,
+      "INDEPENDENT": 17,
+      "COMPETE_EXPLOIT": 18,
+      "DISENGAGE": 15
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 82,
+      "INDEPENDENT": 80,
+      "COMPETE_EXPLOIT": 81,
+      "DISENGAGE": 78
+    },
+    "issues": [
+      "action token span=4; lengths={'COOPERATE': 19, 'INDEPENDENT': 17, 'COMPETE_EXPLOIT': 18, 'DISENGAGE': 15}",
+      "full prompt token span=4; lengths={'COOPERATE': 82, 'INDEPENDENT': 80, 'COMPETE_EXPLOIT': 81, 'DISENGAGE': 78}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 6,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Link transfer hoses through the dual-manifold heat exchanger to coordinate with the cryogenic technician.",
+      "Attach transfer hoses through the dual-manifold heat exchanger to collaborate with the cryogenic technician.",
+      "Link transfer hoses through the dual-manifold heat exchanger to collaborate with the cryogenic technician."
+    ],
+    "INDEPENDENT": [
+      "Transfer liquid nitrogen using only your dedicated bay valve without shared infrastructure.",
+      "Offload liquid nitrogen exclusively via your dedicated bay transfer valve, avoiding any shared infrastructure."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Seize control of the bulk manifold to expedite your tanker's delivery ahead of others."
+    ],
+    "DISENGAGE": [
+      "Detach hoses from the storage tank and delay the cryogenic transfer indefinitely.",
+      "Remove the transfer hoses from the storage tank and postpone the cryogenic delivery.",
+      "Detach the transfer hoses from the storage tank and delay the cryogenic delivery."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Detach the transfer hoses from the storage tank and delay the cryogenic delivery.\"}",
+  "repair_target": 17,
+  "candidate_counts": {
+    "COOPERATE": 3,
+    "INDEPENDENT": 2,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 3
+  }
+}

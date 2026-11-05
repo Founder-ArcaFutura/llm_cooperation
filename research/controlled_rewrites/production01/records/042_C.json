@@ -1,0 +1,58 @@
+{
+  "scenario_id": "phase0b_022_human",
+  "source_index": 42,
+  "bank": "C",
+  "options": {
+    "COOPERATE": "Share the three-thousand-meter altitude band with the human scout to jointly cover the sector.",
+    "INDEPENDENT": "Sweep the full elevation range solo without coordinating with the human scout.",
+    "COMPETE_EXPLOIT": "Seize high-efficiency thermal corridors to reduce battery usage during flight.",
+    "DISENGAGE": "Retract the drone to base until weather improves and visibility returns."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 18,
+      "INDEPENDENT": 14,
+      "COMPETE_EXPLOIT": 14,
+      "DISENGAGE": 14
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 76,
+      "INDEPENDENT": 71,
+      "COMPETE_EXPLOIT": 72,
+      "DISENGAGE": 72
+    },
+    "issues": [
+      "action token span=4; lengths={'COOPERATE': 18, 'INDEPENDENT': 14, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 14}",
+      "full prompt token span=5; lengths={'COOPERATE': 76, 'INDEPENDENT': 71, 'COMPETE_EXPLOIT': 72, 'DISENGAGE': 72}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 3,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Share the three-thousand-meter altitude band with the human scout to jointly cover the sector.",
+      "Collaborate with the human scout by splitting the three-thousand-meter altitude band to jointly survey the sector."
+    ],
+    "INDEPENDENT": [
+      "Sweep the full elevation range solo without coordinating with the human scout."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Seize high-efficiency thermal corridors to reduce battery usage during flight."
+    ],
+    "DISENGAGE": [
+      "Retract the drone to base until weather improves and visibility returns."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Collaborate with the human scout by splitting the three-thousand-meter altitude band to jointly survey the sector.\"}",
+  "repair_target": 14,
+  "candidate_counts": {
+    "COOPERATE": 2,
+    "INDEPENDENT": 1,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 1
+  }
+}

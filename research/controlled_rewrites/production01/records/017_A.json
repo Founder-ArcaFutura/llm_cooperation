@@ -1,0 +1,48 @@
+{
+  "scenario_id": "phase0b_009_ai",
+  "source_index": 17,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Upload trap coordinates to the regional exchange via the autonomous agent.",
+    "INDEPENDENT": "Store trap counts only in your local farm management system.",
+    "COMPETE_EXPLOIT": "Reserve repellent supplies ahead of local producers' awareness.",
+    "DISENGAGE": "Pause trap monitoring and use standard orchard sprays."
+  },
+  "validation": {
+    "accepted_automatic_constraints": true,
+    "action_tokens": {
+      "COOPERATE": 12,
+      "INDEPENDENT": 11,
+      "COMPETE_EXPLOIT": 12,
+      "DISENGAGE": 11
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 64,
+      "INDEPENDENT": 63,
+      "COMPETE_EXPLOIT": 63,
+      "DISENGAGE": 63
+    },
+    "issues": [],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 2,
+  "model_requests": 2,
+  "assembly": "pooled_targeted_repairs",
+  "accepted_automatic_constraints": true,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Upload trap coordinates to the regional agricultural exchange with the autonomous agent.",
+      "Upload trap coordinates to the regional exchange via the autonomous agent."
+    ],
+    "INDEPENDENT": [
+      "Store trap counts only in your local farm management system."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Reserve repellent supplies ahead of local producers' awareness."
+    ],
+    "DISENGAGE": [
+      "Pause trap monitoring and use standard orchard sprays."
+    ]
+  }
+}

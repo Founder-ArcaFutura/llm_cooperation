@@ -1,0 +1,62 @@
+{
+  "scenario_id": "phase0b_018_human",
+  "source_index": 34,
+  "bank": "C",
+  "options": {
+    "COOPERATE": "Split the industrial timber bundle with the cabinetmaker at checkout to meet both needs efficiently.",
+    "INDEPENDENT": "Acquire your dimensional timber as a standalone order from the mill without coordination.",
+    "COMPETE_EXPLOIT": "Acquire the full remaining timber bundle to dominate regional supply access.",
+    "DISENGAGE": "Postpone the timber purchase and reschedule procurement for next month."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 17,
+      "INDEPENDENT": 15,
+      "COMPETE_EXPLOIT": 13,
+      "DISENGAGE": 13
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 74,
+      "INDEPENDENT": 72,
+      "COMPETE_EXPLOIT": 70,
+      "DISENGAGE": 70
+    },
+    "issues": [
+      "action token span=4; lengths={'COOPERATE': 17, 'INDEPENDENT': 15, 'COMPETE_EXPLOIT': 13, 'DISENGAGE': 13}",
+      "full prompt token span=4; lengths={'COOPERATE': 74, 'INDEPENDENT': 72, 'COMPETE_EXPLOIT': 70, 'DISENGAGE': 70}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 6,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Split the industrial timber bundle with the cabinetmaker at checkout to meet both needs efficiently.",
+      "Divide the industrial timber bundle with the cabinetmaker at checkout to fulfill both requirements efficiently.",
+      "Divide the industrial timber bundle with the cabinetmaker at checkout to efficiently fulfill both requirements."
+    ],
+    "INDEPENDENT": [
+      "Order your dimensional timber separately from the mill without coordination.",
+      "Acquire your dimensional timber as a standalone order from the mill without coordination."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Buy the entire remaining timber bundle to restrict regional supply access.",
+      "Acquire the full remaining timber bundle to dominate regional supply access."
+    ],
+    "DISENGAGE": [
+      "Postpone the timber purchase and reschedule procurement for next month.",
+      "Withdraw from the timber order and delay procurement until next month."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Withdraw from the timber order and delay procurement until next month.\"}",
+  "repair_target": 14,
+  "candidate_counts": {
+    "COOPERATE": 3,
+    "INDEPENDENT": 2,
+    "COMPETE_EXPLOIT": 2,
+    "DISENGAGE": 2
+  }
+}

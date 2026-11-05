@@ -1,0 +1,60 @@
+{
+  "scenario_id": "phase0b_016_ai",
+  "source_index": 31,
+  "bank": "C",
+  "options": {
+    "COOPERATE": "Position extract vials in opposite rotor positions while the robotic system prepares diagnostic samples.",
+    "INDEPENDENT": "Run your extract vials using water-filled counterbalance tubes without coordination.",
+    "COMPETE_EXPLOIT": "Reserve all centrifuges for a full day to secure exclusive access.",
+    "DISENGAGE": "Pause centrifuge processing and store extracts in refrigerated units."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 16,
+      "INDEPENDENT": 14,
+      "COMPETE_EXPLOIT": 14,
+      "DISENGAGE": 12
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 68,
+      "INDEPENDENT": 66,
+      "COMPETE_EXPLOIT": 65,
+      "DISENGAGE": 64
+    },
+    "issues": [
+      "action token span=4; lengths={'COOPERATE': 16, 'INDEPENDENT': 14, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 12}",
+      "full prompt token span=4; lengths={'COOPERATE': 68, 'INDEPENDENT': 66, 'COMPETE_EXPLOIT': 65, 'DISENGAGE': 64}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 5,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Distribute extract vials into opposite rotor positions while the robotic system prepares diagnostic samples.",
+      "Place extract vials in opposing rotor slots as the robotic system readies diagnostic samples.",
+      "Position extract vials in opposite rotor positions while the robotic system prepares diagnostic samples."
+    ],
+    "INDEPENDENT": [
+      "Run your extract vials using water-filled counterbalance tubes without coordination."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Reserve all centrifuges for a full day to secure exclusive access."
+    ],
+    "DISENGAGE": [
+      "Pause centrifuge processing and store extracts in refrigerated units.",
+      "Postpone centrifuge operation and preserve unspun chemical extract vials in cold storage units."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Postpone centrifuge operation and preserve unspun chemical extract vials in cold storage units.\"}",
+  "repair_target": 14,
+  "candidate_counts": {
+    "COOPERATE": 3,
+    "INDEPENDENT": 1,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 2
+  }
+}

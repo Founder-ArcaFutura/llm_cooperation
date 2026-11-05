@@ -1,0 +1,59 @@
+{
+  "scenario_id": "phase0b_007_human",
+  "source_index": 12,
+  "bank": "B",
+  "options": {
+    "COOPERATE": "Share your intended route corridor via VHF with the adjacent navigation officer.",
+    "INDEPENDENT": "Proceed along the fairway using onboard radar, omitting route disclosure.",
+    "COMPETE_EXPLOIT": "Surge ahead into the central channel to claim early docking position.",
+    "DISENGAGE": "Anchor in outer harbor holding area until commercial vessel density decreases."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 14,
+      "INDEPENDENT": 14,
+      "COMPETE_EXPLOIT": 13,
+      "DISENGAGE": 12
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 66,
+      "INDEPENDENT": 66,
+      "COMPETE_EXPLOIT": 64,
+      "DISENGAGE": 64
+    },
+    "issues": [
+      "action token span=2; lengths={'COOPERATE': 14, 'INDEPENDENT': 14, 'COMPETE_EXPLOIT': 13, 'DISENGAGE': 12}",
+      "full prompt token span=2; lengths={'COOPERATE': 66, 'INDEPENDENT': 66, 'COMPETE_EXPLOIT': 64, 'DISENGAGE': 64}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 3,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Share your intended route corridor via VHF with the adjacent navigation officer."
+    ],
+    "INDEPENDENT": [
+      "Proceed along the fairway using onboard radar, omitting route disclosure."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Surge ahead into the central channel to claim early docking position."
+    ],
+    "DISENGAGE": [
+      "Drop anchor in outer harbor to await reduced traffic flow.",
+      "Anchor in outer harbor holding area until commercial vessel density decreases.",
+      "Drop anchor in outer harbor standby zone until commercial traffic volume diminishes."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Drop anchor in outer harbor standby zone until commercial traffic volume diminishes.\"}",
+  "repair_target": 13,
+  "candidate_counts": {
+    "COOPERATE": 1,
+    "INDEPENDENT": 1,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 3
+  }
+}

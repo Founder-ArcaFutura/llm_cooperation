@@ -1,0 +1,60 @@
+{
+  "scenario_id": "phase0b_025_human",
+  "source_index": 48,
+  "bank": "C",
+  "options": {
+    "COOPERATE": "Integrate telemetry links with the adjacent technician to cut testing duration to thirty minutes.",
+    "INDEPENDENT": "Run pressure diagnostics on your sector using only local pump resources.",
+    "COMPETE_EXPLOIT": "Harness auxiliary power from neighboring sectors to complete your mainline test ahead.",
+    "DISENGAGE": "Pause testing operations and reschedule the trunk main inspection for later."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 16,
+      "INDEPENDENT": 12,
+      "COMPETE_EXPLOIT": 14,
+      "DISENGAGE": 13
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 65,
+      "INDEPENDENT": 61,
+      "COMPETE_EXPLOIT": 63,
+      "DISENGAGE": 62
+    },
+    "issues": [
+      "action token span=4; lengths={'COOPERATE': 16, 'INDEPENDENT': 12, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 13}",
+      "full prompt token span=4; lengths={'COOPERATE': 65, 'INDEPENDENT': 61, 'COMPETE_EXPLOIT': 63, 'DISENGAGE': 62}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 5,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Integrate telemetry links with the adjacent technician to cut testing duration to thirty minutes.",
+      "Synchronize pressure telemetry with the nearby technician to reduce mainline testing to thirty minutes."
+    ],
+    "INDEPENDENT": [
+      "Run pressure diagnostics on your sector using only local pump resources.",
+      "Perform pressure testing on your sector utilizing solely local pump systems.",
+      "Perform pressure testing on your sector utilizing solely local pump resources."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Harness auxiliary power from neighboring sectors to complete your mainline test ahead."
+    ],
+    "DISENGAGE": [
+      "Pause testing operations and reschedule the trunk main inspection for later."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Perform pressure testing on your sector utilizing solely local pump resources.\"}",
+  "repair_target": 13,
+  "candidate_counts": {
+    "COOPERATE": 2,
+    "INDEPENDENT": 3,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 1
+  }
+}

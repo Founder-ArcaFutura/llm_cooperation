@@ -1,0 +1,62 @@
+{
+  "scenario_id": "phase0b_023_ai",
+  "source_index": 45,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Exchange tungsten carbide bits via the dual-rack turret with the machining cell.",
+    "INDEPENDENT": "Load cutting spindles using tooling from your private cart exclusively.",
+    "COMPETE_EXPLOIT": "Reserve all high-speed carbide bits for your personal workstation cabinet.",
+    "DISENGAGE": "Power down the milling spindle and complete required documentation at the workstation desk."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 17,
+      "INDEPENDENT": 14,
+      "COMPETE_EXPLOIT": 14,
+      "DISENGAGE": 14
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 76,
+      "INDEPENDENT": 73,
+      "COMPETE_EXPLOIT": 72,
+      "DISENGAGE": 73
+    },
+    "issues": [
+      "action token span=3; lengths={'COOPERATE': 17, 'INDEPENDENT': 14, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 14}",
+      "full prompt token span=4; lengths={'COOPERATE': 76, 'INDEPENDENT': 73, 'COMPETE_EXPLOIT': 72, 'DISENGAGE': 73}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 6,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Share tungsten carbide bits via the dual-rack turret with the automated machining cell.",
+      "Swap tungsten carbide bits through the dual-rack turret with the automated machining cell.",
+      "Exchange tungsten carbide bits via the dual-rack turret with the machining cell."
+    ],
+    "INDEPENDENT": [
+      "Load cutting spindles using tooling from your private cart exclusively."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Claim all high-speed carbide bits for your workstation cabinet.",
+      "Reserve all high-speed carbide bits for your personal workstation cabinet."
+    ],
+    "DISENGAGE": [
+      "Shut down the milling spindle and finish desk-based documentation.",
+      "Power down the milling spindle and complete scheduled documentation at desks.",
+      "Power down the milling spindle and complete required documentation at the workstation desk."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Power down the milling spindle and complete required documentation at the workstation desk.\"}",
+  "repair_target": 14,
+  "candidate_counts": {
+    "COOPERATE": 3,
+    "INDEPENDENT": 1,
+    "COMPETE_EXPLOIT": 2,
+    "DISENGAGE": 3
+  }
+}

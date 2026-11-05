@@ -1,0 +1,60 @@
+{
+  "scenario_id": "phase0b_041_human",
+  "source_index": 80,
+  "bank": "B",
+  "options": {
+    "COOPERATE": "Synchronize coagulant dosing across intake manifolds with the flocculation chemist for stable turbidity.",
+    "INDEPENDENT": "Regulate coagulant delivery to intake basins using real-time meter readings independently.",
+    "COMPETE_EXPLOIT": "Redirect primary coagulant to your clarifiers to speed sedimentation.",
+    "DISENGAGE": "Cease chemical dosing and reroute water through bypass settling ponds."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 24,
+      "INDEPENDENT": 17,
+      "COMPETE_EXPLOIT": 14,
+      "DISENGAGE": 14
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 89,
+      "INDEPENDENT": 82,
+      "COMPETE_EXPLOIT": 79,
+      "DISENGAGE": 79
+    },
+    "issues": [
+      "action token span=10; lengths={'COOPERATE': 24, 'INDEPENDENT': 17, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 14}",
+      "full prompt token span=10; lengths={'COOPERATE': 89, 'INDEPENDENT': 82, 'COMPETE_EXPLOIT': 79, 'DISENGAGE': 79}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 5,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Synchronize coagulant dosing across intake manifolds with the flocculation chemist for stable turbidity.",
+      "Align coagulant dosing across intake manifolds with the flocculation chemist to maintain stable turbidity."
+    ],
+    "INDEPENDENT": [
+      "Adjust coagulant input per local basin meters without coordination.",
+      "Regulate coagulant delivery to intake basins using real-time readings from individual basin meters, without consulting the partner.",
+      "Regulate coagulant delivery to intake basins using real-time meter readings independently."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Redirect primary coagulant to your clarifiers to speed sedimentation."
+    ],
+    "DISENGAGE": [
+      "Cease chemical dosing and reroute water through bypass settling ponds."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Regulate coagulant delivery to intake basins using real-time meter readings independently.\"}",
+  "repair_target": 16,
+  "candidate_counts": {
+    "COOPERATE": 2,
+    "INDEPENDENT": 3,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 1
+  }
+}

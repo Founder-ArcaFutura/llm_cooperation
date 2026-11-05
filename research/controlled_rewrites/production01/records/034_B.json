@@ -1,0 +1,61 @@
+{
+  "scenario_id": "phase0b_018_human",
+  "source_index": 34,
+  "bank": "B",
+  "options": {
+    "COOPERATE": "Split the industrial timber bundle with the cabinetmaker at checkout to meet both needs.",
+    "INDEPENDENT": "Order your dimensional timber separately without coordinating with the cabinetmaker.",
+    "COMPETE_EXPLOIT": "Buy the entire leftover timber bundle to restrict the cabinetmaker's access.",
+    "DISENGAGE": "Abandon the timber order and postpone material acquisition until next month."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 16,
+      "INDEPENDENT": 12,
+      "COMPETE_EXPLOIT": 14,
+      "DISENGAGE": 13
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 73,
+      "INDEPENDENT": 69,
+      "COMPETE_EXPLOIT": 71,
+      "DISENGAGE": 70
+    },
+    "issues": [
+      "action token span=4; lengths={'COOPERATE': 16, 'INDEPENDENT': 12, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 13}",
+      "full prompt token span=4; lengths={'COOPERATE': 73, 'INDEPENDENT': 69, 'COMPETE_EXPLOIT': 71, 'DISENGAGE': 70}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 6,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Split the industrial timber bundle with the cabinetmaker at checkout to meet both needs.",
+      "Divide the industrial timber bundle with the cabinetmaker at checkout to fulfill both requirements."
+    ],
+    "INDEPENDENT": [
+      "Order your dimensional timber separately without coordinating with the cabinetmaker.",
+      "Procure your dimensional timber as a standalone order from the mill without consulting the cabinetmaker.",
+      "Acquire your dimensional timber as a standalone order from the mill without consulting the cabinetmaker."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Buy the entire leftover timber bundle to restrict the cabinetmaker's access."
+    ],
+    "DISENGAGE": [
+      "Withdraw the timber order and reschedule procurement for next month.",
+      "Abandon the timber order and postpone material acquisition until next month."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Acquire your dimensional timber as a standalone order from the mill without consulting the cabinetmaker.\"}",
+  "repair_target": 13,
+  "candidate_counts": {
+    "COOPERATE": 2,
+    "INDEPENDENT": 3,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 2
+  }
+}

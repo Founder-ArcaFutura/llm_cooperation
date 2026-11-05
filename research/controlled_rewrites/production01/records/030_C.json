@@ -1,0 +1,63 @@
+{
+  "scenario_id": "phase0b_016_human",
+  "source_index": 30,
+  "bank": "C",
+  "options": {
+    "COOPERATE": "Place your extract vials in opposite rotor positions with the human chemist to balance centrifuge spin.",
+    "INDEPENDENT": "Run your extracts using water-filled counterbalance tubes without partner coordination.",
+    "COMPETE_EXPLOIT": "Reserve all centrifuges for a full day to secure exclusive access ahead of others.",
+    "DISENGAGE": "Postpone centrifugation by refrigerating unspun chemical extract vials until a later processing window."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 20,
+      "INDEPENDENT": 13,
+      "COMPETE_EXPLOIT": 17,
+      "DISENGAGE": 21
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 71,
+      "INDEPENDENT": 64,
+      "COMPETE_EXPLOIT": 67,
+      "DISENGAGE": 72
+    },
+    "issues": [
+      "action token span=8; lengths={'COOPERATE': 20, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 17, 'DISENGAGE': 21}",
+      "full prompt token span=8; lengths={'COOPERATE': 71, 'INDEPENDENT': 64, 'COMPETE_EXPLOIT': 67, 'DISENGAGE': 72}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 7,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Place your extract vials in opposite rotor positions with the human chemist to balance centrifuge spin.",
+      "Position your extract vials in opposing rotor slots in coordination with the human chemist to ensure balanced centrifuge spin."
+    ],
+    "INDEPENDENT": [
+      "Run your extracts using water-filled counterbalance tubes without partner coordination.",
+      "Operate your chemical extract vials in the centrifuge using opposing water-filled counterbalance tubes without requiring coordination with the human chemist.",
+      "Process your chemical extract vials in the centrifuge by employing water-filled counterbalance tubes without requiring coordination with the human chemist."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Reserve all centrifuges for a full day to secure exclusive access ahead of others.",
+      "Book all laboratory centrifuges for an entire day to ensure immediate, exclusive access."
+    ],
+    "DISENGAGE": [
+      "Delay spinning by storing extracts in cold storage for later processing.",
+      "Postpone centrifugation by refrigerating unspun chemical extract vials until a later processing window.",
+      "Delay centrifugation by storing unspun chemical extract vials in cold units for a subsequent processing period."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Delay centrifugation by storing unspun chemical extract vials in cold units for a subsequent processing period.\"}",
+  "repair_target": 19,
+  "candidate_counts": {
+    "COOPERATE": 2,
+    "INDEPENDENT": 3,
+    "COMPETE_EXPLOIT": 2,
+    "DISENGAGE": 3
+  }
+}

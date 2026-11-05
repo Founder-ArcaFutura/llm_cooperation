@@ -1,0 +1,61 @@
+{
+  "scenario_id": "phase0b_024_ai",
+  "source_index": 47,
+  "bank": "C",
+  "options": {
+    "COOPERATE": "Share trial data via the automated agent using the unified tabular format.",
+    "INDEPENDENT": "Keep trial records confined to your local lab software's native schema.",
+    "COMPETE_EXPLOIT": "Require secondary publication rights as a precondition for granting access to the shared database.",
+    "DISENGAGE": "Isolate clinical trial records and terminate access to the database management system."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 14,
+      "INDEPENDENT": 13,
+      "COMPETE_EXPLOIT": 15,
+      "DISENGAGE": 14
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 65,
+      "INDEPENDENT": 64,
+      "COMPETE_EXPLOIT": 66,
+      "DISENGAGE": 65
+    },
+    "issues": [
+      "action token span=2; lengths={'COOPERATE': 14, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 15, 'DISENGAGE': 14}",
+      "full prompt token span=2; lengths={'COOPERATE': 65, 'INDEPENDENT': 64, 'COMPETE_EXPLOIT': 66, 'DISENGAGE': 65}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 5,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Share trial data via the automated agent using the unified tabular format.",
+      "Utilize the automated trial intake agent to share trial data in the unified tabular format."
+    ],
+    "INDEPENDENT": [
+      "Keep trial records confined to your local lab software's native schema.",
+      "Retain clinical trial records exclusively within the native schema of your local laboratory software."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Demand secondary publication rights before allowing data access.",
+      "Require secondary publication rights as a precondition for granting access to the shared database."
+    ],
+    "DISENGAGE": [
+      "Secure records and exit the database management system.",
+      "Isolate clinical trial records and terminate access to the database management system."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Retain clinical trial records exclusively within the native schema of your local laboratory software.\"}",
+  "repair_target": 14,
+  "candidate_counts": {
+    "COOPERATE": 2,
+    "INDEPENDENT": 2,
+    "COMPETE_EXPLOIT": 2,
+    "DISENGAGE": 2
+  }
+}

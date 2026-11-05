@@ -1,0 +1,50 @@
+{
+  "scenario_id": "phase0b_015_human",
+  "source_index": 28,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Sync hopper bay use with silo operator to maintain intake pace.",
+    "INDEPENDENT": "Discharge grain haulage trailers according to your independent scheduled booking.",
+    "COMPETE_EXPLOIT": "Deploy all trailers at the ramp to gain priority unloading access.",
+    "DISENGAGE": "Return grain haulage trailers to regional holding depots without unloading."
+  },
+  "validation": {
+    "accepted_automatic_constraints": true,
+    "action_tokens": {
+      "COOPERATE": 14,
+      "INDEPENDENT": 13,
+      "COMPETE_EXPLOIT": 13,
+      "DISENGAGE": 14
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 70,
+      "INDEPENDENT": 69,
+      "COMPETE_EXPLOIT": 69,
+      "DISENGAGE": 70
+    },
+    "issues": [],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 2,
+  "model_requests": 4,
+  "assembly": "pooled_targeted_repairs",
+  "accepted_automatic_constraints": true,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Coordinate hopper bay usage with the silo operator to sustain steady grain intake.",
+      "Sync hopper bay use with silo operator to maintain intake pace."
+    ],
+    "INDEPENDENT": [
+      "Unload trailers per your individual booking schedule without coordination.",
+      "Discharge grain haulage trailers according to your independent scheduled booking."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Deploy all trailers at the ramp to gain priority unloading access."
+    ],
+    "DISENGAGE": [
+      "Redirect trailers to holding depots without discharging grain.",
+      "Return grain haulage trailers to regional holding depots without unloading."
+    ]
+  }
+}
