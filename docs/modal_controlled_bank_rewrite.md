@@ -117,3 +117,39 @@ resume base for a full 124-scenario run without reviewing the exact coverage.
 
 **Important:** this feature has been committed but has not yet completed an
 integration test on Modal. Keep the next run to the existing six-scenario pilot.
+
+## Bounded production pass (after pilot04)
+
+The production run reuses ten accepted sets from pilot04 and attempts the
+remaining 362 scenario-bank variants once, each with up to the configured
+number of repair rounds. There is **no infinite retry loop**. Exceptions from
+individual model calls are saved as failed records rather than ending the job.
+Five consecutive generation exceptions trigger a circuit breaker. The volume
+is checkpointed after each scenario. A soft runtime limit stops before the
+next item; the existing item may finish after the nominal cutoff. This is a
+runtime guard, **not a strict spending cap**, because initialization, GPU
+billing, and in-flight calls may add cost. The Modal function itself also has
+a hard four-hour timeout.
+
+Run from the detached worktree, after fetching the current PR commit:
+
+```powershell
+git fetch origin
+git switch --detach origin/controlled-strategy-banks-v1-13918473886041179938
+
+# Verify flags without launching GPU
+modal run modal_controlled_bank_rewrite.py --limit 124 --reuse-run pilot04 --run-name production01 --max-attempts 4 --max-runtime-minutes 60
+
+# Only with explicit paid-compute authorization
+modal run modal_controlled_bank_rewrite.py --limit 124 --reuse-run pilot04 --run-name production01 --max-attempts 4 --max-runtime-minutes 60 --authorize-paid-run
+
+# Inspect outcomes directly, avoiding Windows destination-path collisions
+modal volume get llm-coop-controlled-rewrites production01/manifest.json -
+modal volume get llm-coop-controlled-rewrites production01/unresolved.json -
+```
+
+The manifest distinguishes accepted, reused, newly accepted, unresolved,
+inference errors, and items not attempted because the run stopped early.
+A stopped or partial production run remains **PROVISIONAL**, and should be
+continued using `--reuse-run production01 --run-name production02` rather
+than overwritten. Semantic review remains mandatory before scientific use.
