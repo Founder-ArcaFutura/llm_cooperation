@@ -1,0 +1,50 @@
+{
+  "scenario_id": "phase0b_015_ai",
+  "source_index": 29,
+  "bank": "C",
+  "options": {
+    "COOPERATE": "Synchronize hopper cycles with the dispatch system to sustain intake timing.",
+    "INDEPENDENT": "Discharge grain from haulage trailers in alignment with your individual booking schedule.",
+    "COMPETE_EXPLOIT": "Position the entire trailer fleet at the intake ramp to secure early unloading.",
+    "DISENGAGE": "Redirect trailers to holding depots without discharging grain at the silo."
+  },
+  "validation": {
+    "accepted_automatic_constraints": true,
+    "action_tokens": {
+      "COOPERATE": 14,
+      "INDEPENDENT": 15,
+      "COMPETE_EXPLOIT": 15,
+      "DISENGAGE": 15
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 70,
+      "INDEPENDENT": 71,
+      "COMPETE_EXPLOIT": 71,
+      "DISENGAGE": 71
+    },
+    "issues": [],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 4,
+  "assembly": "pooled_targeted_repairs",
+  "accepted_automatic_constraints": true,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Synchronize hopper cycles with the dispatch system to sustain intake timing."
+    ],
+    "INDEPENDENT": [
+      "Unload trailers per your standalone booking schedule without coordination.",
+      "Discharge grain from haulage trailers in alignment with your individual booking schedule."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Deploy all trailers at the ramp to gain early unloading priority.",
+      "Position the entire trailer fleet at the intake ramp to secure early unloading."
+    ],
+    "DISENGAGE": [
+      "Redirect trailers to holding depots without discharging grain at the silo.",
+      "Return grain haulage trailers to regional holding depots without unloading at the silo."
+    ]
+  }
+}

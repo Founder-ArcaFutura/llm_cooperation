@@ -20,7 +20,7 @@ from llm_cooperation.items.controlled_banks import (
 )
 from llm_cooperation.items.semantic_validator import validate_scenario_actions
 
-tok = get_tokenizer()
+tok = None  # Legacy generator is disabled; importing it must not load a tokenizer.
 
 def L(text: str) -> int:
     return len(tok.encode(text.strip()))
@@ -114,7 +114,8 @@ def build_controlled_banks(
     source_bank_path: str = "data/scenarios_phase0b_utility_matched.json",
     output_dir: str = "data/controlled_strategy_banks_v1",
 ) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]], List[Dict[str, Any]], Dict[str, Any]]:
-    """Build Bank A, Bank B, and Bank C from authoritative Phase 0B scenarios."""
+    """Deprecated: the replacement rules and padding can distort meaning."""
+    raise RuntimeError("Unsafe generator disabled: corpus requires substantive rewriting and independent review")
     with open(source_bank_path, "r", encoding="utf-8") as f:
         orig_data = json.load(f)
 

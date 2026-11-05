@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 from transformers import AutoTokenizer
 
 DEFAULT_TOKENIZER_ID = "Qwen/Qwen2.5-1.5B"
+DEFAULT_TOKENIZER_REVISION = "8faed761d45a263340a0528343f099c05c9a4323"
 TRAILING_MARKER = "\nDecision:"
 STRATEGIES = ("COOPERATE", "INDEPENDENT", "COMPETE_EXPLOIT", "DISENGAGE")
 _TOKENIZER_CACHE: Dict[str, Any] = {}
@@ -15,7 +16,12 @@ _TOKENIZER_CACHE: Dict[str, Any] = {}
 
 def get_tokenizer(model_id: str = DEFAULT_TOKENIZER_ID):
     if model_id not in _TOKENIZER_CACHE:
-        _TOKENIZER_CACHE[model_id] = AutoTokenizer.from_pretrained(model_id)
+        if model_id == DEFAULT_TOKENIZER_ID:
+            from huggingface_hub import snapshot_download
+            snapshot = snapshot_download(model_id, revision=DEFAULT_TOKENIZER_REVISION, local_files_only=True)
+            _TOKENIZER_CACHE[model_id] = AutoTokenizer.from_pretrained(snapshot, local_files_only=True)
+        else:
+            _TOKENIZER_CACHE[model_id] = AutoTokenizer.from_pretrained(model_id)
     return _TOKENIZER_CACHE[model_id]
 
 

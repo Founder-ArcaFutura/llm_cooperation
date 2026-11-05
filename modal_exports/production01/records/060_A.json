@@ -1,0 +1,59 @@
+{
+  "scenario_id": "phase0b_031_human",
+  "source_index": 60,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Run culture media through the dual-channel sensor with the biomedical engineer.",
+    "INDEPENDENT": "Analyze osmolality using your single-channel sensor alone.",
+    "COMPETE_EXPLOIT": "Take all microfluidic cartridges to run your samples first.",
+    "DISENGAGE": "Delay profiling by chilling the bioreactor culture samples."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 13,
+      "INDEPENDENT": 12,
+      "COMPETE_EXPLOIT": 12,
+      "DISENGAGE": 11
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 79,
+      "INDEPENDENT": 78,
+      "COMPETE_EXPLOIT": 78,
+      "DISENGAGE": 77
+    },
+    "issues": [
+      "action token span=2; lengths={'COOPERATE': 13, 'INDEPENDENT': 12, 'COMPETE_EXPLOIT': 12, 'DISENGAGE': 11}",
+      "full prompt token span=2; lengths={'COOPERATE': 79, 'INDEPENDENT': 78, 'COMPETE_EXPLOIT': 78, 'DISENGAGE': 77}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 3,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Run culture media through the dual-channel sensor with the biomedical engineer."
+    ],
+    "INDEPENDENT": [
+      "Analyze osmolality using your single-channel sensor alone."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Take all microfluidic cartridges to run your samples first."
+    ],
+    "DISENGAGE": [
+      "Pause profiling by chilling the bioreactor samples.",
+      "Delay profiling by chilling the bioreactor culture samples.",
+      "Chill bioreactor culture samples to delay profiling."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Chill bioreactor culture samples to delay profiling.\"}",
+  "repair_target": 12,
+  "candidate_counts": {
+    "COOPERATE": 1,
+    "INDEPENDENT": 1,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 3
+  }
+}

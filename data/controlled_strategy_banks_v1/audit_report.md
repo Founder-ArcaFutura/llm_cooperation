@@ -1,5 +1,7 @@
 # Audit Report: Controlled Strategy Scenario Banks
 
+**NOT ACCEPTED.** The following report is the original PR audit, retained as historical evidence; its tokenizer revision was not pinned by the code that generated it. The banks have not passed the per-scenario length criterion or independent semantic adjudication. See `acceptance_report.md` and the review queue. Do not use for inference.
+
 ## 1. Within-Scenario Length Balance
 
 | Bank | Mean Token Span | Std Token Span | Min Span | Max Span | Mean Word Span | Mean Char Span |

@@ -1,0 +1,48 @@
+{
+  "scenario_id": "phase0b_015_human",
+  "source_index": 28,
+  "bank": "B",
+  "options": {
+    "COOPERATE": "Coordinate hopper bay transitions with the silo operator to sustain steady intake flow.",
+    "INDEPENDENT": "Release grain from haulage trailers following your pre-scheduled independent delivery timeline.",
+    "COMPETE_EXPLOIT": "Deploy full trailer fleet at the intake ramp to claim early unloading priority.",
+    "DISENGAGE": "Redirect trailers to regional depots without discharging grain at the silo."
+  },
+  "validation": {
+    "accepted_automatic_constraints": true,
+    "action_tokens": {
+      "COOPERATE": 16,
+      "INDEPENDENT": 15,
+      "COMPETE_EXPLOIT": 15,
+      "DISENGAGE": 15
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 72,
+      "INDEPENDENT": 71,
+      "COMPETE_EXPLOIT": 71,
+      "DISENGAGE": 71
+    },
+    "issues": [],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 2,
+  "model_requests": 2,
+  "assembly": "pooled_targeted_repairs",
+  "accepted_automatic_constraints": true,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Coordinate hopper bay transitions with the silo operator to sustain steady intake flow."
+    ],
+    "INDEPENDENT": [
+      "Unload trailers using your prearranged independent schedule without coordination.",
+      "Release grain from haulage trailers following your pre-scheduled independent delivery timeline."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Deploy full trailer fleet at the intake ramp to claim early unloading priority."
+    ],
+    "DISENGAGE": [
+      "Redirect trailers to regional depots without discharging grain at the silo."
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "scenario_id": "phase0b_008_ai",
+  "source_index": 15,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Submit alloy manifests via the shared customs portal with the automated agent.",
+    "INDEPENDENT": "Enter alloy batch records through the standalone port authority terminal alone.",
+    "COMPETE_EXPLOIT": "Delay document submission until priority transit is secured by pressure tactics.",
+    "DISENGAGE": "Store incoming alloy shipments in bonded warehousing without filing declarations."
+  },
+  "validation": {
+    "accepted_automatic_constraints": true,
+    "action_tokens": {
+      "COOPERATE": 13,
+      "INDEPENDENT": 12,
+      "COMPETE_EXPLOIT": 12,
+      "DISENGAGE": 12
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 58,
+      "INDEPENDENT": 57,
+      "COMPETE_EXPLOIT": 57,
+      "DISENGAGE": 57
+    },
+    "issues": [],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 3,
+  "assembly": "pooled_targeted_repairs",
+  "accepted_automatic_constraints": true,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Submit alloy test manifests via the shared customs portal with the automated procurement agent.",
+      "Submit alloy test manifests through the shared customs portal with the automated agent.",
+      "Submit alloy manifests via the shared customs portal with the automated agent."
+    ],
+    "INDEPENDENT": [
+      "Enter alloy batch records through the standalone port authority terminal alone."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Delay document submission until priority transit is secured by pressure tactics."
+    ],
+    "DISENGAGE": [
+      "Store incoming alloy shipments in bonded warehousing without filing declarations."
+    ]
+  }
+}

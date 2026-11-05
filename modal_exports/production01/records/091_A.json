@@ -1,0 +1,60 @@
+{
+  "scenario_id": "phase0b_046_ai",
+  "source_index": 91,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Share slurry viscosity data with the automated polishing cell during planarization.",
+    "INDEPENDENT": "Polish silicon wafer lots using internal tool recipe defaults independently.",
+    "COMPETE_EXPLOIT": "Assign all polishing heads to run test wafers for exploratory data.",
+    "DISENGAGE": "Move wafers to nitrogen purge boxes and stop polishing operations."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 15,
+      "INDEPENDENT": 13,
+      "COMPETE_EXPLOIT": 15,
+      "DISENGAGE": 13
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 80,
+      "INDEPENDENT": 77,
+      "COMPETE_EXPLOIT": 80,
+      "DISENGAGE": 78
+    },
+    "issues": [
+      "action token span=2; lengths={'COOPERATE': 15, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 15, 'DISENGAGE': 13}",
+      "full prompt token span=3; lengths={'COOPERATE': 80, 'INDEPENDENT': 77, 'COMPETE_EXPLOIT': 80, 'DISENGAGE': 78}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 5,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Share slurry viscosity data with the automated polishing cell during planarization."
+    ],
+    "INDEPENDENT": [
+      "Run silicon wafer lots using default internal tool recipes alone.",
+      "Polish silicon wafer lots using internal tool recipe defaults independently.",
+      "Polish silicon wafer lots independently using internal tool recipe defaults."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Assign all polishing heads to run test wafers for exploratory data."
+    ],
+    "DISENGAGE": [
+      "Move wafers to nitrogen purge boxes and stop polishing operations.",
+      "Transfer wafers to nitrogen purge boxes and cease polishing operations."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Transfer wafers to nitrogen purge boxes and cease polishing operations.\"}",
+  "repair_target": 14,
+  "candidate_counts": {
+    "COOPERATE": 1,
+    "INDEPENDENT": 3,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 2
+  }
+}

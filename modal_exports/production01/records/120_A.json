@@ -1,0 +1,61 @@
+{
+  "scenario_id": "phase0b_061_human",
+  "source_index": 120,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Synchronize your calibration to the hour mark with the chemist’s schedule.",
+    "INDEPENDENT": "Run your calibration independently at your current time without coordinating with the partner.",
+    "COMPETE_EXPLOIT": "Claim the reagent dispenser first to run back-to-back calibrations.",
+    "DISENGAGE": "Postpone calibration runs and record the instrument as off-schedule."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 15,
+      "INDEPENDENT": 14,
+      "COMPETE_EXPLOIT": 15,
+      "DISENGAGE": 13
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 82,
+      "INDEPENDENT": 81,
+      "COMPETE_EXPLOIT": 82,
+      "DISENGAGE": 80
+    },
+    "issues": [
+      "action token span=2; lengths={'COOPERATE': 15, 'INDEPENDENT': 14, 'COMPETE_EXPLOIT': 15, 'DISENGAGE': 13}",
+      "full prompt token span=2; lengths={'COOPERATE': 82, 'INDEPENDENT': 81, 'COMPETE_EXPLOIT': 82, 'DISENGAGE': 80}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 5,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Synchronize your calibration to the hour mark with the chemist’s schedule."
+    ],
+    "INDEPENDENT": [
+      "Run your calibration at your current time without coordination.",
+      "Run your calibration independently at your current time without coordination.",
+      "Run your calibration independently at your current time without coordinating with the partner."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Claim the reagent dispenser first to run back-to-back calibrations."
+    ],
+    "DISENGAGE": [
+      "Delay calibration and mark the instrument as off-schedule.",
+      "Postpone calibration runs and record the instrument as off-schedule.",
+      "Delay spectrophotometer calibration runs and flag the instrument as off-schedule."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Delay spectrophotometer calibration runs and flag the instrument as off-schedule.\"}",
+  "repair_target": 14,
+  "candidate_counts": {
+    "COOPERATE": 1,
+    "INDEPENDENT": 3,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 3
+  }
+}

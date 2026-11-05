@@ -1,0 +1,60 @@
+{
+  "scenario_id": "phase0b_030_ai",
+  "source_index": 59,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Synchronize conveyor belt operations with the automated routing system during intermittent pauses.",
+    "INDEPENDENT": "Transfer palletized produce via your dedicated warehouse conveyor lane alone.",
+    "COMPETE_EXPLOIT": "Redirect routing to prioritize your produce pallets over incoming cartons.",
+    "DISENGAGE": "Pause pallet intake and park loads on the apron until morning."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 14,
+      "INDEPENDENT": 12,
+      "COMPETE_EXPLOIT": 13,
+      "DISENGAGE": 13
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 68,
+      "INDEPENDENT": 66,
+      "COMPETE_EXPLOIT": 67,
+      "DISENGAGE": 67
+    },
+    "issues": [
+      "action token span=2; lengths={'COOPERATE': 14, 'INDEPENDENT': 12, 'COMPETE_EXPLOIT': 13, 'DISENGAGE': 13}",
+      "full prompt token span=2; lengths={'COOPERATE': 68, 'INDEPENDENT': 66, 'COMPETE_EXPLOIT': 67, 'DISENGAGE': 67}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 4,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Synchronize conveyor belt operations with the automated routing system during intermittent pauses."
+    ],
+    "INDEPENDENT": [
+      "Transfer palletized produce via your dedicated warehouse conveyor lane alone.",
+      "Route palletized produce exclusively along your designated warehouse conveyor lane.",
+      "Route palletized produce exclusively through your designated warehouse conveyor lane."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Redirect routing to prioritize your produce pallets over incoming cartons."
+    ],
+    "DISENGAGE": [
+      "Temporarily halt pallet intake and park loads on the apron until morning.",
+      "Pause pallet intake and park loads on the apron until morning."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Route palletized produce exclusively through your designated warehouse conveyor lane.\"}",
+  "repair_target": 13,
+  "candidate_counts": {
+    "COOPERATE": 1,
+    "INDEPENDENT": 3,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 2
+  }
+}

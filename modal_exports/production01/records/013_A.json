@@ -1,0 +1,59 @@
+{
+  "scenario_id": "phase0b_007_ai",
+  "source_index": 13,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Transmit planned waypoint corridor on maritime VHF to automated vessel system.",
+    "INDEPENDENT": "Proceed using onboard radar without sharing navigation data with the automated system.",
+    "COMPETE_EXPLOIT": "Surge into the central fairway to claim early docking access.",
+    "DISENGAGE": "Halt in outer harbor waiting for reduced traffic congestion."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 14,
+      "INDEPENDENT": 13,
+      "COMPETE_EXPLOIT": 13,
+      "DISENGAGE": 11
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 65,
+      "INDEPENDENT": 65,
+      "COMPETE_EXPLOIT": 64,
+      "DISENGAGE": 63
+    },
+    "issues": [
+      "action token span=3; lengths={'COOPERATE': 14, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 13, 'DISENGAGE': 11}",
+      "full prompt token span=2; lengths={'COOPERATE': 65, 'INDEPENDENT': 65, 'COMPETE_EXPLOIT': 64, 'DISENGAGE': 63}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 4,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Share your planned waypoint corridor via maritime VHF with the automated vessel system.",
+      "Transmit planned waypoint corridor on maritime VHF to automated vessel system."
+    ],
+    "INDEPENDENT": [
+      "Proceed using onboard radar without sharing navigation data with the automated system."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Surge into the central fairway to claim early docking access."
+    ],
+    "DISENGAGE": [
+      "Halt in outer harbor waiting for reduced traffic congestion.",
+      "Anchor in outer harbor staging area until commercial traffic decreases."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Anchor in outer harbor staging area until commercial traffic decreases.\"}",
+  "repair_target": 13,
+  "candidate_counts": {
+    "COOPERATE": 2,
+    "INDEPENDENT": 1,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 2
+  }
+}

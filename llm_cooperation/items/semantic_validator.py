@@ -1,4 +1,4 @@
-"""Independent semantic validation module for controlled strategy banks."""
+"""Keyword-based triage only; this does not adjudicate semantic equivalence."""
 from __future__ import annotations
 
 import re
@@ -198,7 +198,8 @@ def validate_scenario_actions(
         )
 
     all_passed = True
-    needs_review = False
+    # Keyword matches cannot establish equivalence, fluency, or preserved payoffs.
+    needs_review = True
 
     for strat in STRATEGIES:
         act = revised_options[strat].strip()

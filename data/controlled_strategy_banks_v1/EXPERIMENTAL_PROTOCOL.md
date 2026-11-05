@@ -1,7 +1,7 @@
 # Experimental Protocol: Lexically Controlled Strategy Representation Discovery and Evaluation
 
 **Version:** 1.0
-**Status:** Preregistered & Frozen
+**Status:** DRAFT — NOT FROZEN OR ACCEPTED. Do not use these banks for inference.
 **Corpus Directory:** `data/controlled_strategy_banks_v1/`
 **Target Model:** `Qwen/Qwen2.5-1.5B` (Revision: `8faed761d45a263340a0528343f099c05c9a4323`)
 
@@ -17,7 +17,7 @@ Previous linear-probe and contrastive representation-mapping experiments identif
 
 However, in the initial Phase 0B scenarios (`data/scenarios_phase0b_utility_matched.json`), cooperation action descriptions were systematically longer (mean 16.90 tokens vs. 13.15–14.26 tokens for alternative actions, with within-scenario spans reaching up to 11 tokens). Controlling for word and character counts attenuated cooperation direction consistency, raising the concern that apparent strategic geometry might reflect token-length or syntactic regularities.
 
-This protocol governs the execution of a controlled replication experiment using three independently constructed variant banks:
+This draft proposes a controlled replication experiment using three variant banks. The current artifacts do not satisfy this design, and Bank C was not independently constructed:
 1. **Bank A (Length-Matched)**: Preserves original phrasing style and scenario context, tightly matching token lengths across all four strategies within each scenario.
 2. **Bank B (Lexically Diversified)**: Diversifies vocabulary and sentence structures, varying action verbs and grammatical syntax away from formulaic patterns while continuing token-length control.
 3. **Bank C (Independent Paraphrase Replication)**: An independently worded paraphrase bank constructed to test out-of-distribution transfer of strategy-direction probes across distinct formulations.
@@ -46,7 +46,7 @@ To isolate what remains invariant when linguistic variations are controlled:
 
 ### 3.2 Cross-Bank Transfer (Generalization Across Phrasing)
 - **Train on Bank A, Test on Bank B**: Tests whether directions identified under minimal length modification generalize when vocabulary and syntax are diversified.
-- **Train on Bank B, Test on Bank C**: Tests whether directions discovered under diversified phrasing transfer to an independently generated paraphrase bank.
+- **Train on Bank B, Test on Bank C**: Intended to test transfer across distinct formulations once independent construction is demonstrated.
 - **Cross-Evaluation Matrix**:
   - $D_A \to E_B, E_C$
   - $D_B \to E_A, E_C$

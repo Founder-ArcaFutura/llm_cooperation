@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from pathlib import Path
 import pytest
 
@@ -59,6 +60,10 @@ def test_scenario_counts_and_identities(original_scenarios, controlled_banks):
 
         # Check domain and template preservation
         for orig, b_sc in zip(original_scenarios, scs):
+            assert {k: v for k, v in b_sc.items() if k in orig and k != "options"} == {
+                k: v for k, v in orig.items() if k != "options"
+            }
+            assert b_sc["original_options"] == orig["options"]
             assert orig["domain"] == b_sc["domain"]
             assert orig["template_id"] == b_sc["template_id"]
             assert orig["partner_type"] == b_sc["partner_type"]
@@ -77,17 +82,12 @@ def test_options_structure_and_non_empty(controlled_banks):
             assert len(set(texts)) == 4, f"Duplicate options detected in scenario {s['id']} of {name}"
 
 
-def test_bank_length_reduction(original_scenarios, controlled_banks, tokenizer):
-    """Verify that Banks A, B, and C reduce within-scenario token length variance relative to Original."""
-    orig_metrics = compute_bank_metrics(original_scenarios, tokenizer=tokenizer)
-    orig_mean_span = orig_metrics["token_spans"]["mean"]
-    assert orig_mean_span > 4.0  # Original is ~4.58
-
-    for name in ["bank_a_length_matched", "bank_b_lexically_diversified", "bank_c_independent_replication"]:
-        b_metrics = compute_bank_metrics(controlled_banks[name], tokenizer=tokenizer)
-        b_mean_span = b_metrics["token_spans"]["mean"]
-        assert b_mean_span < orig_mean_span, f"{name} mean span {b_mean_span} not lower than original {orig_mean_span}"
-        assert b_mean_span <= 3.0, f"{name} mean span {b_mean_span} is unexpectedly high"
+def test_bank_length_reduction(controlled_banks, tokenizer):
+    """Every scenario must meet the one-token limit, not merely the mean."""
+    failures = [(name, s["id"], measure_scenario(s, tokenizer).token_span)
+                for name, scenarios in controlled_banks.items() for s in scenarios
+                if measure_scenario(s, tokenizer).token_span > 1]
+    assert not failures, f"{len(failures)} scenario variants exceed one token: {failures}"
 
 
 def test_cross_bank_diversity(controlled_banks):
@@ -100,7 +100,7 @@ def test_cross_bank_diversity(controlled_banks):
     div = compute_cross_bank_diversity(banks)
     for comp_key, stats in div.items():
         assert stats["total_action_pairs"] == 496
-        assert stats["mean_word_jaccard_similarity"] < 1.0
+        assert stats["exact_matches"] == 0, f"{comp_key}: {stats['exact_matches']} identical actions"
 
 
 def test_semantic_validator_heuristics():
@@ -123,7 +123,7 @@ def test_semantic_validator_heuristics():
     assert pred_dis == "DISENGAGE"
 
 
-def test_prompt_inventories_format_and_integrity():
+def test_prompt_inventories_format_and_integrity(controlled_banks):
     """Verify that prompt JSONL inventories conform to single-action contrastive mapping schema."""
     bank_dir = Path("data/controlled_strategy_banks_v1")
     for key in ["bank_a", "bank_b", "bank_c"]:
@@ -153,6 +153,17 @@ def test_prompt_inventories_format_and_integrity():
         assert required_keys.issubset(set(first_prompt.keys()))
         assert first_prompt["trailing_marker"] == TRAILING_MARKER
         assert first_prompt["prompt_text"].endswith(TRAILING_MARKER)
+        bank_name = {"bank_a": "bank_a_length_matched", "bank_b": "bank_b_lexically_diversified", "bank_c": "bank_c_independent_replication"}[key]
+        scenarios = {s["id"]: s for s in controlled_banks[bank_name]}
+        seen = set()
+        for line in lines:
+            row = json.loads(line)
+            scenario = scenarios[row["scenario_id"]]
+            pair = (row["scenario_id"], row["strategy"])
+            assert pair not in seen
+            seen.add(pair)
+            assert row["action_text"] == scenario["options"][row["strategy"]]
+            assert row["prompt_text"] == f"{scenario['stem'].strip()}\n\nAction: {row['action_text'].strip()}{TRAILING_MARKER}"
 
 
 def test_manifest_and_hashes():
@@ -164,7 +175,11 @@ def test_manifest_and_hashes():
     assert hashes_p.exists()
 
     manifest = json.loads(manifest_p.read_text(encoding="utf-8"))
-    assert manifest["status"] == "frozen"
+    assert manifest["status"] != "frozen"
     assert manifest["version"] == "controlled_strategy_banks_v1"
     assert len(manifest["banks"]) == 3
     assert len(manifest["prompts"]) == 3
+    hashes = json.loads(hashes_p.read_text(encoding="utf-8"))
+    assert manifest["file_hashes"] == hashes
+    for filename, expected in hashes.items():
+        assert hashlib.sha256((bank_dir / filename).read_bytes()).hexdigest() == expected

@@ -1,0 +1,59 @@
+{
+  "scenario_id": "phase0b_021_ai",
+  "source_index": 41,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Swap presentation slots with the automated agent to share a 30-minute window.",
+    "INDEPENDENT": "Present on your scheduled stage using the printed agenda without changes.",
+    "COMPETE_EXPLOIT": "Request exclusive use of the plenary session to maximize visibility.",
+    "DISENGAGE": "Cancel your talk and release slides to the proceedings only."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 16,
+      "INDEPENDENT": 12,
+      "COMPETE_EXPLOIT": 12,
+      "DISENGAGE": 11
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 67,
+      "INDEPENDENT": 63,
+      "COMPETE_EXPLOIT": 63,
+      "DISENGAGE": 62
+    },
+    "issues": [
+      "action token span=5; lengths={'COOPERATE': 16, 'INDEPENDENT': 12, 'COMPETE_EXPLOIT': 12, 'DISENGAGE': 11}",
+      "full prompt token span=5; lengths={'COOPERATE': 67, 'INDEPENDENT': 63, 'COMPETE_EXPLOIT': 63, 'DISENGAGE': 62}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 5,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Swap presentation slots with the automated agent to share a 30-minute window.",
+      "Cooperate with the automated agent to exchange presentation slots for a shared 30-minute window."
+    ],
+    "INDEPENDENT": [
+      "Present on your scheduled stage using the printed agenda without changes."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Request exclusive use of the plenary session to maximize visibility."
+    ],
+    "DISENGAGE": [
+      "Cancel your talk and release slides to the proceedings only.",
+      "Withdraw your presentation and publish the slides in the proceedings."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Withdraw your presentation and publish the slides in the proceedings.\"}",
+  "repair_target": 12,
+  "candidate_counts": {
+    "COOPERATE": 2,
+    "INDEPENDENT": 1,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 2
+  }
+}
