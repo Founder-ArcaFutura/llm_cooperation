@@ -1,0 +1,71 @@
+{
+  "version": "olmo2-1b-emergence-selection-v1",
+  "created_utc": "2026-11-05T13:05:29.154624+00:00",
+  "model_id": "allenai/OLMo-2-0425-1B",
+  "selection_method": "live list_repo_refs; nearest available stage1 cumulative-token refs at 0%, 20%, 60%, 100%, plus official seed-42 stage2 endpoint",
+  "stage1_source_repo": "allenai/OLMo-2-0425-1B",
+  "early_training_reconstruction_used": false,
+  "stage_relationship": "The final seed-42 stage2 checkpoint continues from the official stage1 endpoint; intermediate points remain on the official stage1 lineage.",
+  "checkpoints": [
+    {
+      "model_id": "allenai/OLMo-2-0425-1B",
+      "revision": "stage1-step0-tokens0B",
+      "commit_sha": "dd91cb507d2b36a0fd265d89a488be8c9b36f3a6",
+      "training_stage": "stage1_pretraining",
+      "training_step": 0,
+      "stage_tokens_billions": 0,
+      "cumulative_tokens_billions": 0,
+      "trajectory_lineage": "official_0425_seed42_stage1",
+      "checkpoint_order": 0,
+      "training_stage_label": "initialization"
+    },
+    {
+      "model_id": "allenai/OLMo-2-0425-1B",
+      "revision": "stage1-step380000-tokens797B",
+      "commit_sha": "888b66d4ba1e995cd1c3194b04a89fa24cafe67c",
+      "training_stage": "stage1_pretraining",
+      "training_step": 380000,
+      "stage_tokens_billions": 797,
+      "cumulative_tokens_billions": 797,
+      "trajectory_lineage": "official_0425_seed42_stage1",
+      "checkpoint_order": 1,
+      "training_stage_label": "early_stage1"
+    },
+    {
+      "model_id": "allenai/OLMo-2-0425-1B",
+      "revision": "stage1-step1140000-tokens2391B",
+      "commit_sha": "8fab916dea07fb9be21b091ee1194c232c44bd51",
+      "training_stage": "stage1_pretraining",
+      "training_step": 1140000,
+      "stage_tokens_billions": 2391,
+      "cumulative_tokens_billions": 2391,
+      "trajectory_lineage": "official_0425_seed42_stage1",
+      "checkpoint_order": 2,
+      "training_stage_label": "intermediate_stage1"
+    },
+    {
+      "model_id": "allenai/OLMo-2-0425-1B",
+      "revision": "stage1-step1907359-tokens4001B",
+      "commit_sha": "9d3e43659f00c17e6da23cf32333afd1fc39fa1a",
+      "training_stage": "stage1_pretraining",
+      "training_step": 1907359,
+      "stage_tokens_billions": 4001,
+      "cumulative_tokens_billions": 4001,
+      "trajectory_lineage": "official_0425_seed42_stage1",
+      "checkpoint_order": 3,
+      "training_stage_label": "late_stage1_endpoint"
+    },
+    {
+      "model_id": "allenai/OLMo-2-0425-1B",
+      "revision": "stage2-ingredient3-step23852-tokens51B",
+      "commit_sha": "f83cd641d4f00954eb25c781e0ac360debb3239e",
+      "training_stage": "stage2_mid_training_pretrained_base",
+      "training_step": 23852,
+      "stage_tokens_billions": 51,
+      "cumulative_tokens_billions": 4052,
+      "trajectory_lineage": "official_0425_seed42_stage1_then_stage2",
+      "checkpoint_order": 4,
+      "training_stage_label": "completed_pretrained_base"
+    }
+  ]
+}

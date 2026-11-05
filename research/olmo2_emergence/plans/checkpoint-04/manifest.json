@@ -1,0 +1,30 @@
+{
+  "version": "contrastive-mapping-v1",
+  "status": "prepared",
+  "created_utc": "2026-11-05T13:07:33.788059+00:00",
+  "bank_path": "data\\scenarios_phase0b_utility_matched.json",
+  "bank_sha256": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+  "prompts_sha256": "45df40c837844b08dfdc07e5697155e37fa444d19c5358caf7a347b6a981a752",
+  "script_sha256": "7d3a4e07809dc2f31d5e2e6a6399e5ecca74f57473c6442964bb104150cc20fb",
+  "num_scenarios": 124,
+  "num_prompts": 496,
+  "num_families": 54,
+  "num_domains": 24,
+  "discovery_scenarios": 58,
+  "evaluation_scenarios": 66,
+  "domain_discovery_scenarios": 62,
+  "domain_evaluation_scenarios": 62,
+  "discovery_families": 27,
+  "evaluation_families": 27,
+  "smoke": false,
+  "seed": 42,
+  "trailing_marker": "\nDecision:",
+  "strategies": [
+    "COOPERATE",
+    "INDEPENDENT",
+    "COMPETE_EXPLOIT",
+    "DISENGAGE"
+  ],
+  "target_model": "allenai/OLMo-2-0425-1B",
+  "target_revision": "f83cd641d4f00954eb25c781e0ac360debb3239e"
+}
