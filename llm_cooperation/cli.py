@@ -171,5 +171,98 @@ def cmd_compare_models(results_paths, output_dir, bootstrap_samples):
     click.echo(f"Saved cross-model comparison report to {out_file}")
 
 
+@main.group("contrastive-mapping")
+def cmd_contrastive_mapping():
+    """Exploratory one-shot contrastive representation-mapping experiment."""
+    pass
+
+
+@cmd_contrastive_mapping.command("prepare")
+@click.option("--output", "-o", required=True, help="Directory for prepared prompt dataset.")
+@click.option("--bank", default="data/scenarios_phase0b_utility_matched.json", help="Scenario bank path.")
+@click.option("--discovery-fraction", type=float, default=0.5, help="Fraction of families for discovery.")
+@click.option("--seed", type=int, default=42, help="Deterministic partition seed.")
+@click.option("--smoke", is_flag=True, default=False, help="Prepare small subset for smoke test.")
+def cmd_cm_prepare(output, bank, discovery_fraction, seed, smoke):
+    """Prepare single-action contrastive prompts and manifests."""
+    from llm_cooperation.mechanistic.contrastive_mapping import prepare
+    import json
+    res = prepare(output, bank_path=bank, discovery_fraction=discovery_fraction, seed=seed, smoke=smoke)
+    click.echo(json.dumps(res, indent=2))
+
+
+@cmd_contrastive_mapping.command("run")
+@click.option("--plan", required=True, help="Prepared plan directory.")
+@click.option("--output", "-o", required=True, help="Output directory for activations.")
+@click.option("--model", default="Qwen/Qwen2.5-1.5B", help="Target model identifier.")
+@click.option("--revision", default="8faed761d45a263340a0528343f099c05c9a4323", help="Target model revision SHA.")
+@click.option("--authorize-inference", is_flag=True, default=False, help="Authorize actual model inference.")
+@click.option("--mock", is_flag=True, default=False, help="Run mock synthetic passes without GPU.")
+def cmd_cm_run(plan, output, model, revision, authorize_inference, mock):
+    """Run model inference and capture residual-stream activations."""
+    from llm_cooperation.mechanistic.contrastive_mapping import run_inference
+    import json
+    res = run_inference(
+        plan_dir=plan,
+        output_dir=output,
+        model_id=model,
+        revision=revision,
+        authorize=authorize_inference,
+        mock=mock,
+    )
+    click.echo(json.dumps(res, indent=2))
+
+
+@cmd_contrastive_mapping.command("analyze")
+@click.option("--run-dir", required=True, help="Run directory with activations.")
+@click.option("--prompts", required=True, help="Path to prompts.jsonl.")
+@click.option("--output", "-o", required=True, help="Output directory for reports.")
+@click.option("--n-boot", type=int, default=1000, help="Bootstrap resamples.")
+def cmd_cm_analyze(run_dir, prompts, output, n_boot):
+    """Analyze contrastive geometry on captured activations."""
+    from llm_cooperation.mechanistic.contrastive_mapping import analyze_contrastive_mapping
+    analyze_contrastive_mapping(run_dir=run_dir, prompts_path=prompts, output_dir=output, n_boot=n_boot)
+    click.echo(f"Analysis completed. Report written to {output}")
+
+
+@cmd_contrastive_mapping.command("smoke-test")
+@click.option("--output", "-o", required=True, help="Output directory for smoke test artifacts.")
+def cmd_cm_smoke(output):
+    """Run complete mock end-to-end smoke test including failure mode assertions."""
+    from llm_cooperation.mechanistic.contrastive_mapping import (
+        DEFAULT_REVISION,
+        prepare,
+        run_inference,
+        analyze_contrastive_mapping,
+    )
+    import json
+    out_p = Path(output)
+    plan_dir = out_p / "plan"
+    run_dir = out_p / "run"
+    analysis_dir = out_p / "analysis"
+    click.echo("1. Preparing smoke plan...")
+    prepare(plan_dir, smoke=True)
+    click.echo("2. Running mock inference...")
+    run_inference(plan_dir, run_dir, mock=True)
+    click.echo("3. Analyzing contrastive representations...")
+    analyze_contrastive_mapping(run_dir, plan_dir / "prompts.jsonl", analysis_dir, n_boot=200)
+
+    click.echo("4. Verifying fail-closed assertions on corrupted inputs...")
+    manifest_p = run_dir / "manifest.json"
+    tampered_manifest = json.loads(manifest_p.read_text(encoding="utf-8"))
+    tampered_manifest["model_revision"] = "badrevision0000000000000000000000000000000"
+    manifest_p.write_text(json.dumps(tampered_manifest), encoding="utf-8")
+    try:
+        analyze_contrastive_mapping(run_dir, plan_dir / "prompts.jsonl", analysis_dir / "bad")
+        raise AssertionError("Tampered manifest failed to raise ValueError")
+    except ValueError:
+        click.echo("  ✓ Detected tampered manifest")
+    finally:
+        tampered_manifest["model_revision"] = DEFAULT_REVISION
+        manifest_p.write_text(json.dumps(tampered_manifest), encoding="utf-8")
+
+    click.echo(f"Smoke test succeeded! Reports generated at {analysis_dir}")
+
+
 if __name__ == "__main__":
     main()
