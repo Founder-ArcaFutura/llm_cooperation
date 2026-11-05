@@ -322,7 +322,7 @@ def _generate_set(llm, generation_tokenizer, measurement_tokenizer, scenario, ba
 @app.function(gpu="H100", timeout=14400, retries=0,
               volumes={"/hf-cache": HF_CACHE, "/runs": RUN_VOLUME})
 def generate_candidates(source_bytes: bytes, source_sha256: str, start: int, limit: int,
-                        run_name: str, max_attempts: int):
+                        run_name: str, max_attempts: int, reuse_run: str = ""):
     os.environ["HF_HOME"] = "/hf-cache"
     from huggingface_hub import HfApi
     from transformers import AutoTokenizer
@@ -335,6 +335,21 @@ def generate_candidates(source_bytes: bytes, source_sha256: str, start: int, lim
     if len(scenarios) != 124:
         raise ValueError("Expected the authoritative 124-scenario Phase 0B bank")
     selected = scenarios[start:start + limit]
+    if reuse_run and not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{1,63}", reuse_run):
+        raise ValueError("Invalid --reuse-run name")
+    if reuse_run == run_name:
+        raise ValueError("reuse_run must differ from run_name; existing runs are immutable")
+    reuse_root = Path("/runs") / reuse_run if reuse_run else None
+    if reuse_root is not None:
+        old_manifest_path = reuse_root / "manifest.json"
+        if not old_manifest_path.is_file():
+            raise FileNotFoundError(f"Resume manifest not found: {old_manifest_path}")
+        old = json.loads(old_manifest_path.read_text(encoding="utf-8"))
+        if (old.get("source_sha256") != source_sha256
+                or old.get("measurement_tokenizer_revision") != MEASUREMENT_REVISION
+                or old.get("measurement_tokenizer") != MEASUREMENT_TOKENIZER
+                or old.get("model") != MODEL_ID):
+            raise ValueError("Reuse run has incompatible source, tokenizer, or writer model")
     target = Path("/runs") / run_name
     if target.exists():
         raise FileExistsError(f"Run folder already exists: {target}; choose a new --run-name")
@@ -351,19 +366,79 @@ def generate_candidates(source_bytes: bytes, source_sha256: str, start: int, lim
     generation_tokenizer = llm.get_tokenizer()
     HF_CACHE.commit()
 
-    counts = {bank: {"accepted": 0, "unresolved": 0} for bank in BANKS}
+    counts = {bank: {"accepted": 0, "newly_accepted": 0, "reused": 0, "unresolved": 0}
+              for bank in BANKS}
     results = {bank: [] for bank in BANKS}
     unresolved = []
     try:
         for index, scenario in enumerate(selected, start=start):
-            # Each bank is generated from the authoritative original only.
-            # Prior-bank text is used only to reject verbatim/near duplicates.
+            # Keep successful four-action sets from a previous run. Load the
+            # *records* rather than a candidate-bank file, retaining exact
+            # scenario/index identity and audit metadata.
+            retained = {}
+            if reuse_root is not None:
+                for bank in BANKS:
+                    old_file = reuse_root / "records" / f"{index:03d}_{bank}.json"
+                    if not old_file.is_file():
+                        continue
+                    old_record = json.loads(old_file.read_text(encoding="utf-8"))
+                    if not old_record.get("accepted_automatic_constraints"):
+                        continue
+                    if (old_record.get("source_index") != index
+                            or old_record.get("scenario_id") != scenario["id"]
+                            or old_record.get("bank") != bank):
+                        raise ValueError(f"Reuse record identity mismatch: {old_file}")
+                    opts = old_record.get("options")
+                    if not isinstance(opts, dict) or set(opts) != set(STRATEGIES):
+                        raise ValueError(f"Malformed accepted reuse record: {old_file}")
+                    retained[bank] = old_record
+
+                # Revalidate every retained set against the exact pinned
+                # tokenizer and all other retained banks; do not blindly
+                # trust a historical accepted flag or corrupt the output.
+                for bank, old_record in retained.items():
+                    others = {
+                        other: record["options"]
+                        for other, record in retained.items() if other != bank
+                    }
+                    check = _score_candidate(
+                        measure_tokenizer, scenario, old_record["options"], others
+                    )
+                    if not check["accepted_automatic_constraints"]:
+                        raise ValueError(
+                            f"Previous accepted record no longer passes: "
+                            f"{scenario['id']} Bank {bank}: {check['issues']}"
+                        )
+
             prior = {}
             for bank in BANKS:
-                record = _generate_set(
-                    llm, generation_tokenizer, measure_tokenizer,
-                    scenario, bank, prior, max_attempts,
-                )
+                if bank in retained:
+                    record = {
+                        key: copy.deepcopy(value)
+                        for key, value in retained[bank].items()
+                        if key not in ("scenario_id", "source_index", "bank")
+                    }
+                    record["reused_from_run"] = reuse_run
+                    record["validation"] = _score_candidate(
+                        measure_tokenizer, scenario, record["options"],
+                        {other: opts for other, opts in prior.items()}
+                    )
+                    counts[bank]["reused"] += 1
+                else:
+                    # Even if a later bank is already accepted, a new earlier
+                    # bank must avoid colliding with it.
+                    avoid = dict(prior)
+                    avoid.update({
+                        other: old_record["options"]
+                        for other, old_record in retained.items() if other != bank
+                    })
+                    record = _generate_set(
+                        llm, generation_tokenizer, measure_tokenizer,
+                        scenario, bank, avoid, max_attempts,
+                    )
+                    if record["accepted_automatic_constraints"]:
+                        counts[bank]["newly_accepted"] += 1
+
                 row = {
                     "scenario_id": scenario["id"], "source_index": index,
                     "bank": bank, **record,
@@ -385,8 +460,10 @@ def generate_candidates(source_bytes: bytes, source_sha256: str, start: int, lim
                     counts[bank]["unresolved"] += 1
                     unresolved.append({"scenario_id": scenario["id"], "bank": bank,
                                        "issues": record.get("validation", record).get("issues", [])})
-                print(f"scenario {index + 1}/{len(scenarios)} bank {bank}: "
-                      f"{'automatic constraints passed' if record['accepted_automatic_constraints'] else 'UNRESOLVED'}",
+                status = ("REUSED" if bank in retained else
+                          "automatic constraints passed"
+                          if record["accepted_automatic_constraints"] else "UNRESOLVED")
+                print(f"scenario {index + 1}/{len(scenarios)} bank {bank}: {status}",
                       flush=True)
             if (index - start + 1) % 10 == 0:
                 RUN_VOLUME.commit()
@@ -400,6 +477,7 @@ def generate_candidates(source_bytes: bytes, source_sha256: str, start: int, lim
             "measurement_tokenizer": MEASUREMENT_TOKENIZER,
             "measurement_tokenizer_revision": MEASUREMENT_REVISION,
             "start": start, "limit": limit, "max_attempts": max_attempts,
+            "reuse_run": reuse_run or None,
             "counts": counts, "unresolved_count": len(unresolved),
             "scientific_use_allowed": False,
         }
@@ -424,12 +502,17 @@ def generate_candidates(source_bytes: bytes, source_sha256: str, start: int, lim
 @app.local_entrypoint()
 def main(source: str = "data/scenarios_phase0b_utility_matched.json",
          limit: int = 6, start: int = 0, max_attempts: int = 6,
-         run_name: str = "pilot01", authorize_paid_run: bool = False):
+         run_name: str = "pilot01", reuse_run: str = "",
+         authorize_paid_run: bool = False):
     path = Path(source)
     if not path.is_file():
         raise FileNotFoundError(path)
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{1,63}", run_name):
         raise ValueError("run_name must be 2-64 letters, numbers, _ or -")
+    if reuse_run and not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{1,63}", reuse_run):
+        raise ValueError("reuse_run must be a previously recorded run name")
+    if reuse_run == run_name:
+        raise ValueError("Cannot overwrite the run used for reuse")
     if not (0 <= start < 124 and 1 <= limit <= 124 - start):
         raise ValueError("Choose 0 <= start < 124 and 1 <= limit <= 124-start")
     if not 1 <= max_attempts <= 12:
@@ -437,11 +520,13 @@ def main(source: str = "data/scenarios_phase0b_utility_matched.json",
     payload = path.read_bytes()
     digest = hashlib.sha256(payload).hexdigest()
     if not authorize_paid_run:
-        print(f"DRY RUN: would attempt {limit * 3} scenario-bank rewrites on paid H100.")
+        print(f"DRY RUN: would attempt up to {limit * 3} scenario-bank rewrites on paid H100.")
+        if reuse_run:
+            print(f"Previously accepted scenario-bank variants from {reuse_run} will be reused; no GPU inference on those.")
         print(f"Source SHA256: {digest}. To execute, add --authorize-paid-run.")
         return
     output, counts = generate_candidates.remote(
-        payload, digest, start, limit, run_name, max_attempts,
+        payload, digest, start, limit, run_name, max_attempts, reuse_run,
     )
     print(json.dumps({"volume_path": output, "counts": counts}, indent=2))
     print(f"Retrieve with: modal volume get llm-coop-controlled-rewrites "
