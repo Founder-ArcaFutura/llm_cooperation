@@ -1,0 +1,162 @@
+"""Run the frozen Phase 0B behavioral assay at the five previously pinned OLMo checkpoints.
+
+Behavior ONLY: no activation capture, linear probing or change to existing runs.
+Install this file at the root of Founder-ArcaFutura/llm_cooperation and run with Modal.
+
+Use --checkpoint-order 0 --split exploratory for the initial paid sanity check.
+Use --split all --authorize-confirmatory for the complete five-checkpoint exploratory trajectory.
+"""
+from __future__ import annotations
+
+import hashlib
+import json
+import os
+import uuid
+from datetime import datetime, timezone
+from pathlib import Path
+
+import modal
+
+VOLUME_NAME = "llm-coop-olmo-emergence"
+MODEL_ID = "allenai/OLMo-2-0425-1B"
+EXPECTED_CHECKPOINTS = 5
+
+volume = modal.Volume.from_name(VOLUME_NAME, create_if_missing=False)
+cache = modal.Volume.from_name("llm-coop-hf-cache", create_if_missing=False)
+image = (
+    modal.Image.debian_slim(python_version="3.11")
+    .pip_install(
+        "torch==2.5.1", "transformers==4.53.2", "accelerate==1.1.1",
+        "numpy==1.26.4", "scikit-learn==1.5.2", "scipy==1.14.1",
+        "matplotlib==3.9.2", "pandas==2.2.3", "seaborn==0.13.2",
+        "pydantic==2.9.2", "rich==13.9.4", "tabulate==0.9.0",
+    )
+    .add_local_python_source("llm_cooperation")
+)
+app = modal.App("llm-cooperation-olmo-behavior-only-v1", image=image)
+
+
+def sha256(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+@app.function(
+    gpu="A10G", timeout=86400, retries=0,
+    volumes={"/runs": volume, "/hf-cache": cache},
+)
+def evaluate_checkpoint(
+    checkpoint: dict,
+    bank_bytes: bytes,
+    bank_sha256: str,
+    split: str,
+) -> str:
+    """Run strictly behavioral outputs on one pinned checkpoint, preserving raw evidence."""
+    os.environ["HF_HOME"] = "/hf-cache"
+    from llm_cooperation.harness.runner import run_experiment
+    from llm_cooperation.analysis.pipeline import analyze_results
+
+    if sha256(bank_bytes) != bank_sha256:
+        raise ValueError("Frozen Phase 0B bank hash mismatch in Modal worker")
+    if checkpoint.get("model_id") != MODEL_ID:
+        raise ValueError("Incorrect model identity in checkpoint manifest")
+    revision = checkpoint.get("commit_sha", "")
+    if len(revision) != 40 or any(c not in "0123456789abcdef" for c in revision.lower()):
+        raise ValueError("Checkpoint revision must be an immutable 40-character commit SHA")
+    order = checkpoint["checkpoint_order"]
+    run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid.uuid4().hex[:8]
+    out = (
+        Path("/runs") / "olmo2-1b-behavioral-emergence-v1" /
+        f"checkpoint-{order:02d}-{revision[:12]}" / run_id
+    )
+    out.mkdir(parents=True, exist_ok=False)
+    bank_path = out / "scenarios_phase0b_utility_matched.json"
+    bank_path.write_bytes(bank_bytes)
+    provenance = {
+        "model_id": MODEL_ID,
+        "checkpoint": checkpoint,
+        "frozen_bank_sha256": bank_sha256,
+        "split": split,
+        "assay": "Phase 0B letter-choice counterbalanced behavior",
+        "phase0b_scientific_status": "EXPLORATORY_PENDING_HUMAN_SEMANTIC_REVIEW",
+        "interpretation": "Inspect forced-choice logits, generation validity, positional bias, and calibration separately. No claim of innate cooperation or a cooperation circuit.",
+        "activation_probes_run": False,
+        "started_utc": datetime.now(timezone.utc).isoformat(),
+    }
+    (out / "provenance.json").write_text(json.dumps(provenance, indent=2), encoding="utf-8")
+    volume.commit()
+
+    try:
+        raw = run_experiment(
+            MODEL_ID,
+            scenarios_path=str(bank_path),
+            output_dir=str(out / "raw"),
+            revision=revision,
+            precision="bfloat16",
+            device="cuda",
+            seed=42,
+            prompt_mode="standard_plaintext",
+            split_filter=None if split == "all" else split,
+        )
+        # Persist actual raw model outputs before potentially fallible analysis.
+        provenance["raw_results_file"] = str(raw.relative_to(out))
+        provenance["raw_results_sha256"] = sha256(raw.read_bytes())
+        provenance["raw_completed_utc"] = datetime.now(timezone.utc).isoformat()
+        (out / "provenance.json").write_text(json.dumps(provenance, indent=2), encoding="utf-8")
+        volume.commit()
+        try:
+            summary = analyze_results(
+                str(raw), output_dir=str(out / "analysis"), num_bootstraps=2000
+            )
+            (out / "behavioral_summary.json").write_text(
+                json.dumps(summary, indent=2, default=str), encoding="utf-8"
+            )
+            provenance["analysis_status"] = "completed"
+        except Exception as exc:
+            provenance["analysis_status"] = "failed; raw results retained"
+            provenance["analysis_error"] = repr(exc)
+            print("WARNING: analysis failed after raw evidence was saved:", repr(exc))
+        (out / "provenance.json").write_text(json.dumps(provenance, indent=2), encoding="utf-8")
+        volume.commit()
+    finally:
+        volume.commit()
+    print("CHECKPOINT BEHAVIOR OUTPUT:", out)
+    return str(out)
+
+
+@app.local_entrypoint()
+def main(
+    selection: str = "research/olmo2_emergence/plans/selection_and_plans.json",
+    source: str = "data/scenarios_phase0b_utility_matched.json",
+    checkpoint_order: int = -1,
+    split: str = "all",
+    authorize_paid_run: bool = False,
+    authorize_confirmatory: bool = False,
+):
+    if not authorize_paid_run:
+        raise PermissionError("Paid Modal execution requires --authorize-paid-run")
+    if split not in ("exploratory", "confirmatory", "all"):
+        raise ValueError("--split must be exploratory, confirmatory, or all")
+    if split != "exploratory" and not authorize_confirmatory:
+        raise PermissionError("Accessing confirmatory scenarios requires --authorize-confirmatory")
+    manifest = json.loads(Path(selection).read_text(encoding="utf-8"))
+    rows = manifest.get("checkpoints", [])
+    if len(rows) != EXPECTED_CHECKPOINTS or sorted(x.get("checkpoint_order") for x in rows) != list(range(EXPECTED_CHECKPOINTS)):
+        raise ValueError("Expected the original five pinned OLMo checkpoints, numbered 0..4")
+    if any(x.get("model_id") != MODEL_ID for x in rows):
+        raise ValueError("Unexpected model in checkpoint selection")
+    if len({r["commit_sha"] for r in rows}) != EXPECTED_CHECKPOINTS:
+        raise ValueError("Duplicate checkpoint commit in selection")
+    bank_bytes = Path(source).read_bytes()
+    bank_hash = sha256(bank_bytes)
+    if bank_hash != manifest.get("bank_sha256"):
+        raise ValueError("Frozen bank differs from the original OLMo study hash; refusing to run")
+    if len(json.loads(bank_bytes)["scenarios"]) != 124:
+        raise ValueError("Expected exactly 124 frozen scenarios")
+    if checkpoint_order != -1 and not 0 <= checkpoint_order < EXPECTED_CHECKPOINTS:
+        raise ValueError("--checkpoint-order must be 0..4 or -1 (all five)")
+    chosen = [r for r in rows if checkpoint_order == -1 or r["checkpoint_order"] == checkpoint_order]
+    print(f"Phase 0B behavioral assay; {len(chosen)} checkpoint(s); split={split}; bank SHA256={bank_hash}")
+    for row in chosen:
+        print(f"Running checkpoint {row['checkpoint_order']}: {row['revision']} / {row['commit_sha']}", flush=True)
+        result_path = evaluate_checkpoint.remote(row, bank_bytes, bank_hash, split)
+        print("Saved to Modal volume:", result_path, flush=True)

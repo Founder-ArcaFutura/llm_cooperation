@@ -1,0 +1,73 @@
+{
+  "version": "olmo2-7b-behavioral-selection-v1",
+  "created_utc": "2026-11-06T12:15:21.560389+00:00",
+  "model_id": "allenai/OLMo-2-1124-7B",
+  "selection_method": "live official Hugging Face branches/tags nearest Stage1 0/20/60/100%, followed by ingredient3 Stage2 endpoint",
+  "bank_sha256": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+  "bank_path": "data\\scenarios_phase0b_utility_matched.json",
+  "stage1_max_tokens_billions": 3896,
+  "stage2_merged_main_used": false,
+  "checkpoint_count": 5,
+  "checkpoints": [
+    {
+      "checkpoint_order": 0,
+      "model_id": "allenai/OLMo-2-1124-7B",
+      "revision": "stage1-step150-tokens1B",
+      "commit_sha": "6c70e16229a09e3f777c7107545a3ce074ff9332",
+      "training_stage": "stage1_pretraining",
+      "training_step": 150,
+      "stage_tokens_billions": 1,
+      "cumulative_tokens_billions": 1,
+      "training_stage_label": "earliest_available_pretraining",
+      "trajectory_lineage": "official_1124_7b_stage1_then_ingredient3_stage2"
+    },
+    {
+      "checkpoint_order": 1,
+      "model_id": "allenai/OLMo-2-1124-7B",
+      "revision": "stage1-step186000-tokens781B",
+      "commit_sha": "840cb881c55ca19e859cf5857b29d921a58838a4",
+      "training_stage": "stage1_pretraining",
+      "training_step": 186000,
+      "stage_tokens_billions": 781,
+      "cumulative_tokens_billions": 781,
+      "training_stage_label": "early_stage1",
+      "trajectory_lineage": "official_1124_7b_stage1_then_ingredient3_stage2"
+    },
+    {
+      "checkpoint_order": 2,
+      "model_id": "allenai/OLMo-2-1124-7B",
+      "revision": "stage1-step557000-tokens2337B",
+      "commit_sha": "ec478baead357bdf386bb20ab35e9014f264cd81",
+      "training_stage": "stage1_pretraining",
+      "training_step": 557000,
+      "stage_tokens_billions": 2337,
+      "cumulative_tokens_billions": 2337,
+      "training_stage_label": "intermediate_stage1",
+      "trajectory_lineage": "official_1124_7b_stage1_then_ingredient3_stage2"
+    },
+    {
+      "checkpoint_order": 3,
+      "model_id": "allenai/OLMo-2-1124-7B",
+      "revision": "stage1-step928646-tokens3896B",
+      "commit_sha": "c0371f4281bf2376207646c6b62ddc6c442c7577",
+      "training_stage": "stage1_pretraining",
+      "training_step": 928646,
+      "stage_tokens_billions": 3896,
+      "cumulative_tokens_billions": 3896,
+      "training_stage_label": "stage1_endpoint",
+      "trajectory_lineage": "official_1124_7b_stage1_then_ingredient3_stage2"
+    },
+    {
+      "checkpoint_order": 4,
+      "model_id": "allenai/OLMo-2-1124-7B",
+      "revision": "stage2-ingredient3-step11931-tokens50B",
+      "commit_sha": "7ab0c1550af1be0a0ceca046aa453b9463fa7116",
+      "training_stage": "stage2_ingredient3_continuation",
+      "training_step": 11931,
+      "stage_tokens_billions": 50,
+      "cumulative_tokens_billions": 3946,
+      "training_stage_label": "ingredient3_stage2_endpoint_NOT_SOUPED_BASE",
+      "trajectory_lineage": "official_1124_7b_stage1_then_ingredient3_stage2"
+    }
+  ]
+}

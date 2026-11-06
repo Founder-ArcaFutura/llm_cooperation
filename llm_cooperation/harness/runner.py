@@ -149,9 +149,13 @@ class ModelRunner:
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
         print(f"[ModelRunner] Loading tokenizer for {self.model_name}...")
+        # Opt-in tokenizer-only override for an older OLMo-2 checkpoint whose
+        # revision lacks a usable fast-tokenizer artifact. Model weights remain
+        # loaded from the original immutable self.revision below.
+        tokenizer_revision = os.environ.get("OLMO_7B_TOKENIZER_REVISION") or self.revision
         self.tokenizer = AutoTokenizer.from_pretrained(
             self.model_name,
-            revision=self.revision,
+            revision=tokenizer_revision,
             trust_remote_code=True,
         )
         if self.tokenizer.pad_token is None:

@@ -1,0 +1,109 @@
+{
+  "version": "cross-model-four-strategy-v1",
+  "status": "PREFLIGHT_ONLY_NO_INFERENCE",
+  "integrity": {
+    "scenarios": 124,
+    "families": 54,
+    "domains": 24,
+    "family_split_counts": {
+      "discovery": 27,
+      "evaluation": 27
+    },
+    "domain_split_counts": {
+      "discovery": 12,
+      "evaluation": 12
+    },
+    "inventory_bytes_sha256": "45df40c837844b08dfdc07e5697155e37fa444d19c5358caf7a347b6a981a752",
+    "bank_sha256": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b"
+  },
+  "models": {
+    "olmo7b": {
+      "status": "BLOCKED_METADATA_OR_TOKENIZER",
+      "model_id": "allenai/OLMo-2-1124-7B",
+      "error_type": "FileNotFoundError",
+      "error": "No cached official main ref; metadata/tokenizer download required"
+    },
+    "mistral7b": {
+      "status": "BLOCKED_METADATA_OR_TOKENIZER",
+      "model_id": "mistralai/Mistral-7B-v0.3",
+      "error_type": "FileNotFoundError",
+      "error": "No cached official main ref; metadata/tokenizer download required"
+    },
+    "qwen": {
+      "status": "TOKENIZER_PREFLIGHT_PASSED_WEIGHTS_UNTESTED",
+      "model_id": "Qwen/Qwen2.5-1.5B",
+      "revision": "8faed761d45a263340a0528343f099c05c9a4323",
+      "num_layers": 28,
+      "hidden_size": 1536,
+      "model_type": "qwen2",
+      "architecture": [
+        "Qwen2ForCausalLM"
+      ],
+      "context_limit": 131072,
+      "indices": [
+        3,
+        6,
+        10,
+        13,
+        17,
+        20,
+        24,
+        27
+      ],
+      "realized_depths": [
+        0.14285714285714285,
+        0.25,
+        0.39285714285714285,
+        0.5,
+        0.6428571428571429,
+        0.75,
+        0.8928571428571429,
+        1.0
+      ],
+      "tokenizer_type": "Qwen2Tokenizer",
+      "native_special_tokens": true,
+      "metadata_files": {
+        "config.json": "0e8c8aa86468aba09c9d32157ff4bc2301c7e6c50e4398960425b2ea71e66f77",
+        "merges.txt": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+        "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+        "tokenizer_config.json": "c91efca15ceff6e9ee9424db58a6f59cd41294e550a86cbd07e3c1fb500b34f9",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "max_prompt_tokens": 89,
+      "sum_prompt_tokens": 35083,
+      "capture_fp32_bytes": 24379392
+    }
+  },
+  "depths": [
+    0.125,
+    0.25,
+    0.375,
+    0.5,
+    0.625,
+    0.75,
+    0.875,
+    1.0
+  ],
+  "seed": 42,
+  "versions": {
+    "numpy": "2.3.1",
+    "scipy": "1.16.0",
+    "scikit-learn": "1.7.0",
+    "transformers": "5.5.4",
+    "torch": "2.10.0",
+    "tokenizers": "0.22.1",
+    "huggingface-hub": "1.33.0"
+  },
+  "code_hashes": {
+    "cross_model_replication.py": "51212f217a0d29d1e594b99344b380b31ecfe74e94176ec2c1d0b756a80c06f2",
+    "four_strategy_probe.py": "61a548ddd96498243a3e270cda3cdf2e308e0a35461136e14dd268749c197f16",
+    "contrastive_mapping.py": "4b2275adbb8f48d632b10a0dd5744b489d7d654ef3232e84222919a7bb9ca2dc"
+  },
+  "files": {
+    "bank_snapshot.json": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+    "prompts.jsonl": "45df40c837844b08dfdc07e5697155e37fa444d19c5358caf7a347b6a981a752",
+    "qwen_baselines.json": "37e281c3610024212fd74e2534ae107a407af9ab2e7adcfa7115e7ecd537d6e3",
+    "qwen_config.json": "c8d2cc566080c4caff2e1dbd0836f4c795cbb2f8725a99932a23b40e5e1fcebe",
+    "qwen_tokenization.json": "47ac85e3953d2e7496cebc26fc1b1930e422f3c5c2854ce04f65fd753417d793"
+  }
+}

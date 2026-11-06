@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "run_id": "run_allenai_OLMo-2-0425-1B_20261106_115902_5e57dc85",
+    "model_name": "allenai/OLMo-2-0425-1B",
+    "model_revision": "888b66d4ba1e995cd1c3194b04a89fa24cafe67c",
+    "tokenizer_revision": null,
+    "model_class": "Olmo2ForCausalLM",
+    "timestamp": "2026-11-06T11:59:02.627586+00:00",
+    "device": "cuda",
+    "precision": "bfloat16",
+    "requested_precision": "bfloat16",
+    "effective_precision": "bfloat16",
+    "mock": false,
+    "git_commit": null,
+    "scenario_bank_hash": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+    "permutation_schedule": "latin_square_4x4_v1",
+    "seed": 42,
+    "torch_version": "2.5.1+cu124",
+    "transformers_version": "4.53.2",
+    "modal_version": "1.6.2",
+    "prompt_mode": "standard_plaintext",
+    "num_scenarios": 60,
+    "num_presentations": 240
+  },
+  "overall_boot": {
+    "mean": 0.24583333333333332,
+    "std": 0.032274861218395144,
+    "ci_lower": 0.2375,
+    "ci_upper": 0.25,
+    "bootstrap_samples": 2000,
+    "clustering_level": "template",
+    "num_clusters": 30
+  },
+  "prob_boot": {
+    "mean": 0.2545026993068556,
+    "std": 0.005776540247310452,
+    "ci_lower": 0.2525793955669118,
+    "ci_upper": 0.2564136241120286,
+    "bootstrap_samples": 2000,
+    "clustering_level": "template",
+    "num_clusters": 30
+  },
+  "position_bias": {
+    "A": 0.7416666666666667,
+    "B": 0.0,
+    "C": 0.0,
+    "D": 0.25833333333333336
+  },
+  "scenario_csv": "/runs/olmo2-1b-behavioral-emergence-v1/checkpoint-01-888b66d4ba1e/20261106T115824Z-bf158355/analysis/scenario_aggregates_allenai_OLMo-2-0425-1B_run_allenai_OLMo-2-0425-1B_20261106_115902_5e57dc85.csv",
+  "report_markdown": "/runs/olmo2-1b-behavioral-emergence-v1/checkpoint-01-888b66d4ba1e/20261106T115824Z-bf158355/analysis/phase0_report_allenai_OLMo-2-0425-1B_run_allenai_OLMo-2-0425-1B_20261106_115902_5e57dc85.md",
+  "plots": [
+    "/runs/olmo2-1b-behavioral-emergence-v1/checkpoint-01-888b66d4ba1e/20261106T115824Z-bf158355/analysis/figures/allenai_OLMo-2-0425-1B_run_allenai_OLMo-2-0425-1B_20261106_115902_5e57dc85_cooperation_by_strata.png",
+    "/runs/olmo2-1b-behavioral-emergence-v1/checkpoint-01-888b66d4ba1e/20261106T115824Z-bf158355/analysis/figures/allenai_OLMo-2-0425-1B_run_allenai_OLMo-2-0425-1B_20261106_115902_5e57dc85_strategy_distribution.png",
+    "/runs/olmo2-1b-behavioral-emergence-v1/checkpoint-01-888b66d4ba1e/20261106T115824Z-bf158355/analysis/figures/allenai_OLMo-2-0425-1B_run_allenai_OLMo-2-0425-1B_20261106_115902_5e57dc85_position_bias_audit.png"
+  ]
+}
