@@ -173,6 +173,93 @@ runtime as interchangeable.
 
 ## Executable workflow
 
+### Bounded Modal staging and separately authorized smoke captures
+
+The Modal wrapper is `modal_cross_model_replication.py`. It exposes CPU staging,
+a four-prompt smoke, and a separately invoked full-capture action that requires
+an additional explicit authorization switch. A successful smoke never starts a
+full run automatically. It stages all 12 plan files byte-for-byte, checks every manifest hash before and
+after volume writes, and stages the frozen source bank and prompt inventory needed
+by the existing loader. It refuses to replace a different existing plan or smoke
+artifact. The GPU request is an 80-GB A100, 64 GiB host RAM and 40 GiB ephemeral
+disk to provide headroom for FP32 7B weights and temporary checkpoint loading.
+Per-smoke metadata records the actual pinned revision, tokenizer vocabulary
+fingerprint and special tokens, finite eight-depth hook completion, elapsed time,
+peak GPU allocation/reservation, and a 496-prompt GPU-cost projection. The cost
+projection is GPU-only and uses the Modal A100-80GB list rate snapshot coded in
+the wrapper; it excludes CPU/RAM, startup variance and storage/network charges.
+
+Install the project and Modal CLI, authenticate, and create the persistent volume
+once (these commands do not start GPU inference):
+
+```powershell
+Set-Location G:\llm_cooperation
+python -m pip install -e .
+modal setup
+modal volume create llm-cooperation-cross-model-v1
+```
+
+Stage and verify the complete plan on Modal CPU:
+
+```powershell
+modal run modal_cross_model_replication.py --action stage
+```
+
+Each smoke is a separate paid invocation. Run only the model smoke you are
+authorizing at that time. The `--authorize-inference` and
+`--authorize-paid-run` switches are both required; no full run follows a smoke.
+The `run-tag` becomes part of its immutable artifact directory:
+
+```powershell
+modal run modal_cross_model_replication.py --action smoke --model-key olmo7b --run-tag olmo-smoke-01 --authorize-inference --authorize-paid-run
+```
+
+To separately authorize Mistral, make its own invocation:
+
+```powershell
+modal run modal_cross_model_replication.py --action smoke --model-key mistral7b --run-tag mistral-smoke-01 --authorize-inference --authorize-paid-run
+```
+
+Download one artifact directory into the repository. Replace the run tag only
+when it differs from the authorized invocation above:
+
+```powershell
+New-Item -ItemType Directory -Force -Path G:\llm_cooperation\mechanistic_artifacts\cross_model_modal_v1 | Out-Null
+modal volume get llm-cooperation-cross-model-v1 /cross_model_four_strategy_v1/artifacts/olmo7b_smoke_olmo-smoke-01 G:\llm_cooperation\mechanistic_artifacts\cross_model_modal_v1\olmo7b_smoke_olmo-smoke-01
+modal volume get llm-cooperation-cross-model-v1 /cross_model_four_strategy_v1/artifacts/mistral7b_smoke_mistral-smoke-01 G:\llm_cooperation\mechanistic_artifacts\cross_model_modal_v1\mistral7b_smoke_mistral-smoke-01
+```
+
+The historical Qwen results are never a wrapper output target. Smoke records are
+diagnostic and are rejected by the scientific full-run loader. The full-capture
+function has a six-hour hard timeout and accepts only the fixed 496-prompt plan.
+Do not invoke it until each model's smoke has been reviewed and full-run approval
+has been given separately.
+
+When that separate authorization is eventually granted, the explicit OLMo full
+capture action is:
+
+```powershell
+modal run modal_cross_model_replication.py --action full --model-key olmo7b --run-tag olmo-full-01 --authorize-inference --authorize-paid-run --authorize-full-capture
+```
+
+Mistral requires its own later invocation with `--model-key mistral7b` and a new
+run tag. These commands are documented for the later gate and have not been run.
+
+### Separate per-strategy CPU report
+
+After a completed full run exists locally, the additive, versioned report can be
+created without editing the plan, saved evidence, or earlier analyses:
+
+```powershell
+python -m llm_cooperation.mechanistic.cross_model_strategy_report --plan research/cross_model_ready_v1 --run mechanistic_artifacts/cross_model_olmo_v1 --output reports/cross_model_olmo_strategy_v1
+```
+
+The report includes held-out one-vs-rest accuracy, balanced accuracy, precision,
+recall, F1 and AUROC per strategy, plus per-strategy conditional log-loss gain
+over length-only features in bits/action. Hyperparameters are selected on
+discovery groups only. It requires a completed full run; smoke data cannot enter
+this report.
+
 Metadata/preflight only, in an environment with working Hub certificate trust:
 
 ```powershell

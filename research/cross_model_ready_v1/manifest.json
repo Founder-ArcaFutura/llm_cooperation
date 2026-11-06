@@ -1,0 +1,193 @@
+{
+  "version": "cross-model-four-strategy-v1",
+  "status": "PREFLIGHT_ONLY_NO_INFERENCE",
+  "integrity": {
+    "scenarios": 124,
+    "families": 54,
+    "domains": 24,
+    "family_split_counts": {
+      "discovery": 27,
+      "evaluation": 27
+    },
+    "domain_split_counts": {
+      "discovery": 12,
+      "evaluation": 12
+    },
+    "inventory_bytes_sha256": "45df40c837844b08dfdc07e5697155e37fa444d19c5358caf7a347b6a981a752",
+    "bank_sha256": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b"
+  },
+  "models": {
+    "olmo7b": {
+      "status": "TOKENIZER_PREFLIGHT_PASSED_WEIGHTS_UNTESTED",
+      "model_id": "allenai/OLMo-2-1124-7B",
+      "revision": "7df9a82518afdecae4e8c026b27adccc8c1f0032",
+      "num_layers": 32,
+      "hidden_size": 4096,
+      "model_type": "olmo2",
+      "architecture": [
+        "Olmo2ForCausalLM"
+      ],
+      "context_limit": 4096,
+      "indices": [
+        3,
+        7,
+        11,
+        15,
+        19,
+        23,
+        27,
+        31
+      ],
+      "realized_depths": [
+        0.125,
+        0.25,
+        0.375,
+        0.5,
+        0.625,
+        0.75,
+        0.875,
+        1.0
+      ],
+      "tokenizer_type": "TokenizersBackend",
+      "native_special_tokens": true,
+      "metadata_files": {
+        "config.json": "f1e210de0ba704c579768c154bf57e36e170868ffecb060a6e0d3f2e6b0b9710",
+        "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+        "special_tokens_map.json": "3c6bf7c09d5473c303cee8575a22bb51e5153c17d177a721b43cd4785c6d09ae",
+        "tokenizer.json": "73fd5254624f39a88e3faac6a8e11300fc3c735ed37880d4f4f08db898eaecca",
+        "tokenizer_config.json": "91c69c665697785ace4ec7dbd159e1839bc9bb5033ab05a56bb0547521dc9ab0",
+        "vocab.json": "9e14712c91b37c7aab74b1306baa46ac342d620637a4b44523cdc3aec7d24195"
+      },
+      "max_prompt_tokens": 89,
+      "sum_prompt_tokens": 35067,
+      "capture_fp32_bytes": 65011712
+    },
+    "mistral7b": {
+      "status": "TOKENIZER_PREFLIGHT_PASSED_WEIGHTS_UNTESTED",
+      "model_id": "mistralai/Mistral-7B-v0.3",
+      "revision": "caa1feb0e54d415e2df31207e5f4e273e33509b1",
+      "num_layers": 32,
+      "hidden_size": 4096,
+      "model_type": "mistral",
+      "architecture": [
+        "MistralForCausalLM"
+      ],
+      "context_limit": 32768,
+      "indices": [
+        3,
+        7,
+        11,
+        15,
+        19,
+        23,
+        27,
+        31
+      ],
+      "realized_depths": [
+        0.125,
+        0.25,
+        0.375,
+        0.5,
+        0.625,
+        0.75,
+        0.875,
+        1.0
+      ],
+      "tokenizer_type": "TokenizersBackend",
+      "native_special_tokens": true,
+      "metadata_files": {
+        "config.json": "affafc6478ec0fd07a32f0ca57aa2fc57743f4d17d6730f86a96ac24d1507f99",
+        "special_tokens_map.json": "6fa06efa2785e450051989a6f8fb4416b10149ded485ddd3f127a40734f5cfd0",
+        "tokenizer.json": "e553af6fff7d7ad76e830608b218c5c0b0822998d5a1a96099a74cd3c1cb1a49",
+        "tokenizer.model": "37f00374dea48658ee8f5d0f21895b9bc55cb0103939607c8185bfd1c6ca1f89",
+        "tokenizer.model.v3": "37f00374dea48658ee8f5d0f21895b9bc55cb0103939607c8185bfd1c6ca1f89",
+        "tokenizer_config.json": "4b16ec9a87854359a282c521da82655cf96c91f53184d14612aa37deac34378e"
+      },
+      "max_prompt_tokens": 107,
+      "sum_prompt_tokens": 43312,
+      "capture_fp32_bytes": 65011712
+    },
+    "qwen": {
+      "status": "TOKENIZER_PREFLIGHT_PASSED_WEIGHTS_UNTESTED",
+      "model_id": "Qwen/Qwen2.5-1.5B",
+      "revision": "8faed761d45a263340a0528343f099c05c9a4323",
+      "num_layers": 28,
+      "hidden_size": 1536,
+      "model_type": "qwen2",
+      "architecture": [
+        "Qwen2ForCausalLM"
+      ],
+      "context_limit": 131072,
+      "indices": [
+        3,
+        6,
+        10,
+        13,
+        17,
+        20,
+        24,
+        27
+      ],
+      "realized_depths": [
+        0.14285714285714285,
+        0.25,
+        0.39285714285714285,
+        0.5,
+        0.6428571428571429,
+        0.75,
+        0.8928571428571429,
+        1.0
+      ],
+      "tokenizer_type": "Qwen2Tokenizer",
+      "native_special_tokens": true,
+      "metadata_files": {
+        "config.json": "0e8c8aa86468aba09c9d32157ff4bc2301c7e6c50e4398960425b2ea71e66f77",
+        "merges.txt": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+        "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+        "tokenizer_config.json": "c91efca15ceff6e9ee9424db58a6f59cd41294e550a86cbd07e3c1fb500b34f9",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "max_prompt_tokens": 89,
+      "sum_prompt_tokens": 35083,
+      "capture_fp32_bytes": 24379392
+    }
+  },
+  "depths": [
+    0.125,
+    0.25,
+    0.375,
+    0.5,
+    0.625,
+    0.75,
+    0.875,
+    1.0
+  ],
+  "seed": 42,
+  "versions": {
+    "numpy": "2.3.1",
+    "scipy": "1.16.0",
+    "scikit-learn": "1.7.0",
+    "transformers": "5.5.4",
+    "torch": "2.10.0",
+    "tokenizers": "0.22.1",
+    "huggingface-hub": "1.33.0"
+  },
+  "code_hashes": {
+    "cross_model_replication.py": "51212f217a0d29d1e594b99344b380b31ecfe74e94176ec2c1d0b756a80c06f2",
+    "four_strategy_probe.py": "61a548ddd96498243a3e270cda3cdf2e308e0a35461136e14dd268749c197f16",
+    "contrastive_mapping.py": "4b2275adbb8f48d632b10a0dd5744b489d7d654ef3232e84222919a7bb9ca2dc"
+  },
+  "files": {
+    "bank_snapshot.json": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+    "mistral7b_baselines.json": "6ea89db435f66c7c9a6d3eebd5c29d28a59c1a1c656963e2f7ab29931fdaf57e",
+    "mistral7b_config.json": "8571e7c228c206c4a7731384bc96af02377d45d35029c15ed7ac16ec717c9c53",
+    "mistral7b_tokenization.json": "48e0c9de137e55190f90a07874c89665c4c7c5a22fb6ea73d43ce1fc755ce257",
+    "olmo7b_baselines.json": "fa30884404c14d02c091acaac9f729cba0c5ab5b8fd2aa86253533b622333420",
+    "olmo7b_config.json": "27285d0c80378ef6d7e5876b1640083eda76821969e7eb832937c3a38d4aeba6",
+    "olmo7b_tokenization.json": "ae6f0d33c3a35fda6a834e1c84f35ea0eca2ce4e0919570d5c4d15897ab080de",
+    "prompts.jsonl": "45df40c837844b08dfdc07e5697155e37fa444d19c5358caf7a347b6a981a752",
+    "qwen_baselines.json": "fa30884404c14d02c091acaac9f729cba0c5ab5b8fd2aa86253533b622333420",
+    "qwen_config.json": "c8d2cc566080c4caff2e1dbd0836f4c795cbb2f8725a99932a23b40e5e1fcebe",
+    "qwen_tokenization.json": "47ac85e3953d2e7496cebc26fc1b1930e422f3c5c2854ce04f65fd753417d793"
+  }
+}

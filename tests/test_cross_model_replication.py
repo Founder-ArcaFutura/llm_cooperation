@@ -130,3 +130,57 @@ def test_compare_rejects_unpaired_plans(tmp_path):
     with pytest.raises(ValueError, match="Different stimulus"):
         cm.compare(paths, tmp_path / "out")
     assert not (tmp_path / "out").exists()
+
+
+def test_modal_wrapper_validates_complete_plan_without_remote_execution():
+    import modal_cross_model_replication as wrapper
+
+    payload = wrapper.plan_payload()
+    manifest = wrapper._verify_payload(payload)
+    assert len(payload) == 12
+    assert manifest["status"] == "PREFLIGHT_ONLY_NO_INFERENCE"
+    assert manifest["models"]["olmo7b"]["revision"] == "7df9a82518afdecae4e8c026b27adccc8c1f0032"
+    assert manifest["models"]["mistral7b"]["revision"] == "caa1feb0e54d415e2df31207e5f4e273e33509b1"
+    with pytest.raises(ValueError, match="changed bytes"):
+        wrapper._verify_payload({**payload, "prompts.jsonl": b"changed"})
+
+
+def test_modal_smoke_requires_both_authorizations_before_gpu_dispatch():
+    import modal_cross_model_replication as wrapper
+
+    with pytest.raises(PermissionError):
+        wrapper.require_smoke_authorization(False, True)
+    with pytest.raises(PermissionError):
+        wrapper.require_smoke_authorization(True, False)
+    wrapper.require_smoke_authorization(True, True)
+    with pytest.raises(PermissionError, match="separate full-capture"):
+        wrapper.require_full_capture_authorization(True, True, False)
+    wrapper.require_full_capture_authorization(True, True, True)
+
+
+def test_modal_runtime_context_matches_frozen_stimulus_hashes():
+    import modal_cross_model_replication as wrapper
+
+    runtime = wrapper.runtime_payload()
+    manifest = cm.read(wrapper.PLAN_DIR / "manifest.json")
+    assert wrapper._sha_bytes(runtime["data/scenarios_phase0b_utility_matched.json"]) == manifest["integrity"]["bank_sha256"]
+    assert wrapper._sha_bytes(runtime["research/contrastive_full_v1/prompts.jsonl"]) == manifest["integrity"]["inventory_bytes_sha256"]
+
+
+def test_strategy_report_binary_fits_use_grouped_discovery_only_selection():
+    from llm_cooperation.mechanistic import cross_model_strategy_report as report
+
+    rows = [{"action_text": text} for text in ["share logs", "work alone", "reserve tools", "defer work"] * 5]
+    groups = np.repeat(np.arange(5), 4)
+    train = groups != 4
+    test = ~train
+    y = np.tile(np.arange(4), 5)
+    binary = (y == 0).astype(int)
+    lengths = np.column_stack([np.tile(np.arange(4), 5), np.arange(20), np.ones(20), np.ones(20) * 5])
+    activation = np.column_stack([binary, y, np.arange(20, dtype=float)])
+    performance, performance_hp = report._probabilities(rows, lengths, binary, groups, train, test, feature_kind="activation", activation=activation)
+    joint, joint_hp = report._probabilities(rows, lengths, binary, groups, train, test, feature_kind="length", activation=activation)
+    base, base_hp = report._probabilities(rows, lengths, binary, groups, train, test, feature_kind="length")
+    assert performance.shape == joint.shape == base.shape == (4,)
+    assert 0 <= performance_hp["C"] <= 10 and 0 <= joint_hp["C"] <= 10 and 0 <= base_hp["C"] <= 10
+    assert np.isfinite(performance).all() and np.isfinite(joint).all() and np.isfinite(base).all()
