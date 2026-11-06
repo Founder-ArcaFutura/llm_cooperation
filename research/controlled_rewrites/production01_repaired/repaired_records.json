@@ -1,0 +1,523 @@
+{
+  "version": "1.0.0-repaired-phase1",
+  "repair_pass": "phase1_bounded_pass_01",
+  "source_production_run": "research/controlled_rewrites/production01",
+  "measurement_tokenizer": "Qwen/Qwen2.5-1.5B",
+  "measurement_tokenizer_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+  "repaired_records_count": 7,
+  "repaired_record_ids": [
+    "005_B",
+    "019_C",
+    "055_A",
+    "073_B",
+    "079_A",
+    "086_C",
+    "103_A"
+  ],
+  "repaired_records": {
+    "005_B": {
+      "scenario_id": "phase0b_003_ai",
+      "source_index": 5,
+      "bank": "B",
+      "options": {
+        "COOPERATE": "Share a dual-bay container with the automated agent for simultaneous transit.",
+        "INDEPENDENT": "Ship your pallets in a standalone single container on the scheduled route.",
+        "COMPETE_EXPLOIT": "Claim the central bay to gain priority crane unloading for faster offload.",
+        "DISENGAGE": "Retain pallets in depot storage until the next dispatch cycle begins."
+      },
+      "validation": {
+        "accepted_automatic_constraints": true,
+        "action_tokens": {
+          "COOPERATE": 14,
+          "INDEPENDENT": 14,
+          "COMPETE_EXPLOIT": 15,
+          "DISENGAGE": 14
+        },
+        "full_prompt_tokens": {
+          "COOPERATE": 69,
+          "INDEPENDENT": 69,
+          "COMPETE_EXPLOIT": 70,
+          "DISENGAGE": 69
+        },
+        "issues": [],
+        "semantic_review": "UNADJUDICATED"
+      },
+      "attempts": 3,
+      "model_requests": 3,
+      "accepted_automatic_constraints": true,
+      "semantic_review": "UNADJUDICATED",
+      "candidate_pool": {
+        "COOPERATE": [
+          "Share a dual-bay container with the automated agent for simultaneous transit and arrival.",
+          "Collaborate with the automated agent to utilize a shared dual-bay container for parallel transit and arrival.",
+          "Collaborate with the automated agent to utilize a shared dual-bay container for synchronized transit and arrival."
+        ],
+        "INDEPENDENT": [
+          "Ship your pallets in a standalone single container on the scheduled route."
+        ],
+        "COMPETE_EXPLOIT": [
+          "Claim the central bay to gain priority crane unloading for faster offload."
+        ],
+        "DISENGAGE": [
+          "Retain pallets in depot storage until the next dispatch cycle begins."
+        ]
+      },
+      "last_raw_excerpt": "{\"action\":\"Collaborate with the automated agent to utilize a shared dual-bay container for parallel transit and arrival.\"}",
+      "repair_target": 14,
+      "candidate_counts": {
+        "COOPERATE": 3,
+        "INDEPENDENT": 1,
+        "COMPETE_EXPLOIT": 1,
+        "DISENGAGE": 1
+      },
+      "repair_provenance": {
+        "source": "targeted_sentence_repair",
+        "repair_pass": "phase1_bounded_pass_01",
+        "original_options": {
+          "COOPERATE": "Share a dual-bay container with the automated agent for simultaneous transit and arrival.",
+          "INDEPENDENT": "Ship your pallets in a standalone single container on the scheduled route.",
+          "COMPETE_EXPLOIT": "Claim the central bay to gain priority crane unloading for faster offload.",
+          "DISENGAGE": "Retain pallets in depot storage until the next dispatch cycle begins."
+        },
+        "tokenizer": "Qwen/Qwen2.5-1.5B",
+        "tokenizer_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+        "action_span": 1,
+        "prompt_span": 1,
+        "status": "PROVISIONAL_PENDING_INDEPENDENT_SEMANTIC_REVIEW"
+      }
+    },
+    "019_C": {
+      "scenario_id": "phase0b_010_ai",
+      "source_index": 19,
+      "bank": "C",
+      "options": {
+        "COOPERATE": "Synchronize voltage with the grid controller via cross-facility protocol.",
+        "INDEPENDENT": "Control voltage output solely through your photovoltaic inverter bank.",
+        "COMPETE_EXPLOIT": "Leverage surplus reactive power exports to influence neighboring grid adjustments directly.",
+        "DISENGAGE": "Isolate the plant from the feeder and operate off-grid autonomously."
+      },
+      "validation": {
+        "accepted_automatic_constraints": true,
+        "action_tokens": {
+          "COOPERATE": 14,
+          "INDEPENDENT": 13,
+          "COMPETE_EXPLOIT": 14,
+          "DISENGAGE": 14
+        },
+        "full_prompt_tokens": {
+          "COOPERATE": 64,
+          "INDEPENDENT": 63,
+          "COMPETE_EXPLOIT": 63,
+          "DISENGAGE": 64
+        },
+        "issues": [],
+        "semantic_review": "UNADJUDICATED"
+      },
+      "attempts": 3,
+      "model_requests": 6,
+      "accepted_automatic_constraints": true,
+      "semantic_review": "UNADJUDICATED",
+      "candidate_pool": {
+        "COOPERATE": [
+          "Synchronize voltage with the grid controller via the cross-facility protocol.",
+          "Initiate cross-facility voltage synchronization with the grid controller via the automated protocol."
+        ],
+        "INDEPENDENT": [
+          "Stabilize voltage using only internal inverter controls exclusively.",
+          "Control voltage output solely through your photovoltaic inverter bank's internal regulation.",
+          "Adjust voltage output exclusively through internal regulation of your photovoltaic inverter bank."
+        ],
+        "COMPETE_EXPLOIT": [
+          "Overload reactive power exports to manipulate neighboring grid behavior.",
+          "Leverage surplus reactive power exports to influence adjacent grid adjustments.",
+          "Utilize excess reactive power exports to steer neighboring grid adjustments."
+        ],
+        "DISENGAGE": [
+          "Isolate the plant from the feeder and operate off-grid autonomously."
+        ]
+      },
+      "last_raw_excerpt": "{\"action\":\"Utilize excess reactive power exports to steer neighboring grid adjustments.\"}",
+      "repair_target": 14,
+      "candidate_counts": {
+        "COOPERATE": 2,
+        "INDEPENDENT": 3,
+        "COMPETE_EXPLOIT": 3,
+        "DISENGAGE": 1
+      },
+      "repair_provenance": {
+        "source": "targeted_sentence_repair",
+        "repair_pass": "phase1_bounded_pass_01",
+        "original_options": {
+          "COOPERATE": "Synchronize voltage with the grid controller via the cross-facility protocol.",
+          "INDEPENDENT": "Stabilize voltage using only internal inverter controls exclusively.",
+          "COMPETE_EXPLOIT": "Leverage surplus reactive power exports to influence adjacent grid adjustments.",
+          "DISENGAGE": "Isolate the plant from the feeder and operate off-grid autonomously."
+        },
+        "tokenizer": "Qwen/Qwen2.5-1.5B",
+        "tokenizer_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+        "action_span": 1,
+        "prompt_span": 1,
+        "status": "PROVISIONAL_PENDING_INDEPENDENT_SEMANTIC_REVIEW"
+      }
+    },
+    "055_A": {
+      "scenario_id": "phase0b_028_ai",
+      "source_index": 55,
+      "bank": "A",
+      "options": {
+        "COOPERATE": "Coordinate conveyor belts with the automated routing system for dual-stream pallet transfer.",
+        "INDEPENDENT": "Direct palletized produce through your single assigned warehouse conveyor lane independently.",
+        "COMPETE_EXPLOIT": "Reassign all routing to prioritize pallets over frozen cartons exclusively.",
+        "DISENGAGE": "Temporarily halt pallet intake and postpone warehouse conveyor processing until morning."
+      },
+      "validation": {
+        "accepted_automatic_constraints": true,
+        "action_tokens": {
+          "COOPERATE": 14,
+          "INDEPENDENT": 13,
+          "COMPETE_EXPLOIT": 14,
+          "DISENGAGE": 13
+        },
+        "full_prompt_tokens": {
+          "COOPERATE": 73,
+          "INDEPENDENT": 72,
+          "COMPETE_EXPLOIT": 73,
+          "DISENGAGE": 72
+        },
+        "issues": [],
+        "semantic_review": "UNADJUDICATED"
+      },
+      "attempts": 3,
+      "model_requests": 6,
+      "accepted_automatic_constraints": true,
+      "semantic_review": "UNADJUDICATED",
+      "candidate_pool": {
+        "COOPERATE": [
+          "Synchronize conveyor belts with the automated routing system for dual-stream pallet transfer.",
+          "Coordinate conveyor belts with the automated routing system for dual-stream pallet transfer."
+        ],
+        "INDEPENDENT": [
+          "Direct palletized produce through your single assigned warehouse conveyor lane.",
+          "Guide palletized produce along your single designated warehouse conveyor lane.",
+          "Direct palletized produce along your single designated warehouse conveyor lane."
+        ],
+        "COMPETE_EXPLOIT": [
+          "Reassign all routing to prioritize pallets over frozen cartons exclusively."
+        ],
+        "DISENGAGE": [
+          "Temporarily halt pallet intake and delay conveyor processing until morning.",
+          "Pause pallet intake and defer conveyor processing until morning."
+        ]
+      },
+      "last_raw_excerpt": "{\"action\":\"Pause pallet intake and defer conveyor processing until morning.\"}",
+      "repair_target": 13,
+      "candidate_counts": {
+        "COOPERATE": 2,
+        "INDEPENDENT": 3,
+        "COMPETE_EXPLOIT": 1,
+        "DISENGAGE": 2
+      },
+      "repair_provenance": {
+        "source": "targeted_sentence_repair",
+        "repair_pass": "phase1_bounded_pass_01",
+        "original_options": {
+          "COOPERATE": "Coordinate conveyor belts with the automated routing system for dual-stream pallet transfer.",
+          "INDEPENDENT": "Direct palletized produce through your single assigned warehouse conveyor lane.",
+          "COMPETE_EXPLOIT": "Reassign all routing to prioritize pallets over frozen cartons exclusively.",
+          "DISENGAGE": "Temporarily halt pallet intake and delay conveyor processing until morning."
+        },
+        "tokenizer": "Qwen/Qwen2.5-1.5B",
+        "tokenizer_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+        "action_span": 1,
+        "prompt_span": 1,
+        "status": "PROVISIONAL_PENDING_INDEPENDENT_SEMANTIC_REVIEW"
+      }
+    },
+    "073_B": {
+      "scenario_id": "phase0b_037_ai",
+      "source_index": 73,
+      "bank": "B",
+      "options": {
+        "COOPERATE": "Align switch timings with the automated interlocking controller to maintain uninterrupted corridor passage.",
+        "INDEPENDENT": "Navigate junctions using standard uncoupled signals without interlocking coordination.",
+        "COMPETE_EXPLOIT": "Preempt junction signals at each interchange to delay freight and enforce express priority.",
+        "DISENGAGE": "Withhold departure until freight traffic clears, maintaining trains at the terminal station."
+      },
+      "validation": {
+        "accepted_automatic_constraints": true,
+        "action_tokens": {
+          "COOPERATE": 15,
+          "INDEPENDENT": 14,
+          "COMPETE_EXPLOIT": 15,
+          "DISENGAGE": 15
+        },
+        "full_prompt_tokens": {
+          "COOPERATE": 75,
+          "INDEPENDENT": 74,
+          "COMPETE_EXPLOIT": 75,
+          "DISENGAGE": 75
+        },
+        "issues": [],
+        "semantic_review": "UNADJUDICATED"
+      },
+      "attempts": 3,
+      "model_requests": 3,
+      "accepted_automatic_constraints": true,
+      "semantic_review": "UNADJUDICATED",
+      "candidate_pool": {
+        "COOPERATE": [
+          "Synchronize switch timings with the automated interlocking system to ensure uninterrupted corridor passage."
+        ],
+        "INDEPENDENT": [
+          "Navigate junctions using standard uncoupled signals without coordination with the interlocking system.",
+          "Pass through junctions via standard uncoupled signals, independent of interlocking coordination.",
+          "Navigate junctions using standard uncoupled signals without interlocking coordination."
+        ],
+        "COMPETE_EXPLOIT": [
+          "Preempt junction signals at each interchange to delay freight and enforce express priority."
+        ],
+        "DISENGAGE": [
+          "Withhold departure until freight traffic clears, maintaining trains at the terminal station."
+        ]
+      },
+      "last_raw_excerpt": "{\"action\":\"Navigate junctions using standard uncoupled signals without interlocking coordination.\"}",
+      "repair_target": 15,
+      "candidate_counts": {
+        "COOPERATE": 1,
+        "INDEPENDENT": 3,
+        "COMPETE_EXPLOIT": 1,
+        "DISENGAGE": 1
+      },
+      "repair_provenance": {
+        "source": "targeted_sentence_repair",
+        "repair_pass": "phase1_bounded_pass_01",
+        "original_options": {
+          "COOPERATE": "Synchronize switch timings with the automated interlocking system to ensure uninterrupted corridor passage.",
+          "INDEPENDENT": "Navigate junctions using standard uncoupled signals without interlocking coordination.",
+          "COMPETE_EXPLOIT": "Preempt junction signals at each interchange to delay freight and enforce express priority.",
+          "DISENGAGE": "Withhold departure until freight traffic clears, maintaining trains at the terminal station."
+        },
+        "tokenizer": "Qwen/Qwen2.5-1.5B",
+        "tokenizer_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+        "action_span": 1,
+        "prompt_span": 1,
+        "status": "PROVISIONAL_PENDING_INDEPENDENT_SEMANTIC_REVIEW"
+      }
+    },
+    "079_A": {
+      "scenario_id": "phase0b_040_ai",
+      "source_index": 79,
+      "bank": "A",
+      "options": {
+        "COOPERATE": "Activate the alternating four-way yield protocol with the fleet coordination agent.",
+        "INDEPENDENT": "Navigate warehouse floor intersections using onboard sensors without any external coordination.",
+        "COMPETE_EXPLOIT": "Prioritize speed and claim intersection right-of-way aggressively across crossings.",
+        "DISENGAGE": "Park transport vehicles in charging stalls and suspend all active inventory transfers."
+      },
+      "validation": {
+        "accepted_automatic_constraints": true,
+        "action_tokens": {
+          "COOPERATE": 13,
+          "INDEPENDENT": 12,
+          "COMPETE_EXPLOIT": 13,
+          "DISENGAGE": 13
+        },
+        "full_prompt_tokens": {
+          "COOPERATE": 67,
+          "INDEPENDENT": 66,
+          "COMPETE_EXPLOIT": 67,
+          "DISENGAGE": 67
+        },
+        "issues": [],
+        "semantic_review": "UNADJUDICATED"
+      },
+      "attempts": 3,
+      "model_requests": 5,
+      "accepted_automatic_constraints": true,
+      "semantic_review": "UNADJUDICATED",
+      "candidate_pool": {
+        "COOPERATE": [
+          "Activate the alternating four-way yield protocol with the fleet coordination agent.",
+          "Initiate the alternating four-way yield protocol with the fleet coordination agent."
+        ],
+        "INDEPENDENT": [
+          "Use onboard sensors to navigate intersections without coordination.",
+          "Navigate intersections using onboard obstacle sensors without coordination."
+        ],
+        "COMPETE_EXPLOIT": [
+          "Prioritize speed and claim intersection right-of-way aggressively."
+        ],
+        "DISENGAGE": [
+          "Park vehicles in charging stalls and suspend all inventory transfers."
+        ]
+      },
+      "last_raw_excerpt": "{\"action\":\"Navigate intersections using onboard obstacle sensors without coordination.\"}",
+      "repair_target": 11,
+      "candidate_counts": {
+        "COOPERATE": 2,
+        "INDEPENDENT": 2,
+        "COMPETE_EXPLOIT": 1,
+        "DISENGAGE": 1
+      },
+      "repair_provenance": {
+        "source": "targeted_sentence_repair",
+        "repair_pass": "phase1_bounded_pass_01",
+        "original_options": {
+          "COOPERATE": "Activate the alternating four-way yield protocol with the fleet coordination agent.",
+          "INDEPENDENT": "Use onboard sensors to navigate intersections without coordination.",
+          "COMPETE_EXPLOIT": "Prioritize speed and claim intersection right-of-way aggressively.",
+          "DISENGAGE": "Park vehicles in charging stalls and suspend all inventory transfers."
+        },
+        "tokenizer": "Qwen/Qwen2.5-1.5B",
+        "tokenizer_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+        "action_span": 1,
+        "prompt_span": 1,
+        "status": "PROVISIONAL_PENDING_INDEPENDENT_SEMANTIC_REVIEW"
+      }
+    },
+    "086_C": {
+      "scenario_id": "phase0b_044_human",
+      "source_index": 86,
+      "bank": "C",
+      "options": {
+        "COOPERATE": "Disperse brine reject through the shared diffuser with the human plant engineer.",
+        "INDEPENDENT": "Discharge brine through your assigned coastal outflow pipe without external coordination.",
+        "COMPETE_EXPLOIT": "Divert concentrated brine into shared crystallization ponds to avoid discharge fees.",
+        "DISENGAGE": "Cease high-pressure desalination pumping and sustain membrane recirculation."
+      },
+      "validation": {
+        "accepted_automatic_constraints": true,
+        "action_tokens": {
+          "COOPERATE": 16,
+          "INDEPENDENT": 15,
+          "COMPETE_EXPLOIT": 15,
+          "DISENGAGE": 15
+        },
+        "full_prompt_tokens": {
+          "COOPERATE": 84,
+          "INDEPENDENT": 83,
+          "COMPETE_EXPLOIT": 83,
+          "DISENGAGE": 83
+        },
+        "issues": [],
+        "semantic_review": "UNADJUDICATED"
+      },
+      "attempts": 3,
+      "model_requests": 6,
+      "accepted_automatic_constraints": true,
+      "semantic_review": "UNADJUDICATED",
+      "candidate_pool": {
+        "COOPERATE": [
+          "Disperse brine reject through the shared diffuser with the human plant engineer.",
+          "Disperse brine reject through the shared diffuser using the human plant operations engineer.",
+          "Disperse brine reject through the shared diffuser alongside the human plant engineer."
+        ],
+        "INDEPENDENT": [
+          "Release brine through your individual coastal outflow pipe without coordination.",
+          "Discharge brine through your assigned coastal outflow pipe without coordination."
+        ],
+        "COMPETE_EXPLOIT": [
+          "Redirect brine to shared crystallization ponds to reduce discharge costs.",
+          "Divert concentrated brine into shared crystallization ponds to avoid discharge fees."
+        ],
+        "DISENGAGE": [
+          "Stop high-pressure pumping and maintain membrane recirculation.",
+          "Cease high-pressure desalination pumping and sustain membrane recirculation."
+        ]
+      },
+      "last_raw_excerpt": "{\"action\":\"Divert concentrated brine into shared crystallization ponds to avoid discharge fees.\"}",
+      "repair_target": 15,
+      "candidate_counts": {
+        "COOPERATE": 3,
+        "INDEPENDENT": 2,
+        "COMPETE_EXPLOIT": 2,
+        "DISENGAGE": 2
+      },
+      "repair_provenance": {
+        "source": "targeted_sentence_repair",
+        "repair_pass": "phase1_bounded_pass_01",
+        "original_options": {
+          "COOPERATE": "Disperse brine reject through the shared diffuser with the human plant engineer.",
+          "INDEPENDENT": "Discharge brine through your assigned coastal outflow pipe without coordination.",
+          "COMPETE_EXPLOIT": "Divert concentrated brine into shared crystallization ponds to avoid discharge fees.",
+          "DISENGAGE": "Cease high-pressure desalination pumping and sustain membrane recirculation."
+        },
+        "tokenizer": "Qwen/Qwen2.5-1.5B",
+        "tokenizer_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+        "action_span": 1,
+        "prompt_span": 1,
+        "status": "PROVISIONAL_PENDING_INDEPENDENT_SEMANTIC_REVIEW"
+      }
+    },
+    "103_A": {
+      "scenario_id": "phase0b_052_ai",
+      "source_index": 103,
+      "bank": "A",
+      "options": {
+        "COOPERATE": "Coordinate blower setpoints across diffusers using the automated aeration controller.",
+        "INDEPENDENT": "Operate blowers locally based solely on your tank's dissolved oxygen levels.",
+        "COMPETE_EXPLOIT": "Force maximum blower flow to rapidly accelerate nutrient removal in your aeration tank.",
+        "DISENGAGE": "Shut blowers to idle and reroute wastewater to holding lagoons."
+      },
+      "validation": {
+        "accepted_automatic_constraints": true,
+        "action_tokens": {
+          "COOPERATE": 15,
+          "INDEPENDENT": 15,
+          "COMPETE_EXPLOIT": 16,
+          "DISENGAGE": 16
+        },
+        "full_prompt_tokens": {
+          "COOPERATE": 85,
+          "INDEPENDENT": 85,
+          "COMPETE_EXPLOIT": 86,
+          "DISENGAGE": 85
+        },
+        "issues": [],
+        "semantic_review": "UNADJUDICATED"
+      },
+      "attempts": 3,
+      "model_requests": 3,
+      "accepted_automatic_constraints": true,
+      "semantic_review": "UNADJUDICATED",
+      "candidate_pool": {
+        "COOPERATE": [
+          "Coordinate blower setpoints across diffusers using the automated aeration controller."
+        ],
+        "INDEPENDENT": [
+          "Operate blowers locally based solely on your tank's dissolved oxygen levels."
+        ],
+        "COMPETE_EXPLOIT": [
+          "Force maximum blower flow to accelerate nutrient removal in your tank.",
+          "Force maximum blower flow to rapidly strip nutrients from your tank."
+        ],
+        "DISENGAGE": [
+          "Shut blowers to idle and reroute wastewater to holding lagoons."
+        ]
+      },
+      "last_raw_excerpt": "{\"action\":\"Force maximum blower flow to rapidly strip nutrients from your tank.\"}",
+      "repair_target": 15,
+      "candidate_counts": {
+        "COOPERATE": 1,
+        "INDEPENDENT": 1,
+        "COMPETE_EXPLOIT": 2,
+        "DISENGAGE": 1
+      },
+      "repair_provenance": {
+        "source": "targeted_sentence_repair",
+        "repair_pass": "phase1_bounded_pass_01",
+        "original_options": {
+          "COOPERATE": "Coordinate blower setpoints across diffusers using the automated aeration controller.",
+          "INDEPENDENT": "Operate blowers locally based solely on your tank's dissolved oxygen levels.",
+          "COMPETE_EXPLOIT": "Force maximum blower flow to accelerate nutrient removal in your tank.",
+          "DISENGAGE": "Shut blowers to idle and reroute wastewater to holding lagoons."
+        },
+        "tokenizer": "Qwen/Qwen2.5-1.5B",
+        "tokenizer_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+        "action_span": 1,
+        "prompt_span": 1,
+        "status": "PROVISIONAL_PENDING_INDEPENDENT_SEMANTIC_REVIEW"
+      }
+    }
+  }
+}
