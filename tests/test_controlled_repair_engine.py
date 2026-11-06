@@ -1,7 +1,7 @@
 import itertools
 
 from llm_cooperation.items.controlled_repair_engine import (
-    variants, valid_rewrite, select_joint, jaccard_similarity, measure,
+    variants, valid_rewrite, select_joint, jaccard_similarity, measure, collision,
 )
 
 
@@ -29,6 +29,13 @@ def test_joint_backtracks_and_keeps_fixed():
     b.update(INDEPENDENT='red green', COMPETE_EXPLOIT='black white', DISENGAGE='near far')
     result = select_joint(fixed, {'A':[a1,a2], 'B':[b]})
     assert result['A'] == a2 and result['B'] == b
+    greedy = {}
+    for bank, choices in {'A': [a1, a2], 'B': [b]}.items():
+        for candidate in choices:
+            if not any(collision(candidate, x) for x in list(fixed.values()) + list(greedy.values())):
+                greedy[bank] = candidate
+                break
+    assert list(greedy) == ['A'] and len(result) == 2
     assert fixed['C']['COOPERATE'] == 'red blue'
 
 
@@ -75,3 +82,49 @@ def test_exact_pinned_tokenizer():
     p = snapshot_download('Qwen/Qwen2.5-1.5B', revision='8faed761d45a263340a0528343f099c05c9a4323', local_files_only=True)
     tok = AutoTokenizer.from_pretrained(p, local_files_only=True)
     assert tok.encode('Secure lockers.', add_special_tokens=False) == [49813, 5296, 388, 13]
+    import json
+    from pathlib import Path
+    root=Path(__file__).resolve().parents[1]
+    report=json.loads((root/'reports/controlled_repair_quarantine_diagnostics.json').read_text(encoding='utf8'))
+    scenarios=json.loads((root/'data/scenarios_phase0b_utility_matched.json').read_text(encoding='utf8'))['scenarios']
+    for row in report['pilot']:
+        options={s:item['candidate'] for s,item in row['actions'].items()}
+        action, prompt=measure(tok,scenarios[int(row['record_id'][:3])]['stem'],options)
+        assert action==row['action_tokens'] and prompt==row['prompt_tokens']
+        assert max(action.values())-min(action.values()) <= 1
+        assert max(prompt.values())-min(prompt.values()) <= 1
+
+
+def test_quarantined_pilot_and_real_joint_search():
+    import json
+    from pathlib import Path
+    p=Path(__file__).resolve().parents[1]/'reports/controlled_repair_quarantine_diagnostics.json'
+    d=json.loads(p.read_text(encoding='utf8'))
+    pilot={r['record_id']:r for r in d['pilot']}
+    assert len(pilot)==13 and all(r['mechanical_token_pass'] for r in pilot.values())
+    assert pilot['009_A']['confirmed_fact_violation']
+    assert not pilot['013_B']['grammar_screen_pass']
+    assert not pilot['013_A']['grammar_screen_pass']
+    assert all(r['semantic_status']=='UNADJUDICATED' and r['acceptance_status']=='QUARANTINED' for r in pilot.values())
+    outcome=next(r for r in d['pilot_augmented_joint_search'] if r['scenario_index']==12)
+    assert all(outcome['pool_sizes'][b]['searched']>1 for b in ('A','B','C'))
+    assert set(outcome['joint_selected_quarantined'])=={'A','B','C'}
+    assert not outcome['joint_collisions']
+    source_row=next(r for r in d['pool_scan'] if r['scenario_index']==12)
+    for bank, options in outcome['joint_selected_quarantined'].items():
+        for strategy, text in options.items():
+            raw=[x['text'] for x in source_row['banks'][bank]['actions'][strategy]]
+            assert text in raw or text == pilot[f'012_{bank}']['actions'][strategy]['candidate']
+    assert select_joint({}, {b:[v] for b,v in outcome['joint_selected_quarantined'].items()}) == outcome['joint_selected_quarantined']
+    assert all(not r['joint_selected_quarantined'] for r in d['pool_scan'])
+    funnels=[v['funnel'] for r in d['pool_scan'] for v in r['banks'].values()]
+    assert len(funnels)==293 and sum(f['raw_combinations'] for f in funnels)==2889
+    assert sum(f['token_span_failed_combinations'] for f in funnels)==2889
+
+
+def test_quarantine_screen_rejects_known_defects():
+    from scripts.diagnose_controlled_repair_quarantine import grammar_flags, fact_findings
+    assert grammar_flags('send planned waypoint coordinates.')
+    assert grammar_flags('Claim an early docking access.')
+    violations, _ = fact_findings('Store models in storage lockers.', 'Store models in claim lockers.', 'DISENGAGE', 'ai')
+    assert 'storage_resource_corrupted_claim_lockers' in violations
