@@ -141,7 +141,8 @@
       "C": 21
     },
     "independent_tokenizer_retokenization_verified": true,
-    "independent_retokenization_mismatches": 0
+    "independent_retokenization_mismatches": 0,
+    "independent_retokenization_error": null
   },
   "token_matching": {
     "action_span_distribution": {
@@ -929,13 +930,15 @@
     }
   },
   "repair_queue_summary": {
-    "automatic_pass_count": 72,
+    "automatic_pass_total_count": 72,
+    "automatic_pass_collision_free_count": 64,
+    "automatic_pass_with_collisions_count": 8,
     "priority_1_count": 103,
     "priority_2_count": 58,
     "priority_3_count": 139
   },
   "repair_queue": {
-    "automatic_pass_pending_human_review": [
+    "automatic_pass_collision_free": [
       {
         "record": "000_A",
         "scenario_index": 0,
@@ -1121,8 +1124,8 @@
         "prompt_span": 1,
         "combined_span": 1,
         "semantic_flags": [
-          "possible_loss_of_ai_partner_cue",
-          "polarity_negation_shift(orig=False,cand=True)"
+          "polarity_negation_shift(orig=False,cand=True)",
+          "possible_loss_of_ai_partner_cue"
         ],
         "historical_issues": [],
         "computed_cross_bank_collisions": []
@@ -1136,42 +1139,11 @@
         "prompt_span": 1,
         "combined_span": 1,
         "semantic_flags": [
-          "possible_loss_of_ai_partner_cue",
-          "polarity_negation_shift(orig=False,cand=True)"
+          "polarity_negation_shift(orig=False,cand=True)",
+          "possible_loss_of_ai_partner_cue"
         ],
         "historical_issues": [],
         "computed_cross_bank_collisions": []
-      },
-      {
-        "record": "020_B",
-        "scenario_index": 20,
-        "scenario_id": "phase0b_011_human",
-        "bank": "B",
-        "action_span": 1,
-        "prompt_span": 1,
-        "combined_span": 1,
-        "semantic_flags": [],
-        "historical_issues": [],
-        "computed_cross_bank_collisions": [
-          "DISENGAGE: excessive lexical overlap with Bank A (0.86)"
-        ]
-      },
-      {
-        "record": "021_A",
-        "scenario_index": 21,
-        "scenario_id": "phase0b_011_ai",
-        "bank": "A",
-        "action_span": 1,
-        "prompt_span": 1,
-        "combined_span": 1,
-        "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)"
-        ],
-        "historical_issues": [],
-        "computed_cross_bank_collisions": [
-          "COOPERATE: excessive lexical overlap with Bank B (0.86)",
-          "COOPERATE: exact duplicate of Bank C"
-        ]
       },
       {
         "record": "028_A",
@@ -1312,22 +1284,6 @@
         "computed_cross_bank_collisions": []
       },
       {
-        "record": "048_B",
-        "scenario_index": 48,
-        "scenario_id": "phase0b_025_human",
-        "bank": "B",
-        "action_span": 1,
-        "prompt_span": 1,
-        "combined_span": 1,
-        "semantic_flags": [
-          "possible_loss_of_human_partner_cue"
-        ],
-        "historical_issues": [],
-        "computed_cross_bank_collisions": [
-          "COOPERATE: excessive lexical overlap with Bank A (0.86)"
-        ]
-      },
-      {
         "record": "049_C",
         "scenario_index": 49,
         "scenario_id": "phase0b_025_ai",
@@ -1350,8 +1306,8 @@
         "prompt_span": 1,
         "combined_span": 1,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [],
         "computed_cross_bank_collisions": []
@@ -1497,8 +1453,8 @@
         "prompt_span": 1,
         "combined_span": 1,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [],
         "computed_cross_bank_collisions": []
@@ -1512,8 +1468,8 @@
         "prompt_span": 0,
         "combined_span": 0,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [],
         "computed_cross_bank_collisions": []
@@ -1533,22 +1489,6 @@
         "computed_cross_bank_collisions": []
       },
       {
-        "record": "073_C",
-        "scenario_index": 73,
-        "scenario_id": "phase0b_037_ai",
-        "bank": "C",
-        "action_span": 1,
-        "prompt_span": 1,
-        "combined_span": 1,
-        "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)"
-        ],
-        "historical_issues": [],
-        "computed_cross_bank_collisions": [
-          "COOPERATE: exact duplicate of Bank B"
-        ]
-      },
-      {
         "record": "075_A",
         "scenario_index": 75,
         "scenario_id": "phase0b_038_ai",
@@ -1557,8 +1497,8 @@
         "prompt_span": 0,
         "combined_span": 0,
         "semantic_flags": [
-          "possible_loss_of_ai_partner_cue",
-          "polarity_negation_shift(orig=False,cand=True)"
+          "polarity_negation_shift(orig=False,cand=True)",
+          "possible_loss_of_ai_partner_cue"
         ],
         "historical_issues": [],
         "computed_cross_bank_collisions": []
@@ -1572,8 +1512,8 @@
         "prompt_span": 1,
         "combined_span": 1,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [],
         "computed_cross_bank_collisions": []
@@ -1587,8 +1527,8 @@
         "prompt_span": 1,
         "combined_span": 1,
         "semantic_flags": [
-          "possible_loss_of_ai_partner_cue",
-          "low_lexical_similarity_to_source(0.10)"
+          "low_lexical_similarity_to_source(0.10)",
+          "possible_loss_of_ai_partner_cue"
         ],
         "historical_issues": [],
         "computed_cross_bank_collisions": []
@@ -1602,45 +1542,11 @@
         "prompt_span": 1,
         "combined_span": 1,
         "semantic_flags": [
-          "possible_loss_of_ai_partner_cue",
-          "polarity_negation_shift(orig=False,cand=True)"
+          "polarity_negation_shift(orig=False,cand=True)",
+          "possible_loss_of_ai_partner_cue"
         ],
         "historical_issues": [],
         "computed_cross_bank_collisions": []
-      },
-      {
-        "record": "082_C",
-        "scenario_index": 82,
-        "scenario_id": "phase0b_042_human",
-        "bank": "C",
-        "action_span": 1,
-        "prompt_span": 1,
-        "combined_span": 1,
-        "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)"
-        ],
-        "historical_issues": [],
-        "computed_cross_bank_collisions": [
-          "DISENGAGE: exact duplicate of Bank A",
-          "COOPERATE: exact duplicate of Bank B"
-        ]
-      },
-      {
-        "record": "083_C",
-        "scenario_index": 83,
-        "scenario_id": "phase0b_042_ai",
-        "bank": "C",
-        "action_span": 1,
-        "prompt_span": 1,
-        "combined_span": 1,
-        "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)"
-        ],
-        "historical_issues": [],
-        "computed_cross_bank_collisions": [
-          "COOPERATE: exact duplicate of Bank B",
-          "DISENGAGE: excessive lexical overlap with Bank B (0.91)"
-        ]
       },
       {
         "record": "086_A",
@@ -1687,8 +1593,8 @@
         "prompt_span": 1,
         "combined_span": 1,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [],
         "computed_cross_bank_collisions": []
@@ -1702,8 +1608,8 @@
         "prompt_span": 1,
         "combined_span": 1,
         "semantic_flags": [
-          "possible_loss_of_ai_partner_cue",
-          "polarity_negation_shift(orig=False,cand=True)"
+          "polarity_negation_shift(orig=False,cand=True)",
+          "possible_loss_of_ai_partner_cue"
         ],
         "historical_issues": [],
         "computed_cross_bank_collisions": []
@@ -1731,25 +1637,11 @@
         "prompt_span": 1,
         "combined_span": 1,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [],
         "computed_cross_bank_collisions": []
-      },
-      {
-        "record": "102_C",
-        "scenario_index": 102,
-        "scenario_id": "phase0b_052_human",
-        "bank": "C",
-        "action_span": 1,
-        "prompt_span": 1,
-        "combined_span": 1,
-        "semantic_flags": [],
-        "historical_issues": [],
-        "computed_cross_bank_collisions": [
-          "COOPERATE: exact duplicate of Bank B"
-        ]
       },
       {
         "record": "103_B",
@@ -1816,20 +1708,6 @@
         ],
         "historical_issues": [],
         "computed_cross_bank_collisions": []
-      },
-      {
-        "record": "107_C",
-        "scenario_index": 107,
-        "scenario_id": "phase0b_054_ai",
-        "bank": "C",
-        "action_span": 1,
-        "prompt_span": 1,
-        "combined_span": 1,
-        "semantic_flags": [],
-        "historical_issues": [],
-        "computed_cross_bank_collisions": [
-          "COMPETE_EXPLOIT: exact duplicate of Bank B"
-        ]
       },
       {
         "record": "114_A",
@@ -1914,6 +1792,149 @@
         ],
         "historical_issues": [],
         "computed_cross_bank_collisions": []
+      }
+    ],
+    "automatic_pass_with_cross_bank_collisions": [
+      {
+        "record": "020_B",
+        "scenario_index": 20,
+        "scenario_id": "phase0b_011_human",
+        "bank": "B",
+        "action_span": 1,
+        "prompt_span": 1,
+        "combined_span": 1,
+        "semantic_flags": [],
+        "historical_issues": [],
+        "computed_cross_bank_collisions": [
+          "DISENGAGE: excessive lexical overlap with Bank A (0.86)"
+        ],
+        "repair_reason": "automatic_token_pass_but_cross_bank_collision",
+        "defect": "cross_bank_collision(1_instances)"
+      },
+      {
+        "record": "021_A",
+        "scenario_index": 21,
+        "scenario_id": "phase0b_011_ai",
+        "bank": "A",
+        "action_span": 1,
+        "prompt_span": 1,
+        "combined_span": 1,
+        "semantic_flags": [
+          "polarity_negation_shift(orig=False,cand=True)"
+        ],
+        "historical_issues": [],
+        "computed_cross_bank_collisions": [
+          "COOPERATE: excessive lexical overlap with Bank B (0.86)",
+          "COOPERATE: exact duplicate of Bank C"
+        ],
+        "repair_reason": "automatic_token_pass_but_cross_bank_collision",
+        "defect": "cross_bank_collision(2_instances)"
+      },
+      {
+        "record": "048_B",
+        "scenario_index": 48,
+        "scenario_id": "phase0b_025_human",
+        "bank": "B",
+        "action_span": 1,
+        "prompt_span": 1,
+        "combined_span": 1,
+        "semantic_flags": [
+          "possible_loss_of_human_partner_cue"
+        ],
+        "historical_issues": [],
+        "computed_cross_bank_collisions": [
+          "COOPERATE: excessive lexical overlap with Bank A (0.86)"
+        ],
+        "repair_reason": "automatic_token_pass_but_cross_bank_collision",
+        "defect": "cross_bank_collision(1_instances)"
+      },
+      {
+        "record": "073_C",
+        "scenario_index": 73,
+        "scenario_id": "phase0b_037_ai",
+        "bank": "C",
+        "action_span": 1,
+        "prompt_span": 1,
+        "combined_span": 1,
+        "semantic_flags": [
+          "polarity_negation_shift(orig=False,cand=True)"
+        ],
+        "historical_issues": [],
+        "computed_cross_bank_collisions": [
+          "COOPERATE: exact duplicate of Bank B"
+        ],
+        "repair_reason": "automatic_token_pass_but_cross_bank_collision",
+        "defect": "cross_bank_collision(1_instances)"
+      },
+      {
+        "record": "082_C",
+        "scenario_index": 82,
+        "scenario_id": "phase0b_042_human",
+        "bank": "C",
+        "action_span": 1,
+        "prompt_span": 1,
+        "combined_span": 1,
+        "semantic_flags": [
+          "polarity_negation_shift(orig=False,cand=True)"
+        ],
+        "historical_issues": [],
+        "computed_cross_bank_collisions": [
+          "DISENGAGE: exact duplicate of Bank A",
+          "COOPERATE: exact duplicate of Bank B"
+        ],
+        "repair_reason": "automatic_token_pass_but_cross_bank_collision",
+        "defect": "cross_bank_collision(2_instances)"
+      },
+      {
+        "record": "083_C",
+        "scenario_index": 83,
+        "scenario_id": "phase0b_042_ai",
+        "bank": "C",
+        "action_span": 1,
+        "prompt_span": 1,
+        "combined_span": 1,
+        "semantic_flags": [
+          "polarity_negation_shift(orig=False,cand=True)"
+        ],
+        "historical_issues": [],
+        "computed_cross_bank_collisions": [
+          "COOPERATE: exact duplicate of Bank B",
+          "DISENGAGE: excessive lexical overlap with Bank B (0.91)"
+        ],
+        "repair_reason": "automatic_token_pass_but_cross_bank_collision",
+        "defect": "cross_bank_collision(2_instances)"
+      },
+      {
+        "record": "102_C",
+        "scenario_index": 102,
+        "scenario_id": "phase0b_052_human",
+        "bank": "C",
+        "action_span": 1,
+        "prompt_span": 1,
+        "combined_span": 1,
+        "semantic_flags": [],
+        "historical_issues": [],
+        "computed_cross_bank_collisions": [
+          "COOPERATE: exact duplicate of Bank B"
+        ],
+        "repair_reason": "automatic_token_pass_but_cross_bank_collision",
+        "defect": "cross_bank_collision(1_instances)"
+      },
+      {
+        "record": "107_C",
+        "scenario_index": 107,
+        "scenario_id": "phase0b_054_ai",
+        "bank": "C",
+        "action_span": 1,
+        "prompt_span": 1,
+        "combined_span": 1,
+        "semantic_flags": [],
+        "historical_issues": [],
+        "computed_cross_bank_collisions": [
+          "COMPETE_EXPLOIT: exact duplicate of Bank B"
+        ],
+        "repair_reason": "automatic_token_pass_but_cross_bank_collision",
+        "defect": "cross_bank_collision(1_instances)"
       }
     ],
     "priority_1_near_miss_targeted_repair": [
@@ -2296,8 +2317,8 @@
         "prompt_span": 3,
         "combined_span": 3,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "low_lexical_similarity_to_source(0.10)"
+          "low_lexical_similarity_to_source(0.10)",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=3; lengths={'COOPERATE': 17, 'INDEPENDENT': 14, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 14}",
@@ -2351,8 +2372,8 @@
         "prompt_span": 2,
         "combined_span": 2,
         "semantic_flags": [
-          "possible_loss_of_ai_partner_cue",
-          "polarity_negation_shift(orig=False,cand=True)"
+          "polarity_negation_shift(orig=False,cand=True)",
+          "possible_loss_of_ai_partner_cue"
         ],
         "historical_issues": [
           "action token span=2; lengths={'COOPERATE': 16, 'INDEPENDENT': 14, 'COMPETE_EXPLOIT': 16, 'DISENGAGE': 15}",
@@ -2778,8 +2799,8 @@
         "prompt_span": 2,
         "combined_span": 2,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=2; lengths={'COOPERATE': 12, 'INDEPENDENT': 11, 'COMPETE_EXPLOIT': 13, 'DISENGAGE': 12}",
@@ -2797,8 +2818,8 @@
         "prompt_span": 2,
         "combined_span": 2,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=2; lengths={'COOPERATE': 19, 'INDEPENDENT': 17, 'COMPETE_EXPLOIT': 19, 'DISENGAGE': 17}",
@@ -2816,8 +2837,8 @@
         "prompt_span": 3,
         "combined_span": 3,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=3; lengths={'COOPERATE': 18, 'INDEPENDENT': 17, 'COMPETE_EXPLOIT': 18, 'DISENGAGE': 15}",
@@ -2869,8 +2890,8 @@
         "prompt_span": 3,
         "combined_span": 3,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=3; lengths={'COOPERATE': 13, 'INDEPENDENT': 10, 'COMPETE_EXPLOIT': 12, 'DISENGAGE': 10}",
@@ -2974,8 +2995,8 @@
         "prompt_span": 3,
         "combined_span": 3,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=2; lengths={'COOPERATE': 16, 'INDEPENDENT': 14, 'COMPETE_EXPLOIT': 15, 'DISENGAGE': 16}",
@@ -2993,8 +3014,8 @@
         "prompt_span": 2,
         "combined_span": 2,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=2; lengths={'COOPERATE': 17, 'INDEPENDENT': 17, 'COMPETE_EXPLOIT': 16, 'DISENGAGE': 15}",
@@ -3118,8 +3139,8 @@
         "prompt_span": 2,
         "combined_span": 2,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=2; lengths={'COOPERATE': 17, 'INDEPENDENT': 17, 'COMPETE_EXPLOIT': 16, 'DISENGAGE': 15}",
@@ -3321,8 +3342,8 @@
         "prompt_span": 3,
         "combined_span": 3,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=3; lengths={'COOPERATE': 14, 'INDEPENDENT': 11, 'COMPETE_EXPLOIT': 12, 'DISENGAGE': 13}",
@@ -3376,8 +3397,8 @@
         "prompt_span": 3,
         "combined_span": 3,
         "semantic_flags": [
-          "possible_loss_of_ai_partner_cue",
-          "polarity_negation_shift(orig=False,cand=True)"
+          "polarity_negation_shift(orig=False,cand=True)",
+          "possible_loss_of_ai_partner_cue"
         ],
         "historical_issues": [
           "action token span=3; lengths={'COOPERATE': 18, 'INDEPENDENT': 20, 'COMPETE_EXPLOIT': 17, 'DISENGAGE': 18}",
@@ -3501,8 +3522,8 @@
         "prompt_span": 2,
         "combined_span": 2,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=2; lengths={'COOPERATE': 17, 'INDEPENDENT': 16, 'COMPETE_EXPLOIT': 15, 'DISENGAGE': 16}",
@@ -3520,8 +3541,8 @@
         "prompt_span": 2,
         "combined_span": 2,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "low_lexical_similarity_to_source(0.09)"
+          "low_lexical_similarity_to_source(0.09)",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=2; lengths={'COOPERATE': 14, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 13, 'DISENGAGE': 12}",
@@ -3872,8 +3893,8 @@
         "prompt_span": 5,
         "combined_span": 5,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=4; lengths={'COOPERATE': 18, 'INDEPENDENT': 14, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 14}",
@@ -3925,8 +3946,8 @@
         "prompt_span": 4,
         "combined_span": 4,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=4; lengths={'COOPERATE': 19, 'INDEPENDENT': 17, 'COMPETE_EXPLOIT': 16, 'DISENGAGE': 15}",
@@ -3944,8 +3965,8 @@
         "prompt_span": 4,
         "combined_span": 4,
         "semantic_flags": [
-          "possible_loss_of_ai_partner_cue",
-          "polarity_negation_shift(orig=False,cand=True)"
+          "polarity_negation_shift(orig=False,cand=True)",
+          "possible_loss_of_ai_partner_cue"
         ],
         "historical_issues": [
           "action token span=4; lengths={'COOPERATE': 17, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 14}",
@@ -4225,8 +4246,8 @@
         "prompt_span": 4,
         "combined_span": 4,
         "semantic_flags": [
-          "possible_loss_of_ai_partner_cue",
-          "polarity_negation_shift(orig=False,cand=True)"
+          "polarity_negation_shift(orig=False,cand=True)",
+          "possible_loss_of_ai_partner_cue"
         ],
         "historical_issues": [
           "action token span=4; lengths={'COOPERATE': 20, 'INDEPENDENT': 17, 'COMPETE_EXPLOIT': 20, 'DISENGAGE': 21}",
@@ -4276,8 +4297,8 @@
         "prompt_span": 4,
         "combined_span": 4,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=4; lengths={'COOPERATE': 18, 'INDEPENDENT': 14, 'COMPETE_EXPLOIT': 15, 'DISENGAGE': 14}",
@@ -4347,8 +4368,8 @@
         "prompt_span": 4,
         "combined_span": 4,
         "semantic_flags": [
-          "possible_loss_of_ai_partner_cue",
-          "polarity_negation_shift(orig=False,cand=True)"
+          "polarity_negation_shift(orig=False,cand=True)",
+          "possible_loss_of_ai_partner_cue"
         ],
         "historical_issues": [
           "action token span=4; lengths={'COOPERATE': 13, 'INDEPENDENT': 9, 'COMPETE_EXPLOIT': 11, 'DISENGAGE': 11}",
@@ -4649,8 +4670,8 @@
         "prompt_span": 4,
         "combined_span": 4,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "low_lexical_similarity_to_source(0.10)"
+          "low_lexical_similarity_to_source(0.10)",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=4; lengths={'COOPERATE': 23, 'INDEPENDENT': 20, 'COMPETE_EXPLOIT': 20, 'DISENGAGE': 19}",
@@ -5384,8 +5405,8 @@
         "prompt_span": 2,
         "combined_span": 2,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=2; lengths={'COOPERATE': 14, 'INDEPENDENT': 12, 'COMPETE_EXPLOIT': 13, 'DISENGAGE': 13}",
@@ -5428,8 +5449,8 @@
         "prompt_span": 2,
         "combined_span": 2,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=2; lengths={'COOPERATE': 15, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 13, 'DISENGAGE': 13}",
@@ -5581,8 +5602,8 @@
         "prompt_span": 6,
         "combined_span": 6,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=5; lengths={'COOPERATE': 18, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 13, 'DISENGAGE': 14}",
@@ -5620,8 +5641,8 @@
         "prompt_span": 4,
         "combined_span": 4,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=4; lengths={'COOPERATE': 16, 'INDEPENDENT': 12, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 13}",
@@ -5642,8 +5663,8 @@
         "prompt_span": 4,
         "combined_span": 4,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=4; lengths={'COOPERATE': 17, 'INDEPENDENT': 15, 'COMPETE_EXPLOIT': 13, 'DISENGAGE': 13}",
@@ -5664,8 +5685,8 @@
         "prompt_span": 7,
         "combined_span": 7,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=7; lengths={'COOPERATE': 19, 'INDEPENDENT': 16, 'COMPETE_EXPLOIT': 15, 'DISENGAGE': 12}",
@@ -5761,8 +5782,8 @@
         "prompt_span": 4,
         "combined_span": 4,
         "semantic_flags": [
-          "possible_loss_of_ai_partner_cue",
-          "polarity_negation_shift(orig=False,cand=True)"
+          "polarity_negation_shift(orig=False,cand=True)",
+          "possible_loss_of_ai_partner_cue"
         ],
         "historical_issues": [
           "action token span=3; lengths={'COOPERATE': 16, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 13, 'DISENGAGE': 13}",
@@ -5783,8 +5804,8 @@
         "prompt_span": 4,
         "combined_span": 4,
         "semantic_flags": [
-          "possible_loss_of_ai_partner_cue",
-          "polarity_negation_shift(orig=False,cand=True)"
+          "polarity_negation_shift(orig=False,cand=True)",
+          "possible_loss_of_ai_partner_cue"
         ],
         "historical_issues": [
           "action token span=4; lengths={'COOPERATE': 16, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 12, 'DISENGAGE': 12}",
@@ -6074,8 +6095,8 @@
         "prompt_span": 2,
         "combined_span": 2,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=2; lengths={'COOPERATE': 15, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 14}",
@@ -6136,8 +6157,8 @@
         "prompt_span": 3,
         "combined_span": 3,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=3; lengths={'COOPERATE': 15, 'INDEPENDENT': 14, 'COMPETE_EXPLOIT': 12, 'DISENGAGE': 14}",
@@ -6283,8 +6304,8 @@
         "prompt_span": 3,
         "combined_span": 3,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=3; lengths={'COOPERATE': 19, 'INDEPENDENT': 17, 'COMPETE_EXPLOIT': 20, 'DISENGAGE': 19}",
@@ -6305,8 +6326,8 @@
         "prompt_span": 4,
         "combined_span": 4,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=4; lengths={'COOPERATE': 18, 'INDEPENDENT': 16, 'COMPETE_EXPLOIT': 15, 'DISENGAGE': 14}",
@@ -6407,8 +6428,8 @@
         "prompt_span": 4,
         "combined_span": 4,
         "semantic_flags": [
-          "possible_loss_of_ai_partner_cue",
-          "polarity_negation_shift(orig=False,cand=True)"
+          "polarity_negation_shift(orig=False,cand=True)",
+          "possible_loss_of_ai_partner_cue"
         ],
         "historical_issues": [
           "action token span=4; lengths={'COOPERATE': 20, 'INDEPENDENT': 16, 'COMPETE_EXPLOIT': 16, 'DISENGAGE': 16}",
@@ -6557,8 +6578,8 @@
         "prompt_span": 6,
         "combined_span": 6,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=6; lengths={'COOPERATE': 19, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 13}",
@@ -6602,9 +6623,9 @@
         "prompt_span": 2,
         "combined_span": 2,
         "semantic_flags": [
-          "possible_loss_of_ai_partner_cue",
           "low_lexical_similarity_to_source(0.11)",
-          "polarity_negation_shift(orig=False,cand=True)"
+          "polarity_negation_shift(orig=False,cand=True)",
+          "possible_loss_of_ai_partner_cue"
         ],
         "historical_issues": [
           "action token span=2; lengths={'COOPERATE': 14, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 12, 'DISENGAGE': 13}",
@@ -6626,8 +6647,8 @@
         "prompt_span": 4,
         "combined_span": 4,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=4; lengths={'COOPERATE': 17, 'INDEPENDENT': 14, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 13}",
@@ -6648,8 +6669,8 @@
         "prompt_span": 5,
         "combined_span": 5,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=5; lengths={'COOPERATE': 16, 'INDEPENDENT': 14, 'COMPETE_EXPLOIT': 11, 'DISENGAGE': 15}",
@@ -6754,8 +6775,8 @@
         "prompt_span": 9,
         "combined_span": 9,
         "semantic_flags": [
-          "polarity_negation_shift(orig=False,cand=True)",
-          "possible_loss_of_human_partner_cue"
+          "possible_loss_of_human_partner_cue",
+          "polarity_negation_shift(orig=False,cand=True)"
         ],
         "historical_issues": [
           "action token span=9; lengths={'COOPERATE': 24, 'INDEPENDENT': 15, 'COMPETE_EXPLOIT': 15, 'DISENGAGE': 15}",
@@ -7180,9 +7201,9 @@
         "prompt_span": 3,
         "combined_span": 3,
         "semantic_flags": [
-          "possible_loss_of_ai_partner_cue",
           "low_lexical_similarity_to_source(0.05)",
-          "polarity_negation_shift(orig=False,cand=True)"
+          "polarity_negation_shift(orig=False,cand=True)",
+          "possible_loss_of_ai_partner_cue"
         ],
         "historical_issues": [
           "action token span=3; lengths={'COOPERATE': 14, 'INDEPENDENT': 11, 'COMPETE_EXPLOIT': 11, 'DISENGAGE': 11}",
@@ -7204,8 +7225,8 @@
         "prompt_span": 3,
         "combined_span": 3,
         "semantic_flags": [
-          "possible_loss_of_ai_partner_cue",
-          "polarity_negation_shift(orig=False,cand=True)"
+          "polarity_negation_shift(orig=False,cand=True)",
+          "possible_loss_of_ai_partner_cue"
         ],
         "historical_issues": [
           "action token span=3; lengths={'COOPERATE': 13, 'INDEPENDENT': 10, 'COMPETE_EXPLOIT': 11, 'DISENGAGE': 10}",

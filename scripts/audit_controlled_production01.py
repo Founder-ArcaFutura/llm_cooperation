@@ -140,15 +140,18 @@ def audit_production01(
     # Verify candidate files scenarios count
     candidate_file_counts = {b: len(bank_candidates[b].get("scenarios", [])) for b in BANKS}
 
-    # Independent Tokenizer Verification (retokenizing saved options)
+    # Independent Tokenizer Verification (strictly offline/cache-only retokenizing saved options)
     retokenization_verified = False
     retokenization_mismatches = 0
+    retokenization_error = None
     if verify_tokenizer:
         try:
             from transformers import AutoTokenizer
+            # Enforce local_files_only=True to guarantee no network downloads occur
             tok = AutoTokenizer.from_pretrained(
                 manifest.get("measurement_tokenizer", "Qwen/Qwen2.5-1.5B"),
                 revision=manifest.get("measurement_tokenizer_revision", "8faed761d45a263340a0528343f099c05c9a4323"),
+                local_files_only=True,
             )
             for idx in range(124):
                 stem = scenarios_by_index[idx]["stem"].strip()
@@ -166,7 +169,8 @@ def audit_production01(
                             retokenization_mismatches += 1
             retokenization_verified = (retokenization_mismatches == 0)
         except Exception as e:
-            provenance_issues.append(f"Independent retokenization failed: {e}")
+            retokenization_error = f"Cache-only tokenizer verification failed (local_files_only=True): {e}"
+            provenance_issues.append(retokenization_error)
 
     # 2. Token matching characterization
     action_spans = collections.Counter()
@@ -436,15 +440,21 @@ def audit_production01(
         }
 
     # 6. Finite Prioritized Repair Queue incorporating independently computed cross-bank collisions
+    # We explicitly separate strict automatic passes into:
+    # - collision-free automatic passes (64 records)
+    # - automatic passes with newly detected cross-bank collisions (8 records)
     repair_queue = {
-        "automatic_pass_pending_human_review": [],
+        "automatic_pass_collision_free": [],
+        "automatic_pass_with_cross_bank_collisions": [],
         "priority_1_near_miss_targeted_repair": [],
         "priority_2_moderate_repair": [],
         "priority_3_substantial_reconstruction": [],
     }
 
     queue_summary = {
-        "automatic_pass_count": 0,
+        "automatic_pass_total_count": 0,
+        "automatic_pass_collision_free_count": 0,
+        "automatic_pass_with_collisions_count": 0,
         "priority_1_count": 0,
         "priority_2_count": 0,
         "priority_3_count": 0,
@@ -467,11 +477,16 @@ def audit_production01(
         }
 
         if r["accepted"]:
-            # Verified automatic pass from generation
-            repair_queue["automatic_pass_pending_human_review"].append(item)
-            queue_summary["automatic_pass_count"] += 1
+            queue_summary["automatic_pass_total_count"] += 1
+            if computed_collisions:
+                item["repair_reason"] = "automatic_token_pass_but_cross_bank_collision"
+                item["defect"] = f"cross_bank_collision({len(computed_collisions)}_instances)"
+                repair_queue["automatic_pass_with_cross_bank_collisions"].append(item)
+                queue_summary["automatic_pass_with_collisions_count"] += 1
+            else:
+                repair_queue["automatic_pass_collision_free"].append(item)
+                queue_summary["automatic_pass_collision_free_count"] += 1
         elif computed_collisions or r["historical_dup_issues"] or r["historical_overlap_issues"] or r["has_bad_pattern"] or (r["combined_span"] is not None and r["combined_span"] >= 6):
-            # Known diversity defect, mechanical filler, or severe span
             item["repair_reason"] = "structural_diversity_defect_or_extreme_span"
             if computed_collisions:
                 item["defect"] = f"cross_bank_collision({len(computed_collisions)}_instances)"
@@ -511,6 +526,7 @@ def audit_production01(
             "candidate_file_counts": candidate_file_counts,
             "independent_tokenizer_retokenization_verified": retokenization_verified,
             "independent_retokenization_mismatches": retokenization_mismatches,
+            "independent_retokenization_error": retokenization_error,
         },
         "token_matching": {
             "action_span_distribution": dict(sorted(action_spans.items())),
@@ -541,7 +557,8 @@ def audit_production01(
             "total_flagged_actions": len(semantic_flags),
             "unique_records_flagged": len(flags_by_record),
             "accepted_variants_with_semantic_flags": len([
-                item for item in repair_queue["automatic_pass_pending_human_review"] if item["semantic_flags"]
+                item for item in (repair_queue["automatic_pass_collision_free"] + repair_queue["automatic_pass_with_cross_bank_collisions"])
+                if item["semantic_flags"]
             ]),
             "partner_cue_flags_summary": partner_cue_flags_count,
             "polarity_shift_flags_summary": polarity_shift_flags_count,
@@ -720,10 +737,9 @@ def audit_production01(
         "",
         "The 372 candidate records are partitioned into four mutually exclusive categories incorporating both token spans and independent cross-bank collision checks:",
         "",
-        f"1. **Automatic Pass Pending Semantic Adjudication ({queue_summary['automatic_pass_count']} records):**",
-        "   - Satisfies span ≤ 1 for both action and prompt.",
-        "   - Verified free of cross-bank duplicates or excessive overlap.",
-        "   - Requires independent human semantic adjudication before scientific use.",
+        f"1. **Automatic Passes with Strict Token Matching ({queue_summary['automatic_pass_total_count']} records):**",
+        f"   - **Collision-Free Automatic Passes ({queue_summary['automatic_pass_collision_free_count']} records):** Satisfy span ≤ 1 for both action and prompt, and are completely free of cross-bank duplicates or excessive overlap (> 0.85).",
+        f"   - **Automatic Passes with Cross-Bank Collisions ({queue_summary['automatic_pass_with_collisions_count']} records):** Satisfy span ≤ 1 token matching, but exhibit lexical collisions with candidate actions in another bank (e.g., `021_A`, `073_C`, `082_C`, `083_C`, `102_C`, `107_C`, `020_B`, `048_B`). Because these collide with candidate alternatives, they require collision-aware review before scientific promotion.",
         f"2. **Priority 1: Near-Miss Targeted Repair ({queue_summary['priority_1_count']} records):**",
         "   - Combined span is 2 or 3 tokens.",
         "   - **Strictly free of cross-bank collisions and duplicates.**",

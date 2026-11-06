@@ -136,10 +136,9 @@ A central question for the experimental protocol is whether to maintain the stri
 
 The 372 candidate records are partitioned into four mutually exclusive categories incorporating both token spans and independent cross-bank collision checks:
 
-1. **Automatic Pass Pending Semantic Adjudication (72 records):**
-   - Satisfies span ≤ 1 for both action and prompt.
-   - Verified free of cross-bank duplicates or excessive overlap.
-   - Requires independent human semantic adjudication before scientific use.
+1. **Automatic Passes with Strict Token Matching (72 records):**
+   - **Collision-Free Automatic Passes (64 records):** Satisfy span ≤ 1 for both action and prompt, and are completely free of cross-bank duplicates or excessive overlap (> 0.85).
+   - **Automatic Passes with Cross-Bank Collisions (8 records):** Satisfy span ≤ 1 token matching, but exhibit lexical collisions with candidate actions in another bank (e.g., `021_A`, `073_C`, `082_C`, `083_C`, `102_C`, `107_C`, `020_B`, `048_B`). Because these collide with candidate alternatives, they require collision-aware review before scientific promotion.
 2. **Priority 1: Near-Miss Targeted Repair (103 records):**
    - Combined span is 2 or 3 tokens.
    - **Strictly free of cross-bank collisions and duplicates.**

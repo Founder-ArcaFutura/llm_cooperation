@@ -37,9 +37,10 @@ def test_provenance_and_accounting(audit_results):
     assert recon["complete_triad_count"] == 8
     assert recon["complete_triad_indices"] == [2, 3, 28, 29, 35, 65, 72, 114]
 
-    # Retokenization verification against authoritative pinned tokenizer
+    # Retokenization verification against authoritative pinned tokenizer (strictly offline / cache-only)
     assert prov["independent_tokenizer_retokenization_verified"] is True
     assert prov["independent_retokenization_mismatches"] == 0
+    assert prov["independent_retokenization_error"] is None
 
 
 def test_token_matching_distributions(audit_results):
@@ -100,17 +101,24 @@ def test_repair_queue_partitioning_incorporates_collisions(audit_results):
 
     # Verify mutually exclusive partition summing to 372
     total_queued = (
-        q_sum["automatic_pass_count"]
+        q_sum["automatic_pass_total_count"]
         + q_sum["priority_1_count"]
         + q_sum["priority_2_count"]
         + q_sum["priority_3_count"]
     )
     assert total_queued == 372
-    assert q_sum["automatic_pass_count"] == 72
-    assert len(queue["automatic_pass_pending_human_review"]) == 72
+    assert q_sum["automatic_pass_total_count"] == 72
+    assert q_sum["automatic_pass_collision_free_count"] == 64
+    assert q_sum["automatic_pass_with_collisions_count"] == 8
+    assert len(queue["automatic_pass_collision_free"]) == 64
+    assert len(queue["automatic_pass_with_cross_bank_collisions"]) == 8
     assert len(queue["priority_1_near_miss_targeted_repair"]) == q_sum["priority_1_count"]
     assert len(queue["priority_2_moderate_repair"]) == q_sum["priority_2_count"]
     assert len(queue["priority_3_substantial_reconstruction"]) == q_sum["priority_3_count"]
+
+    # Check the 8 automatic pass records with collisions (e.g. 021_A, 073_C, 082_C)
+    records_with_colls = {x["record"] for x in queue["automatic_pass_with_cross_bank_collisions"]}
+    assert {"021_A", "073_C", "082_C"}.issubset(records_with_colls)
 
     # Verify that Priority 1 items have NO cross-bank collisions
     for item in queue["priority_1_near_miss_targeted_repair"]:
