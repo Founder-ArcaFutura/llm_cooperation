@@ -277,12 +277,13 @@ def run_repair(
             base_scen = copy.deepcopy(scenarios[f_idx])
             base_scen["original_options"] = copy.deepcopy(base_scen["options"])
             base_scen["options"] = copy.deepcopy(rec["options"])
-            base_scen["bank_variant"] = bank
-            base_scen["paraphrase_id"] = f"{base_scen['id']}_{bank}"
+            base_scen["bank_variant"] = f"bank_{b_lower}"
+            base_scen["paraphrase_id"] = f"{base_scen['id']}_bank_{b_lower}"
             bank_scenarios.append(base_scen)
 
         cands_meta["scenarios"] = bank_scenarios
         cands_meta["accepted_count"] = len(bank_scenarios)
+        cands_meta["partial"] = True
         cands_meta["status"] = "PROVISIONAL_REPAIRED_PENDING_INDEPENDENT_SEMANTIC_REVIEW"
 
         dest_cands_file = out_path / f"bank_{b_lower}_candidates.json"

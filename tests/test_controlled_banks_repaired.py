@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 from transformers import AutoTokenizer
 
-from scripts.audit_controlled_production01 import BAD_PATTERNS, STRATEGIES
+from scripts.audit_controlled_production01 import BAD_PATTERNS, STRATEGIES, jaccard_similarity
 from scripts.repair_controlled_banks_phase1 import (
     MEASUREMENT_TOKENIZER_NAME,
     PINNED_MEASUREMENT_TOKENIZER_REVISION,
@@ -98,10 +98,13 @@ def test_reconstructed_dataset_matches_candidate_files(paths, effective_dataset)
         with open(paths["repaired_dir"] / filename) as f:
             cands_data = json.load(f)
 
+        assert cands_data["partial"] is True, f"{filename} must be marked partial: true"
         cands_scenarios = cands_data["scenarios"]
-        # All scenarios in candidate bank must match effective dataset
+        b_lower = filename.split("_")[1]
         scen_to_idx = {s["id"]: i for i, s in enumerate(json.load(open(paths["source_path"]))["scenarios"])}
         for scen in cands_scenarios:
+            assert scen["bank_variant"] == f"bank_{b_lower}"
+            assert scen["paraphrase_id"] == f"{scen['id']}_bank_{b_lower}"
             f_idx = scen_to_idx[scen["id"]]
             rec_id = f"{f_idx:03d}_{bank_code}"
             assert rec_id in effective_dataset
@@ -142,16 +145,24 @@ def test_cross_bank_diversity_and_no_prohibited_padding(effective_dataset):
                 for pat in BAD_PATTERNS:
                     assert not pat.search(action_text), f"Bad padding pattern in {rec_id} ({s}): {action_text}"
 
-    # Cross-bank collisions in accepted pairs
+    # Cross-bank collisions in accepted pairs (exact duplicates and Jaccard similarity threshold)
+    MAX_PERMITTED_JACCARD = 0.85
     for f_idx in range(124):
         for b1, b2 in [("A", "B"), ("A", "C"), ("B", "C")]:
             r1 = effective_dataset[f"{f_idx:03d}_{b1}"]
             r2 = effective_dataset[f"{f_idx:03d}_{b2}"]
             if r1.get("accepted_automatic_constraints") and r2.get("accepted_automatic_constraints"):
                 for s in STRATEGIES:
-                    act1 = r1["options"][s].strip().casefold()
-                    act2 = r2["options"][s].strip().casefold()
-                    assert act1 != act2, f"Exact cross-bank duplicate at index {f_idx:03d} between {b1} and {b2} for {s}"
+                    act1 = r1["options"][s].strip()
+                    act2 = r2["options"][s].strip()
+                    assert act1.casefold() != act2.casefold(), (
+                        f"Exact cross-bank duplicate at index {f_idx:03d} between {b1} and {b2} for {s}: '{act1}'"
+                    )
+                    sim = jaccard_similarity(act1, act2)
+                    assert sim <= MAX_PERMITTED_JACCARD, (
+                        f"Cross-bank Jaccard similarity {sim:.3f} exceeds {MAX_PERMITTED_JACCARD} "
+                        f"at index {f_idx:03d} between {b1} and {b2} for {s}"
+                    )
 
 
 def test_repair_script_is_idempotent(paths):
