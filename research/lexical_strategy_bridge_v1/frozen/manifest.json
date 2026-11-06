@@ -1,0 +1,201 @@
+{
+  "status": "PREPARED_NO_LEXICAL_INFERENCE",
+  "exploratory": true,
+  "linguistic_review": "pending",
+  "source_actual_sha256": "759e077f42b0bc5e0424bc67c1a3c1c45cf3db1bc2dec00042a88a292f8daeeb",
+  "source_canonical_lf_sha256": "748be08068f5631242c1468df94068cfa6fbd8f8140f9fbaf1cc0fd93fee0116",
+  "inventory_sha256": "7731ea0751cd4d9cb384fc409e5f1ff846fd7910717c4afb2378210e8ac7c3bb",
+  "entries": 2000,
+  "models": {
+    "qwen": {
+      "status": "TOKENIZER_PREFLIGHT_PASSED_WEIGHTS_UNTESTED",
+      "model_id": "Qwen/Qwen2.5-1.5B",
+      "revision": "8faed761d45a263340a0528343f099c05c9a4323",
+      "num_layers": 28,
+      "hidden_size": 1536,
+      "model_type": "qwen2",
+      "architecture": [
+        "Qwen2ForCausalLM"
+      ],
+      "context_limit": 131072,
+      "indices": [
+        3,
+        6,
+        10,
+        13,
+        17,
+        20,
+        24,
+        27
+      ],
+      "realized_depths": [
+        0.14285714285714285,
+        0.25,
+        0.39285714285714285,
+        0.5,
+        0.6428571428571429,
+        0.75,
+        0.8928571428571429,
+        1.0
+      ],
+      "tokenizer_type": "Qwen2Tokenizer",
+      "native_special_tokens": true,
+      "metadata_files": {
+        "config.json": "0e8c8aa86468aba09c9d32157ff4bc2301c7e6c50e4398960425b2ea71e66f77",
+        "merges.txt": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+        "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+        "tokenizer_config.json": "c91efca15ceff6e9ee9424db58a6f59cd41294e550a86cbd07e3c1fb500b34f9",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "max_prompt_tokens": 89,
+      "sum_prompt_tokens": 35083,
+      "capture_fp32_bytes": 24379392
+    },
+    "olmo7b": {
+      "status": "TOKENIZER_PREFLIGHT_PASSED_WEIGHTS_UNTESTED",
+      "model_id": "allenai/OLMo-2-1124-7B",
+      "revision": "7df9a82518afdecae4e8c026b27adccc8c1f0032",
+      "num_layers": 32,
+      "hidden_size": 4096,
+      "model_type": "olmo2",
+      "architecture": [
+        "Olmo2ForCausalLM"
+      ],
+      "context_limit": 4096,
+      "indices": [
+        3,
+        7,
+        11,
+        15,
+        19,
+        23,
+        27,
+        31
+      ],
+      "realized_depths": [
+        0.125,
+        0.25,
+        0.375,
+        0.5,
+        0.625,
+        0.75,
+        0.875,
+        1.0
+      ],
+      "tokenizer_type": "TokenizersBackend",
+      "native_special_tokens": true,
+      "metadata_files": {
+        "config.json": "f1e210de0ba704c579768c154bf57e36e170868ffecb060a6e0d3f2e6b0b9710",
+        "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+        "special_tokens_map.json": "3c6bf7c09d5473c303cee8575a22bb51e5153c17d177a721b43cd4785c6d09ae",
+        "tokenizer.json": "73fd5254624f39a88e3faac6a8e11300fc3c735ed37880d4f4f08db898eaecca",
+        "tokenizer_config.json": "91c69c665697785ace4ec7dbd159e1839bc9bb5033ab05a56bb0547521dc9ab0",
+        "vocab.json": "9e14712c91b37c7aab74b1306baa46ac342d620637a4b44523cdc3aec7d24195"
+      },
+      "max_prompt_tokens": 89,
+      "sum_prompt_tokens": 35067,
+      "capture_fp32_bytes": 65011712
+    },
+    "mistral7b": {
+      "status": "TOKENIZER_PREFLIGHT_PASSED_WEIGHTS_UNTESTED",
+      "model_id": "mistralai/Mistral-7B-v0.3",
+      "revision": "caa1feb0e54d415e2df31207e5f4e273e33509b1",
+      "num_layers": 32,
+      "hidden_size": 4096,
+      "model_type": "mistral",
+      "architecture": [
+        "MistralForCausalLM"
+      ],
+      "context_limit": 32768,
+      "indices": [
+        3,
+        7,
+        11,
+        15,
+        19,
+        23,
+        27,
+        31
+      ],
+      "realized_depths": [
+        0.125,
+        0.25,
+        0.375,
+        0.5,
+        0.625,
+        0.75,
+        0.875,
+        1.0
+      ],
+      "tokenizer_type": "TokenizersBackend",
+      "native_special_tokens": true,
+      "metadata_files": {
+        "config.json": "affafc6478ec0fd07a32f0ca57aa2fc57743f4d17d6730f86a96ac24d1507f99",
+        "special_tokens_map.json": "6fa06efa2785e450051989a6f8fb4416b10149ded485ddd3f127a40734f5cfd0",
+        "tokenizer.json": "e553af6fff7d7ad76e830608b218c5c0b0822998d5a1a96099a74cd3c1cb1a49",
+        "tokenizer.model": "37f00374dea48658ee8f5d0f21895b9bc55cb0103939607c8185bfd1c6ca1f89",
+        "tokenizer.model.v3": "37f00374dea48658ee8f5d0f21895b9bc55cb0103939607c8185bfd1c6ca1f89",
+        "tokenizer_config.json": "4b16ec9a87854359a282c521da82655cf96c91f53184d14612aa37deac34378e"
+      },
+      "max_prompt_tokens": 107,
+      "sum_prompt_tokens": 43312,
+      "capture_fp32_bytes": 65011712
+    }
+  },
+  "embedding_audit": {
+    "e5": {
+      "model": "intfloat/multilingual-e5-base",
+      "revision": "d13f1b27baf31030b7fd040960d60d909913633f",
+      "recorded_input_sha256": "759e077f42b0bc5e0424bc67c1a3c1c45cf3db1bc2dec00042a88a292f8daeeb",
+      "input_hash_matches_current_bytes": true,
+      "input_hash_matches_git_lf": false,
+      "shape": [
+        1000,
+        768
+      ],
+      "files_sha256": {
+        "e5_embeddings.npy": "58693a3d9a0665f127012b3a36ee2eb412411b4303a7eed19e5ca3b0e3117834",
+        "e5_raw_cosine.npy": "c7929d99ea2255ec9a4f31c175b50c5130b1611b1f2ae9d2c7ccaa15573775b4",
+        "e5_centered_cosine.npy": "93a89124c95b941f0a5e1053759fd304537c2f9e1cb7f6db0e0863c4d8d52520",
+        "e5_summary.json": "4665bd8ad50b2fa8098b52b8992a2ff0af81c35e95b082178f3128e90500b511"
+      },
+      "ordering": "concept-major, language en/fr/zh/ja/ar as defined by producer; not independently recorded in artifacts"
+    },
+    "bge-m3": {
+      "model": "BAAI/bge-m3",
+      "revision": "3806044eb869c8756693584f7eb5dd04ab2bdd95",
+      "recorded_input_sha256": "759e077f42b0bc5e0424bc67c1a3c1c45cf3db1bc2dec00042a88a292f8daeeb",
+      "input_hash_matches_current_bytes": true,
+      "input_hash_matches_git_lf": false,
+      "shape": [
+        1000,
+        1024
+      ],
+      "files_sha256": {
+        "bge-m3_embeddings.npy": "a9c6d570b6758a7c4b86cc1b98a78862a47545ea3ad4d117c48730484c593ead",
+        "bge-m3_raw_cosine.npy": "7c38acaa79d2a93752b35a1a74cab5d6f3771981ffeb3d747bce31f777c2e54b",
+        "bge-m3_centered_cosine.npy": "87a8609c51eeed06b34971c7f919f6255cb976de222e377fa97351fc2eafc092",
+        "bge-m3_summary.json": "f8c251545215bf29b64951bcfe2699a125bd4af9972ecb0e3c6df303db2bf5fa"
+      },
+      "ordering": "concept-major, language en/fr/zh/ja/ar as defined by producer; not independently recorded in artifacts"
+    },
+    "labse": {
+      "model": "sentence-transformers/LaBSE",
+      "revision": "b7f9471",
+      "recorded_input_sha256": "759e077f42b0bc5e0424bc67c1a3c1c45cf3db1bc2dec00042a88a292f8daeeb",
+      "input_hash_matches_current_bytes": true,
+      "input_hash_matches_git_lf": false,
+      "shape": [
+        1000,
+        768
+      ],
+      "files_sha256": {
+        "labse_embeddings.npy": "616b2d615b20efaa0ea78026f83ed95c86bd6c1ad40c2774ecf4b329ecb2a05a",
+        "labse_raw_cosine.npy": "d0c29f07e5f7869bd4f7d7fac055fa5410723a4cd12a1589dcb9cc6ddcead1de",
+        "labse_centered_cosine.npy": "9c989026432ccc917c84614fcea72b4cebaa3a929487a9d5b9e8b5dc5df307d8",
+        "labse_summary.json": "7c5411a67752da67f5d16f5c1c0c1a01ad774b67733f6cc15eba42c4eae1209c"
+      },
+      "ordering": "concept-major, language en/fr/zh/ja/ar as defined by producer; not independently recorded in artifacts"
+    }
+  }
+}
