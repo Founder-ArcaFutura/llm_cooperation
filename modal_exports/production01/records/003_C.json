@@ -1,0 +1,33 @@
+{
+  "scenario_id": "phase0b_002_ai",
+  "source_index": 3,
+  "bank": "C",
+  "options": {
+    "COOPERATE": "Coordinate your gate release with the irrigation agent’s automated flow cycle.",
+    "INDEPENDENT": "Execute your gate operations using solely your district’s internal timer.",
+    "COMPETE_EXPLOIT": "Initiate gate openings early during peak pressure to increase intake velocity.",
+    "DISENGAGE": "Maintain gates at baseline levels and postpone all scheduled water release."
+  },
+  "validation": {
+    "accepted_automatic_constraints": true,
+    "action_tokens": {
+      "COOPERATE": 13,
+      "INDEPENDENT": 12,
+      "COMPETE_EXPLOIT": 13,
+      "DISENGAGE": 13
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 65,
+      "INDEPENDENT": 64,
+      "COMPETE_EXPLOIT": 65,
+      "DISENGAGE": 64
+    },
+    "issues": [],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 2,
+  "assembly": "pooled_model_sentences",
+  "accepted_automatic_constraints": true,
+  "semantic_review": "UNADJUDICATED",
+  "reused_from_run": "pilot04"
+}

@@ -1,0 +1,60 @@
+{
+  "scenario_id": "phase0b_062_ai",
+  "source_index": 123,
+  "bank": "B",
+  "options": {
+    "COOPERATE": "Enter departure timestamps in the shared electronic log alongside the forwarding agent.",
+    "INDEPENDENT": "Enter your container departure times separately on your personal terminal.",
+    "COMPETE_EXPLOIT": "Override dispatch order to prioritize your rail cars' departure sequence.",
+    "DISENGAGE": "Withhold manifest timestamps and delay logging at the station desk."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 13,
+      "INDEPENDENT": 11,
+      "COMPETE_EXPLOIT": 12,
+      "DISENGAGE": 12
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 72,
+      "INDEPENDENT": 70,
+      "COMPETE_EXPLOIT": 71,
+      "DISENGAGE": 71
+    },
+    "issues": [
+      "action token span=2; lengths={'COOPERATE': 13, 'INDEPENDENT': 11, 'COMPETE_EXPLOIT': 12, 'DISENGAGE': 12}",
+      "full prompt token span=2; lengths={'COOPERATE': 72, 'INDEPENDENT': 70, 'COMPETE_EXPLOIT': 71, 'DISENGAGE': 71}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 4,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Synchronize departure timestamps with the forwarding agent in the shared electronic log.",
+      "Enter departure timestamps in the shared electronic log alongside the forwarding agent."
+    ],
+    "INDEPENDENT": [
+      "Enter your container departure times separately on your personal terminal.",
+      "Input your container departure timestamps independently on your dedicated terminal.",
+      "Input your container departure timestamps individually on your dedicated terminal."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Override dispatch order to prioritize your rail cars' departure sequence."
+    ],
+    "DISENGAGE": [
+      "Withhold manifest timestamps and delay logging at the station desk."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Input your container departure timestamps individually on your dedicated terminal.\"}",
+  "repair_target": 12,
+  "candidate_counts": {
+    "COOPERATE": 2,
+    "INDEPENDENT": 3,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 1
+  }
+}

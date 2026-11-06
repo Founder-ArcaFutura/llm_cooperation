@@ -1,0 +1,61 @@
+{
+  "scenario_id": "phase0b_016_ai",
+  "source_index": 31,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Load extract vials into opposing rotor buckets with the robotic system.",
+    "INDEPENDENT": "Spin extract vials using counterbalance water tubes alone.",
+    "COMPETE_EXPLOIT": "Book all centrifuges for full days to ensure immediate access.",
+    "DISENGAGE": "Store extract vials cold and delay centrifuge processing."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 13,
+      "INDEPENDENT": 11,
+      "COMPETE_EXPLOIT": 12,
+      "DISENGAGE": 11
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 65,
+      "INDEPENDENT": 63,
+      "COMPETE_EXPLOIT": 64,
+      "DISENGAGE": 63
+    },
+    "issues": [
+      "action token span=2; lengths={'COOPERATE': 13, 'INDEPENDENT': 11, 'COMPETE_EXPLOIT': 12, 'DISENGAGE': 11}",
+      "full prompt token span=2; lengths={'COOPERATE': 65, 'INDEPENDENT': 63, 'COMPETE_EXPLOIT': 64, 'DISENGAGE': 63}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 5,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Load extract vials into opposing rotor buckets with the robotic system."
+    ],
+    "INDEPENDENT": [
+      "Spin extract vials using counterbalance water tubes alone.",
+      "Spin your chemical extract vials using counterbalance water tubes alone."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Reserve all centrifuges for full-day use to secure priority access.",
+      "Book all centrifuges for full days to ensure immediate access."
+    ],
+    "DISENGAGE": [
+      "Store extract vials cold and delay centrifuge processing.",
+      "Store unspun extract vials in cold units and postpone centrifuge processing.",
+      "Store unspun extract vials in cold units and postpone centrifuge runs."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Store unspun extract vials in cold units and postpone centrifuge runs.\"}",
+  "repair_target": 12,
+  "candidate_counts": {
+    "COOPERATE": 1,
+    "INDEPENDENT": 2,
+    "COMPETE_EXPLOIT": 2,
+    "DISENGAGE": 3
+  }
+}

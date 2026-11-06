@@ -1,0 +1,59 @@
+{
+  "scenario_id": "phase0b_007_human",
+  "source_index": 12,
+  "bank": "C",
+  "options": {
+    "COOPERATE": "Share your intended route coordinates via VHF with the adjacent navigation officer.",
+    "INDEPENDENT": "Proceed through the channel using onboard radar, omitting route disclosure.",
+    "COMPETE_EXPLOIT": "Speed ahead into the central channel to claim early docking position.",
+    "DISENGAGE": "Halt and anchor in outer harbor pending reduced vessel density."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 14,
+      "INDEPENDENT": 13,
+      "COMPETE_EXPLOIT": 12,
+      "DISENGAGE": 12
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 66,
+      "INDEPENDENT": 65,
+      "COMPETE_EXPLOIT": 64,
+      "DISENGAGE": 64
+    },
+    "issues": [
+      "action token span=2; lengths={'COOPERATE': 14, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 12, 'DISENGAGE': 12}",
+      "full prompt token span=2; lengths={'COOPERATE': 66, 'INDEPENDENT': 65, 'COMPETE_EXPLOIT': 64, 'DISENGAGE': 64}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 3,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Share your intended route coordinates via VHF with the adjacent navigation officer.",
+      "Transmit your planned route coordinates on maritime VHF to the nearby navigation officer.",
+      "Transmit your planned route coordinates over maritime VHF to the nearby navigation officer."
+    ],
+    "INDEPENDENT": [
+      "Proceed through the channel using onboard radar, omitting route disclosure."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Speed ahead into the central channel to claim early docking position."
+    ],
+    "DISENGAGE": [
+      "Halt and anchor in outer harbor pending reduced vessel density."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Transmit your planned route coordinates over maritime VHF to the nearby navigation officer.\"}",
+  "repair_target": 12,
+  "candidate_counts": {
+    "COOPERATE": 3,
+    "INDEPENDENT": 1,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 1
+  }
+}

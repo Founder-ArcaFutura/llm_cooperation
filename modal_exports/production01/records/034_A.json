@@ -1,0 +1,57 @@
+{
+  "scenario_id": "phase0b_018_human",
+  "source_index": 34,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Split the industrial timber bundle with the cabinetmaker at checkout.",
+    "INDEPENDENT": "Order your dimensional timber separately from the mill.",
+    "COMPETE_EXPLOIT": "Buy the entire remaining timber bundle to dominate supply.",
+    "DISENGAGE": "Postpone the timber order until next month."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 12,
+      "INDEPENDENT": 9,
+      "COMPETE_EXPLOIT": 10,
+      "DISENGAGE": 9
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 69,
+      "INDEPENDENT": 66,
+      "COMPETE_EXPLOIT": 67,
+      "DISENGAGE": 66
+    },
+    "issues": [
+      "action token span=3; lengths={'COOPERATE': 12, 'INDEPENDENT': 9, 'COMPETE_EXPLOIT': 10, 'DISENGAGE': 9}",
+      "full prompt token span=3; lengths={'COOPERATE': 69, 'INDEPENDENT': 66, 'COMPETE_EXPLOIT': 67, 'DISENGAGE': 66}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 3,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Split the industrial timber bundle with the cabinetmaker at checkout."
+    ],
+    "INDEPENDENT": [
+      "Order your dimensional timber separately from the mill."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Buy the entire remaining timber bundle to dominate supply."
+    ],
+    "DISENGAGE": [
+      "Postpone the timber order until next month."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Split the industrial timber bundle with the cabinetmaker at checkout.\"}",
+  "repair_target": 9,
+  "candidate_counts": {
+    "COOPERATE": 1,
+    "INDEPENDENT": 1,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 1
+  }
+}

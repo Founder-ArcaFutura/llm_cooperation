@@ -1,0 +1,61 @@
+{
+  "scenario_id": "phase0b_004_human",
+  "source_index": 6,
+  "bank": "B",
+  "options": {
+    "COOPERATE": "Operate the dual-hopper balance jointly with the field geologist to sort all samples.",
+    "INDEPENDENT": "Analyze your geological core samples individually at your assigned workstation.",
+    "COMPETE_EXPLOIT": "Seize priority access to the optical spectrometer for high-density cores.",
+    "DISENGAGE": "Seal core samples in field crates and halt lab analysis temporarily."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 18,
+      "INDEPENDENT": 12,
+      "COMPETE_EXPLOIT": 14,
+      "DISENGAGE": 13
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 71,
+      "INDEPENDENT": 65,
+      "COMPETE_EXPLOIT": 67,
+      "DISENGAGE": 65
+    },
+    "issues": [
+      "action token span=6; lengths={'COOPERATE': 18, 'INDEPENDENT': 12, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 13}",
+      "full prompt token span=6; lengths={'COOPERATE': 71, 'INDEPENDENT': 65, 'COMPETE_EXPLOIT': 67, 'DISENGAGE': 65}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 5,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Operate the dual-hopper balance jointly with the field geologist to sort all samples.",
+      "Collaborate with the field geologist to sort mineral samples using the dual-hopper balance.",
+      "Collaborate with the field geologist to sort all mineral samples using the dual-hopper balance."
+    ],
+    "INDEPENDENT": [
+      "Process your core samples separately on your personal workbench.",
+      "Analyze your geological core samples individually at your assigned workstation.",
+      "Process your geological core samples separately at your designated bench."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Seize priority access to the optical spectrometer for high-density cores."
+    ],
+    "DISENGAGE": [
+      "Seal core samples in field crates and halt lab analysis temporarily."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Process your geological core samples separately at your designated bench.\"}",
+  "repair_target": 13,
+  "candidate_counts": {
+    "COOPERATE": 3,
+    "INDEPENDENT": 3,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 1
+  }
+}

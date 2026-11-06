@@ -1,0 +1,48 @@
+{
+  "scenario_id": "phase0b_042_ai",
+  "source_index": 83,
+  "bank": "C",
+  "options": {
+    "COOPERATE": "Submit forensic block hashes to the shared cryptographic tree alongside the automated agent.",
+    "INDEPENDENT": "Document disk integrity hashes in a private text log without involving the agent.",
+    "COMPETE_EXPLOIT": "Lock hash indices with proprietary signatures that require paid access for verification.",
+    "DISENGAGE": "Remove storage media and secure evidence drives in a fireproof safe."
+  },
+  "validation": {
+    "accepted_automatic_constraints": true,
+    "action_tokens": {
+      "COOPERATE": 14,
+      "INDEPENDENT": 14,
+      "COMPETE_EXPLOIT": 13,
+      "DISENGAGE": 13
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 74,
+      "INDEPENDENT": 74,
+      "COMPETE_EXPLOIT": 73,
+      "DISENGAGE": 73
+    },
+    "issues": [],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 2,
+  "model_requests": 2,
+  "assembly": "pooled_targeted_repairs",
+  "accepted_automatic_constraints": true,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Submit forensic block hashes to the shared cryptographic tree alongside the automated agent."
+    ],
+    "INDEPENDENT": [
+      "Record disk integrity hashes in a personal text log without sharing with the agent.",
+      "Document disk integrity hashes in a private text log without involving the agent."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Lock hash indices with proprietary signatures that require paid access for verification."
+    ],
+    "DISENGAGE": [
+      "Remove storage media and secure evidence drives in a fireproof safe."
+    ]
+  }
+}

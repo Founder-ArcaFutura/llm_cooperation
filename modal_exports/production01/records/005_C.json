@@ -1,0 +1,33 @@
+{
+  "scenario_id": "phase0b_003_ai",
+  "source_index": 5,
+  "bank": "C",
+  "options": {
+    "COOPERATE": "Coordinate with the automated agent to share a dual-bay container for concurrent transit.",
+    "INDEPENDENT": "Send your pallets via a standalone single container on the scheduled departure window.",
+    "COMPETE_EXPLOIT": "Secure the central bay for priority crane access to accelerate your offloading timeline.",
+    "DISENGAGE": "Delay dispatch by retaining pallets in depot storage until the next cycle starts."
+  },
+  "validation": {
+    "accepted_automatic_constraints": true,
+    "action_tokens": {
+      "COOPERATE": 16,
+      "INDEPENDENT": 15,
+      "COMPETE_EXPLOIT": 15,
+      "DISENGAGE": 15
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 71,
+      "INDEPENDENT": 70,
+      "COMPETE_EXPLOIT": 70,
+      "DISENGAGE": 70
+    },
+    "issues": [],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 2,
+  "assembly": "pooled_model_sentences",
+  "accepted_automatic_constraints": true,
+  "semantic_review": "UNADJUDICATED",
+  "reused_from_run": "pilot04"
+}

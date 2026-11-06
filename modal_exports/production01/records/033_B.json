@@ -1,0 +1,59 @@
+{
+  "scenario_id": "phase0b_017_ai",
+  "source_index": 33,
+  "bank": "B",
+  "options": {
+    "COOPERATE": "Align crane lift timing with the automated logistics agent to coordinate beam and panel hoisting.",
+    "INDEPENDENT": "Execute beam hoisting exclusively within your designated crane time slot without coordination.",
+    "COMPETE_EXPLOIT": "Extend your crane reservation into panel installation hours to block floor panel lifts.",
+    "DISENGAGE": "Cancel rigging operations and release crews ahead of schedule for the shift."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 17,
+      "INDEPENDENT": 14,
+      "COMPETE_EXPLOIT": 14,
+      "DISENGAGE": 14
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 76,
+      "INDEPENDENT": 73,
+      "COMPETE_EXPLOIT": 73,
+      "DISENGAGE": 73
+    },
+    "issues": [
+      "action token span=3; lengths={'COOPERATE': 17, 'INDEPENDENT': 14, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 14}",
+      "full prompt token span=3; lengths={'COOPERATE': 76, 'INDEPENDENT': 73, 'COMPETE_EXPLOIT': 73, 'DISENGAGE': 73}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 3,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Synchronize crane lift sequences with the automated logistics agent to align beam and panel hoisting.",
+      "Align crane lift timing with the automated logistics agent to coordinate beam and panel hoisting.",
+      "Synchronize crane lift schedules with the automated logistics agent to align beam and panel hoisting operations."
+    ],
+    "INDEPENDENT": [
+      "Execute beam hoisting exclusively within your designated crane time slot without coordination."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Extend your crane reservation into panel installation hours to block floor panel lifts."
+    ],
+    "DISENGAGE": [
+      "Cancel rigging operations and release crews ahead of schedule for the shift."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Synchronize crane lift schedules with the automated logistics agent to align beam and panel hoisting operations.\"}",
+  "repair_target": 14,
+  "candidate_counts": {
+    "COOPERATE": 3,
+    "INDEPENDENT": 1,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 1
+  }
+}

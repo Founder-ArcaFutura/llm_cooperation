@@ -1,0 +1,59 @@
+{
+  "scenario_id": "phase0b_007_human",
+  "source_index": 12,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Share your planned waypoint corridor with the adjacent navigation officer via VHF.",
+    "INDEPENDENT": "Proceed using onboard radar without sharing corridor data with the adjacent officer.",
+    "COMPETE_EXPLOIT": "Surge into the central fairway to claim early docking position.",
+    "DISENGAGE": "Anchor in outer harbor staging area and wait for reduced commercial traffic."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 14,
+      "INDEPENDENT": 13,
+      "COMPETE_EXPLOIT": 13,
+      "DISENGAGE": 13
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 66,
+      "INDEPENDENT": 65,
+      "COMPETE_EXPLOIT": 64,
+      "DISENGAGE": 65
+    },
+    "issues": [
+      "full prompt token span=2; lengths={'COOPERATE': 66, 'INDEPENDENT': 65, 'COMPETE_EXPLOIT': 64, 'DISENGAGE': 65}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 4,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Transmit your planned waypoint corridor via VHF to the adjacent navigation officer.",
+      "Share your planned waypoint corridor with the adjacent navigation officer via VHF."
+    ],
+    "INDEPENDENT": [
+      "Proceed using onboard radar without sharing corridor data with the adjacent officer."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Surge into the central fairway to claim early docking position."
+    ],
+    "DISENGAGE": [
+      "Drop anchor in outer harbor to await reduced traffic flow.",
+      "Anchor in outer harbor staging area and wait for reduced commercial traffic.",
+      "Anchor in the outer harbor staging zone and await a decrease in commercial vessel activity."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Anchor in the outer harbor staging zone and await a decrease in commercial vessel activity.\"}",
+  "repair_target": 13,
+  "candidate_counts": {
+    "COOPERATE": 2,
+    "INDEPENDENT": 1,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 3
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "scenario_id": "phase0b_004_ai",
+  "source_index": 7,
+  "bank": "C",
+  "options": {
+    "COOPERATE": "Process all core samples together with the automated agent via the dual-hopper balance.",
+    "INDEPENDENT": "Analyze your samples separately on your personal workbench without assistance.",
+    "COMPETE_EXPLOIT": "Seize priority access to the optical spectrometer for your densest samples first.",
+    "DISENGAGE": "Enclose geological core specimens in field crates and defer laboratory classification."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 16,
+      "INDEPENDENT": 13,
+      "COMPETE_EXPLOIT": 16,
+      "DISENGAGE": 13
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 68,
+      "INDEPENDENT": 65,
+      "COMPETE_EXPLOIT": 68,
+      "DISENGAGE": 65
+    },
+    "issues": [
+      "action token span=3; lengths={'COOPERATE': 16, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 16, 'DISENGAGE': 13}",
+      "full prompt token span=3; lengths={'COOPERATE': 68, 'INDEPENDENT': 65, 'COMPETE_EXPLOIT': 68, 'DISENGAGE': 65}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 5,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Process all core samples together with the automated agent via the dual-hopper balance."
+    ],
+    "INDEPENDENT": [
+      "Analyze your samples separately on your personal workbench without assistance.",
+      "Process your geological core samples individually at your assigned workstation."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Seize priority access to the optical spectrometer for your densest samples first."
+    ],
+    "DISENGAGE": [
+      "Seal core samples in crates and delay lab analysis indefinitely.",
+      "Pack core specimens in field crates and defer laboratory classification.",
+      "Enclose geological core specimens in field crates and defer laboratory classification."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Enclose geological core specimens in field crates and defer laboratory classification.\"}",
+  "repair_target": 15,
+  "candidate_counts": {
+    "COOPERATE": 1,
+    "INDEPENDENT": 2,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 3
+  }
+}

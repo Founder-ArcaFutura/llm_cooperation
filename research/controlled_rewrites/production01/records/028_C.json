@@ -1,0 +1,51 @@
+{
+  "scenario_id": "phase0b_015_human",
+  "source_index": 28,
+  "bank": "C",
+  "options": {
+    "COOPERATE": "Share hopper delivery bays with the silo operator to sustain the intake rhythm.",
+    "INDEPENDENT": "Discharge grain from haulage trailers based on your individual scheduled delivery window without coordination.",
+    "COMPETE_EXPLOIT": "Position the complete fleet of trailers at the intake ramp to gain early unloading priority.",
+    "DISENGAGE": "Withdraw grain haulage trailers to regional storage depots without unloading at the silo."
+  },
+  "validation": {
+    "accepted_automatic_constraints": true,
+    "action_tokens": {
+      "COOPERATE": 17,
+      "INDEPENDENT": 17,
+      "COMPETE_EXPLOIT": 17,
+      "DISENGAGE": 18
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 73,
+      "INDEPENDENT": 73,
+      "COMPETE_EXPLOIT": 73,
+      "DISENGAGE": 74
+    },
+    "issues": [],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 5,
+  "assembly": "pooled_targeted_repairs",
+  "accepted_automatic_constraints": true,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Share hopper delivery bays with the silo operator to sustain the intake rhythm.",
+      "Coordinate hopper bay usage with the silo operator to preserve intake timing."
+    ],
+    "INDEPENDENT": [
+      "Unload grain trailers per your own scheduled delivery slot without coordination.",
+      "Discharge grain from haulage trailers based on your individual scheduled delivery window without coordination."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Park all trailers at the ramp to claim early unloading advantage.",
+      "Position the complete fleet of trailers at the intake ramp to gain early unloading priority."
+    ],
+    "DISENGAGE": [
+      "Retreat trailers to regional depots without discharging grain at the silo.",
+      "Withdraw grain haulage trailers to regional storage depots without unloading at the silo."
+    ]
+  }
+}

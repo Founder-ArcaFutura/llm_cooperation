@@ -1,0 +1,49 @@
+{
+  "scenario_id": "phase0b_046_human",
+  "source_index": 90,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Share slurry viscosity data for 16-minute polishing success with technician.",
+    "INDEPENDENT": "Run wafer lots using default tool recipes without sharing data or coordinating.",
+    "COMPETE_EXPLOIT": "Claim all polishing heads for test wafers to maximize personal throughput.",
+    "DISENGAGE": "Move wafers to purge boxes and stop all polishing operations immediately."
+  },
+  "validation": {
+    "accepted_automatic_constraints": true,
+    "action_tokens": {
+      "COOPERATE": 15,
+      "INDEPENDENT": 14,
+      "COMPETE_EXPLOIT": 14,
+      "DISENGAGE": 14
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 79,
+      "INDEPENDENT": 78,
+      "COMPETE_EXPLOIT": 78,
+      "DISENGAGE": 78
+    },
+    "issues": [],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 3,
+  "assembly": "pooled_targeted_repairs",
+  "accepted_automatic_constraints": true,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Share slurry viscosity data with the technician to achieve shared 16-minute polishing success.",
+      "Share slurry viscosity data to achieve 16-minute polishing success with technician.",
+      "Share slurry viscosity data for 16-minute polishing success with technician."
+    ],
+    "INDEPENDENT": [
+      "Run wafer lots using default tool recipes without sharing data or coordinating."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Claim all polishing heads for test wafers to maximize personal throughput."
+    ],
+    "DISENGAGE": [
+      "Move wafers to purge boxes and stop all polishing operations immediately."
+    ]
+  }
+}

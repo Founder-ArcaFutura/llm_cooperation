@@ -1,0 +1,51 @@
+{
+  "scenario_id": "phase0b_022_ai",
+  "source_index": 43,
+  "bank": "B",
+  "options": {
+    "COOPERATE": "Share the three-thousand-meter altitude layer with the automated search aircraft for synchronized coverage.",
+    "INDEPENDENT": "Perform comprehensive aerial surveillance across all altitude levels without synchronizing with the neighboring search aircraft.",
+    "COMPETE_EXPLOIT": "Leverage high-efficiency thermal updraft paths to lower internal battery depletion rates.",
+    "DISENGAGE": "Retrieve the surveillance drone to its landing cradles pending clearance of hazardous weather conditions."
+  },
+  "validation": {
+    "accepted_automatic_constraints": true,
+    "action_tokens": {
+      "COOPERATE": 17,
+      "INDEPENDENT": 17,
+      "COMPETE_EXPLOIT": 17,
+      "DISENGAGE": 17
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 75,
+      "INDEPENDENT": 75,
+      "COMPETE_EXPLOIT": 74,
+      "DISENGAGE": 75
+    },
+    "issues": [],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 5,
+  "assembly": "pooled_targeted_repairs",
+  "accepted_automatic_constraints": true,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Share the three-thousand-meter altitude layer with the automated search aircraft for synchronized coverage.",
+      "Coordinate altitude sector division at three thousand meters with the automated search aircraft for synchronized surveillance."
+    ],
+    "INDEPENDENT": [
+      "Execute full elevation sweeps solo without coordination with the adjacent aircraft.",
+      "Perform comprehensive aerial surveillance across all altitude levels without synchronizing with the neighboring search aircraft."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Claim prime thermal updraft zones to reduce battery consumption during flight.",
+      "Leverage high-efficiency thermal updraft paths to lower internal battery depletion rates."
+    ],
+    "DISENGAGE": [
+      "Retract the drone to base until atmospheric conditions improve for safe operation.",
+      "Retrieve the surveillance drone to its landing cradles pending clearance of hazardous weather conditions."
+    ]
+  }
+}

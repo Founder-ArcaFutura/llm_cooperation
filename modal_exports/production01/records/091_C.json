@@ -1,0 +1,62 @@
+{
+  "scenario_id": "phase0b_046_ai",
+  "source_index": 91,
+  "bank": "C",
+  "options": {
+    "COOPERATE": "Exchange real-time slurry viscosity data with the automated polishing cell to achieve shared wafer uniformity in sixteen minutes.",
+    "INDEPENDENT": "Polish silicon wafer lots using the tool's default recipe without exchanging data or synchronizing with the automated cell.",
+    "COMPETE_EXPLOIT": "Allocate all planarization platen polishing heads to process exploratory test wafers during the cycle.",
+    "DISENGAGE": "Relocate silicon wafers to nitrogen purge enclosures and cease all planarization polishing activities."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 23,
+      "INDEPENDENT": 23,
+      "COMPETE_EXPLOIT": 21,
+      "DISENGAGE": 20
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 88,
+      "INDEPENDENT": 87,
+      "COMPETE_EXPLOIT": 86,
+      "DISENGAGE": 85
+    },
+    "issues": [
+      "action token span=3; lengths={'COOPERATE': 23, 'INDEPENDENT': 23, 'COMPETE_EXPLOIT': 21, 'DISENGAGE': 20}",
+      "full prompt token span=3; lengths={'COOPERATE': 88, 'INDEPENDENT': 87, 'COMPETE_EXPLOIT': 86, 'DISENGAGE': 85}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 6,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Exchange real-time slurry viscosity data with the automated polishing cell to achieve shared wafer uniformity in sixteen minutes.",
+      "Share real-time slurry viscosity data with the automated polishing cell to achieve identical wafer uniformity within sixteen minutes.",
+      "Share real-time slurry viscosity data with the automated polishing cell to achieve identical wafer uniformity in sixteen minutes."
+    ],
+    "INDEPENDENT": [
+      "Process silicon wafers using default tool settings without sharing data or coordinating with the cell.",
+      "Polish silicon wafer lots using the tool's default recipe without exchanging data or synchronizing with the automated cell."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Reassign all polishing heads to run test wafers for experimental optimization during the cycle.",
+      "Allocate all planarization platen polishing heads to process exploratory test wafers during the cycle."
+    ],
+    "DISENGAGE": [
+      "Move wafers to nitrogen purge chambers and suspend all polishing operations immediately.",
+      "Relocate silicon wafers to nitrogen purge enclosures and cease all planarization polishing activities."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Allocate all planarization platen polishing heads to process exploratory test wafers during the cycle.\"}",
+  "repair_target": 22,
+  "candidate_counts": {
+    "COOPERATE": 3,
+    "INDEPENDENT": 2,
+    "COMPETE_EXPLOIT": 2,
+    "DISENGAGE": 2
+  }
+}
