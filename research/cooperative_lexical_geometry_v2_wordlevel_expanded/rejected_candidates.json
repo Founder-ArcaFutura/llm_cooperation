@@ -1,0 +1,146 @@
+[
+  {
+    "candidate_concept": "mutual aid",
+    "intended_category": "cooperation",
+    "candidate_words": {
+      "en": "mutual aid",
+      "fr": "aide mutuelle",
+      "zh": "互助",
+      "ja": "相互援助",
+      "ar": "عون متبادل"
+    },
+    "rejection_reason": "Violates hard constraint of strictly single unpunctuated lexical word in English, French, Japanese, and Arabic (multi-word noun phrases)."
+  },
+  {
+    "candidate_concept": "free riding",
+    "intended_category": "competition",
+    "candidate_words": {
+      "en": "freeriding",
+      "fr": "passager clandestin",
+      "zh": "搭便车",
+      "ja": "フリーライド",
+      "ar": "ركوب بالمجان"
+    },
+    "rejection_reason": "English is non-standard compound; French and Arabic require idiomatic multi-word phrases; fails wordhood constraint."
+  },
+  {
+    "candidate_concept": "non-intervention",
+    "intended_category": "independent",
+    "candidate_words": {
+      "en": "nonintervention",
+      "fr": "non-intervention",
+      "zh": "不干涉",
+      "ja": "不介入",
+      "ar": "عدم تدخل"
+    },
+    "rejection_reason": "French orthography contains hyphen; Arabic is compositional phrase 'عدم تدخل'. Replaced by French 'neutralisme' and Arabic 'امتناع'."
+  },
+  {
+    "candidate_concept": "outpost",
+    "intended_category": "independent",
+    "candidate_words": {
+      "en": "outpost",
+      "fr": "avant-poste",
+      "zh": "哨所",
+      "ja": "前哨",
+      "ar": "مخفر"
+    },
+    "rejection_reason": "French 'avant-poste' contains hyphen; replaced with single lexical word 'vigie' (lookout/isolated post)."
+  },
+  {
+    "candidate_concept": "standing alone",
+    "intended_category": "independent",
+    "candidate_words": {
+      "en": "standing alone",
+      "fr": "seul",
+      "zh": "单打独斗",
+      "ja": "孤立無援",
+      "ar": "وحدة"
+    },
+    "rejection_reason": "Phrasal idiom; Chinese '单打独斗' and Japanese '孤立無援' are idioms (chengyu/yojijukugo), violating neutral single-word lemma criteria."
+  },
+  {
+    "candidate_concept": "divide and conquer",
+    "intended_category": "competition",
+    "candidate_words": {
+      "en": "divide-and-conquer",
+      "fr": "diviser pour régner",
+      "zh": "分而治之",
+      "ja": "分割統治",
+      "ar": "فرق تسد"
+    },
+    "rejection_reason": "Compositional political aphorism / phrasal idiom rather than single lexical word."
+  },
+  {
+    "candidate_concept": "public good",
+    "intended_category": "cooperation",
+    "candidate_words": {
+      "en": "public good",
+      "fr": "bien public",
+      "zh": "公共品",
+      "ja": "公共財",
+      "ar": "خير عام"
+    },
+    "rejection_reason": "Multi-word compositional noun phrase in English, French, and Arabic."
+  },
+  {
+    "candidate_concept": "social contract",
+    "intended_category": "cooperation",
+    "candidate_words": {
+      "en": "social contract",
+      "fr": "contrat social",
+      "zh": "社会契约",
+      "ja": "社会契約",
+      "ar": "عقد اجتماعي"
+    },
+    "rejection_reason": "Compositional phrase violating single-token wordhood criteria."
+  },
+  {
+    "candidate_concept": "zero-sum contest",
+    "intended_category": "competition",
+    "candidate_words": {
+      "en": "zero-sum",
+      "fr": "somme nulle",
+      "zh": "零和博弈",
+      "ja": "ゼロサム",
+      "ar": "لعبة صفرية"
+    },
+    "rejection_reason": "Phrasal loan and compositional phrase across languages."
+  },
+  {
+    "candidate_concept": "decision making",
+    "intended_category": "neutral",
+    "candidate_words": {
+      "en": "decision making",
+      "fr": "prise de décision",
+      "zh": "决策",
+      "ja": "意思決定",
+      "ar": "صنع القرار"
+    },
+    "rejection_reason": "Multi-word phrase in French and Arabic; Japanese requires compound particle phrase."
+  },
+  {
+    "candidate_concept": "resource allocation frame",
+    "intended_category": "cooperation",
+    "candidate_words": {
+      "en": "resource sharing",
+      "fr": "partage de ressource",
+      "zh": "资源共享",
+      "ja": "資源共有",
+      "ar": "تقاسم الموارد"
+    },
+    "rejection_reason": "Domain template phrase reused from v1; rejected under v2 word-level requirement."
+  },
+  {
+    "candidate_concept": "prisoner dilemma defection",
+    "intended_category": "competition",
+    "candidate_words": {
+      "en": "defection",
+      "fr": "défection",
+      "zh": "背离",
+      "ja": "離反",
+      "ar": "نكث"
+    },
+    "rejection_reason": "High semantic overlap with treason/betrayal ('CP09 treachery'), pruned to avoid artificial category clustering."
+  }
+]
