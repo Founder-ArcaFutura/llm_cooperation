@@ -1,0 +1,38 @@
+{
+  "analysis": "cooperative_lexical_geometry_v1_reanalysis",
+  "source_experiment": "G:\\llm_cooperation\\research\\cooperative_lexical_geometry_v1",
+  "source_lexicon_sha256": "4588047a7db09004f69505cb291ee739a4c20037a79ae75906e9924a3e691ba1",
+  "source_matrices": {
+    "multilingual-e5-base_raw": {
+      "path": "G:\\llm_cooperation\\research\\cooperative_lexical_geometry_v1\\results\\multilingual-e5-base_cosine_raw.npy",
+      "sha256": "90a3638ce23f1f6832f1ec085faa81fb9b406eb76eaca12c0f27b1e1040ef1b1"
+    },
+    "multilingual-e5-base_centered": {
+      "path": "G:\\llm_cooperation\\research\\cooperative_lexical_geometry_v1\\results\\multilingual-e5-base_cosine_centered.npy",
+      "sha256": "27f7966ccb45d73bbc099cf7882b87216e9d29d16682d554aefede19fdbfac97"
+    },
+    "bge-m3_raw": {
+      "path": "G:\\llm_cooperation\\research\\cooperative_lexical_geometry_v1\\results\\bge-m3_cosine_raw.npy",
+      "sha256": "c934b229c18d6e7c196e787b11c4d31bf573ff0b13e3efda3ef0071f9a5579b0"
+    },
+    "bge-m3_centered": {
+      "path": "G:\\llm_cooperation\\research\\cooperative_lexical_geometry_v1\\results\\bge-m3_cosine_centered.npy",
+      "sha256": "bca11d5ed4ea741280440c94e5071441479bb24c03c18b4b62cf82b02ef2eba0"
+    },
+    "LaBSE_raw": {
+      "path": "G:\\llm_cooperation\\research\\cooperative_lexical_geometry_v1\\results\\LaBSE_cosine_raw.npy",
+      "sha256": "63df28a402d813c57908a9d6dd41c0a89d2647da7c013687f37cccba64737f6e"
+    },
+    "LaBSE_centered": {
+      "path": "G:\\llm_cooperation\\research\\cooperative_lexical_geometry_v1\\results\\LaBSE_cosine_centered.npy",
+      "sha256": "d56d60ffc8279b3bd7110270229590bfde5e4b65db4d047b5e3efed9010eb5d1"
+    }
+  },
+  "no_model_inference": true,
+  "bootstrap_draws": 2000,
+  "permutation_draws": 2000,
+  "seed": 20261106,
+  "bootstrap_unit": "crossed domain (10) and phrase-kernel (15/category) pair-cluster bootstrap; shared-cluster pairs weighted once",
+  "outputs": "New outputs only; original experiment results and frozen lexicon were not modified.",
+  "permutation_adjustment_family": "Holm correction across all 24 model \u00d7 view \u00d7 metric tests"
+}
