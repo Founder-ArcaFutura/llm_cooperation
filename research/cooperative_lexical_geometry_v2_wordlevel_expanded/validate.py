@@ -48,7 +48,9 @@ if cohorts.get('pilot', 0) != 24:
     errors.append(f"Expected exactly 24 pilot cohort concepts, found {cohorts.get('pilot')}")
 
 # 5. Verification records consistency
-if v_path.exists():
+if not v_path.exists():
+    errors.append(f"Missing required verification records file: {v_path}")
+else:
     v_rows = json.loads(v_path.read_text(encoding='utf-8'))
     if len(v_rows) != len(rows):
         errors.append(f"Verification records count ({len(v_rows)}) does not match lexicon count ({len(rows)})")
