@@ -58,3 +58,10 @@ Before initiating confirmatory model inference:
 1. **Native Fluent Speaker Adjudication:** Human native speakers of French, Mandarin Chinese, Japanese, and Arabic must review each candidate word against its concept gloss for naturalness and register appropriateness.
 2. **Polysemy and Frequency Calibration:** While dictionary definitions confirm nominal equivalence, empirical corpus frequencies (e.g. from SUBTLEX, Google Books Ngrams, or ArTenTen) should be documented to check for frequency-driven embedding artifacts.
 3. **Formal Freeze Verification:** Verify cryptographic hashes in `frozen_manifest.json` against `lexicon.json` before feeding embeddings into the inferential pipeline.
+
+
+### 7. Corrective Adjudications
+- **CP25 (espionage):** Chinese label updated from agent noun  (spy) to standard activity noun  (espionage / intelligence work).
+- **CP43 (ambush):** Japanese label updated from agent noun  (concealed troops) to standard action noun  (ambush attack).
+- **CP48 (vendetta):** Arabic label corrected to restore the hamza  (blood revenge / feud) distinguishing it from the verb . Japanese label refined from generic  (struggle / conflict) to specific  (blood revenge / vendetta).
+- **Verification Provenance Relabeling:** To prevent overstating verification claims prior to independent fluent speaker review, status tags are explicitly calibrated as  and .

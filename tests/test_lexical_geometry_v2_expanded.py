@@ -125,3 +125,23 @@ def test_frozen_manifest_hash_integrity(manifest):
         assert fpath.exists(), f"Manifest file missing: {fname}"
         actual_hash = hashlib.sha256(fpath.read_bytes()).hexdigest()
         assert actual_hash == expected_hash, f"Hash mismatch for {fname}: expected {expected_hash}, got {actual_hash}"
+
+
+def test_validator_fails_closed_when_verification_records_missing(tmp_path):
+    import subprocess, shutil
+    shutil.copy(EXPANDED_DIR / "lexicon.json", tmp_path / "lexicon.json")
+    shutil.copy(EXPANDED_DIR / "validate.py", tmp_path / "validate.py")
+    res = subprocess.run(["python3", str(tmp_path / "validate.py")], capture_output=True, text=True)
+    assert res.returncode != 0
+    assert "Missing required verification records file" in res.stdout
+
+
+def test_validator_fails_when_record_count_mismatches(tmp_path):
+    import subprocess, shutil
+    shutil.copy(EXPANDED_DIR / "lexicon.json", tmp_path / "lexicon.json")
+    shutil.copy(EXPANDED_DIR / "validate.py", tmp_path / "validate.py")
+    # Write incomplete verification records
+    (tmp_path / "verification_records.json").write_text("[]", encoding="utf-8")
+    res = subprocess.run(["python3", str(tmp_path / "validate.py")], capture_output=True, text=True)
+    assert res.returncode != 0
+    assert "does not match lexicon count" in res.stdout
