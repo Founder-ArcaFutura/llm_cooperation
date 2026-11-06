@@ -1,0 +1,58 @@
+{
+  "experiment": "cooperative_lexical_geometry_v1",
+  "lexicon_sha256": "4588047a7db09004f69505cb291ee739a4c20037a79ae75906e9924a3e691ba1",
+  "lexicon_review_status": "frozen_before_embeddings; target-language drafts require fluent human review",
+  "execution": {
+    "python": "3.13.17 (tags/v3.13.17:64e080d, Oct 21 2026, 14:08:53) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.10.0+cpu",
+    "device": "cpu",
+    "cuda_available": false,
+    "seed": 20261106
+  },
+  "models": {
+    "multilingual-e5-base": {
+      "model_id": "intfloat/multilingual-e5-base",
+      "pinned_revision": "d13f1b27baf31030b7fd040960d60d909913633f",
+      "encoding_prefix": "query: ",
+      "embedding_shape": [
+        3000,
+        768
+      ],
+      "embedding_sha256": "29458edeed2581fde24aadd94cacd25fb5932869eefe2bfbb4924c1922448717",
+      "raw_matrix_sha256": "90a3638ce23f1f6832f1ec085faa81fb9b406eb76eaca12c0f27b1e1040ef1b1",
+      "centered_matrix_sha256": "27f7966ccb45d73bbc099cf7882b87216e9d29d16682d554aefede19fdbfac97",
+      "raw_results": "multilingual-e5-base_raw_results.json",
+      "centered_results": "multilingual-e5-base_centered_results.json"
+    },
+    "bge-m3": {
+      "model_id": "BAAI/bge-m3",
+      "pinned_revision": "3806044eb869c8756693584f7eb5dd04ab2bdd95",
+      "encoding_prefix": "",
+      "embedding_shape": [
+        3000,
+        1024
+      ],
+      "embedding_sha256": "82b7ef977defb0a7c97defd777464ab36d32ebdd4d1459e961574479a8e1d802",
+      "raw_matrix_sha256": "c934b229c18d6e7c196e787b11c4d31bf573ff0b13e3efda3ef0071f9a5579b0",
+      "centered_matrix_sha256": "bca11d5ed4ea741280440c94e5071441479bb24c03c18b4b62cf82b02ef2eba0",
+      "raw_results": "bge-m3_raw_results.json",
+      "centered_results": "bge-m3_centered_results.json"
+    },
+    "LaBSE": {
+      "model_id": "sentence-transformers/LaBSE",
+      "pinned_revision": "b7f9471",
+      "encoding_prefix": "",
+      "embedding_shape": [
+        3000,
+        768
+      ],
+      "embedding_sha256": "31d7c3a1f8477c0379626dcee564c0317e77ed571e307ee92ba3eb70d69aa717",
+      "raw_matrix_sha256": "63df28a402d813c57908a9d6dd41c0a89d2647da7c013687f37cccba64737f6e",
+      "centered_matrix_sha256": "d56d60ffc8279b3bd7110270229590bfde5e4b65db4d047b5e3efed9010eb5d1",
+      "raw_results": "LaBSE_raw_results.json",
+      "centered_results": "LaBSE_centered_results.json"
+    }
+  },
+  "model_revision_source": "Hugging Face model repositories; revisions pinned in source."
+}

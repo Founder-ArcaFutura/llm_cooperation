@@ -1,0 +1,864 @@
+{
+  "model": "LaBSE",
+  "view": "raw",
+  "within_language": {
+    "cooperation": {
+      "en": {
+        "all_distinct_concepts": 0.4863927449009296,
+        "same_domain_only": 0.7376333505766732,
+        "exclude_repeated_kernel": 0.473351614822944,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      },
+      "fr": {
+        "all_distinct_concepts": 0.503953606124959,
+        "same_domain_only": 0.7359435822282518,
+        "exclude_repeated_kernel": 0.49109595656962624,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      },
+      "es": {
+        "all_distinct_concepts": 0.5192298924162884,
+        "same_domain_only": 0.739332643293199,
+        "exclude_repeated_kernel": 0.5062747811206749,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      },
+      "ar": {
+        "all_distinct_concepts": 0.4539050086332648,
+        "same_domain_only": 0.7071895706653595,
+        "exclude_repeated_kernel": 0.4391833896601484,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      },
+      "zh": {
+        "all_distinct_concepts": 0.47731059294552347,
+        "same_domain_only": 0.7395469193231492,
+        "exclude_repeated_kernel": 0.4643661739272731,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      }
+    },
+    "competition_exploitation": {
+      "en": {
+        "all_distinct_concepts": 0.4157655254239737,
+        "same_domain_only": 0.7089874343928837,
+        "exclude_repeated_kernel": 0.40134120986149424,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      },
+      "fr": {
+        "all_distinct_concepts": 0.4160487083927364,
+        "same_domain_only": 0.6538052551235471,
+        "exclude_repeated_kernel": 0.3982404376310962,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      },
+      "es": {
+        "all_distinct_concepts": 0.4273413960832344,
+        "same_domain_only": 0.6733330962487629,
+        "exclude_repeated_kernel": 0.4107528397497677,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      },
+      "ar": {
+        "all_distinct_concepts": 0.3715453513940042,
+        "same_domain_only": 0.6731756376084828,
+        "exclude_repeated_kernel": 0.35539950092881917,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      },
+      "zh": {
+        "all_distinct_concepts": 0.3900063948763297,
+        "same_domain_only": 0.6864150243146079,
+        "exclude_repeated_kernel": 0.37424303448696933,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      }
+    },
+    "independent_action": {
+      "en": {
+        "all_distinct_concepts": 0.5221857057495138,
+        "same_domain_only": 0.7618246207350776,
+        "exclude_repeated_kernel": 0.5105741064193703,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      },
+      "fr": {
+        "all_distinct_concepts": 0.5280344290861347,
+        "same_domain_only": 0.7374305372011094,
+        "exclude_repeated_kernel": 0.5150476102091017,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      },
+      "es": {
+        "all_distinct_concepts": 0.5214773856020081,
+        "same_domain_only": 0.7462730947562627,
+        "exclude_repeated_kernel": 0.5091392923707054,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      },
+      "ar": {
+        "all_distinct_concepts": 0.47502484769095776,
+        "same_domain_only": 0.7234382249627794,
+        "exclude_repeated_kernel": 0.46144248509407043,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      },
+      "zh": {
+        "all_distinct_concepts": 0.49035880139343424,
+        "same_domain_only": 0.7286158226217543,
+        "exclude_repeated_kernel": 0.47678854388140496,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      }
+    },
+    "neutral_activity": {
+      "en": {
+        "all_distinct_concepts": 0.4319728410724025,
+        "same_domain_only": 0.6409978407905216,
+        "exclude_repeated_kernel": 0.41336777072009584,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      },
+      "fr": {
+        "all_distinct_concepts": 0.4536910128806795,
+        "same_domain_only": 0.6313563095955622,
+        "exclude_repeated_kernel": 0.43457292526108876,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      },
+      "es": {
+        "all_distinct_concepts": 0.45419474545474553,
+        "same_domain_only": 0.6398387915747507,
+        "exclude_repeated_kernel": 0.43570250336612976,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      },
+      "ar": {
+        "all_distinct_concepts": 0.3703069913163948,
+        "same_domain_only": 0.575386232989175,
+        "exclude_repeated_kernel": 0.3482146791265834,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      },
+      "zh": {
+        "all_distinct_concepts": 0.37996162573563175,
+        "same_domain_only": 0.5828255350532986,
+        "exclude_repeated_kernel": 0.3577548370879321,
+        "pair_counts": {
+          "within_all_distinct_concepts": 11175,
+          "within_same_domain": 1050,
+          "within_excluding_repeated_kernel": 10500
+        }
+      }
+    }
+  },
+  "cross_language_distinct_concepts": {
+    "cooperation": {
+      "en-fr": {
+        "all_distinct_concepts": 0.4675503148328538,
+        "exclude_repeated_kernel": 0.4569497491121292,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "en-es": {
+        "all_distinct_concepts": 0.4719178818969652,
+        "exclude_repeated_kernel": 0.46061913101091273,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "en-ar": {
+        "all_distinct_concepts": 0.4188070011612286,
+        "exclude_repeated_kernel": 0.4077241814072643,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "en-zh": {
+        "all_distinct_concepts": 0.410496163127873,
+        "exclude_repeated_kernel": 0.39930106385655345,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "fr-es": {
+        "all_distinct_concepts": 0.5025089546544707,
+        "exclude_repeated_kernel": 0.49139022483925027,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "fr-ar": {
+        "all_distinct_concepts": 0.4251213424891167,
+        "exclude_repeated_kernel": 0.41506076442840556,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "fr-zh": {
+        "all_distinct_concepts": 0.42959344687144496,
+        "exclude_repeated_kernel": 0.4198248769648018,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "es-ar": {
+        "all_distinct_concepts": 0.43531721811166546,
+        "exclude_repeated_kernel": 0.42472278404803504,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "es-zh": {
+        "all_distinct_concepts": 0.4244374452758022,
+        "exclude_repeated_kernel": 0.41409637879935046,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "ar-zh": {
+        "all_distinct_concepts": 0.4366197034783278,
+        "exclude_repeated_kernel": 0.4258423011820941,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      }
+    },
+    "competition_exploitation": {
+      "en-fr": {
+        "all_distinct_concepts": 0.3883370961728912,
+        "exclude_repeated_kernel": 0.3760645186982694,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "en-es": {
+        "all_distinct_concepts": 0.3907725360582872,
+        "exclude_repeated_kernel": 0.378402119290261,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "en-ar": {
+        "all_distinct_concepts": 0.3303989170565034,
+        "exclude_repeated_kernel": 0.32154440658894323,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "en-zh": {
+        "all_distinct_concepts": 0.3230823872390076,
+        "exclude_repeated_kernel": 0.31261338944023565,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "fr-es": {
+        "all_distinct_concepts": 0.4122228787396045,
+        "exclude_repeated_kernel": 0.3988692961278416,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "fr-ar": {
+        "all_distinct_concepts": 0.33258918225573547,
+        "exclude_repeated_kernel": 0.3232725483243841,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "fr-zh": {
+        "all_distinct_concepts": 0.3348137464928514,
+        "exclude_repeated_kernel": 0.32452665980257805,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "es-ar": {
+        "all_distinct_concepts": 0.3369809662294001,
+        "exclude_repeated_kernel": 0.3265438290605588,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "es-zh": {
+        "all_distinct_concepts": 0.3276473657985195,
+        "exclude_repeated_kernel": 0.31802030677401594,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "ar-zh": {
+        "all_distinct_concepts": 0.34248037406928855,
+        "exclude_repeated_kernel": 0.3354023472297759,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      }
+    },
+    "independent_action": {
+      "en-fr": {
+        "all_distinct_concepts": 0.4968671660915317,
+        "exclude_repeated_kernel": 0.4870012269112326,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "en-es": {
+        "all_distinct_concepts": 0.4947959776219372,
+        "exclude_repeated_kernel": 0.4846349330324502,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "en-ar": {
+        "all_distinct_concepts": 0.44396365919402514,
+        "exclude_repeated_kernel": 0.4343196761398798,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "en-zh": {
+        "all_distinct_concepts": 0.43071826106016536,
+        "exclude_repeated_kernel": 0.4215951280090071,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "fr-es": {
+        "all_distinct_concepts": 0.5184582163483504,
+        "exclude_repeated_kernel": 0.5075511183149758,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "fr-ar": {
+        "all_distinct_concepts": 0.4481901334656165,
+        "exclude_repeated_kernel": 0.43792458190165817,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "fr-zh": {
+        "all_distinct_concepts": 0.4414431159308293,
+        "exclude_repeated_kernel": 0.43238866359350225,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "es-ar": {
+        "all_distinct_concepts": 0.4465633149581734,
+        "exclude_repeated_kernel": 0.4367428692366396,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "es-zh": {
+        "all_distinct_concepts": 0.43216693477475937,
+        "exclude_repeated_kernel": 0.4227357530111358,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "ar-zh": {
+        "all_distinct_concepts": 0.45167685027423854,
+        "exclude_repeated_kernel": 0.4429553998431989,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      }
+    },
+    "neutral_activity": {
+      "en-fr": {
+        "all_distinct_concepts": 0.41573842736731975,
+        "exclude_repeated_kernel": 0.3992302939852788,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "en-es": {
+        "all_distinct_concepts": 0.41382699405353607,
+        "exclude_repeated_kernel": 0.3975431026010996,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "en-ar": {
+        "all_distinct_concepts": 0.3524217453513136,
+        "exclude_repeated_kernel": 0.33599735433155936,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "en-zh": {
+        "all_distinct_concepts": 0.32983747202861363,
+        "exclude_repeated_kernel": 0.3126977397904155,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "fr-es": {
+        "all_distinct_concepts": 0.44264109840462407,
+        "exclude_repeated_kernel": 0.42670167084534966,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "fr-ar": {
+        "all_distinct_concepts": 0.35768214079457644,
+        "exclude_repeated_kernel": 0.3415624094374833,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "fr-zh": {
+        "all_distinct_concepts": 0.34703413851359144,
+        "exclude_repeated_kernel": 0.33051666295439713,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "es-ar": {
+        "all_distinct_concepts": 0.36092137683666325,
+        "exclude_repeated_kernel": 0.3449651976977253,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "es-zh": {
+        "all_distinct_concepts": 0.33745105927672564,
+        "exclude_repeated_kernel": 0.32211387544568804,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      },
+      "ar-zh": {
+        "all_distinct_concepts": 0.33372879324060023,
+        "exclude_repeated_kernel": 0.3169826834143272,
+        "pair_counts": {
+          "all_distinct_concepts": 22350,
+          "exclude_repeated_kernel": 21000
+        }
+      }
+    }
+  },
+  "exact_translation_positive_control": {
+    "cooperation": {
+      "mean": 0.8735348411401113,
+      "n": 1500
+    },
+    "competition_exploitation": {
+      "mean": 0.8069620320598284,
+      "n": 1500
+    },
+    "independent_action": {
+      "mean": 0.8633306021690369,
+      "n": 1500
+    },
+    "neutral_activity": {
+      "mean": 0.8513227605422338,
+      "n": 1500
+    }
+  },
+  "estimand_note": "All language-level values are concept-pair means; bootstrap intervals resample domain and phrase-kernel clusters with crossed pigeonhole weights.",
+  "category_contrasts": {
+    "within_all_distinct_concepts": {
+      "category_means": {
+        "cooperation": 0.48815836900419307,
+        "competition_exploitation": 0.40414147523405575,
+        "independent_action": 0.5074162339044097,
+        "neutral_activity": 0.4180254432919708
+      },
+      "category_cluster_bootstrap_95ci": {
+        "cooperation": [
+          0.45587921147260696,
+          0.5291190486966146
+        ],
+        "competition_exploitation": [
+          0.38351352980212927,
+          0.43511344264462853
+        ],
+        "independent_action": [
+          0.47552457382664304,
+          0.5508449492558964
+        ],
+        "neutral_activity": [
+          0.3925553682131396,
+          0.45393040289224884
+        ]
+      },
+      "cooperation_minus_mean_controls": 0.044963984860714346,
+      "cooperation_minus_mean_controls_cluster_bootstrap_95ci": [
+        0.013844501178459416,
+        0.07636289577106033
+      ],
+      "cooperation_minus_each_control": {
+        "competition_exploitation": 0.08401689377013732,
+        "independent_action": -0.019257864900216637,
+        "neutral_activity": 0.0701329257122223
+      },
+      "cooperation_minus_each_control_cluster_bootstrap_95ci": {
+        "competition_exploitation": [
+          0.0507775173609463,
+          0.11897121946627366
+        ],
+        "independent_action": [
+          -0.05875842563538932,
+          0.020949600301242374
+        ],
+        "neutral_activity": [
+          0.032876689445344734,
+          0.10642796804698727
+        ]
+      },
+      "independent_action_minus_cooperation": 0.019257864900216637,
+      "independent_action_minus_cooperation_cluster_bootstrap_95ci": [
+        -0.020949600301242446,
+        0.05875842563538927
+      ],
+      "bootstrap_design": "paired domain and category-specific kernel cluster resampling; shared-cluster pair counts included once",
+      "draws": 2000
+    },
+    "within_exclude_repeated_kernel": {
+      "category_means": {
+        "cooperation": 0.47485438322013335,
+        "competition_exploitation": 0.3879954045316293,
+        "independent_action": 0.49459840759493057,
+        "neutral_activity": 0.39792254311236597
+      },
+      "category_cluster_bootstrap_95ci": {
+        "cooperation": [
+          0.44240231875896696,
+          0.5156784618011557
+        ],
+        "competition_exploitation": [
+          0.36319362829696566,
+          0.41974879289450734
+        ],
+        "independent_action": [
+          0.46181015406412756,
+          0.5356946805457932
+        ],
+        "neutral_activity": [
+          0.37187522652591826,
+          0.4347538795120591
+        ]
+      },
+      "cooperation_minus_mean_controls": 0.04801559814049139,
+      "cooperation_minus_mean_controls_cluster_bootstrap_95ci": [
+        0.01878583955494727,
+        0.08064654618911045
+      ],
+      "cooperation_minus_each_control": {
+        "competition_exploitation": 0.08685897868850406,
+        "independent_action": -0.01974402437479722,
+        "neutral_activity": 0.07693184010776738
+      },
+      "cooperation_minus_each_control_cluster_bootstrap_95ci": {
+        "competition_exploitation": [
+          0.05208924336903473,
+          0.12235871930910834
+        ],
+        "independent_action": [
+          -0.05849068435088699,
+          0.021764248435795018
+        ],
+        "neutral_activity": [
+          0.038527310189189146,
+          0.11563232901136124
+        ]
+      },
+      "independent_action_minus_cooperation": 0.01974402437479722,
+      "independent_action_minus_cooperation_cluster_bootstrap_95ci": [
+        -0.02176424843579504,
+        0.058490684350886966
+      ],
+      "bootstrap_design": "paired domain and category-specific kernel cluster resampling; shared-cluster pair counts included once",
+      "draws": 2000
+    },
+    "cross_all_distinct_concepts": {
+      "category_means": {
+        "cooperation": 0.4422369471899749,
+        "competition_exploitation": 0.3519325450112089,
+        "independent_action": 0.46048436297196266,
+        "neutral_activity": 0.36912832458675643
+      },
+      "category_cluster_bootstrap_95ci": {
+        "cooperation": [
+          0.41088761761592835,
+          0.4803508593568242
+        ],
+        "competition_exploitation": [
+          0.3263770030951896,
+          0.3822408682765829
+        ],
+        "independent_action": [
+          0.42830797934425363,
+          0.5031763343440055
+        ],
+        "neutral_activity": [
+          0.3453028232212291,
+          0.40506283372627633
+        ]
+      },
+      "cooperation_minus_mean_controls": 0.04838853633333223,
+      "cooperation_minus_mean_controls_cluster_bootstrap_95ci": [
+        0.020054063444100906,
+        0.07836056423976225
+      ],
+      "cooperation_minus_each_control": {
+        "competition_exploitation": 0.09030440217876601,
+        "independent_action": -0.01824741578198774,
+        "neutral_activity": 0.07310862260321849
+      },
+      "cooperation_minus_each_control_cluster_bootstrap_95ci": {
+        "competition_exploitation": [
+          0.057331624951551904,
+          0.12429245743699618
+        ],
+        "independent_action": [
+          -0.05643893868778563,
+          0.018340779756864673
+        ],
+        "neutral_activity": [
+          0.037698993895760737,
+          0.10748868986240293
+        ]
+      },
+      "independent_action_minus_cooperation": 0.01824741578198774,
+      "independent_action_minus_cooperation_cluster_bootstrap_95ci": [
+        -0.018340779756864687,
+        0.05643893868778561
+      ],
+      "bootstrap_design": "paired domain and category-specific kernel cluster resampling; shared-cluster pair counts included once",
+      "draws": 2000
+    },
+    "cross_exclude_repeated_kernel": {
+      "category_means": {
+        "cooperation": 0.43155314556487967,
+        "competition_exploitation": 0.34152594213368637,
+        "independent_action": 0.45078493499936795,
+        "neutral_activity": 0.35283109905033244
+      },
+      "category_cluster_bootstrap_95ci": {
+        "cooperation": [
+          0.3996120626295429,
+          0.4708253039820589
+        ],
+        "competition_exploitation": [
+          0.3168038376305355,
+          0.3739070795605599
+        ],
+        "independent_action": [
+          0.4188489044235102,
+          0.4913547597628756
+        ],
+        "neutral_activity": [
+          0.32653372233628497,
+          0.38852676930931346
+        ]
+      },
+      "cooperation_minus_mean_controls": 0.04983915350375073,
+      "cooperation_minus_mean_controls_cluster_bootstrap_95ci": [
+        0.01834015083893864,
+        0.08069806143203406
+      ],
+      "cooperation_minus_each_control": {
+        "competition_exploitation": 0.0900272034311933,
+        "independent_action": -0.019231789434488278,
+        "neutral_activity": 0.07872204651454723
+      },
+      "cooperation_minus_each_control_cluster_bootstrap_95ci": {
+        "competition_exploitation": [
+          0.054827921624117176,
+          0.12413303529822556
+        ],
+        "independent_action": [
+          -0.05874535116891409,
+          0.01976478234867089
+        ],
+        "neutral_activity": [
+          0.04101188342313982,
+          0.11458412546887876
+        ]
+      },
+      "independent_action_minus_cooperation": 0.019231789434488278,
+      "independent_action_minus_cooperation_cluster_bootstrap_95ci": [
+        -0.019764782348670896,
+        0.05874535116891407
+      ],
+      "bootstrap_design": "paired domain and category-specific kernel cluster resampling; shared-cluster pair counts included once",
+      "draws": 2000
+    }
+  },
+  "leave_one_language_out": {
+    "excluding_en": {
+      "cooperation": 0.4885997750300089,
+      "competition_exploitation": 0.40123546268657617,
+      "independent_action": 0.5037238659431337,
+      "neutral_activity": 0.41453859384686287,
+      "cooperation_minus_mean_controls": 0.0487671342044847
+    },
+    "excluding_fr": {
+      "cooperation": 0.48420955972400154,
+      "competition_exploitation": 0.4011646669443855,
+      "independent_action": 0.5022616851089785,
+      "neutral_activity": 0.40910905089479366,
+      "cooperation_minus_mean_controls": 0.04669775874128229
+    },
+    "excluding_es": {
+      "cooperation": 0.4803904881511692,
+      "competition_exploitation": 0.39834149502176097,
+      "independent_action": 0.5039009459800101,
+      "neutral_activity": 0.4089831177512771,
+      "cooperation_minus_mean_controls": 0.04331530190015315
+    },
+    "excluding_ar": {
+      "cooperation": 0.4967217090969251,
+      "competition_exploitation": 0.41229050619406854,
+      "independent_action": 0.5155140804577727,
+      "neutral_activity": 0.42995505628586483,
+      "cooperation_minus_mean_controls": 0.04413516145102314
+    },
+    "excluding_zh": {
+      "cooperation": 0.4908703130188604,
+      "competition_exploitation": 0.40767524532348715,
+      "independent_action": 0.5116805920321537,
+      "neutral_activity": 0.4275413976810556,
+      "cooperation_minus_mean_controls": 0.041904568006628284
+    }
+  },
+  "kernel_cluster_permutation": {
+    "within_all_distinct_concepts": {
+      "observed_cooperation_minus_mean_controls": 0.044963984860714346,
+      "two_sided_p": 0.0014992503748125937,
+      "permutations": 2000,
+      "unit": "phrase-kernel cluster; all domain renderings remain together",
+      "excludes_repeated_kernel_pairs": false,
+      "holm_adjusted_p_24_tests": 0.026986506746626684
+    },
+    "within_exclude_repeated_kernel": {
+      "observed_cooperation_minus_mean_controls": 0.04801559814049139,
+      "two_sided_p": 0.0014992503748125937,
+      "permutations": 2000,
+      "unit": "phrase-kernel cluster; all domain renderings remain together",
+      "excludes_repeated_kernel_pairs": true,
+      "holm_adjusted_p_24_tests": 0.026986506746626684
+    },
+    "cross_all_distinct_concepts": {
+      "observed_cooperation_minus_mean_controls": 0.04838853633333212,
+      "two_sided_p": 0.0009995002498750624,
+      "permutations": 2000,
+      "unit": "phrase-kernel cluster; all domain renderings remain together",
+      "excludes_repeated_kernel_pairs": false,
+      "holm_adjusted_p_24_tests": 0.019990004997501247
+    },
+    "cross_exclude_repeated_kernel": {
+      "observed_cooperation_minus_mean_controls": 0.04983915350375073,
+      "two_sided_p": 0.0009995002498750624,
+      "permutations": 2000,
+      "unit": "phrase-kernel cluster; all domain renderings remain together",
+      "excludes_repeated_kernel_pairs": true,
+      "holm_adjusted_p_24_tests": 0.019990004997501247
+    }
+  }
+}
