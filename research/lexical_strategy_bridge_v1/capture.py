@@ -5,6 +5,13 @@ import numpy as np
 
 def sha(data): return hashlib.sha256(data).hexdigest()
 
+def token_positions(offsets, start, end):
+    span=[i for i,(a,b) in enumerate(offsets) if b>a and b>start and a<end]
+    if not span or min(offsets[i][0] for i in span)>start or max(offsets[i][1] for i in span)<end:
+        raise ValueError('Lexical span not covered')
+    final=[i for i,(a,b) in enumerate(offsets) if b>a][-1]
+    return span, final
+
 def main():
     p=argparse.ArgumentParser()
     p.add_argument('--plan', type=Path, required=True)
@@ -13,8 +20,10 @@ def main():
     p.add_argument('--limit', type=int, default=0, help='0 means full inventory; use a small positive value for smoke')
     p.add_argument('--local-files-only', action='store_true')
     p.add_argument('--condition', choices=['isolated','neutral'], default='isolated')
+    p.add_argument('--authorize-gpu-capture', action='store_true', help='Required after explicit authorization for this capture')
     args=p.parse_args()
     if args.limit < 0: raise ValueError('limit must be nonnegative')
+    if not args.authorize_gpu_capture: raise RuntimeError('GPU capture requires explicit authorization')
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
     if not torch.cuda.is_available(): raise RuntimeError('CUDA is required for real-weight capture')
@@ -58,9 +67,7 @@ def main():
         enc=tok(row['text'],add_special_tokens=True,return_offsets_mapping=True,return_tensors='pt')
         offsets=enc.pop('offset_mapping')[0].tolist(); ids=enc['input_ids'][0].tolist()
         start,end=row['lexical_chars']
-        span=[i for i,(a,b) in enumerate(offsets) if b>a and b>start and a<end]
-        if not span or min(offsets[i][0] for i in span)>start or max(offsets[i][1] for i in span)<end: raise ValueError(f'Uncovered span {name}')
-        final=[i for i,(a,b) in enumerate(offsets) if b>a][-1]
+        span,final=token_positions(offsets,start,end)
         results.clear()
         with torch.inference_mode(): model.model(**{k:v.cuda() for k,v in enc.items()},use_cache=False)
         lexical=np.stack([results[i][span].mean(axis=0) for i in indices])

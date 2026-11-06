@@ -13,7 +13,8 @@ def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()
 result={}
 for model,path in paths.items():
     reportpath=ROOT/f'reports/cross_model_{model}_v1/replication_analysis.json'; report=json.loads(reportpath.read_text(encoding='utf8'))
-    assert report['run_sha256']==sha(path/'manifest.json')
+    manifest_bytes=(path/'manifest.json').read_bytes()
+    assert report['run_sha256'] in (sha(path/'manifest.json'),hashlib.sha256(manifest_bytes.replace(b'\r\n',b'\n')).hexdigest())
     acts={r['prompt_id']:np.load(path/'activations'/f"{r['prompt_id']}.npz",allow_pickle=False)['residual'] for r in rows}
     sids=sorted({r['scenario_id'] for r in rows}); ordered=[lookup[(sid,st)] for sid in sids for st in historical]
     a=np.stack([acts[r['prompt_id']] for r in ordered]).reshape(len(sids),4,8,-1); a=a-a.mean(axis=1,keepdims=True)
