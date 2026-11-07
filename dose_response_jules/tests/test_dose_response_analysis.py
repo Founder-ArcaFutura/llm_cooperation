@@ -202,7 +202,8 @@ def test_all_pair_shares_undefined_report_not_estimable():
     result = analyze_payoff_dose_response(pd.DataFrame(rows), n_bootstraps=30)
     fit = result["curve_fits"]["choice_curve"]
     assert fit["num_valid"] == 0
-    assert fit["num_excluded_nonfinite"] == 8
+    # Two families each contribute eight dose cells with undefined pair shares.
+    assert fit["num_excluded_nonfinite"] == 16
     assert "Not estimable" in fit["error"]
     assert result["payoff_sensitivity"]["choice_slope"] is None
     assert result["payoff_sensitivity"]["choice_slope_ci"] == [None, None]

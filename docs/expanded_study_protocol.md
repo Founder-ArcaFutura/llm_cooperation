@@ -103,5 +103,5 @@ We preregister the hypothesis that $\Delta_{\text{context}} > 0$ with 95% bootst
 
 1. All model runs must record immutable execution metadata: model HF ID, revision commit SHA, tokenizer revision, numerical precision, CUDA/driver environment, and scenario bank hash.
 2. Mock / synthetic runs are strictly isolated and barred from contributing to scientific findings.
-3. Real-model evaluations on paid GPU compute require explicit authorization (`--authorize-paid-run True` or `ALLOW_PAID_RUN=true`).
+3. Real-model evaluations on paid GPU compute require explicit authorization (`--authorize-paid-run` or `ALLOW_PAID_RUN=true`).
 4. The expanded item bank remains marked `pending_human_scientific_review` until formally signed off by human scientific reviewers.

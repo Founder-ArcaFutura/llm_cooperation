@@ -50,30 +50,46 @@ The Modal backend is implemented in `modal_app.py` using the current Modal Pytho
 
 ## 3. Running Experiments via Modal
 
-### A. Mock Validation (Zero GPU Cost)
+### A. Sequential Dose–Response Batch (Paid GPU Compute)
+This PowerShell command audits the exploratory and calibration banks, resolves and pins each model's current Hugging Face commit, then runs the dose-response bank and diagnostic calibration for Qwen 2.5 3B, Mistral 7B v0.3, and OLMo 2 7B sequentially. Each completed run is analyzed locally and gets a Markdown report. The explicit `-AuthorizePaidRun` switch is required because these model jobs use paid Modal GPUs.
+
+```powershell
+Set-Location G:\llm_cooperation
+.\scripts\run_dose_response_models.ps1 -AuthorizePaidRun
+```
+
+Use `-PreviewOnly` to audit and print the pinned Modal commands without launching inference. To preview a Qwen-only batch:
+
+```powershell
+.\scripts\run_dose_response_models.ps1 -Models @("Qwen/Qwen2.5-3B") -PreviewOnly
+```
+
+Raw results, calibration records, and the batch manifest go under `results/dose_response_batch/<UTC timestamp>/`; reports go under `reports/dose_response_batch/<UTC timestamp>/<model>/`. Reports keep forced-choice payoff estimates separate from generated-letter validity and position diagnostics.
+
+### B. Mock Validation (Zero GPU Cost)
 To verify the end-to-end container build and packaging without allocating GPU resources:
 ```powershell
-modal run modal_app.py --model "mock-qwen2.5-3b" --mock True
+modal run modal_app.py --model "mock-qwen2.5-3b" --mock
 ```
-*Note: Mock execution is routed through `run_evaluation_mock_remote` in a CPU-only container without attaching any GPU, ensuring strictly zero GPU compute costs. Real evaluations with `--mock False` route through `run_evaluation_remote` with GPU acceleration.*
+*Note: Mock execution is routed through `run_evaluation_mock_remote` in a CPU-only container without attaching any GPU, ensuring strictly zero GPU compute costs. Real evaluations use `--no-mock` and route through a GPU-backed Modal function.*
 
-### B. Evaluating Pretrained Base Models (Paid GPU Compute Guard)
-Real evaluation provisions cloud GPU resources (`A10G` for 1B-3B models, `L40S` for 7B-12B models). An explicit paid-run authorization guard `--authorize-paid-run True` (or env var `ALLOW_PAID_RUN=true`) is required to prevent accidental financial spend:
+### C. Evaluating Pretrained Base Models (Paid GPU Compute Guard)
+Real evaluation provisions cloud GPU resources (`A10G` for 1B-3B models, `L40S` for 7B-12B models). The boolean flags `--no-mock` and `--authorize-paid-run` are required to authorize the paid run (or set `ALLOW_PAID_RUN=true`):
 ```powershell
 # Qwen 2.5 3B Base (A10G)
-modal run modal_app.py --model "Qwen/Qwen2.5-3B" --precision "bfloat16" --mock False --authorize-paid-run True
+modal run modal_app.py --model "Qwen/Qwen2.5-3B" --precision "bfloat16" --no-mock --authorize-paid-run
 
 # Pythia 2.8B Base (A10G)
-modal run modal_app.py --model "EleutherAI/pythia-2.8b" --precision "bfloat16" --mock False --authorize-paid-run True
+modal run modal_app.py --model "EleutherAI/pythia-2.8b" --precision "bfloat16" --no-mock --authorize-paid-run
 
 # OLMo 2 1B Base (A10G)
-modal run modal_app.py --model "allenai/OLMo-2-1124-1B" --precision "bfloat16" --mock False --authorize-paid-run True
+modal run modal_app.py --model "allenai/OLMo-2-1124-1B" --precision "bfloat16" --no-mock --authorize-paid-run
 
 # Pythia 12B Deduped Base (L40S)
-modal run modal_app.py --model "EleutherAI/pythia-12b-deduped" --precision "bfloat16" --mock False --authorize-paid-run True
+modal run modal_app.py --model "EleutherAI/pythia-12b-deduped" --precision "bfloat16" --no-mock --authorize-paid-run
 ```
 
-### C. Running the Pythia-12B SFT Comparator (L40S)
+### D. Running the Pythia-12B SFT Comparator (L40S)
 Run the post-trained comparator (OpenAssistant SFT pinned revision `293df535fe7711a5726987fc2f17dfc87de452a1` on L40S):
 ```powershell
 modal run modal_app.py `
@@ -81,8 +97,8 @@ modal run modal_app.py `
     --revision "293df535fe7711a5726987fc2f17dfc87de452a1" `
     --precision "bfloat16" `
     --prompt-mode "openassistant" `
-    --mock False `
-    --authorize-paid-run True
+    --no-mock `
+    --authorize-paid-run
 ```
 
 ---

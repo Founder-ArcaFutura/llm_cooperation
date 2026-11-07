@@ -117,7 +117,7 @@ The hypothesis that base pretrained models possess an intrinsic cooperative beha
 
 ## 6. Execution Governance and Safety Rules
 
-1. Real-model evaluations on paid GPU compute require explicit authorization (`--authorize-paid-run True` or `ALLOW_PAID_RUN=true`).
+1. Real-model evaluations on paid GPU compute require explicit authorization (`--authorize-paid-run` or `ALLOW_PAID_RUN=true`).
 2. Paid evaluations must not be launched until designated scientific reviewers approve this protocol and sign off on the review matrix.
 3. Mock / synthetic runs are strictly isolated and barred from contributing to scientific findings.
 4. Immutable execution metadata (HF ID, commit SHA, tokenizer revision, numerical precision, CUDA environment, and scenario bank hash) must be recorded for every run.

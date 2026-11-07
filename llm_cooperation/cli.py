@@ -175,7 +175,7 @@ def cmd_analyze(results_path, output_dir, bootstrap_samples):
 def cmd_analyze_dose_response(results_path, output_dir, bootstrap_samples):
     """Analyze a dose-response run and write machine-readable and Markdown reports."""
     import json
-    from llm_cooperation.analysis.metrics import load_run_results, aggregate_by_scenario
+    from llm_cooperation.analysis.metrics import load_run_results, aggregate_by_scenario, audit_position_bias
     from llm_cooperation.analysis.dose_response import analyze_payoff_dose_response
 
     out = Path(output_dir)
@@ -183,6 +183,11 @@ def cmd_analyze_dose_response(results_path, output_dir, bootstrap_samples):
     metadata, records = load_run_results(results_path, validate=True)
     aggregates = aggregate_by_scenario(records)
     result = analyze_payoff_dose_response(aggregates, n_bootstraps=bootstrap_samples)
+    valid_letter_rate = (
+        sum(bool(r.get("is_valid_letter", False)) for r in records) / len(records)
+        if records else 0.0
+    )
+    position_bias = audit_position_bias(records) if records else {k: 0.0 for k in "ABCD"}
     summary_path = out / "dose_response_summary.json"
     summary_path.write_text(json.dumps(result, indent=2), encoding="utf-8")
     report_path = out / "dose_response_report.md"
@@ -197,6 +202,8 @@ def cmd_analyze_dose_response(results_path, output_dir, bootstrap_samples):
         "# Payoff dose-response analysis\n\n"
         f"- Run: `{metadata.get('run_id', 'unknown')}` (`mock={metadata.get('mock', False)}`)\n"
         f"- Template families: {result['num_templates_analyzed']}\n"
+        f"- Generated-letter validity (format diagnostic): {valid_letter_rate:.4f}\n"
+        f"- Forced-choice position distribution (A/B/C/D): {position_bias}\n"
         f"- Equal-utility COOPERATE minus INDEPENDENT choice rate: {eq['choice_diff_mean']:.4f}\n"
         f"- Equal-utility log probability difference: {eq['log_prob_diff_mean']:.4f}\n"
         f"- Payoff sensitivity in COOPERATE share among COOPERATE/INDEPENDENT: {choice_slope_display}\n"

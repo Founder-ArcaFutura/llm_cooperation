@@ -99,10 +99,10 @@ Modal manages on-demand GPU allocation, persistent model weight caching (`llm-co
 
 ```powershell
 # Mock run on Modal (zero-GPU CPU container)
-modal run modal_app.py --model "mock-qwen2.5-3b" --mock True
+modal run modal_app.py --model "mock-qwen2.5-3b" --mock
 
-# Real GPU run on Modal (A10G or L40S, requires explicit --authorize-paid-run True guard)
-modal run modal_app.py --model "Qwen/Qwen2.5-3B" --precision "bfloat16" --mock False --authorize-paid-run True
+# Real GPU run on Modal (A10G or L40S; explicit paid-compute authorization required)
+modal run modal_app.py --model "Qwen/Qwen2.5-3B" --precision "bfloat16" --no-mock --authorize-paid-run
 
 # Download results from Modal Volume to G:\llm_cooperation\results
 modal volume get llm-coop-results <run_file>.jsonl G:\llm_cooperation\results\

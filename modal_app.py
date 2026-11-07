@@ -12,7 +12,7 @@ DO NOT launch paid GPU compute during testing/mock runs.
 
 import os
 from pathlib import Path
-from typing import Optional, List
+from typing import Optional, List, Union
 
 # Ensure modal configuration resolution does not fail if ~/.modal.toml is unreadable
 if "MODAL_CONFIG_PATH" not in os.environ:
@@ -166,7 +166,7 @@ def resolve_bank_and_split(
     authorize_phase1_run: bool = False,
     provisional_phase1: bool = False,
     _freeze_manifest_override: Optional[str] = None,
-) -> tuple[str, Optional[str]]:
+) -> Union[str, tuple[str, Optional[str]]]:
     """Validate bank identifier and enforce Phase 0B split defaults & Phase 1 holdout guard.
 
     Fails explicitly if bank is unsupported rather than silently choosing another instrument.
@@ -257,7 +257,8 @@ def _execute_evaluation(
     authorize_confirmatory: bool = False,
     authorize_phase1_run: bool = False,
     provisional_phase1: bool = False,
-) -> str:
+    include_calibration: bool = False,
+) -> tuple[str, Optional[str]]:
     """Internal helper to execute evaluation inside container and commit volumes."""
     os.environ["HF_HOME"] = "/root/hf_cache"
     from llm_cooperation.harness.runner import run_experiment
@@ -288,10 +289,37 @@ def _execute_evaluation(
         provisional_phase1=provisional_phase1,
     )
 
+    # Commit the primary experiment before optional calibration. If calibration
+    # fails, the behavioral run remains recoverable from the persistent volume.
+    results_volume.commit()
+    hf_cache_volume.commit()
+
+    calibration_file = None
+    if include_calibration:
+        from llm_cooperation.harness.runner import run_calibration
+        import json
+
+        calibration_file, calibration_summary = run_calibration(
+            model_name=model_name,
+            calibration_path="data/calibration_bank.json",
+            output_dir=out_dir,
+            revision=revision,
+            precision=precision,
+            device=device,
+            mock=False,
+            seed=seed,
+            prompt_mode=prompt_mode,
+        )
+        summary_path = Path(str(calibration_file) + ".summary.json")
+        summary_path.write_text(json.dumps(calibration_summary, indent=2), encoding="utf-8")
+        calibration_file = str(calibration_file)
+
     # Durable commit to Modal persistent volume
     results_volume.commit()
     hf_cache_volume.commit()
-    return str(result_file)
+    if calibration_file is None:
+        return str(result_file)
+    return str(result_file), calibration_file
 
 
 @app.function(
@@ -314,7 +342,8 @@ def run_evaluation_remote(
     authorize_confirmatory: bool = False,
     authorize_phase1_run: bool = False,
     provisional_phase1: bool = False,
-) -> str:
+    include_calibration: bool = False,
+) -> Union[str, tuple[str, Optional[str]]]:
     """Execute evaluation on standard A10G GPU (ideal for 1B-3B models)."""
     if mock:
         raise ValueError(
@@ -333,6 +362,7 @@ def run_evaluation_remote(
         authorize_confirmatory=authorize_confirmatory,
         authorize_phase1_run=authorize_phase1_run,
         provisional_phase1=provisional_phase1,
+        include_calibration=include_calibration,
     )
 
 
@@ -356,7 +386,8 @@ def run_evaluation_remote_l40s(
     authorize_confirmatory: bool = False,
     authorize_phase1_run: bool = False,
     provisional_phase1: bool = False,
-) -> str:
+    include_calibration: bool = False,
+) -> Union[str, tuple[str, Optional[str]]]:
     """Execute evaluation on high-VRAM L40S GPU (ideal for 7B-12B models, e.g. Pythia-12B)."""
     if mock:
         raise ValueError(
@@ -375,6 +406,7 @@ def run_evaluation_remote_l40s(
         authorize_confirmatory=authorize_confirmatory,
         authorize_phase1_run=authorize_phase1_run,
         provisional_phase1=provisional_phase1,
+        include_calibration=include_calibration,
     )
 
 
@@ -394,7 +426,8 @@ def run_evaluation_mock_remote(
     authorize_confirmatory: bool = False,
     authorize_phase1_run: bool = False,
     provisional_phase1: bool = False,
-) -> str:
+    include_calibration: bool = False,
+) -> Union[str, tuple[str, Optional[str]]]:
     """Execute synthetic mock validation in a zero-GPU CPU container and persist outputs to volume."""
     from llm_cooperation.harness.runner import run_experiment
 
@@ -424,9 +457,32 @@ def run_evaluation_mock_remote(
         provisional_phase1=provisional_phase1,
     )
 
+    calibration_file = None
+    if include_calibration:
+        from llm_cooperation.harness.runner import run_calibration
+        import json
+
+        calibration_file, calibration_summary = run_calibration(
+            model_name=model_name,
+            calibration_path="data/calibration_bank.json",
+            output_dir=out_dir,
+            revision=revision,
+            precision=precision,
+            device="cpu",
+            mock=True,
+            seed=seed,
+            prompt_mode=prompt_mode,
+        )
+        Path(str(calibration_file) + ".summary.json").write_text(
+            json.dumps(calibration_summary, indent=2), encoding="utf-8"
+        )
+        calibration_file = str(calibration_file)
+
     # Commit changes to durable volume
     results_volume.commit()
-    return str(result_file)
+    if calibration_file is None:
+        return str(result_file)
+    return str(result_file), calibration_file
 
 
 @app.local_entrypoint()
@@ -443,13 +499,15 @@ def main(
     provisional_phase1: bool = False,
     prompt_mode: str = "standard_plaintext",
     authorize_paid_run: bool = False,
+    include_calibration: bool = False,
 ):
     """Local CLI entrypoint for invoking Modal run.
 
     Safety:
     - Preflight verification is performed locally before provisioning any remote container.
-    - To launch real-model inference on paid cloud GPU hardware, you MUST pass
-      `--authorize-paid-run True` or set environment variable `ALLOW_PAID_RUN=true`.
+    - To launch real-model inference on paid cloud GPU hardware, pass
+      `--authorize-paid-run` or set environment variable `ALLOW_PAID_RUN=true`.
+    - `--include-calibration` runs the diagnostic calibration bank after the main bank.
     """
     # Local preflight before provisioning remote jobs
     resolve_bank_and_split(
@@ -462,7 +520,7 @@ def main(
 
     if mock:
         print(f"[modal_app] Launching mock validation for {model} (zero-GPU CPU container)...")
-        remote_path = run_evaluation_mock_remote.remote(
+        remote_result = run_evaluation_mock_remote.remote(
             model_name=model,
             revision=revision,
             precision=precision,
@@ -473,7 +531,9 @@ def main(
             authorize_confirmatory=authorize_confirmatory,
             authorize_phase1_run=authorize_phase1_run,
             provisional_phase1=provisional_phase1,
+            include_calibration=include_calibration,
         )
+        remote_path, calibration_path = remote_result if isinstance(remote_result, tuple) else (remote_result, None)
     else:
         # Explicit paid-run authorization guard
         env_auth = os.environ.get("ALLOW_PAID_RUN", "").lower() in ("1", "true", "yes")
@@ -489,7 +549,7 @@ def main(
 
         if selected_gpu == GPU_PROFILES["medium"]:  # L40S
             print(f"[modal_app] Dispatching to L40S high-memory GPU container (precision={precision})...")
-            remote_path = run_evaluation_remote_l40s.remote(
+            remote_result = run_evaluation_remote_l40s.remote(
                 model_name=model,
                 revision=revision,
                 precision=precision,
@@ -501,10 +561,12 @@ def main(
                 authorize_confirmatory=authorize_confirmatory,
                 authorize_phase1_run=authorize_phase1_run,
                 provisional_phase1=provisional_phase1,
+                include_calibration=include_calibration,
             )
+            remote_path, calibration_path = remote_result if isinstance(remote_result, tuple) else (remote_result, None)
         elif selected_gpu == GPU_PROFILES["small"]:  # A10G
             print(f"[modal_app] Dispatching to A10G GPU container (precision={precision})...")
-            remote_path = run_evaluation_remote.remote(
+            remote_result = run_evaluation_remote.remote(
                 model_name=model,
                 revision=revision,
                 precision=precision,
@@ -516,7 +578,9 @@ def main(
                 authorize_confirmatory=authorize_confirmatory,
                 authorize_phase1_run=authorize_phase1_run,
                 provisional_phase1=provisional_phase1,
+                include_calibration=include_calibration,
             )
+            remote_path, calibration_path = remote_result if isinstance(remote_result, tuple) else (remote_result, None)
         else:
             # If large or unsupported GPU profile is selected, fail fast before provisioning
             raise NotImplementedError(
@@ -528,3 +592,7 @@ def main(
     print(f"[modal_app] Successfully finished run! Output persisted on Modal Volume at: {remote_path}")
     print("To download results to your local workspace:")
     print(f"  modal volume get llm-coop-results {Path(remote_path).name} results/")
+    if calibration_path:
+        print(f"[modal_app] Calibration output persisted on Modal Volume at: {calibration_path}")
+        print(f"  modal volume get llm-coop-results {Path(calibration_path).name} results/")
+        print(f"  modal volume get llm-coop-results {Path(calibration_path).name}.summary.json results/")
