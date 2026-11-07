@@ -17,12 +17,13 @@ def main():
 
 @main.command("audit-items")
 @click.option("--scenarios-path", default=None, help="Path to scenarios JSON file.")
-@click.option("--bank", type=click.Choice(["pilot", "expanded", "phase0b", "utility-matched", "phase1"]), default=None, help="Convenience bank selector.")
+@click.option("--bank", type=click.Choice(["pilot", "expanded", "phase0b", "utility-matched", "phase1", "dose-response"]), default=None, help="Convenience bank selector.")
 @click.option("--calibration-path", default=None, help="Path to calibration JSON file to audit.")
 def cmd_audit_items(scenarios_path: Optional[str], bank: Optional[str] = None, calibration_path: Optional[str] = None):
     """Audit scenario balance, length, and permutation counterbalancing."""
     from llm_cooperation.items.audit import audit_calibration
     from llm_cooperation.items.audit_phase1 import audit_phase1_bank
+    from llm_cooperation.items.dose_response_bank import audit_dose_response_bank
 
     target_path = scenarios_path
     if target_path is None:
@@ -32,11 +33,20 @@ def cmd_audit_items(scenarios_path: Optional[str], bank: Optional[str] = None, c
             target_path = "data/scenarios_phase0b_utility_matched.json"
         elif bank == "expanded":
             target_path = "data/scenarios_v1_expanded.json"
+        elif bank == "dose-response":
+            target_path = "data/scenarios_dose_response_exploratory.json"
         else:
             target_path = "data/scenarios.json"
 
     if bank == "phase1" or "phase1" in target_path.lower():
         success, flags = audit_phase1_bank(target_path)
+    elif bank == "dose-response" or "dose_response" in target_path.lower():
+        try:
+            success = audit_dose_response_bank(target_path)
+            click.echo("Dose-response bank counts, factorial, controls, option lengths, and counterbalancing passed.")
+        except (AssertionError, KeyError, TypeError, ValueError) as exc:
+            success = False
+            click.echo(f"Dose-response bank audit failed: {exc}")
     else:
         success = audit_scenarios(target_path)
 
@@ -78,7 +88,7 @@ def cmd_calibrate(model, calibration_path, revision, output_dir, precision, devi
 @main.command("run")
 @click.option("--model", "-m", required=True, help="Hugging Face model identifier or mock name.")
 @click.option("--revision", default=None, help="Specific commit SHA or branch revision.")
-@click.option("--bank", type=click.Choice(["pilot", "expanded", "phase0b", "utility-matched", "phase1"]), default=None, help="Convenience bank selector ('pilot', 'expanded', 'utility-matched' / 'phase0b', or 'phase1').")
+@click.option("--bank", type=click.Choice(["pilot", "expanded", "phase0b", "utility-matched", "phase1", "dose-response"]), default=None, help="Convenience bank selector.")
 @click.option("--scenarios-path", default=None, help="Custom path to scenarios JSON file (defaults to data/scenarios.json or bank choice).")
 @click.option("--split", type=click.Choice(["exploratory", "confirmatory", "all"]), default=None, help="Dataset split execution filter. In Phase 0B, defaults to 'exploratory'. Evaluating 'confirmatory' or 'all' requires authorization.")
 @click.option("--authorize-confirmatory", is_flag=True, default=False, help="Explicit authorization flag required to evaluate the held-out confirmatory split.")
@@ -104,6 +114,8 @@ def cmd_run(model, revision, bank, scenarios_path, split, authorize_confirmatory
         target_path = "data/scenarios_v1_expanded.json"
     elif bank == "pilot":
         target_path = "data/scenarios.json"
+    elif bank == "dose-response":
+        target_path = "data/scenarios_dose_response_exploratory.json"
 
     if scenarios_path is not None:
         target_path = scenarios_path
@@ -154,6 +166,44 @@ def cmd_analyze(results_path, output_dir, bootstrap_samples):
         output_dir=output_dir,
         num_bootstraps=bootstrap_samples,
     )
+
+
+@main.command("analyze-dose-response")
+@click.argument("results_path", type=click.Path(exists=True))
+@click.option("--output-dir", "-o", default="reports/dose_response", help="Directory for dose-response outputs.")
+@click.option("--bootstrap-samples", "-b", default=2000, type=int, help="Template-family bootstrap resamples.")
+def cmd_analyze_dose_response(results_path, output_dir, bootstrap_samples):
+    """Analyze a dose-response run and write machine-readable and Markdown reports."""
+    import json
+    from llm_cooperation.analysis.metrics import load_run_results, aggregate_by_scenario
+    from llm_cooperation.analysis.dose_response import analyze_payoff_dose_response
+
+    out = Path(output_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    metadata, records = load_run_results(results_path, validate=False)
+    aggregates = aggregate_by_scenario(records)
+    result = analyze_payoff_dose_response(aggregates, n_bootstraps=bootstrap_samples)
+    summary_path = out / "dose_response_summary.json"
+    summary_path.write_text(json.dumps(result, indent=2), encoding="utf-8")
+    report_path = out / "dose_response_report.md"
+    sens = result["payoff_sensitivity"]
+    eq = result["equal_utility_baseline"]
+    interactions = result["interactions"]
+    report_path.write_text(
+        "# Payoff dose-response analysis\n\n"
+        f"- Run: `{metadata.get('run_id', 'unknown')}` (`mock={metadata.get('mock', False)}`)\n"
+        f"- Template families: {result['num_templates_analyzed']}\n"
+        f"- Equal-utility COOPERATE minus INDEPENDENT choice rate: {eq['choice_diff_mean']:.4f}\n"
+        f"- Equal-utility log probability difference: {eq['log_prob_diff_mean']:.4f}\n"
+        f"- Payoff sensitivity in COOPERATE share among COOPERATE/INDEPENDENT: {sens['choice_slope']:.4f}\n"
+        f"- COOPERATE/INDEPENDENT indifference crossover (delta U): {sens['crossover_threshold_delta_u']}\n"
+        f"- Partner-benefit modulation: {interactions['partner_benefit_modulation']}\n"
+        f"- Reciprocity modulation: {interactions['reciprocity_modulation']}\n\n"
+        "These exploratory estimates describe forced-choice outputs and do not establish an intrinsic preference or causal pretraining mechanism.\n",
+        encoding="utf-8",
+    )
+    click.echo(f"Dose-response report: {report_path}")
+    click.echo(f"Dose-response summary: {summary_path}")
 
 
 @main.command("compare-models")

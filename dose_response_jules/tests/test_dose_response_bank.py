@@ -32,7 +32,13 @@ def test_dose_bank_schema_and_counts(dose_bank):
     assert dose_bank.version == "1.0.0-dose-response"
     assert dose_bank.status == "frozen_exploratory"
     scenarios = dose_bank.scenarios
-    assert len(scenarios) == 94
+    assert len(scenarios) == 126
+    main_sweep = [s for s in scenarios if s.source_type == "exploratory_sweep"]
+    assert len(main_sweep) == 96
+    assert len({s.template_family_id for s in main_sweep}) == 6
+    assert {float(s.payoff_spec["COOPERATE"]["delta_u_actor"]) for s in main_sweep} == {
+        0.20, 0.00, -0.05, -0.10, -0.20, -0.30, -0.50, -0.60
+    }
 
     # Check partner types
     partner_counts = {PartnerType.HUMAN: 0, PartnerType.AI: 0}
@@ -78,8 +84,7 @@ def test_dose_bank_option_length_balance_and_clean_lexicon(dose_bank):
 
     for sc in dose_bank.scenarios:
         lengths = [len(opt.split()) for opt in sc.options.values()]
-        # Mean length difference should be tightly controlled
-        assert (max(lengths) - min(lengths)) <= 8, f"Scenario {sc.id} has high option length span: {lengths}"
+        assert (max(lengths) - min(lengths)) <= 2, f"Scenario {sc.id} has high option length span: {lengths}"
 
         # Taboo vocabulary check
         for st, opt_text in sc.options.items():
@@ -94,3 +99,23 @@ def test_dose_bank_control_conditions(dose_bank):
 
     nonsocial = [sc for sc in dose_bank.scenarios if sc.source_type == "control_nonsocial"]
     assert len(nonsocial) == 2
+    assert all(s.payoff_spec["COOPERATE"]["actor_payoff"] == "1.00" for s in nonsocial)
+
+
+def test_partner_benefit_and_reciprocity_are_crossed_at_two_payoff_levels(dose_bank):
+    cells = {
+        (float(s.payoff_spec["COOPERATE"]["delta_u_actor"]),
+         s.payoff_spec["COOPERATE"]["partner_benefit"],
+         s.payoff_spec["COOPERATE"]["interaction_type"])
+        for s in dose_bank.scenarios
+        if s.source_type in {"exploratory_sweep", "exploratory_interaction"}
+        and s.template_family_id in {"dose_tpl_001", "dose_tpl_002"}
+        and float(s.payoff_spec["COOPERATE"]["delta_u_actor"]) in {0.0, -0.1}
+    }
+    expected = {
+        (du, benefit, horizon)
+        for du in {0.0, -0.1}
+        for benefit in {"high", "low"}
+        for horizon in {"one_shot", "repeated_shadow"}
+    }
+    assert cells == expected

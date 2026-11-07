@@ -121,7 +121,7 @@ def aggregate_by_scenario(records: List[Dict]) -> pd.DataFrame:
 
     # Grouping columns: preserve template_id, split, domain, utility_condition, source_type, triad_id, is_symmetric_control if available
     group_cols = ["scenario_id", "partner_type", "context_type"]
-    extra_meta_cols = [c for c in ["template_id", "split", "domain", "utility_condition", "source_type", "triad_id", "is_symmetric_control"] if c in df.columns]
+    extra_meta_cols = [c for c in ["template_id", "template_family_id", "split", "domain", "utility_condition", "source_type", "triad_id", "is_symmetric_control", "payoff_spec", "delta_u", "partner_benefit", "interaction_type"] if c in df.columns]
 
     agg_dict = {
         # Mean conditional probability across the 4 permutations
@@ -158,6 +158,11 @@ def aggregate_by_scenario(records: List[Dict]) -> pd.DataFrame:
                     return f"template_{parts[1]}"
             return None
         agg_df["template_id"] = agg_df.apply(infer_tid, axis=1)
+
+    if "template_family_id" not in agg_df.columns:
+        agg_df["template_family_id"] = agg_df["template_id"]
+    else:
+        agg_df["template_family_id"] = agg_df["template_family_id"].fillna(agg_df["template_id"])
 
     return agg_df
 

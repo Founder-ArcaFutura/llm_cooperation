@@ -9,12 +9,17 @@ class ScoredPresentation(BaseModel):
     presentation_id: str
     scenario_id: str
     template_id: Optional[str] = None
+    template_family_id: Optional[str] = None
     split: Optional[str] = None
     domain: Optional[str] = None
     utility_condition: Optional[str] = None
     source_type: Optional[str] = None
     triad_id: Optional[str] = None
     is_symmetric_control: Optional[bool] = False
+    payoff_spec: Optional[Dict[str, Dict[str, str]]] = None
+    delta_u: Optional[float] = None
+    partner_benefit: Optional[str] = None
+    interaction_type: Optional[str] = None
     permutation_index: int
     partner_type: str
     context_type: str
