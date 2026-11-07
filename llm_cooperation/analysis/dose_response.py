@@ -79,14 +79,34 @@ def fit_payoff_response_curves(
     Returns parameter estimates, sensitivity slope at 0, crossover threshold, and goodness-of-fit.
     """
     results: Dict[str, Any] = {}
-    n = len(delta_u_arr)
-    if n < 4:
-        return {"error": "Insufficient data points for curve fitting"}
+    # Four-way choices can give both COOPERATE and INDEPENDENT zero selections.
+    # Their conditional choice share (0/0) is undefined, not a zero share.
+    # Exclude these cells from the choice fit; preserve the separate log-prob fit.
+    x_all = np.asarray(delta_u_arr, dtype=float)
+    y_all = np.asarray(response_arr, dtype=float)
+    if x_all.shape != y_all.shape:
+        raise ValueError("Payoff doses and responses must have matching shapes")
+    finite = np.isfinite(x_all) & np.isfinite(y_all)
+    x = x_all[finite]
+    y = y_all[finite]
+    n = len(x)
+    if n < 4 or np.unique(x).size < 3:
+        return {
+            "error": "Not estimable: fewer than four finite observations or three distinct payoff levels",
+            "num_valid": int(n),
+            "num_excluded_nonfinite": int(len(x_all) - n),
+            "linear_slope": None,
+            "linear_intercept": None,
+            "quadratic_fit": {"coefficients": None, "mse": None, "r2": None},
+            "logistic_fit": {"success": False, "parameters": None,
+                             "slope_at_zero": None, "mse": None, "r2": None},
+            "estimated_crossover_delta_u": None,
+        }
 
-    # Sort arrays
-    sort_idx = np.argsort(delta_u_arr)
-    x = delta_u_arr[sort_idx]
-    y = response_arr[sort_idx]
+    # Sort finite observations only.
+    sort_idx = np.argsort(x)
+    x = x[sort_idx]
+    y = y[sort_idx]
 
     # --- 1. Linear & Tangent Sensitivity Slope at Delta U = 0 ---
     # Robust linear regression around zero (|Delta U| <= 0.20)
@@ -152,6 +172,8 @@ def fit_payoff_response_curves(
         "r2": r2_log,
     }
     results["estimated_crossover_delta_u"] = crossover_delta_u
+    results["num_valid"] = int(n)
+    results["num_excluded_nonfinite"] = int(len(x_all) - n)
     return results
 
 
@@ -263,18 +285,22 @@ def analyze_payoff_dose_response(
         b_y_choice = boot_df["coop_vs_indep_share"].values
         b_y_log = boot_df["log_prob_coop_indep_diff"].values
 
-        if len(b_x) >= 4 and np.std(b_x) > 1e-4:
-            p_lin_choice = np.polyfit(b_x, b_y_choice, deg=1)
-            p_lin_log = np.polyfit(b_x, b_y_log, deg=1)
+        valid_choice = np.isfinite(b_x) & np.isfinite(b_y_choice)
+        if valid_choice.sum() >= 4 and np.unique(b_x[valid_choice]).size >= 3:
+            p_lin_choice = np.polyfit(b_x[valid_choice], b_y_choice[valid_choice], deg=1)
             boot_slopes_choice.append(float(p_lin_choice[0]))
-            boot_slopes_log.append(float(p_lin_log[0]))
             if p_lin_choice[0] > 1e-4:
                 boot_crossovers.append(float((0.50 - p_lin_choice[1]) / p_lin_choice[0]))
 
+        valid_log = np.isfinite(b_x) & np.isfinite(b_y_log)
+        if valid_log.sum() >= 4 and np.unique(b_x[valid_log]).size >= 3:
+            p_lin_log = np.polyfit(b_x[valid_log], b_y_log[valid_log], deg=1)
+            boot_slopes_log.append(float(p_lin_log[0]))
+
     # CI helper
-    def get_ci(arr: List[float], obs_val: float) -> Tuple[float, float]:
+    def get_ci(arr: List[float], obs_val: Optional[float]) -> Tuple[Optional[float], Optional[float]]:
         if not arr:
-            return (obs_val, obs_val)
+            return (None, None)
         return (
             float(np.percentile(arr, 100 * (alpha / 2))),
             float(np.percentile(arr, 100 * (1 - alpha / 2))),
@@ -284,7 +310,7 @@ def analyze_payoff_dose_response(
     eq_log_ci = get_ci(boot_eq_log_diffs, eq_log_diff_obs)
     slope_choice_ci = get_ci(boot_slopes_choice, curve_fit_choice["linear_slope"])
     slope_log_ci = get_ci(boot_slopes_log, curve_fit_logprob["linear_slope"])
-    crossover_ci = get_ci(boot_crossovers, curve_fit_choice["estimated_crossover_delta_u"] or 0.0)
+    crossover_ci = get_ci(boot_crossovers, curve_fit_choice["estimated_crossover_delta_u"])
 
     # --- 5. Factorial Interactions: Partner Benefit & Reciprocity ---
     benefit_contrast = None

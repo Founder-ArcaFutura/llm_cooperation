@@ -36,6 +36,9 @@ image = (
         "scikit-learn==1.5.2",
         "pandas==2.2.3",
         "pydantic==2.9.2",
+        # Required by eager analysis package imports (plots and pipeline).
+        "matplotlib==3.9.4",
+        "rich==13.9.4",
     )
     .add_local_python_source("llm_cooperation")
 )
@@ -101,7 +104,7 @@ def evaluate_pythia_checkpoint_remote(
         seed=42,
     )
 
-    metadata, records = load_run_results(str(raw_file), validate=False)
+    metadata, records = load_run_results(str(raw_file), validate=True)
     agg_df = aggregate_by_scenario(records)
     analysis = analyze_payoff_dose_response(agg_df, n_bootstraps=500, seed=42)
 

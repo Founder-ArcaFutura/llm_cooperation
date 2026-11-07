@@ -180,7 +180,7 @@ def cmd_analyze_dose_response(results_path, output_dir, bootstrap_samples):
 
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
-    metadata, records = load_run_results(results_path, validate=False)
+    metadata, records = load_run_results(results_path, validate=True)
     aggregates = aggregate_by_scenario(records)
     result = analyze_payoff_dose_response(aggregates, n_bootstraps=bootstrap_samples)
     summary_path = out / "dose_response_summary.json"
@@ -189,13 +189,17 @@ def cmd_analyze_dose_response(results_path, output_dir, bootstrap_samples):
     sens = result["payoff_sensitivity"]
     eq = result["equal_utility_baseline"]
     interactions = result["interactions"]
+    choice_slope_display = (
+        "not estimable (no usable COOPERATE/INDEPENDENT choice cells)"
+        if sens["choice_slope"] is None else f"{sens['choice_slope']:.4f}"
+    )
     report_path.write_text(
         "# Payoff dose-response analysis\n\n"
         f"- Run: `{metadata.get('run_id', 'unknown')}` (`mock={metadata.get('mock', False)}`)\n"
         f"- Template families: {result['num_templates_analyzed']}\n"
         f"- Equal-utility COOPERATE minus INDEPENDENT choice rate: {eq['choice_diff_mean']:.4f}\n"
         f"- Equal-utility log probability difference: {eq['log_prob_diff_mean']:.4f}\n"
-        f"- Payoff sensitivity in COOPERATE share among COOPERATE/INDEPENDENT: {sens['choice_slope']:.4f}\n"
+        f"- Payoff sensitivity in COOPERATE share among COOPERATE/INDEPENDENT: {choice_slope_display}\n"
         f"- COOPERATE/INDEPENDENT indifference crossover (delta U): {sens['crossover_threshold_delta_u']}\n"
         f"- Partner-benefit modulation: {interactions['partner_benefit_modulation']}\n"
         f"- Reciprocity modulation: {interactions['reciprocity_modulation']}\n\n"
