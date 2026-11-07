@@ -1,0 +1,22 @@
+{
+  "model_name": "microsoft/phi-2",
+  "run_id": "calibration_microsoft_phi-2_20261107_174340_6b2da25d",
+  "status": "FAIL_FORMAT_COMPLIANCE",
+  "forced_choice_accuracy": 0.8854166666666666,
+  "generated_accuracy": 0.40625,
+  "valid_letter_rate": 0.4166666666666667,
+  "forced_generated_agreement": 0.4166666666666667,
+  "position_distribution": {
+    "A": 0.28125,
+    "B": 0.2708333333333333,
+    "C": 0.23958333333333334,
+    "D": 0.20833333333333334
+  },
+  "position_spread": 0.07291666666666666,
+  "invariant_a_detected": false,
+  "invariant_letter_detected": false,
+  "failure_reasons": [
+    "Generated-letter validity is 41.7% (<50%). Model fails response-format completion."
+  ],
+  "output_path": "/root/results/calibration_microsoft_phi-2_20261107_174340_6b2da25d.jsonl"
+}
