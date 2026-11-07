@@ -104,6 +104,9 @@ try {
             $modalProcess = Start-Process -FilePath $modalExe -ArgumentList $modalArgs `
                 -WorkingDirectory $repoRoot -PassThru -NoNewWindow `
                 -RedirectStandardOutput $modalStdoutPath -RedirectStandardError $modalStderrPath
+            # Windows PowerShell 5.1 can lose ExitCode after WaitForExit unless
+            # the native process handle is acquired while the process is alive.
+            $null = $modalProcess.Handle
             while (-not $modalProcess.WaitForExit(1000)) {
                 if ($modalTimer.Elapsed.TotalSeconds - $lastHeartbeatSeconds -ge 20) {
                     $lastHeartbeatSeconds = $modalTimer.Elapsed.TotalSeconds
@@ -114,6 +117,7 @@ try {
                 }
             }
             $modalTimer.Stop()
+            $modalProcess.WaitForExit()
             $modalExit = $modalProcess.ExitCode
             $stdoutText = if (Test-Path -LiteralPath $modalStdoutPath) { Get-Content -Raw -Encoding UTF8 -LiteralPath $modalStdoutPath } else { "" }
             $stderrText = if (Test-Path -LiteralPath $modalStderrPath) { Get-Content -Raw -Encoding UTF8 -LiteralPath $modalStderrPath } else { "" }
@@ -122,6 +126,7 @@ try {
             if ($stdoutText) { Write-Host $stdoutText }
             if ($stderrText) { Write-Host $stderrText }
             $modalOutput = @($stdoutText, $stderrText) -join "`n"
+            if ($null -eq $modalExit) { throw "Modal process exit code was unavailable. Recover saved remote results before retrying inference." }
             if ($modalExit -ne 0) { throw "Modal exited with status $modalExit." }
 
             $outputText = ($modalOutput | ForEach-Object { "$_" }) -join "`n"

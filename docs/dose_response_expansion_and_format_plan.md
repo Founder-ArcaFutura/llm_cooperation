@@ -53,8 +53,21 @@ Outputs use `results/dose_response_batch/<UTC timestamp>/` and
 `reports/dose_response_batch/<UTC timestamp>/`. Jobs stop at the first execution
 failure; no automatic retries occur. A failed diagnostic calibration still produces
 a report, because execution completion and scientific qualification are separate.
-For a later failure, use the existing generic runner's `-Models` argument with only
-the uncompleted models; a full expansion restart would duplicate paid work.
+The expansion wrapper now skips local complete runs after checking model revision,
+bank hashes, real-run metadata, record counts and report availability. If the remote
+job finished but local retrieval failed, it stops before launching another paid job
+and prints a recovery command. For the completed SmolLM job from 2026-11-07:
+
+```powershell
+.\scripts\recover_dose_response_batch.ps1 -BatchDirectory .\results\dose_response_batch\20261107_172031
+.\scripts\run_dose_response_expansion.ps1 -IncludeGated -AuthorizePaidRun
+```
+
+Recovery only downloads the three saved artifacts and runs local analysis; it
+cannot launch model inference. It preserves the original manifest in a backup,
+then marks the entry complete only after metadata, counts and analysis pass.
+The expansion command then skips SmolLM and launches the remaining nine models.
+Runs with a changed bank or missing/invalid artifacts are not silently reused.
 
 The gated path requires accepted licenses and the existing Modal secret named
 `huggingface-secret` with an authorized `HF_TOKEN`. This wrapper selects that secret;
