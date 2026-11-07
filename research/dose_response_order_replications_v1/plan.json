@@ -1,0 +1,1147 @@
+{
+  "version": "disjoint_rotation_orbits_v1",
+  "order_seed": 20261107,
+  "runtime": {
+    "torch_version": "2.15.0+cu132",
+    "transformers_version": "5.22.1"
+  },
+  "bank_sha256": "03e265d859c16f919801ebd07684a6ec7a59d53b35ac16b01214b53d109846b0",
+  "calibration_sha256": "242da74b88591e42d6d684d0bbb9c4b6d0c07a28f63d0b5d1faad4e6a59b14a9",
+  "engine_sha256": "50f43bb9d9ccb30ba70faf48598814d78fa38ce53483e2f76a3b681d15ef0152",
+  "models": [
+    {
+      "model": "Qwen/Qwen2.5-3B",
+      "revision": "3aab1f1954e9cc14eb9509a215f9e5ca08227a9b",
+      "baseline": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_131745\\Qwen_Qwen2.5-3B\\run_Qwen_Qwen2.5-3B_20261107_131856_3aea5dad.jsonl",
+      "calibration": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_131745\\Qwen_Qwen2.5-3B\\calibration_Qwen_Qwen2.5-3B_20261107_131911_2365ad8e.jsonl",
+      "baseline_digest": "51ad9c40e9d079614c0ddcd331b920d254374ce37cd230c513c9fe7e8e2ea0a2",
+      "precision": "bfloat16",
+      "model_seed": 42
+    },
+    {
+      "model": "mistralai/Mistral-7B-v0.3",
+      "revision": "caa1feb0e54d415e2df31207e5f4e273e33509b1",
+      "baseline": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_132150\\mistralai_Mistral-7B-v0.3\\run_mistralai_Mistral-7B-v0.3_20261107_132531_c6b432e0.jsonl",
+      "calibration": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_132150\\mistralai_Mistral-7B-v0.3\\calibration_mistralai_Mistral-7B-v0.3_20261107_132550_6625ff5d.jsonl",
+      "baseline_digest": "96f9c6d131ca077d23679e6f1cb90dc0a9513b277e6e8ee34397ecbf00ca6bad",
+      "precision": "bfloat16",
+      "model_seed": 42
+    },
+    {
+      "model": "allenai/OLMo-2-1124-7B",
+      "revision": "7df9a82518afdecae4e8c026b27adccc8c1f0032",
+      "baseline": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_132150\\allenai_OLMo-2-1124-7B\\run_allenai_OLMo-2-1124-7B_20261107_132912_a9a71e93.jsonl",
+      "calibration": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_132150\\allenai_OLMo-2-1124-7B\\calibration_allenai_OLMo-2-1124-7B_20261107_132937_1bd6584f.jsonl",
+      "baseline_digest": "ea2bed5d8a100072266a6e6e8542627090ddaf0243ce61a55749d0e87d730568",
+      "precision": "bfloat16",
+      "model_seed": 42
+    },
+    {
+      "model": "HuggingFaceTB/SmolLM2-1.7B",
+      "revision": "effd688a12921b4cc83e3312b6feb579f70f9c71",
+      "baseline": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_172031\\HuggingFaceTB_SmolLM2-1.7B\\run_HuggingFaceTB_SmolLM2-1.7B_20261107_172144_f42c6e73.jsonl",
+      "calibration": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_172031\\HuggingFaceTB_SmolLM2-1.7B\\calibration_HuggingFaceTB_SmolLM2-1.7B_20261107_172158_11f75feb.jsonl",
+      "baseline_digest": "2b245112d06996dc22e5d3a0863bcd945435223502b2bd5a613901b421c00edb",
+      "precision": "bfloat16",
+      "model_seed": 42
+    },
+    {
+      "model": "ibm-granite/granite-3.3-2b-base",
+      "revision": "c15dc681f4b2aeb4e576cdaae5434edfc17ed14d",
+      "baseline": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\ibm-granite_granite-3.3-2b-base\\run_ibm-granite_granite-3.3-2b-base_20261107_173238_10949768.jsonl",
+      "calibration": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\ibm-granite_granite-3.3-2b-base\\calibration_ibm-granite_granite-3.3-2b-base_20261107_173304_0732e52a.jsonl",
+      "baseline_digest": "28cbf49af0d88887da638d08d35089bf38343609095fbe1d6d621bccf29e6d2d",
+      "precision": "bfloat16",
+      "model_seed": 42
+    },
+    {
+      "model": "tiiuae/Falcon3-3B-Base",
+      "revision": "092c29e3114ff551bd06b93b85424cdb525d227c",
+      "baseline": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\tiiuae_Falcon3-3B-Base\\run_tiiuae_Falcon3-3B-Base_20261107_173506_4c0f2126.jsonl",
+      "calibration": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\tiiuae_Falcon3-3B-Base\\calibration_tiiuae_Falcon3-3B-Base_20261107_173521_82077f46.jsonl",
+      "baseline_digest": "8ff670ed16c356e60c675d864f8c6a5a0cd303e8a1b2bc0eff40ad441b8a4630",
+      "precision": "bfloat16",
+      "model_seed": 42
+    },
+    {
+      "model": "Qwen/Qwen2.5-1.5B",
+      "revision": "8faed761d45a263340a0528343f099c05c9a4323",
+      "baseline": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\Qwen_Qwen2.5-1.5B\\run_Qwen_Qwen2.5-1.5B_20261107_173703_d5fa01cd.jsonl",
+      "calibration": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\Qwen_Qwen2.5-1.5B\\calibration_Qwen_Qwen2.5-1.5B_20261107_173714_0ed44fd2.jsonl",
+      "baseline_digest": "8374385e07becd5cb3df9a51761bd4676f165c4b0062aa335434588bef6f09b4",
+      "precision": "bfloat16",
+      "model_seed": 42
+    },
+    {
+      "model": "Qwen/Qwen2.5-7B",
+      "revision": "d149729398750b98c0af14eb82c78cfe92750796",
+      "baseline": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\Qwen_Qwen2.5-7B\\run_Qwen_Qwen2.5-7B_20261107_173858_5750b198.jsonl",
+      "calibration": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\Qwen_Qwen2.5-7B\\calibration_Qwen_Qwen2.5-7B_20261107_173913_af89c210.jsonl",
+      "baseline_digest": "6e61bba09385b5d0f6718d3d6859ceddc985e7283fdb5d63ff3605247fd73168",
+      "precision": "bfloat16",
+      "model_seed": 42
+    },
+    {
+      "model": "deepseek-ai/deepseek-llm-7b-base",
+      "revision": "7683fea62db869066ddaff6a41d032262c490d4f",
+      "baseline": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\deepseek-ai_deepseek-llm-7b-base\\run_deepseek-ai_deepseek-llm-7b-base_20261107_174120_1e3d8007.jsonl",
+      "calibration": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\deepseek-ai_deepseek-llm-7b-base\\calibration_deepseek-ai_deepseek-llm-7b-base_20261107_174141_83cf15a6.jsonl",
+      "baseline_digest": "cddc8fefeec449edf785a5482af5e9bbdce901d5c2130b6cf80503a3ce7e4819",
+      "precision": "bfloat16",
+      "model_seed": 42
+    },
+    {
+      "model": "microsoft/phi-2",
+      "revision": "810d367871c1d460086d9f82db8696f2e0a0fcd0",
+      "baseline": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\microsoft_phi-2\\run_microsoft_phi-2_20261107_174327_2d6864c9.jsonl",
+      "calibration": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\microsoft_phi-2\\calibration_microsoft_phi-2_20261107_174340_6b2da25d.jsonl",
+      "baseline_digest": "550e4fc27ca0b26ed9b1146b97d08f9bb76f3d22a659e04dc1a7ba1496353b56",
+      "precision": "bfloat16",
+      "model_seed": 42
+    },
+    {
+      "model": "meta-llama/Llama-3.2-3B",
+      "revision": "13afe5124825b4f3751f836b40dafda64c1ed062",
+      "baseline": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\meta-llama_Llama-3.2-3B\\run_meta-llama_Llama-3.2-3B_20261107_174456_0b9e02f9.jsonl",
+      "calibration": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\meta-llama_Llama-3.2-3B\\calibration_meta-llama_Llama-3.2-3B_20261107_174508_ad61377b.jsonl",
+      "baseline_digest": "702b1d0cea9f3df2d62649edf5405cc31504186405a7b7bc338e9e9d9305e2fe",
+      "precision": "bfloat16",
+      "model_seed": 42
+    },
+    {
+      "model": "google/gemma-2-2b",
+      "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+      "baseline": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\google_gemma-2-2b\\run_google_gemma-2-2b_20261107_174707_2347a0e0.jsonl",
+      "calibration": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\google_gemma-2-2b\\calibration_google_gemma-2-2b_20261107_174731_a46e16ba.jsonl",
+      "baseline_digest": "f2ab13ff4054366fb3ca445ec9917f25760d53f8103a9355f6da1232a76f723e",
+      "precision": "bfloat16",
+      "model_seed": 42
+    },
+    {
+      "model": "google/gemma-2-9b",
+      "revision": "33c193028431c2fde6c6e51f29e6f17b60cbfac6",
+      "baseline": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\google_gemma-2-9b\\run_google_gemma-2-9b_20261107_175118_988e8e88.jsonl",
+      "calibration": "G:\\llm_cooperation\\results\\dose_response_batch\\20261107_173010\\google_gemma-2-9b\\calibration_google_gemma-2-9b_20261107_175200_33be4034.jsonl",
+      "baseline_digest": "ea0c1eff0900812df0df2592c2911e143284bea588280c88961406469d717c80",
+      "precision": "bfloat16",
+      "model_seed": 42
+    }
+  ],
+  "jobs": [
+    {
+      "model": "Qwen/Qwen2.5-3B",
+      "revision": "3aab1f1954e9cc14eb9509a215f9e5ca08227a9b",
+      "order_replication": 1,
+      "tag": "Qwen_Qwen2.5-3B_order1_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "Qwen/Qwen2.5-3B",
+      "revision": "3aab1f1954e9cc14eb9509a215f9e5ca08227a9b",
+      "order_replication": 2,
+      "tag": "Qwen_Qwen2.5-3B_order2_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "mistralai/Mistral-7B-v0.3",
+      "revision": "caa1feb0e54d415e2df31207e5f4e273e33509b1",
+      "order_replication": 1,
+      "tag": "mistralai_Mistral-7B-v0.3_order1_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "mistralai/Mistral-7B-v0.3",
+      "revision": "caa1feb0e54d415e2df31207e5f4e273e33509b1",
+      "order_replication": 2,
+      "tag": "mistralai_Mistral-7B-v0.3_order2_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "allenai/OLMo-2-1124-7B",
+      "revision": "7df9a82518afdecae4e8c026b27adccc8c1f0032",
+      "order_replication": 1,
+      "tag": "allenai_OLMo-2-1124-7B_order1_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "allenai/OLMo-2-1124-7B",
+      "revision": "7df9a82518afdecae4e8c026b27adccc8c1f0032",
+      "order_replication": 2,
+      "tag": "allenai_OLMo-2-1124-7B_order2_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "HuggingFaceTB/SmolLM2-1.7B",
+      "revision": "effd688a12921b4cc83e3312b6feb579f70f9c71",
+      "order_replication": 1,
+      "tag": "HuggingFaceTB_SmolLM2-1.7B_order1_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "HuggingFaceTB/SmolLM2-1.7B",
+      "revision": "effd688a12921b4cc83e3312b6feb579f70f9c71",
+      "order_replication": 2,
+      "tag": "HuggingFaceTB_SmolLM2-1.7B_order2_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "ibm-granite/granite-3.3-2b-base",
+      "revision": "c15dc681f4b2aeb4e576cdaae5434edfc17ed14d",
+      "order_replication": 1,
+      "tag": "ibm-granite_granite-3.3-2b-base_order1_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "ibm-granite/granite-3.3-2b-base",
+      "revision": "c15dc681f4b2aeb4e576cdaae5434edfc17ed14d",
+      "order_replication": 2,
+      "tag": "ibm-granite_granite-3.3-2b-base_order2_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "tiiuae/Falcon3-3B-Base",
+      "revision": "092c29e3114ff551bd06b93b85424cdb525d227c",
+      "order_replication": 1,
+      "tag": "tiiuae_Falcon3-3B-Base_order1_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "tiiuae/Falcon3-3B-Base",
+      "revision": "092c29e3114ff551bd06b93b85424cdb525d227c",
+      "order_replication": 2,
+      "tag": "tiiuae_Falcon3-3B-Base_order2_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "Qwen/Qwen2.5-1.5B",
+      "revision": "8faed761d45a263340a0528343f099c05c9a4323",
+      "order_replication": 1,
+      "tag": "Qwen_Qwen2.5-1.5B_order1_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "Qwen/Qwen2.5-1.5B",
+      "revision": "8faed761d45a263340a0528343f099c05c9a4323",
+      "order_replication": 2,
+      "tag": "Qwen_Qwen2.5-1.5B_order2_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "Qwen/Qwen2.5-7B",
+      "revision": "d149729398750b98c0af14eb82c78cfe92750796",
+      "order_replication": 1,
+      "tag": "Qwen_Qwen2.5-7B_order1_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "Qwen/Qwen2.5-7B",
+      "revision": "d149729398750b98c0af14eb82c78cfe92750796",
+      "order_replication": 2,
+      "tag": "Qwen_Qwen2.5-7B_order2_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "deepseek-ai/deepseek-llm-7b-base",
+      "revision": "7683fea62db869066ddaff6a41d032262c490d4f",
+      "order_replication": 1,
+      "tag": "deepseek-ai_deepseek-llm-7b-base_order1_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "deepseek-ai/deepseek-llm-7b-base",
+      "revision": "7683fea62db869066ddaff6a41d032262c490d4f",
+      "order_replication": 2,
+      "tag": "deepseek-ai_deepseek-llm-7b-base_order2_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "microsoft/phi-2",
+      "revision": "810d367871c1d460086d9f82db8696f2e0a0fcd0",
+      "order_replication": 1,
+      "tag": "microsoft_phi-2_order1_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "microsoft/phi-2",
+      "revision": "810d367871c1d460086d9f82db8696f2e0a0fcd0",
+      "order_replication": 2,
+      "tag": "microsoft_phi-2_order2_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "meta-llama/Llama-3.2-3B",
+      "revision": "13afe5124825b4f3751f836b40dafda64c1ed062",
+      "order_replication": 1,
+      "tag": "meta-llama_Llama-3.2-3B_order1_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "meta-llama/Llama-3.2-3B",
+      "revision": "13afe5124825b4f3751f836b40dafda64c1ed062",
+      "order_replication": 2,
+      "tag": "meta-llama_Llama-3.2-3B_order2_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "google/gemma-2-2b",
+      "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+      "order_replication": 1,
+      "tag": "google_gemma-2-2b_order1_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "google/gemma-2-2b",
+      "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+      "order_replication": 2,
+      "tag": "google_gemma-2-2b_order2_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "google/gemma-2-9b",
+      "revision": "33c193028431c2fde6c6e51f29e6f17b60cbfac6",
+      "order_replication": 1,
+      "tag": "google_gemma-2-9b_order1_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    },
+    {
+      "model": "google/gemma-2-9b",
+      "revision": "33c193028431c2fde6c6e51f29e6f17b60cbfac6",
+      "order_replication": 2,
+      "tag": "google_gemma-2-9b_order2_s20261107",
+      "model_seed": 42,
+      "precision": "bfloat16"
+    }
+  ],
+  "schedules": {
+    "0": "15402ac244fe0b4a9d1bd092048d24bd525e819cbb240e7d244c6f9aa06abbc9",
+    "1": "3e37461bb088670621854a3ed290b0fdc4187da5e5705cfd595a68400a87f397",
+    "2": "dc57b1583e3ccddbf878daec3ab37654a42fed16a595ae106f7d5dbf12f4877c"
+  },
+  "rows_by_family": {
+    "dose_ctrl_nonsocial_01": {
+      "0": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          2,
+          3,
+          0,
+          1
+        ],
+        [
+          3,
+          0,
+          1,
+          2
+        ]
+      ],
+      "1": [
+        [
+          0,
+          1,
+          3,
+          2
+        ],
+        [
+          3,
+          2,
+          0,
+          1
+        ],
+        [
+          1,
+          3,
+          2,
+          0
+        ],
+        [
+          2,
+          0,
+          1,
+          3
+        ]
+      ],
+      "2": [
+        [
+          0,
+          2,
+          3,
+          1
+        ],
+        [
+          3,
+          1,
+          0,
+          2
+        ],
+        [
+          2,
+          3,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          2,
+          3
+        ]
+      ]
+    },
+    "dose_ctrl_nonsocial_02": {
+      "0": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          2,
+          3,
+          0,
+          1
+        ],
+        [
+          3,
+          0,
+          1,
+          2
+        ]
+      ],
+      "1": [
+        [
+          2,
+          0,
+          3,
+          1
+        ],
+        [
+          3,
+          1,
+          2,
+          0
+        ],
+        [
+          0,
+          3,
+          1,
+          2
+        ],
+        [
+          1,
+          2,
+          0,
+          3
+        ]
+      ],
+      "2": [
+        [
+          2,
+          0,
+          1,
+          3
+        ],
+        [
+          1,
+          3,
+          2,
+          0
+        ],
+        [
+          0,
+          1,
+          3,
+          2
+        ],
+        [
+          3,
+          2,
+          0,
+          1
+        ]
+      ]
+    },
+    "dose_ctrl_symm_01": {
+      "0": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          2,
+          3,
+          0,
+          1
+        ],
+        [
+          3,
+          0,
+          1,
+          2
+        ]
+      ],
+      "1": [
+        [
+          3,
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          0,
+          2,
+          3
+        ],
+        [
+          2,
+          3,
+          1,
+          0
+        ],
+        [
+          0,
+          2,
+          3,
+          1
+        ]
+      ],
+      "2": [
+        [
+          3,
+          2,
+          0,
+          1
+        ],
+        [
+          2,
+          0,
+          1,
+          3
+        ],
+        [
+          1,
+          3,
+          2,
+          0
+        ],
+        [
+          0,
+          1,
+          3,
+          2
+        ]
+      ]
+    },
+    "dose_ctrl_symm_02": {
+      "0": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          2,
+          3,
+          0,
+          1
+        ],
+        [
+          3,
+          0,
+          1,
+          2
+        ]
+      ],
+      "1": [
+        [
+          0,
+          1,
+          3,
+          2
+        ],
+        [
+          3,
+          2,
+          0,
+          1
+        ],
+        [
+          2,
+          0,
+          1,
+          3
+        ],
+        [
+          1,
+          3,
+          2,
+          0
+        ]
+      ],
+      "2": [
+        [
+          0,
+          2,
+          1,
+          3
+        ],
+        [
+          1,
+          3,
+          0,
+          2
+        ],
+        [
+          3,
+          0,
+          2,
+          1
+        ],
+        [
+          2,
+          1,
+          3,
+          0
+        ]
+      ]
+    },
+    "dose_tpl_001": {
+      "0": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          2,
+          3,
+          0,
+          1
+        ],
+        [
+          3,
+          0,
+          1,
+          2
+        ]
+      ],
+      "1": [
+        [
+          3,
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          0,
+          2,
+          3
+        ],
+        [
+          2,
+          3,
+          1,
+          0
+        ],
+        [
+          0,
+          2,
+          3,
+          1
+        ]
+      ],
+      "2": [
+        [
+          2,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          0,
+          3,
+          2
+        ],
+        [
+          3,
+          2,
+          1,
+          0
+        ],
+        [
+          0,
+          3,
+          2,
+          1
+        ]
+      ]
+    },
+    "dose_tpl_002": {
+      "0": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          2,
+          3,
+          0,
+          1
+        ],
+        [
+          3,
+          0,
+          1,
+          2
+        ]
+      ],
+      "1": [
+        [
+          3,
+          0,
+          2,
+          1
+        ],
+        [
+          2,
+          1,
+          3,
+          0
+        ],
+        [
+          0,
+          2,
+          1,
+          3
+        ],
+        [
+          1,
+          3,
+          0,
+          2
+        ]
+      ],
+      "2": [
+        [
+          1,
+          0,
+          3,
+          2
+        ],
+        [
+          3,
+          2,
+          1,
+          0
+        ],
+        [
+          0,
+          3,
+          2,
+          1
+        ],
+        [
+          2,
+          1,
+          0,
+          3
+        ]
+      ]
+    },
+    "dose_tpl_003": {
+      "0": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          2,
+          3,
+          0,
+          1
+        ],
+        [
+          3,
+          0,
+          1,
+          2
+        ]
+      ],
+      "1": [
+        [
+          3,
+          2,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          3,
+          2
+        ],
+        [
+          0,
+          3,
+          2,
+          1
+        ],
+        [
+          2,
+          1,
+          0,
+          3
+        ]
+      ],
+      "2": [
+        [
+          3,
+          1,
+          2,
+          0
+        ],
+        [
+          2,
+          0,
+          3,
+          1
+        ],
+        [
+          0,
+          3,
+          1,
+          2
+        ],
+        [
+          1,
+          2,
+          0,
+          3
+        ]
+      ]
+    },
+    "dose_tpl_004": {
+      "0": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          2,
+          3,
+          0,
+          1
+        ],
+        [
+          3,
+          0,
+          1,
+          2
+        ]
+      ],
+      "1": [
+        [
+          0,
+          3,
+          1,
+          2
+        ],
+        [
+          1,
+          2,
+          0,
+          3
+        ],
+        [
+          3,
+          1,
+          2,
+          0
+        ],
+        [
+          2,
+          0,
+          3,
+          1
+        ]
+      ],
+      "2": [
+        [
+          0,
+          2,
+          3,
+          1
+        ],
+        [
+          3,
+          1,
+          0,
+          2
+        ],
+        [
+          2,
+          3,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          2,
+          3
+        ]
+      ]
+    },
+    "dose_tpl_005": {
+      "0": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          2,
+          3,
+          0,
+          1
+        ],
+        [
+          3,
+          0,
+          1,
+          2
+        ]
+      ],
+      "1": [
+        [
+          3,
+          1,
+          2,
+          0
+        ],
+        [
+          1,
+          2,
+          0,
+          3
+        ],
+        [
+          2,
+          0,
+          3,
+          1
+        ],
+        [
+          0,
+          3,
+          1,
+          2
+        ]
+      ],
+      "2": [
+        [
+          3,
+          2,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          0,
+          3,
+          2
+        ],
+        [
+          0,
+          3,
+          2,
+          1
+        ]
+      ]
+    },
+    "dose_tpl_006": {
+      "0": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          2,
+          3,
+          0
+        ],
+        [
+          2,
+          3,
+          0,
+          1
+        ],
+        [
+          3,
+          0,
+          1,
+          2
+        ]
+      ],
+      "1": [
+        [
+          2,
+          0,
+          1,
+          3
+        ],
+        [
+          1,
+          3,
+          2,
+          0
+        ],
+        [
+          3,
+          2,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          3,
+          2
+        ]
+      ],
+      "2": [
+        [
+          3,
+          0,
+          2,
+          1
+        ],
+        [
+          2,
+          1,
+          3,
+          0
+        ],
+        [
+          1,
+          3,
+          0,
+          2
+        ],
+        [
+          0,
+          2,
+          1,
+          3
+        ]
+      ]
+    }
+  }
+}

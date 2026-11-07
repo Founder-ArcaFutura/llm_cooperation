@@ -68,7 +68,9 @@ def cmd_audit_items(scenarios_path: Optional[str], bank: Optional[str] = None, c
 @click.option("--mock", is_flag=True, default=False, help="Run with mock predictions without loading model weights.")
 @click.option("--seed", default=42, help="Random seed for mock generator.")
 @click.option("--prompt-mode", default="standard_plaintext", type=click.Choice(["standard_plaintext", "openassistant"]), help="Prompt format mode.")
-def cmd_calibrate(model, calibration_path, revision, output_dir, precision, device, mock, seed, prompt_mode):
+@click.option("--order-replication", type=click.IntRange(0, 2), default=0)
+@click.option("--order-seed", type=int, default=20261107)
+def cmd_calibrate(model, calibration_path, revision, output_dir, precision, device, mock, seed, prompt_mode, order_replication, order_seed):
     """Run diagnostic multiple-choice calibration evaluation."""
     from llm_cooperation.harness.runner import run_calibration
     out_path, summary = run_calibration(
@@ -81,6 +83,8 @@ def cmd_calibrate(model, calibration_path, revision, output_dir, precision, devi
         mock=mock,
         seed=seed,
         prompt_mode=prompt_mode,
+        order_replication=order_replication,
+        order_seed=order_seed,
     )
     click.echo(f"Calibration completed: Status={summary['status']}, Output={out_path}")
 
@@ -99,7 +103,9 @@ def cmd_calibrate(model, calibration_path, revision, output_dir, precision, devi
 @click.option("--mock", is_flag=True, default=False, help="Run with mock predictions without loading model weights.")
 @click.option("--seed", default=42, help="Random seed for mock generator.")
 @click.option("--prompt-mode", default="standard_plaintext", type=click.Choice(["standard_plaintext", "openassistant"]), help="Prompt format mode.")
-def cmd_run(model, revision, bank, scenarios_path, split, authorize_confirmatory, authorize_phase1_run, output_dir, precision, device, mock, seed, prompt_mode):
+@click.option("--order-replication", type=click.IntRange(0, 2), default=0)
+@click.option("--order-seed", type=int, default=20261107)
+def cmd_run(model, revision, bank, scenarios_path, split, authorize_confirmatory, authorize_phase1_run, output_dir, precision, device, mock, seed, prompt_mode, order_replication, order_seed):
     """Run behavioural evaluation."""
     is_phase0b = False
     is_phase1 = False
@@ -150,6 +156,8 @@ def cmd_run(model, revision, bank, scenarios_path, split, authorize_confirmatory
             prompt_mode=prompt_mode,
             split_filter=effective_split if effective_split != "all" else None,
             authorize_phase1_run=authorize_phase1_run,
+            order_replication=order_replication,
+            order_seed=order_seed,
         )
     except (PermissionError, ValueError, FileNotFoundError) as e:
         raise click.ClickException(str(e))

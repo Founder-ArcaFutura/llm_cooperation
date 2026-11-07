@@ -258,6 +258,8 @@ def _execute_evaluation(
     authorize_phase1_run: bool = False,
     provisional_phase1: bool = False,
     include_calibration: bool = False,
+    order_replication: int = 0,
+    order_seed: int = 20261107,
 ) -> tuple[str, Optional[str]]:
     """Internal helper to execute evaluation inside container and commit volumes."""
     os.environ["HF_HOME"] = "/root/hf_cache"
@@ -287,6 +289,8 @@ def _execute_evaluation(
         split_filter=effective_split if effective_split != "all" else None,
         authorize_phase1_run=authorize_phase1_run,
         provisional_phase1=provisional_phase1,
+        order_replication=order_replication,
+        order_seed=order_seed,
     )
 
     # Commit the primary experiment before optional calibration. If calibration
@@ -309,6 +313,8 @@ def _execute_evaluation(
             mock=False,
             seed=seed,
             prompt_mode=prompt_mode,
+            order_replication=order_replication,
+            order_seed=order_seed,
         )
         summary_path = Path(str(calibration_file) + ".summary.json")
         summary_path.write_text(json.dumps(calibration_summary, indent=2), encoding="utf-8")
@@ -343,6 +349,8 @@ def run_evaluation_remote(
     authorize_phase1_run: bool = False,
     provisional_phase1: bool = False,
     include_calibration: bool = False,
+    order_replication: int = 0,
+    order_seed: int = 20261107,
 ) -> Union[str, tuple[str, Optional[str]]]:
     """Execute evaluation on standard A10G GPU (ideal for 1B-3B models)."""
     if mock:
@@ -363,6 +371,8 @@ def run_evaluation_remote(
         authorize_phase1_run=authorize_phase1_run,
         provisional_phase1=provisional_phase1,
         include_calibration=include_calibration,
+        order_replication=order_replication,
+        order_seed=order_seed,
     )
 
 
@@ -387,6 +397,8 @@ def run_evaluation_remote_l40s(
     authorize_phase1_run: bool = False,
     provisional_phase1: bool = False,
     include_calibration: bool = False,
+    order_replication: int = 0,
+    order_seed: int = 20261107,
 ) -> Union[str, tuple[str, Optional[str]]]:
     """Execute evaluation on high-VRAM L40S GPU (ideal for 7B-12B models, e.g. Pythia-12B)."""
     if mock:
@@ -407,6 +419,8 @@ def run_evaluation_remote_l40s(
         authorize_phase1_run=authorize_phase1_run,
         provisional_phase1=provisional_phase1,
         include_calibration=include_calibration,
+        order_replication=order_replication,
+        order_seed=order_seed,
     )
 
 
@@ -427,6 +441,8 @@ def run_evaluation_mock_remote(
     authorize_phase1_run: bool = False,
     provisional_phase1: bool = False,
     include_calibration: bool = False,
+    order_replication: int = 0,
+    order_seed: int = 20261107,
 ) -> Union[str, tuple[str, Optional[str]]]:
     """Execute synthetic mock validation in a zero-GPU CPU container and persist outputs to volume."""
     from llm_cooperation.harness.runner import run_experiment
@@ -455,6 +471,8 @@ def run_evaluation_mock_remote(
         split_filter=effective_split if effective_split != "all" else None,
         authorize_phase1_run=authorize_phase1_run,
         provisional_phase1=provisional_phase1,
+        order_replication=order_replication,
+        order_seed=order_seed,
     )
 
     calibration_file = None
@@ -472,6 +490,8 @@ def run_evaluation_mock_remote(
             mock=True,
             seed=seed,
             prompt_mode=prompt_mode,
+            order_replication=order_replication,
+            order_seed=order_seed,
         )
         Path(str(calibration_file) + ".summary.json").write_text(
             json.dumps(calibration_summary, indent=2), encoding="utf-8"
@@ -500,6 +520,8 @@ def main(
     prompt_mode: str = "standard_plaintext",
     authorize_paid_run: bool = False,
     include_calibration: bool = False,
+    order_replication: int = 0,
+    order_seed: int = 20261107,
 ):
     """Local CLI entrypoint for invoking Modal run.
 
@@ -510,6 +532,10 @@ def main(
     - `--include-calibration` runs the diagnostic calibration bank after the main bank.
     """
     # Local preflight before provisioning remote jobs
+    if order_replication not in (0, 1, 2):
+        raise ValueError("order_replication must be 0, 1 or 2")
+    if order_replication and bank != "dose-response":
+        raise PermissionError("New order schedules require --bank dose-response")
     resolve_bank_and_split(
         bank=bank,
         split=split,
@@ -532,6 +558,8 @@ def main(
             authorize_phase1_run=authorize_phase1_run,
             provisional_phase1=provisional_phase1,
             include_calibration=include_calibration,
+            order_replication=order_replication,
+            order_seed=order_seed,
         )
         remote_path, calibration_path = remote_result if isinstance(remote_result, tuple) else (remote_result, None)
     else:
@@ -562,6 +590,8 @@ def main(
                 authorize_phase1_run=authorize_phase1_run,
                 provisional_phase1=provisional_phase1,
                 include_calibration=include_calibration,
+                order_replication=order_replication,
+                order_seed=order_seed,
             )
             remote_path, calibration_path = remote_result if isinstance(remote_result, tuple) else (remote_result, None)
         elif selected_gpu == GPU_PROFILES["small"]:  # A10G
@@ -579,6 +609,8 @@ def main(
                 authorize_phase1_run=authorize_phase1_run,
                 provisional_phase1=provisional_phase1,
                 include_calibration=include_calibration,
+                order_replication=order_replication,
+                order_seed=order_seed,
             )
             remote_path, calibration_path = remote_result if isinstance(remote_result, tuple) else (remote_result, None)
         else:

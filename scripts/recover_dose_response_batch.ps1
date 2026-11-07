@@ -67,6 +67,12 @@ try {
             @(Get-Content -LiteralPath $rawPath).Count -ne 505 -or @(Get-Content -LiteralPath $calPath).Count -ne 97) {
             throw 'Recovered run has incomplete presentation counts.'
         }
+        $expectedOrder = 0
+        if ($manifest.PSObject.Properties.Name -contains 'order_replication') { $expectedOrder = $manifest.order_replication }
+        if ($expectedOrder -and ($rawHeader.order_replication -ne $expectedOrder -or $calHeader.order_replication -ne $expectedOrder -or
+            $rawHeader.order_seed -ne $manifest.order_seed -or $calHeader.order_seed -ne $manifest.order_seed)) {
+            throw 'Recovered option-order schedule does not match the batch manifest.'
+        }
         Invoke-RecoveryCommand -Executable 'python' -Arguments @('-m','llm_cooperation.cli','analyze-dose-response',$rawPath,'--output-dir',$entry.report_dir,'--bootstrap-samples',"$BootstrapSamples")
         $entry.raw_results = $rawPath
         $entry.calibration_results = $calPath

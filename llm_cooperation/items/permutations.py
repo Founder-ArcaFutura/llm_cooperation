@@ -2,6 +2,9 @@
 
 from typing import Dict, List, Tuple
 from pydantic import BaseModel
+import hashlib
+import itertools
+import random
 from llm_cooperation.items.schema import Scenario, StrategyType
 
 # Standard 4x4 Latin Square for counterbalancing positions A, B, C, D
@@ -26,6 +29,30 @@ STRATEGY_ORDER: List[StrategyType] = [
 ]
 
 LETTERS: List[str] = ["A", "B", "C", "D"]
+# Numerical runtime recorded in all thirteen original real dose-response runs.
+ORDER_RUNTIME_V1 = {"torch_version": "2.15.0+cu132", "transformers_version": "5.22.1"}
+
+
+def counterbalanced_rows(family_id: str, order_replication: int = 0, order_seed: int = 20261107):
+    """Select disjoint cyclic orbits, paired across all tiers/partners in a family.
+
+    The 24 possible orders partition into six four-row rotation orbits. Keep
+    the historical orbit as baseline; sample two of the other five without
+    replacement. This is a coordinated randomized design, not IID replication.
+    """
+    if order_replication not in (0, 1, 2):
+        raise ValueError("order_replication must be 0, 1 or 2")
+    if order_replication == 0:
+        return [row[:] for row in LATIN_SQUARE_4X4]
+    digest = hashlib.sha256(f"order_orbits_v1|{order_seed}|{family_id}".encode()).digest()
+    rng = random.Random(int.from_bytes(digest, "big"))
+    # Fix COOPERATE first to enumerate each rotational equivalence class once.
+    representatives = [(0,) + p for p in itertools.permutations((1, 2, 3)) if p != (1, 2, 3)]
+    rng.shuffle(representatives)
+    base = representatives[order_replication - 1]
+    rows = [list(base[i:] + base[:i]) for i in range(4)]
+    rng.shuffle(rows)
+    return rows
 
 
 class PresentationOption(BaseModel):
@@ -73,10 +100,13 @@ def build_presentation_prompt(
 def generate_permutations(
     scenario: Scenario,
     prompt_mode: str = "standard_plaintext",
+    order_replication: int = 0,
+    order_seed: int = 20261107,
 ) -> List[Presentation]:
     """Generate 4 deterministic counterbalanced presentations for a scenario."""
     presentations = []
-    for perm_idx, row in enumerate(LATIN_SQUARE_4X4):
+    family = scenario.template_family_id or scenario.template_id or scenario.id
+    for perm_idx, row in enumerate(counterbalanced_rows(family, order_replication, order_seed)):
         letter_options: List[Tuple[str, str]] = []
         presentation_opts: List[PresentationOption] = []
         letter_to_strategy: Dict[str, StrategyType] = {}
@@ -96,7 +126,8 @@ def generate_permutations(
 
         prompt = build_presentation_prompt(scenario.stem, letter_options, prompt_mode=prompt_mode)
         pres = Presentation(
-            presentation_id=f"{scenario.id}_p{perm_idx}",
+            presentation_id=(f"{scenario.id}_p{perm_idx}" if order_replication == 0 else
+                             f"{scenario.id}_order{order_replication}_s{order_seed}_p{perm_idx}"),
             scenario_id=scenario.id,
             permutation_index=perm_idx,
             stem=scenario.stem,
@@ -112,11 +143,14 @@ def generate_permutations(
 def generate_all_presentations(
     scenarios: List[Scenario],
     prompt_mode: str = "standard_plaintext",
+    order_replication: int = 0,
+    order_seed: int = 20261107,
 ) -> List[Presentation]:
     """Generate all presentations for the given scenarios (N scenarios x 4 permutations)."""
     all_pres = []
     for sc in scenarios:
-        all_pres.extend(generate_permutations(sc, prompt_mode=prompt_mode))
+        all_pres.extend(generate_permutations(sc, prompt_mode=prompt_mode,
+                                             order_replication=order_replication, order_seed=order_seed))
     return all_pres
 
 
@@ -162,12 +196,14 @@ def build_calibration_presentation_prompt(
 def generate_calibration_permutations(
     item,
     prompt_mode: str = "standard_plaintext",
+    order_replication: int = 0,
+    order_seed: int = 20261107,
 ) -> List[CalibrationPresentation]:
     """Generate 4 deterministic counterbalanced presentations for a calibration item using Latin square."""
     # Deterministic sorted order of invariant option keys (e.g. opt_1, opt_2, opt_3, opt_4)
     sorted_option_ids = sorted(list(item.options.keys()))
     presentations = []
-    for perm_idx, row in enumerate(LATIN_SQUARE_4X4):
+    for perm_idx, row in enumerate(counterbalanced_rows(f"calibration:{item.id}", order_replication, order_seed)):
         letter_options: List[Tuple[str, str]] = []
         presentation_opts: List[CalibrationPresentationOption] = []
         letter_to_option_id: Dict[str, str] = {}
@@ -188,7 +224,8 @@ def generate_calibration_permutations(
         correct_letter = option_id_to_letter[item.correct_option_id]
         prompt = build_calibration_presentation_prompt(item.stem, letter_options, prompt_mode=prompt_mode)
         pres = CalibrationPresentation(
-            presentation_id=f"{item.id}_p{perm_idx}",
+            presentation_id=(f"{item.id}_p{perm_idx}" if order_replication == 0 else
+                             f"{item.id}_order{order_replication}_s{order_seed}_p{perm_idx}"),
             item_id=item.id,
             permutation_index=perm_idx,
             stem=item.stem,
@@ -208,9 +245,12 @@ def generate_calibration_permutations(
 def generate_all_calibration_presentations(
     items: List,
     prompt_mode: str = "standard_plaintext",
+    order_replication: int = 0,
+    order_seed: int = 20261107,
 ) -> List[CalibrationPresentation]:
     """Generate all presentations for diagnostic calibration items (e.g. 24 items x 4 = 96 presentations)."""
     all_pres = []
     for it in items:
-        all_pres.extend(generate_calibration_permutations(it, prompt_mode=prompt_mode))
+        all_pres.extend(generate_calibration_permutations(it, prompt_mode=prompt_mode,
+                                                        order_replication=order_replication, order_seed=order_seed))
     return all_pres

@@ -63,6 +63,9 @@ class ExperimentRunRecord(BaseModel):
     git_commit: Optional[str] = None
     scenario_bank_hash: Optional[str] = None
     permutation_schedule: str = "latin_square_4x4_v1"
+    order_replication: int = 0
+    order_seed: Optional[int] = None
+    presentation_schedule_hash: Optional[str] = None
     seed: int = 42
     torch_version: Optional[str] = None
     transformers_version: Optional[str] = None
@@ -116,6 +119,8 @@ class CalibrationRunRecord(BaseModel):
     mock: bool = False
     git_commit: Optional[str] = None
     calibration_bank_hash: Optional[str] = None
+    order_replication: int = 0
+    order_seed: Optional[int] = None
     seed: int = 42
     torch_version: Optional[str] = None
     transformers_version: Optional[str] = None

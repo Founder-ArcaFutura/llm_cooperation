@@ -7,7 +7,14 @@ param(
     ),
     [switch] $AuthorizePaidRun,
     [switch] $PreviewOnly,
-    [int] $BootstrapSamples = 2000
+    [int] $BootstrapSamples = 2000,
+    [ValidateRange(0,2)][int] $OrderReplication = 0,
+    [int] $OrderSeed = 20261107,
+    [int] $Seed = 42,
+    [ValidateSet('bfloat16','float16','float32')][string] $Precision = 'bfloat16',
+    [hashtable] $Revisions = @{},
+    [ValidateSet('dose_response_batch','dose_response_orders')][string] $OutputGroup = 'dose_response_batch',
+    [ValidatePattern('^[A-Za-z0-9_.-]*$')][string] $BatchTag = ''
 )
 
 $ErrorActionPreference = "Stop"
@@ -31,19 +38,22 @@ try {
 
     $bankHash = (Get-FileHash -Algorithm SHA256 data/scenarios_dose_response_exploratory.json).Hash.ToLowerInvariant()
     $stamp = [DateTime]::UtcNow.ToString("yyyyMMdd_HHmmss")
-    $batchRoot = Join-Path $repoRoot (Join-Path "results/dose_response_batch" $stamp)
+    if ($BatchTag) { $stamp = $BatchTag }
+    $batchRoot = Join-Path $repoRoot (Join-Path "results/$OutputGroup" $stamp)
     $manifestPath = Join-Path $batchRoot "batch_manifest.json"
-    $reportRoot = Join-Path $repoRoot (Join-Path "reports/dose_response_batch" $stamp)
+    if (Test-Path -LiteralPath $manifestPath) { throw 'Batch already exists. Recover or reuse it before starting new inference.' }
+    $reportRoot = Join-Path $repoRoot (Join-Path "reports/$OutputGroup" $stamp)
     $null = New-Item -ItemType Directory -Force -Path $batchRoot, $reportRoot
 
     # Resolve every mutable model ref before the first paid call. Runs are pinned to the returned SHA.
     $resolvedModels = @()
     foreach ($model in $Models) {
-        $modelInfo = Invoke-RestMethod -Method Get -Uri "https://huggingface.co/api/models/$model" -TimeoutSec 30
-        if ($modelInfo.sha -notmatch '^[0-9a-fA-F]{40}$') {
+        if ($Revisions.ContainsKey($model)) { $revision = $Revisions[$model] }
+        else { $revision = (Invoke-RestMethod -Method Get -Uri "https://huggingface.co/api/models/$model" -TimeoutSec 30).sha }
+        if ($revision -notmatch '^[0-9a-fA-F]{40}$') {
             throw "Could not resolve a full immutable Hugging Face revision for '$model'; no model jobs were started."
         }
-        $resolvedModels += [pscustomobject]@{ Id = $model; Revision = $modelInfo.sha }
+        $resolvedModels += [pscustomobject]@{ Id = $model; Revision = $revision }
     }
 
     $manifest = [ordered]@{
@@ -53,6 +63,10 @@ try {
         calibration_bank_sha256 = (Get-FileHash -Algorithm SHA256 data/calibration_bank.json).Hash.ToLowerInvariant()
         bootstrap_samples = $BootstrapSamples
         preview_only = [bool]$PreviewOnly
+        order_replication = $OrderReplication
+        order_seed = $OrderSeed
+        seed = $Seed
+        precision = $Precision
         model_runs = @()
     }
     if ($PreviewOnly) {
@@ -60,7 +74,7 @@ try {
             $slug = $resolved.Id -replace '[^A-Za-z0-9._-]', '_'
             $modelOut = Join-Path $batchRoot $slug
             $reportOut = Join-Path $reportRoot $slug
-            Write-Host ("PREVIEW: modal run modal_app.py --model `"{0}`" --revision {1} --bank dose-response --precision bfloat16 --no-mock --include-calibration --authorize-paid-run" -f $resolved.Id, $resolved.Revision)
+            Write-Host ("PREVIEW: modal run modal_app.py --model `"{0}`" --revision {1} --bank dose-response --precision {2} --seed {3} --order-replication {4} --order-seed {5} --no-mock --include-calibration --authorize-paid-run" -f $resolved.Id, $resolved.Revision, $Precision, $Seed, $OrderReplication, $OrderSeed)
             Write-Host ("PREVIEW: raw and calibration output -> {0}; dose-response report -> {1}" -f $modelOut, $reportOut)
         }
         Write-Host "Preview complete. No Modal job was launched."
@@ -86,13 +100,17 @@ try {
         }
         $modalStdoutPath = Join-Path $modelOut "modal_stdout.log"
         $modalStderrPath = Join-Path $modelOut "modal_stderr.log"
+        $modalOutput = ''
+        $manifest.model_runs += [pscustomobject]$entry
+        $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $manifestPath -Encoding utf8
         try {
             $modalArgs = @(
                 "run", "modal_app.py", "--model", $resolved.Id,
                 "--revision", $resolved.Revision, "--bank", "dose-response",
-                "--precision", "bfloat16", "--no-mock", "--include-calibration",
+                "--precision", $Precision, '--seed', "$Seed", "--no-mock", "--include-calibration",
                 "--authorize-paid-run"
             )
+            $modalArgs += @('--order-replication', "$OrderReplication", '--order-seed', "$OrderSeed")
             # Capture at the process level: PowerShell can turn native stderr
             # into a terminating ErrorRecord and truncate a formatted Modal
             # error before a pipeline or Tee-Object can save the full message.
@@ -175,7 +193,7 @@ try {
             if ($details) { $entry.error += "`n" + $details }
             Write-Host ("{0} failed. Full Modal output: {1}" -f $resolved.Id, $entry.modal_log)
         }
-        $manifest.model_runs += [pscustomobject]$entry
+        $manifest.model_runs[-1] = [pscustomobject]$entry
         $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $manifestPath -Encoding utf8
         if ($entry.status -eq "failed") {
             Write-Host "Stopping here so later paid model jobs are not launched after a Modal failure."

@@ -592,6 +592,8 @@ def run_experiment(
     authorize_phase1_run: bool = False,
     provisional_phase1: bool = False,
     _freeze_manifest_override: Optional[str] = None,
+    order_replication: int = 0,
+    order_seed: int = 20261107,
 ) -> Path:
     """Run evaluation of presentations on a specified model."""
     os.makedirs(output_dir, exist_ok=True)
@@ -672,7 +674,24 @@ def run_experiment(
         for s in scenarios
     }
 
-    presentations = generate_all_presentations(scenarios, prompt_mode=prompt_mode)
+    if order_replication not in (0, 1, 2):
+        raise ValueError("order_replication must be 0, 1 or 2")
+    if order_replication and Path(scenarios_path).name != "scenarios_dose_response_exploratory.json":
+        raise PermissionError("New option-order schedules are restricted to the exploratory dose-response bank")
+    if order_replication and not mock:
+        import torch
+        import transformers
+        from llm_cooperation.items.permutations import ORDER_RUNTIME_V1
+        actual = {"torch_version": torch.__version__, "transformers_version": transformers.__version__}
+        if actual != ORDER_RUNTIME_V1:
+            raise RuntimeError(f"Order replication runtime differs from baseline: {actual}; expected {ORDER_RUNTIME_V1}. No inference started.")
+    presentations = generate_all_presentations(scenarios, prompt_mode=prompt_mode,
+                                               order_replication=order_replication, order_seed=order_seed)
+    import hashlib
+    schedule_hash = hashlib.sha256(json.dumps(
+        [(p.presentation_id, p.prompt_text) for p in presentations],
+        ensure_ascii=False, separators=(",", ":"),
+    ).encode("utf-8")).hexdigest()
 
     runner = ModelRunner(
         model_name=model_name,
@@ -740,7 +759,10 @@ def run_experiment(
         mock=mock,
         git_commit=get_git_commit(),
         scenario_bank_hash=compute_file_hash(scenarios_path) if os.path.exists(scenarios_path) else None,
-        permutation_schedule="latin_square_4x4_v1",
+        permutation_schedule=("latin_square_4x4_v1" if order_replication == 0 else "disjoint_rotation_orbits_v1"),
+        order_replication=order_replication,
+        order_seed=order_seed if order_replication else None,
+        presentation_schedule_hash=schedule_hash,
         seed=seed,
         torch_version=torch_v,
         transformers_version=transformers_v,
@@ -777,6 +799,8 @@ def run_calibration(
     mock: bool = False,
     seed: int = 42,
     prompt_mode: str = "standard_plaintext",
+    order_replication: int = 0,
+    order_seed: int = 20261107,
 ) -> Tuple[Path, Dict]:
     """Run diagnostic multiple-choice calibration evaluation across 24 objective items (96 presentations)."""
     os.makedirs(output_dir, exist_ok=True)
@@ -785,7 +809,8 @@ def run_calibration(
 
     bank = CalibrationBank(**bank_data)
     items = bank.items
-    presentations = generate_all_calibration_presentations(items, prompt_mode=prompt_mode)
+    presentations = generate_all_calibration_presentations(items, prompt_mode=prompt_mode,
+                                                          order_replication=order_replication, order_seed=order_seed)
 
     runner = ModelRunner(
         model_name=model_name,
@@ -847,6 +872,8 @@ def run_calibration(
         mock=mock,
         git_commit=get_git_commit(),
         calibration_bank_hash=compute_file_hash(calibration_path) if os.path.exists(calibration_path) else None,
+        order_replication=order_replication,
+        order_seed=order_seed if order_replication else None,
         seed=seed,
         torch_version=torch_v,
         transformers_version=transformers_v,
