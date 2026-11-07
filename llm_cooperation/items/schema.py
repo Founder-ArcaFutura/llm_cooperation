@@ -44,6 +44,7 @@ class Scenario(BaseModel):
     options: Dict[StrategyType, str] = Field(..., description="Mapping of strategy to option text.")
     # Optional extensions for expanded bank
     template_id: Optional[str] = Field(None, description="Shared template ID for matched human/AI pair, e.g. template_001")
+    template_family_id: Optional[str] = Field(None, description="Stable scenario-family ID shared across payoff tiers and factorial variants")
     split: Optional[str] = Field(None, description="Dataset split: 'exploratory' or 'confirmatory'")
     domain: Optional[str] = Field(None, description="Substantive scenario domain classification")
     utility_condition: Optional[UtilityCondition] = Field(None, description="Phase 0B utility condition: equal_utility, coop_advantageous, coop_disadvantageous")

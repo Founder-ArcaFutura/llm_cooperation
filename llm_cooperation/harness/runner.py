@@ -43,6 +43,20 @@ from llm_cooperation.items.permutations import (
 )
 
 
+def _scenario_delta_u(payoff_spec: Optional[Dict[str, Dict[str, str]]]) -> Optional[float]:
+    """Return COOPERATE minus INDEPENDENT actor payoff from scenario metadata."""
+    if not payoff_spec:
+        return None
+    coop = payoff_spec.get("COOPERATE", {})
+    indep = payoff_spec.get("INDEPENDENT", {})
+    try:
+        if coop.get("delta_u_actor") is not None:
+            return float(coop["delta_u_actor"])
+        return float(coop["actor_payoff"]) - float(indep["actor_payoff"])
+    except (KeyError, TypeError, ValueError):
+        return None
+
+
 def get_git_commit() -> Optional[str]:
     try:
         res = subprocess.run(
@@ -376,12 +390,17 @@ class ModelRunner:
                 presentation_id=presentation.presentation_id,
                 scenario_id=presentation.scenario_id,
                 template_id=scenario_meta.get("template_id"),
+                template_family_id=scenario_meta.get("template_family_id"),
                 split=scenario_meta.get("split"),
                 domain=scenario_meta.get("domain"),
                 utility_condition=scenario_meta.get("utility_condition"),
                 source_type=scenario_meta.get("source_type"),
                 triad_id=scenario_meta.get("triad_id"),
                 is_symmetric_control=scenario_meta.get("is_symmetric_control", False),
+                payoff_spec=scenario_meta.get("payoff_spec"),
+                delta_u=scenario_meta.get("delta_u"),
+                partner_benefit=scenario_meta.get("partner_benefit"),
+                interaction_type=scenario_meta.get("interaction_type"),
                 permutation_index=presentation.permutation_index,
                 partner_type=scenario_meta["partner_type"],
                 context_type=scenario_meta["context_type"],
@@ -453,12 +472,17 @@ class ModelRunner:
             presentation_id=presentation.presentation_id,
             scenario_id=presentation.scenario_id,
             template_id=scenario_meta.get("template_id"),
+            template_family_id=scenario_meta.get("template_family_id"),
             split=scenario_meta.get("split"),
             domain=scenario_meta.get("domain"),
             utility_condition=scenario_meta.get("utility_condition"),
             source_type=scenario_meta.get("source_type"),
             triad_id=scenario_meta.get("triad_id"),
             is_symmetric_control=scenario_meta.get("is_symmetric_control", False),
+            payoff_spec=scenario_meta.get("payoff_spec"),
+            delta_u=scenario_meta.get("delta_u"),
+            partner_benefit=scenario_meta.get("partner_benefit"),
+            interaction_type=scenario_meta.get("interaction_type"),
             permutation_index=presentation.permutation_index,
             partner_type=scenario_meta["partner_type"],
             context_type=scenario_meta["context_type"],
@@ -633,12 +657,17 @@ def run_experiment(
             "partner_type": s.partner_type.value,
             "context_type": s.context_type.value,
             "template_id": s.template_id,
+            "template_family_id": s.template_family_id or s.template_id,
             "split": s.split,
             "domain": s.domain,
             "utility_condition": s.utility_condition.value if s.utility_condition else None,
             "source_type": s.source_type,
             "triad_id": getattr(s, "triad_id", None),
             "is_symmetric_control": getattr(s, "is_symmetric_control", False),
+            "payoff_spec": s.payoff_spec,
+            "delta_u": _scenario_delta_u(s.payoff_spec),
+            "partner_benefit": (s.payoff_spec or {}).get("COOPERATE", {}).get("partner_benefit"),
+            "interaction_type": (s.payoff_spec or {}).get("COOPERATE", {}).get("interaction_type"),
         }
         for s in scenarios
     }

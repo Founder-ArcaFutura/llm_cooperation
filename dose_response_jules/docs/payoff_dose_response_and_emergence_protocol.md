@@ -1,7 +1,7 @@
 # Scientific Protocol: Payoff Dose–Response and Pretraining Emergence of Cooperation
 
-**Protocol Document Version:** v1.0.0-preregistration  
-**Date:** November 2026  
+**Protocol Document Version:** v1.1.0-execution-alignment
+**Date:** November 2026
 **Status:** `exploratory_preflight_frozen`  
 **Item Bank Reference:** `data/scenarios_dose_response_exploratory.json`  
 **Diagnostic Format Calibration Bank:** `data/calibration_bank.json`  
@@ -41,12 +41,14 @@ Ordinary decision-makers frequently cooperate when cooperation is instrumentally
 ### Parametric Payoff Sweep Matrix
 We sweep the focal actor's net private utility difference:
 $$\Delta U_{\text{actor}} = U_{\text{actor}}(\text{COOPERATE}) - U_{\text{actor}}(\text{INDEPENDENT})$$
-across five core regimes with finer sampling around the indifference boundary:
+across eight levels with finer sampling around the indifference boundary:
 1. **Cooperation Advantageous:** $\Delta U = +0.20$ (Cooperation is strictly superior).
 2. **Exact Utility Equivalence:** $\Delta U = 0.00$ (Phase 0B construct validation baseline).
 3. **Small Disadvantage (Near Crossover):** $\Delta U = -0.05$ and $\Delta U = -0.10$.
 4. **Moderate Disadvantage:** $\Delta U = -0.20$ and $\Delta U = -0.30$.
 5. **Substantial Disadvantage:** $\Delta U = -0.50$ and $\Delta U = -0.60$.
+
+The committed exploratory bank contains six scenario families × eight payoff levels × two partner identities = 96 main-sweep scenarios. A complete 2 × 2 partner-benefit/horizon factorial is included at $\Delta U=0.00$ and $-0.10$ for two of those six families (32 cells, of which eight high-benefit/one-shot cells are already in the main sweep, leaving 24 additional scenarios). Four symmetric controls and two matched numerical controls bring the bank to **126 scenarios / 504 counterbalanced presentations**. The factorial interaction estimate is limited to those two families and two payoff levels; it is not an all-family, all-tier interaction estimate.
 
 ### Independent Factorial Dimensions
 To disentangle private cost from partner welfare and repeated-interaction expectations, we independently vary:
@@ -61,6 +63,7 @@ To disentangle private cost from partner welfare and repeated-interaction expect
 
 ### Counterbalancing & Linguistic Parity
 - **Latin-Square Permutations:** Exactly 4 counterbalanced presentations per scenario, mapping strategies `COOPERATE`, `INDEPENDENT`, `COMPETE_EXPLOIT`, and `DISENGAGE` equally to positions `A`, `B`, `C`, and `D`.
+- **Audit result:** The current bank generator produces exactly 126 unique scenarios and 504 presentations; all 16 strategy-by-letter cells are equally represented (126 each). Option word-count spans are at most two words in every scenario.
 - **Wording Invariance:** Core option wording is held constant while payoff values/timings are systematically altered.
 - **Length Parity:** Option word lengths balanced within $\le 2$ words across options within each scenario.
 - **Prohibited Markers:** Strict ban on moralizing terminology (`kind`, `moral`, `virtuous`, `evil`) and caricature destructive markers (`sabotage`, `destroy`, `steal`).
@@ -89,13 +92,13 @@ Early pretraining checkpoints frequently exhibit token generation artifacts or i
 ## 5. Statistical Estimation & Nonlinear Curve Fitting
 
 ### Resampling & Clustered Uncertainty
-- Primary resampling unit: `template_id` (scenario family clustering, keeping paired human/AI and payoff variants together).
+- Primary resampling unit: `template_family_id` (six substantive scenario families, keeping paired human/AI and all payoff tiers together; controls are excluded from the main response curve).
 - 2,000 cluster-bootstrap iterations for 95% confidence intervals.
 
 ### Model-Specific Payoff-Response Metrics
 1. **Equal-Utility Preference:** $\Delta_{\text{choice}}(\Delta U=0)$ and $\Delta_{\log P}(\Delta U=0)$.
 2. **Payoff Sensitivity Slope:** Linear/tangent slope $\beta_1 = \left.\frac{\partial P(\text{COOP})}{\partial \Delta U}\right|_{\Delta U=0}$.
-3. **Crossover Indifference Threshold ($\Delta U^*$):** Net private cost at which $P(\text{COOP}) = P(\text{INDEP})$ (or $\Delta_{\log P} = 0$). If positive, model requires private subsidy to cooperate; if negative, model tolerates private loss to cooperate.
+3. **Crossover Indifference Threshold ($\Delta U^*$):** Net private payoff difference at which $P(\text{COOP}) = P(\text{INDEP})$ (or $\Delta_{\log P} = 0$). Choice crossover is fit to $P(\text{COOP})/[P(\text{COOP})+P(\text{INDEP})]=0.5$, excluding COMPETE_EXPLOIT and DISENGAGE from the denominator. If positive, cooperation needs a private payoff advantage to reach indifference; if negative, the model tolerates private loss.
 4. **Interactions:**
    $$\Delta_{\text{benefit}} = P(\text{COOP} \mid \text{High Partner Benefit}) - P(\text{COOP} \mid \text{Low Partner Benefit})$$
    $$\Delta_{\text{reciprocity}} = P(\text{COOP} \mid \text{Repeated Shadow}) - P(\text{COOP} \mid \text{One-Shot})$$
@@ -122,29 +125,24 @@ The hypothesis of an intrinsic cooperative behavioral default in pretrained base
 ### Execution Governance & Holdout Restrictions
 - Confirmatory partitions in Phase 0B (`data/scenarios_phase0b_utility_matched.json`) and Phase 1 (`data/scenarios_phase1_prospective.json`) remain strictly untouched and held out.
 - Phase A sweep items are exploratory derivatives instantiated from accepted exploratory templates.
-- **Fail-Closed Paid Compute Guard:** Real GPU inference on Modal or cloud instances requires explicit authorization (`--authorize-paid-run True` or `ALLOW_PAID_RUN=true`).
+- **Fail-Closed Paid Compute Guard:** Real GPU inference through the Modal pilot requires the explicit boolean flag `--authorize-paid-run`; without it, `--no-mock` exits before submitting remote work.
 - Local CI/CD tests execute exclusively in `--mock` mode with zero GPU spend.
 
 ### Computational Resource Estimate
-- **Instrument Size:** 20 templates $\times$ 6 payoff conditions $\times$ 2 partner types $\times$ 4 permutations = 960 presentations per evaluated model.
-- **Pythia Emergence Series:** 6 checkpoints $\times$ 960 presentations $\approx 5,760$ inferences per model scale.
-- **Tokens per Inference:** $\approx 350$ prompt tokens + 1 target token. Total tokens per checkpoint $\approx 336\text{k}$ tokens.
-- **Compute Time:** On an A10G (Pythia-1.4B / 2.8B), throughput $\approx 25$ req/s $\implies \approx 40$ seconds per checkpoint ($\approx 4\text{ minutes}$ GPU time for full 6-checkpoint sweep).
-- **Estimated Cost:** $<\$0.50$ total Modal GPU compute.
+- **Instrument Size:** 126 scenarios $\times$ 4 counterbalanced permutations = 504 presentations per evaluated model.
+- **Pythia Emergence Series:** 6 checkpoints $\times$ 504 presentations = 3,024 behavioral presentations per model scale, plus calibration presentations at each checkpoint.
+- **Tokens per Inference:** Approximately 350 prompt tokens plus the generated answer per behavioral presentation, or approximately 176k prompt tokens per checkpoint, excluding calibration and tokenizer overhead.
+- **Compute Time and Cost:** Not fixed by this protocol. Modal billing, model download, throughput, calibration-bank size, and startup time must be read from the actual pilot run before estimating the full series.
 
 ### Minimal Real-Model Pilot Launch Command
 When approved for execution:
 ```bash
-# Minimal single-checkpoint exploratory pilot (Pythia-1.4b final checkpoint)
-python -m llm_cooperation.cli run \
-  --model "EleutherAI/pythia-1.4b" \
-  --bank "dose-response" \
-  --precision bfloat16 \
-  --output-dir results/dose_response_pilot
-
-# Modal remote execution command (requires explicit paid authorization)
+# Single real Pythia-1.4B final-checkpoint pilot (explicit paid-compute authorization)
 modal run modal_pythia_emergence.py \
   --model "EleutherAI/pythia-1.4b" \
-  --checkpoint-order 5 \
-  --authorize-paid-run True
+  --checkpoint-step 143000 \
+  --no-mock \
+  --authorize-paid-run
 ```
+
+This command runs exactly one checkpoint and writes raw behavioral and calibration records, `summary.json`, and `dose_response_report.md` to the Modal volume path `/runs/EleutherAI_pythia-1.4b_step143000`. The paid-compute authorization is explicit in `--authorize-paid-run`. No GPU inference is part of local validation.

@@ -58,6 +58,7 @@ def test_analyze_payoff_dose_response_synthetic_dataset():
                 records.append({
                     "scenario_id": f"sc_{tpl}_{tier_name}_{p_type}",
                     "template_id": f"{tpl}_{tier_name}",
+                    "template_family_id": tpl,
                     "partner_type": p_type,
                     "delta_u": du,
                     "coop_argmax_rate": c_rate + (0.02 if p_type == "human" else -0.02),
@@ -101,6 +102,7 @@ def test_analyze_payoff_dose_response_synthetic_dataset():
     analysis = analyze_payoff_dose_response(df, n_bootstraps=200, seed=42)
 
     assert analysis is not None
+    assert analysis["num_templates_analyzed"] == len(templates)
     # Check equal utility preference
     eq = analysis["equal_utility_baseline"]
     assert eq["choice_diff_mean"] > 0
@@ -119,3 +121,91 @@ def test_analyze_payoff_dose_response_synthetic_dataset():
     assert controls["symmetric_welfare_control"]["coop_rate"] == 0.60
     assert controls["nonsocial_numerical_control"] is not None
     assert controls["nonsocial_numerical_control"]["opt_alpha_coop_rate"] == 0.30
+
+
+def test_crossover_is_cooperate_vs_independent_not_all_four_choices():
+    rows = []
+    doses = [-0.60, -0.50, -0.30, -0.20, -0.10, -0.05, 0.00, 0.20]
+    for family in [f"family_{i}" for i in range(6)]:
+        for du in doses:
+            coop = 0.30 + du * 0.20
+            indep = 0.30 - du * 0.20
+            rows.append({
+                "scenario_id": f"{family}_{du}",
+                "template_id": f"{family}_{du}",
+                "template_family_id": family,
+                "delta_u": du,
+                "coop_argmax_rate": coop,
+                "indep_argmax_rate": indep,
+                "log_prob_coop_indep_diff": np.log(coop / indep),
+                "source_type": "exploratory_sweep",
+                "is_symmetric_control": False,
+                "partner_benefit": "high",
+                "interaction_type": "one_shot",
+            })
+    result = analyze_payoff_dose_response(pd.DataFrame(rows), n_bootstraps=20)
+    # P(COOPERATE) never approaches 0.50 because COMPETE/DISENGAGE carry the remaining share.
+    # COOPERATE and INDEPENDENT are equal at delta U = 0.
+    assert result["payoff_sensitivity"]["crossover_threshold_delta_u"] == pytest.approx(0.0, abs=1e-8)
+    assert result["payoff_sensitivity"]["log_prob_crossover_threshold_delta_u"] == pytest.approx(0.0, abs=1e-3)
+
+
+def test_dose_response_specific_bank_audit_passes():
+    from llm_cooperation.items.dose_response_bank import audit_dose_response_bank
+    assert audit_dose_response_bank("data/scenarios_dose_response_exploratory.json") is True
+
+
+def test_undefined_pair_shares_are_excluded_without_poisoning_fits():
+    rows = []
+    for family in ["family_a", "family_b"]:
+        for du in [-0.60, -0.50, -0.30, -0.20, -0.10, -0.05, 0.0, 0.20]:
+            missing = du == -0.20
+            coop = 0.0 if missing else 0.35 + 0.20 * du
+            indep = 0.0 if missing else 0.35 - 0.20 * du
+            rows.append({
+                "scenario_id": f"{family}_{du}",
+                "template_id": f"{family}_{du}",
+                "template_family_id": family,
+                "delta_u": du,
+                "coop_argmax_rate": coop,
+                "indep_argmax_rate": indep,
+                "log_prob_coop_indep_diff": 2.0 * du,
+                "is_symmetric_control": False,
+                "source_type": "exploratory_sweep",
+                "partner_benefit": "high",
+                "interaction_type": "one_shot",
+            })
+    result = analyze_payoff_dose_response(pd.DataFrame(rows), n_bootstraps=30)
+    assert np.isfinite(result["payoff_sensitivity"]["choice_slope"])
+    assert np.isfinite(result["payoff_sensitivity"]["log_prob_slope"])
+    assert result["curve_fits"]["choice_curve"]["num_excluded_nonfinite"] == 2
+    assert all(np.isfinite(v) for v in result["payoff_sensitivity"]["choice_slope_ci"])
+
+
+def test_all_pair_shares_undefined_report_not_estimable():
+    rows = []
+    for family in ["family_a", "family_b"]:
+        for du in [-0.60, -0.50, -0.30, -0.20, -0.10, -0.05, 0.0, 0.20]:
+            rows.append({
+                "scenario_id": f"{family}_{du}",
+                "template_id": f"{family}_{du}",
+                "template_family_id": family,
+                "delta_u": du,
+                "coop_argmax_rate": 0.0,
+                "indep_argmax_rate": 0.0,
+                "log_prob_coop_indep_diff": 2.0 * du,
+                "is_symmetric_control": False,
+                "source_type": "exploratory_sweep",
+                "partner_benefit": "high",
+                "interaction_type": "one_shot",
+            })
+    result = analyze_payoff_dose_response(pd.DataFrame(rows), n_bootstraps=30)
+    fit = result["curve_fits"]["choice_curve"]
+    assert fit["num_valid"] == 0
+    assert fit["num_excluded_nonfinite"] == 8
+    assert "Not estimable" in fit["error"]
+    assert result["payoff_sensitivity"]["choice_slope"] is None
+    assert result["payoff_sensitivity"]["choice_slope_ci"] == [None, None]
+    assert result["payoff_sensitivity"]["crossover_threshold_delta_u"] is None
+    assert result["payoff_sensitivity"]["crossover_threshold_ci"] == [None, None]
+    assert result["payoff_sensitivity"]["log_prob_slope"] > 0
