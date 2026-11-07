@@ -11,6 +11,12 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+# Modal's Python CLI emits Unicode status symbols even when its output is
+# redirected. Windows PowerShell otherwise gives Python a legacy code page.
+$previousPythonUtf8 = $env:PYTHONUTF8
+$previousPythonIoEncoding = $env:PYTHONIOENCODING
+$env:PYTHONUTF8 = "1"
+$env:PYTHONIOENCODING = "utf-8"
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 Push-Location $repoRoot
 try {
@@ -71,12 +77,15 @@ try {
             model = $resolved.Id
             revision = $resolved.Revision
             status = "running"
+            modal_log = (Join-Path $modelOut "modal_run.log")
             raw_results = $null
             calibration_results = $null
             calibration_summary = $null
             report_dir = $reportOut
             error = $null
         }
+        $modalStdoutPath = Join-Path $modelOut "modal_stdout.log"
+        $modalStderrPath = Join-Path $modelOut "modal_stderr.log"
         try {
             $modalArgs = @(
                 "run", "modal_app.py", "--model", $resolved.Id,
@@ -84,8 +93,22 @@ try {
                 "--precision", "bfloat16", "--no-mock", "--include-calibration",
                 "--authorize-paid-run"
             )
-            & modal @modalArgs 2>&1 | Tee-Object -Variable modalOutput
-            $modalExit = $LASTEXITCODE
+            # Capture at the process level: PowerShell can turn native stderr
+            # into a terminating ErrorRecord and truncate a formatted Modal
+            # error before a pipeline or Tee-Object can save the full message.
+            $modalExe = (Get-Command modal -CommandType Application | Select-Object -First 1).Source
+            if (-not $modalExe) { throw "Could not locate the Modal CLI executable." }
+            $modalProcess = Start-Process -FilePath $modalExe -ArgumentList $modalArgs `
+                -WorkingDirectory $repoRoot -PassThru -Wait -NoNewWindow `
+                -RedirectStandardOutput $modalStdoutPath -RedirectStandardError $modalStderrPath
+            $modalExit = $modalProcess.ExitCode
+            $stdoutText = if (Test-Path -LiteralPath $modalStdoutPath) { Get-Content -Raw -Encoding UTF8 -LiteralPath $modalStdoutPath } else { "" }
+            $stderrText = if (Test-Path -LiteralPath $modalStderrPath) { Get-Content -Raw -Encoding UTF8 -LiteralPath $modalStderrPath } else { "" }
+            $modalLogText = "=== STDOUT ===`r`n$stdoutText`r`n=== STDERR ===`r`n$stderrText"
+            Set-Content -LiteralPath $entry.modal_log -Value $modalLogText -Encoding utf8
+            if ($stdoutText) { Write-Host $stdoutText }
+            if ($stderrText) { Write-Host $stderrText }
+            $modalOutput = @($stdoutText, $stderrText) -join "`n"
             if ($modalExit -ne 0) { throw "Modal exited with status $modalExit." }
 
             $outputText = ($modalOutput | ForEach-Object { "$_" }) -join "`n"
@@ -122,11 +145,24 @@ try {
         } catch {
             $failed++
             $entry.status = "failed"
+            if (-not (Test-Path -LiteralPath $entry.modal_log)) {
+                $entry.modal_log = $null
+            }
+            $details = [string]$modalOutput
+            if (-not $details -and $entry.modal_log) {
+                $details = Get-Content -Raw -Encoding UTF8 -LiteralPath $entry.modal_log
+            }
+            if ($details.Length -gt 12000) { $details = $details.Substring(0, 12000) + "`n[Modal log truncated in manifest; see modal_log file.]" }
             $entry.error = $_.Exception.Message
-            Write-Error ("{0}: {1}" -f $resolved.Id, $_.Exception.Message) -ErrorAction Continue
+            if ($details) { $entry.error += "`n" + $details }
+            Write-Host ("{0} failed. Full Modal output: {1}" -f $resolved.Id, $entry.modal_log)
         }
         $manifest.model_runs += [pscustomobject]$entry
         $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $manifestPath -Encoding utf8
+        if ($entry.status -eq "failed") {
+            Write-Host "Stopping here so later paid model jobs are not launched after a Modal failure."
+            break
+        }
     }
 
     Write-Host "Batch outputs: $batchRoot"
@@ -135,4 +171,6 @@ try {
     if ($failed -gt 0) { throw "$failed model run(s) failed. Successful model outputs are preserved in the batch directories." }
 } finally {
     Pop-Location
+    $env:PYTHONUTF8 = $previousPythonUtf8
+    $env:PYTHONIOENCODING = $previousPythonIoEncoding
 }
