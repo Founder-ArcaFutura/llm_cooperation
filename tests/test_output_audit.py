@@ -15,6 +15,7 @@ def test_classify_empty_or_whitespace():
     assert res.extracted_letter is None
     assert not res.has_identifiable_letter
     assert not res.is_strict_valid
+    assert not res.is_potentially_truncated
 
 
 def test_classify_strict_single_letter():
@@ -51,6 +52,7 @@ def test_classify_letter_first_explanation():
         assert res.extracted_letter == exp_letter
         assert res.has_identifiable_letter
         assert not res.is_strict_valid  # Format violation preserved!
+        assert res.is_potentially_truncated
 
 
 def test_classify_letter_first_option_echo():
@@ -61,6 +63,8 @@ def test_classify_letter_first_option_echo():
         ("D. Chlorophyll", "D"),
         ("A. Jupiter", "A"),
         ("B. Coordinate gate", "B"),
+        ("D\n\nChlor", "D"),
+        ("D\n\nChloroph", "D"),
     ]
     for text, exp_letter in samples:
         res = classify_continuation(text)
@@ -93,6 +97,7 @@ def test_classify_ambiguous_multi_choice():
         "A or B",
         "\nA\nB\n",
         "\nA.\nB",
+        "A\n\nB. Synchronize",
     ]
     for text in samples:
         res = classify_continuation(text)
@@ -114,6 +119,7 @@ def test_classify_preambles():
     assert res_without.extracted_letter is None
     assert not res_without.has_identifiable_letter
     assert not res_without.is_strict_valid
+    assert res_without.is_potentially_truncated
 
 
 def test_classify_unrelated_or_degenerate():
