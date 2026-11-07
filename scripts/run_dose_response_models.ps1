@@ -98,9 +98,22 @@ try {
             # error before a pipeline or Tee-Object can save the full message.
             $modalExe = (Get-Command modal -CommandType Application | Select-Object -First 1).Source
             if (-not $modalExe) { throw "Could not locate the Modal CLI executable." }
+            Write-Host ("Starting {0}. Live log: {1}" -f $resolved.Id, $modalStdoutPath)
+            $modalTimer = [Diagnostics.Stopwatch]::StartNew()
+            $lastHeartbeatSeconds = 0
             $modalProcess = Start-Process -FilePath $modalExe -ArgumentList $modalArgs `
-                -WorkingDirectory $repoRoot -PassThru -Wait -NoNewWindow `
+                -WorkingDirectory $repoRoot -PassThru -NoNewWindow `
                 -RedirectStandardOutput $modalStdoutPath -RedirectStandardError $modalStderrPath
+            while (-not $modalProcess.WaitForExit(1000)) {
+                if ($modalTimer.Elapsed.TotalSeconds - $lastHeartbeatSeconds -ge 20) {
+                    $lastHeartbeatSeconds = $modalTimer.Elapsed.TotalSeconds
+                    $latestProgress = Get-Content -Encoding UTF8 -LiteralPath $modalStdoutPath -Tail 80 -ErrorAction SilentlyContinue |
+                        Where-Object { $_ -match 'Processed .*presentations|Running .*presentations|Loading model|Dispatching' } |
+                        Select-Object -Last 1
+                    Write-Host ("{0}: process active, elapsed {1:mm\:ss}. {2}" -f $resolved.Id, $modalTimer.Elapsed, $latestProgress)
+                }
+            }
+            $modalTimer.Stop()
             $modalExit = $modalProcess.ExitCode
             $stdoutText = if (Test-Path -LiteralPath $modalStdoutPath) { Get-Content -Raw -Encoding UTF8 -LiteralPath $modalStdoutPath } else { "" }
             $stderrText = if (Test-Path -LiteralPath $modalStderrPath) { Get-Content -Raw -Encoding UTF8 -LiteralPath $modalStderrPath } else { "" }
