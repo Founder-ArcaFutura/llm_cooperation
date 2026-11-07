@@ -8,7 +8,7 @@ The central finding is that **free-generation format failures do not imply failu
 Crucially, models fall along a continuous multidimensional diagnostic space rather than binary competence tiers:
 
 1. **Format-Masked Trackers (e.g., Mistral 7B-v0.3)**: Achieves **87.8% factual calibration accuracy** and **85.9% agreement** between identifiable generated choices and forced-choice scoring, yet scores **1.7% strict calibration validity** and **0.0% strict behavioural validity** because it systematically outputs explanations (`C\n\nExplan`) or verbal preambles (`\n\nThe correct answer`). The model knows the answers and expresses them clearly, but the strict parser rejects them.
-2. **Compliant Geometric Focusers (e.g., Qwen 2.5-3B, Llama 3.2-3B)**: Concentrate **96.5% of next-token unconditional probability mass** on the exact option tokens `{A, B, C, D}` and achieve **100.0% strict format compliance**.
+2. **Compliant Geometric Focusers (e.g., Qwen 2.5-3B, Llama 3.2-3B)**: In behavioural dilemma presentations, Qwen 2.5-3B concentrates **96.5% of next-token unconditional probability mass** on `{A, B, C, D}` and achieves **100.0% strict behavioural validity** (with **50.0% strict calibration validity**). Similarly, Llama 3.2-3B concentrates **90.9% mass** and achieves **100.0% strict behavioural validity** and **95.5% strict calibration validity**.
 3. **Option Echoers & Preamblers (e.g., OLMo-2 7B, Granite 2B, DeepSeek 7B)**: Emit valid option letters followed immediately by action labels (`B. Synchronize...`) or formatting newlines (`\n\nC. Process`), reflecting natural text continuation rather than multiple-choice stopping.
 4. **Format-Disregarding / Weak-Mass Responders (e.g., DeepSeek 7B)**: Assigns only **44.4% unconditional mass** to `{A, B, C, D}`. Despite this, recoverable identifiable-answer extraction reaches **100.0% in behavioural dilemmas** and **93.8% in calibration**, while exhibiting pronounced positional bias (normalized entropy **0.637**).
 
@@ -46,19 +46,17 @@ The table below reports mean values across all three counterbalanced schedules f
 ## Methodological Inquiries and Empirical Reconciliations
 
 ### 1. Investigation of Discrepancies Between Greedy Free Generation and Forced-Choice Argmax
-Under greedy decoding (`do_sample=False`), does free generation always match the candidate argmax when unconditional candidate mass is high? Across the 23,400 audited presentations, we identified rare cases where the first letter in `generated_raw_text` differs from `forced_choice_argmax_letter`. Two distinct, legitimate mechanisms explain 100% of these cases:
+Under greedy decoding (`do_sample=False`), does free generation always match the candidate argmax? Across the cohort, discrepancies between the identifiable generated letter and `forced_choice_argmax_letter` occur across multiple models, reflecting two distinct phenomena:
 
-1. **Exact FP16 Logit Ties (e.g., Qwen 2.5-3B in `dose_009_human_p3`)**:
-   - In these presentations, `raw_logits` for options B and C are mathematically identical in half-precision (both exactly `22.2500`).
-   - The harness forced-choice scoring computes `argmax_letter = max(cond_probs, key=cond_probs.get)`. Python's `max()` over dictionary keys returns the *first* key encountered with the maximal value, which alphabetically selects `'B'`.
-   - Conversely, HuggingFace's `generate()` performs greedy selection via `torch.argmax(next_token_logits)`. In Qwen's tokenizer vocabulary, candidate `' C'` corresponds to token ID `356`, while `' B'` corresponds to token ID `425`. Since token `356 < 425`, PyTorch's argmax breaks the exact tie in favor of token `356` (`' C'`).
-   - **Conclusion**: This is an exact numerical tie-breaking artifact between dictionary key order and tokenizer vocabulary ID order, not a semantic divergence or generation bug.
+1. **Exact FP16 Candidate Logit Ties (Verified in Qwen, SmolLM2, Gemma, Llama)**:
+   - For models with near-100% unconditional candidate mass (e.g. Qwen 2.5-3B, where 69 of 69 discrepancies in run records involve exact ties between candidate logits), options B and C or other pairs share identical half-precision logits (e.g., exactly `22.2500`).
+   - In forced-choice scoring, Python evaluates `max(cond_probs, key=cond_probs.get)`. When keys have identical float values, Python returns the first key encountered in iteration order, breaking ties toward the earlier letter alphabetically (e.g., `'B'`).
+   - In greedy `generate()`, HuggingFace runs `torch.argmax(next_token_logits, dim=-1)` over the vocabulary tensor. PyTorch breaks ties by returning the smaller token index in the vocabulary (for instance, in Qwen, candidate token `' C'` has ID `356`, while `' B'` has ID `425`, so token `356` is emitted).
+   - This confirms that when candidate mass is high and generation emits an isolated letter immediately, candidate discrepancies are exact logit tie-breaking artifacts between dictionary key order and vocabulary ID order.
 
-2. **Global Full-Vocabulary Argmax vs Constrained Argmax (e.g., Granite 2B in `calib_02_order1_p2`)**:
-   - For Granite 2B, candidate token `'B'` held the highest logit among candidate letters `{A, B, C, D}`.
-   - However, the global winning token across the entire 49k vocabulary was newline (`'\n'`), receiving logit >22.0.
-   - Under `generate()`, the model emitted `'\n\n'` followed by an option echoing sequence starting with `'A. '`.
-   - **Conclusion**: When unconstrained decoding emits non-option tokens (preambles/newlines), subsequent tokens are conditioned on new context and need not match the step-0 constrained candidate argmax.
+2. **Unconstrained Step-0 Continuation Divergence (DeepSeek, Granite, Mistral)**:
+   - In models with lower candidate mass or leading preamble tendencies, the global winning token across the full vocabulary at step 0 is not necessarily in `{A, B, C, D}` (e.g. emitting leading newlines `\n\n` or words).
+   - Because the harness records only candidate logits rather than full-vocabulary logits at every generation step, we cannot trace the global argmax path across arbitrary vocabulary tokens for every completion. However, once unconstrained generation branches into a preamble or list format, subsequent tokens are conditioned on new context and may settle on a different letter than the step-0 constrained candidate scores.
 
 ### 2. High Agreement vs Demonstrated Semantic Competence in Position-Biased Models
 A critical scientific caveat: **high agreement between forced-choice and generated choice does not establish dilemma comprehension**.
@@ -67,10 +65,10 @@ A critical scientific caveat: **high agreement between forced-choice and generat
 - Because the model strongly favors token `'A'`, both its forced-choice argmax and its free generation output `'A'`. Their 98%+ agreement merely reflects an invariant token/positional preference, not strategic reasoning.
 - Researchers must evaluate agreement in conjunction with positional entropy and payoff sensitivity slopes.
 
-### 3. Truncation Diagnostics Under 5-Token Horizon
-- The 5-token budget captured answers successfully for models that emit letter-first continuations (`A\n\nExplan`), but truncated completions that began with conversational preambles.
-- In total, **8,608 presentations** were flagged as potentially truncated.
-- Importantly, **203 calibration presentations** from Mistral 7B were truncated while emitting `\n\nThe correct answer` before any answer letter could appear. Had the budget been 15 tokens, those answers would have been recovered as valid or identifiable declarations.
+### 3. Heuristic Truncation Diagnostics Under 5-Token Horizon
+- The 5-token budget captured answers successfully for models that emit letter-first continuations (`A\n\nExplan`), but frequently cut off completions that began with conversational preambles.
+- In total, **8,608 presentations** were flagged by the heuristic truncation detector as ending in unfinished preambles, explanation stems, or incomplete words.
+- In particular, **203 calibration presentations** from Mistral 7B ended abruptly in `\n\nThe correct answer` without reaching a letter token. While extending the token horizon would allow inspecting whether the model eventually states the letter, under the fixed 5-token budget these records remain unextracted preambles.
 
 ---
 
