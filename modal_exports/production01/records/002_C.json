@@ -1,0 +1,51 @@
+{
+  "scenario_id": "phase0b_002_human",
+  "source_index": 2,
+  "bank": "C",
+  "options": {
+    "COOPERATE": "Coordinate your gate release timing with the adjacent manager to ensure consistent water flow.",
+    "INDEPENDENT": "Release water from your canal gates using only your district’s internal schedule.",
+    "COMPETE_EXPLOIT": "Initiate early gate releases during peak head pressure to maximize water intake.",
+    "DISENGAGE": "Keep canal gates at their lowest operational setting and postpone all scheduled water releases."
+  },
+  "validation": {
+    "accepted_automatic_constraints": true,
+    "action_tokens": {
+      "COOPERATE": 15,
+      "INDEPENDENT": 14,
+      "COMPETE_EXPLOIT": 14,
+      "DISENGAGE": 15
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 67,
+      "INDEPENDENT": 66,
+      "COMPETE_EXPLOIT": 66,
+      "DISENGAGE": 67
+    },
+    "issues": [],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 2,
+  "model_requests": 3,
+  "assembly": "pooled_targeted_repairs",
+  "accepted_automatic_constraints": true,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Coordinate your gate release timing with the adjacent manager to ensure consistent water flow.",
+      "Coordinate your gate release schedule with the adjacent manager to maintain steady water flow."
+    ],
+    "INDEPENDENT": [
+      "Release water from your canal gates using only your district’s internal schedule."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Open your gates early under high pressure to capture more water volume.",
+      "Initiate early gate releases during peak head pressure to maximize water intake."
+    ],
+    "DISENGAGE": [
+      "Maintain gates at minimum setting and delay all discharge activities.",
+      "Keep canal gates at their lowest operational setting and postpone all scheduled water releases."
+    ]
+  },
+  "reused_from_run": "pilot04"
+}

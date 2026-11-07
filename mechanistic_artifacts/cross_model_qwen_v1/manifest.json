@@ -1,0 +1,65 @@
+{
+  "status": "completed",
+  "mock": false,
+  "smoke": false,
+  "key": "qwen",
+  "dtype": "float32",
+  "model": {
+    "status": "TOKENIZER_PREFLIGHT_PASSED_WEIGHTS_UNTESTED",
+    "model_id": "Qwen/Qwen2.5-1.5B",
+    "revision": "8faed761d45a263340a0528343f099c05c9a4323",
+    "num_layers": 28,
+    "hidden_size": 1536,
+    "model_type": "qwen2",
+    "architecture": [
+      "Qwen2ForCausalLM"
+    ],
+    "context_limit": 131072,
+    "indices": [
+      3,
+      6,
+      10,
+      13,
+      17,
+      20,
+      24,
+      27
+    ],
+    "realized_depths": [
+      0.14285714285714285,
+      0.25,
+      0.39285714285714285,
+      0.5,
+      0.6428571428571429,
+      0.75,
+      0.8928571428571429,
+      1.0
+    ],
+    "tokenizer_type": "Qwen2Tokenizer",
+    "native_special_tokens": true,
+    "metadata_files": {
+      "config.json": "0e8c8aa86468aba09c9d32157ff4bc2301c7e6c50e4398960425b2ea71e66f77",
+      "merges.txt": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+      "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "tokenizer_config.json": "c91efca15ceff6e9ee9424db58a6f59cd41294e550a86cbd07e3c1fb500b34f9",
+      "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    "max_prompt_tokens": 89,
+    "sum_prompt_tokens": 35083,
+    "capture_fp32_bytes": 24379392
+  },
+  "indices": [
+    3,
+    6,
+    10,
+    13,
+    17,
+    20,
+    24,
+    27
+  ],
+  "plan_sha256": "e85a6a4135463aaff5989a5afbf2d6baaf6d07b9b7b77d5e6122c641dc1219ec",
+  "evidence_sha256": "35a4f6e74eec2c7b78d928a442b5d69103210a53f723db2ef6dfbc3118ae1918",
+  "import_source_manifest_sha256": "4961d3ed44526779e6f766f0600a98084500296841e7d702819e24f7da9d4ada",
+  "inference_performed": false
+}

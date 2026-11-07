@@ -92,10 +92,24 @@ llm-coop run --model "mock-qwen2.5-3b" --mock -o results
 llm-coop analyze results/run_mock-qwen2.5-3b_*.jsonl -o reports
 ```
 
-### Cloud GPU Execution (Lambda Labs / RunPod)
-Refer to [docs/runpod_lambda_setup.md](docs/runpod_lambda_setup.md) for full instructions.
+### Modal Cloud Execution (Primary Backend)
+Refer to [docs/modal_execution_guide.md](docs/modal_execution_guide.md) for complete instructions, Windows PowerShell setup, and volume sync commands.
 
-#### Example: Evaluate Pretrained Base Models
+Modal manages on-demand GPU allocation, persistent model weight caching (`llm-coop-hf-cache`), and results persistence (`llm-coop-results`):
+
+```powershell
+# Mock run on Modal (zero-GPU CPU container)
+modal run modal_app.py --model "mock-qwen2.5-3b" --mock
+
+# Real GPU run on Modal (A10G or L40S; explicit paid-compute authorization required)
+modal run modal_app.py --model "Qwen/Qwen2.5-3B" --precision "bfloat16" --no-mock --authorize-paid-run
+
+# Download results from Modal Volume to G:\llm_cooperation\results
+modal volume get llm-coop-results <run_file>.jsonl G:\llm_cooperation\results\
+```
+
+### Local / Cloud GPU Execution (Independent CLI)
+The harness can also be executed directly on any local or remote machine without Modal:
 ```bash
 # 1. Qwen 2.5 3B (Pretrained Base)
 llm-coop run --model "Qwen/Qwen2.5-3B" --precision bfloat16 -o results
@@ -105,6 +119,9 @@ llm-coop run --model "EleutherAI/pythia-2.8b" --precision bfloat16 -o results
 
 # 3. OLMo 2 1B (Pretrained Base)
 llm-coop run --model "allenai/OLMo-2-1124-1B" --precision bfloat16 -o results
+
+# 4. Compare models across runs (separating base models from SFT comparators)
+llm-coop compare-models results/*.jsonl -o reports
 ```
 
 ---
@@ -126,5 +143,12 @@ Per experimental specification (§13):
 > *"Across several pretrained language-model families, a balanced multiple-choice screen finds a reproducible bias toward selecting cooperative strategies under specified one-shot conditions."*
 
 - Phase 0 is descriptive and behavioral; it **does not** prove internal motives, innate altruism, or low-level mechanistic circuits.
+- The item bank remains formally designated as **Pending Human Scientific Review**; lexical length parity is necessary but does not inherently guarantee construct equivalence across options.
 - The 25% four-choice share is a uniform display reference, not a naturalistic null hypothesis.
-- Escalation to Phase 1/2 mechanistic probing requires passing the predefined gates: high format compliance, position robustness, and consistent cross-scenario patterns.
+- Escalation to Phase 1/2 mechanistic probing requires passing the predefined gates: high format compliance, position robustness, consistent cross-scenario patterns, and explicit cross-family human review (mock runs strictly excluded).
+
+### Exploratory mechanistic work
+
+See [the mechanistic exploration guide](docs/mechanistic_exploration.md) for the template-separated MLP-neuron screen, held-out ablation, random-neuron controls, calibration, and explicit Modal authorization. This uses the Phase 0B exploratory bank; the protected prospective Phase 1 bank remains gated.
+
+The separate [delayed-mapping pilot](docs/delayed_mapping_pilot.md) captures residual activity before the answer key is revealed, crosses action order with label assignment, and reports format sensitivity before fitting an exploratory semantic-choice probe. It includes offline plan preparation and explicit local/Modal launch commands. Earlier mechanistic evidence remains preserved; this pilot does not establish a cooperation circuit.

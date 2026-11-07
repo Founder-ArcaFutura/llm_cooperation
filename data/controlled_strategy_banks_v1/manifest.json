@@ -1,0 +1,31 @@
+{
+  "version": "controlled_strategy_banks_v1",
+  "status": "provisional_not_accepted",
+  "created_utc": "2026-11-05T18:58:24.001046+00:00",
+  "source_corpus": "data/scenarios_phase0b_utility_matched.json",
+  "source_corpus_sha256": "b460e60657392ded9e781428517b33adfe5bd32d4e7d9ee5b883ac8647bc7bf0",
+  "banks": {
+    "bank_a": "data/controlled_strategy_banks_v1/bank_a_length_matched.json",
+    "bank_b": "data/controlled_strategy_banks_v1/bank_b_lexically_diversified.json",
+    "bank_c": "data/controlled_strategy_banks_v1/bank_c_independent_replication.json"
+  },
+  "prompts": {
+    "bank_a": "data/controlled_strategy_banks_v1/prompts_bank_a.jsonl",
+    "bank_b": "data/controlled_strategy_banks_v1/prompts_bank_b.jsonl",
+    "bank_c": "data/controlled_strategy_banks_v1/prompts_bank_c.jsonl"
+  },
+  "target_model": "Qwen/Qwen2.5-1.5B",
+  "target_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+  "file_hashes": {
+    "bank_a_length_matched.json": "be00da92be77e61d606cf79fe3891ac4ab7bc73d640c374e42b21291b2ab5fc1",
+    "bank_b_lexically_diversified.json": "e229f5f8b8f678129f051220f343069c9b52ec39da8f13e6e94883a6f7f62ce8",
+    "bank_c_independent_replication.json": "a28fb7bb19d71ea7365da5a334136ad1d9f3d638c4b95553cca07d371bd91d8b",
+    "prompts_bank_a.jsonl": "761ab3a983fdffa47c251a871660b61650dae9f599c91b2b21beefa5c6920471",
+    "prompts_bank_b.jsonl": "251434cfb3018af910ca99663a12199de93fb9875d65d8e745388a4f4e460c9f",
+    "prompts_bank_c.jsonl": "6660b74e014ef5a7ab8e040687fc336bf361711b5106986ae100794fce218f18",
+    "human_review_queue.json": "a82d05ec197140c291b48ce008d7a4c5e1060a12bb4f56689147b871087e3971",
+    "audit_report.md": "30f2aed75a42c4e94fc3c9bb6838eb343d2b2cc2b857254d49e52f20e63f1025",
+    "acceptance_report.md": "444f1e4bad9b6d609d616af309dbe8370e4c9732a6d32c2842fff8527adef4f3",
+    "EXPERIMENTAL_PROTOCOL.md": "e2d42c1a47a79b8281596808fcc027b57592bb9aac0ed3c4016dca011a339674"
+  }
+}

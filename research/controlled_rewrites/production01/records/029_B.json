@@ -1,0 +1,48 @@
+{
+  "scenario_id": "phase0b_015_ai",
+  "source_index": 29,
+  "bank": "B",
+  "options": {
+    "COOPERATE": "Synchronize hopper access with the dispatch system to sustain consistent intake pacing.",
+    "INDEPENDENT": "Release grain from haulage trailers strictly in accordance with your independently scheduled appointment.",
+    "COMPETE_EXPLOIT": "Deploy the full trailer fleet at the ramp to claim early unloading priority.",
+    "DISENGAGE": "Reverse trailers toward holding depots without discharging grain at the silo."
+  },
+  "validation": {
+    "accepted_automatic_constraints": true,
+    "action_tokens": {
+      "COOPERATE": 15,
+      "INDEPENDENT": 15,
+      "COMPETE_EXPLOIT": 15,
+      "DISENGAGE": 15
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 71,
+      "INDEPENDENT": 71,
+      "COMPETE_EXPLOIT": 71,
+      "DISENGAGE": 71
+    },
+    "issues": [],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 2,
+  "model_requests": 2,
+  "assembly": "pooled_targeted_repairs",
+  "accepted_automatic_constraints": true,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Synchronize hopper access with the dispatch system to sustain consistent intake pacing."
+    ],
+    "INDEPENDENT": [
+      "Unload trailers using only your preassigned booking schedule without coordination.",
+      "Release grain from haulage trailers strictly in accordance with your independently scheduled appointment."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Deploy the full trailer fleet at the ramp to claim early unloading priority."
+    ],
+    "DISENGAGE": [
+      "Reverse trailers toward holding depots without discharging grain at the silo."
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "transformers_version": "5.5.4",
+  "architectures": [
+    "Olmo2ForCausalLM"
+  ],
+  "output_hidden_states": false,
+  "return_dict": true,
+  "dtype": "float32",
+  "chunk_size_feed_forward": 0,
+  "is_encoder_decoder": false,
+  "id2label": {
+    "0": "LABEL_0",
+    "1": "LABEL_1"
+  },
+  "label2id": {
+    "LABEL_0": 0,
+    "LABEL_1": 1
+  },
+  "problem_type": null,
+  "vocab_size": 100352,
+  "hidden_size": 4096,
+  "intermediate_size": 11008,
+  "num_hidden_layers": 32,
+  "num_attention_heads": 32,
+  "num_key_value_heads": 32,
+  "hidden_act": "silu",
+  "max_position_embeddings": 4096,
+  "initializer_range": 0.02,
+  "use_cache": true,
+  "pad_token_id": 100277,
+  "bos_token_id": null,
+  "eos_token_id": 100257,
+  "tie_word_embeddings": false,
+  "rope_parameters": {
+    "rope_theta": 500000,
+    "rope_type": "default"
+  },
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "rms_norm_eps": 1e-06,
+  "_name_or_path": "G:\\llm_cooperation\\.local\\cross-model-hf-cache\\models--allenai--OLMo-2-1124-7B\\snapshots\\7df9a82518afdecae4e8c026b27adccc8c1f0032",
+  "model_type": "olmo2",
+  "output_attentions": false
+}

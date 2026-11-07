@@ -1,0 +1,50 @@
+{
+  "scenario_id": "phase0b_015_ai",
+  "source_index": 29,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Coordinate hopper usage with the dispatch system to match intake timing.",
+    "INDEPENDENT": "Discharge grain haulage trailers based on your standalone scheduled booking.",
+    "COMPETE_EXPLOIT": "Deploy all trailers at the ramp to claim priority unloading access.",
+    "DISENGAGE": "Turn trailers around and return to regional holding depots without unloading."
+  },
+  "validation": {
+    "accepted_automatic_constraints": true,
+    "action_tokens": {
+      "COOPERATE": 13,
+      "INDEPENDENT": 13,
+      "COMPETE_EXPLOIT": 13,
+      "DISENGAGE": 14
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 69,
+      "INDEPENDENT": 69,
+      "COMPETE_EXPLOIT": 69,
+      "DISENGAGE": 70
+    },
+    "issues": [],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 4,
+  "assembly": "pooled_targeted_repairs",
+  "accepted_automatic_constraints": true,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Coordinate hopper usage with the dispatch system to match intake timing."
+    ],
+    "INDEPENDENT": [
+      "Unload trailers per your individual booking schedule without coordination.",
+      "Discharge trailers according to your independent scheduled booking without coordination.",
+      "Discharge grain haulage trailers based on your standalone scheduled booking."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Deploy all trailers at the ramp to claim priority unloading access."
+    ],
+    "DISENGAGE": [
+      "Redirect trailers to holding depots without attempting unloading.",
+      "Turn trailers around and return to regional holding depots without unloading."
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "scenario_id": "phase0b_004_human",
+  "source_index": 6,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Use the dual-hopper balance with the field geologist to sort samples together.",
+    "INDEPENDENT": "Classify your geological core samples individually on your dedicated bench.",
+    "COMPETE_EXPLOIT": "Take priority access to the optical spectrometer for densest cores.",
+    "DISENGAGE": "Package core specimens in field crates and delay laboratory classification."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 16,
+      "INDEPENDENT": 12,
+      "COMPETE_EXPLOIT": 13,
+      "DISENGAGE": 11
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 69,
+      "INDEPENDENT": 65,
+      "COMPETE_EXPLOIT": 66,
+      "DISENGAGE": 64
+    },
+    "issues": [
+      "action token span=5; lengths={'COOPERATE': 16, 'INDEPENDENT': 12, 'COMPETE_EXPLOIT': 13, 'DISENGAGE': 11}",
+      "full prompt token span=5; lengths={'COOPERATE': 69, 'INDEPENDENT': 65, 'COMPETE_EXPLOIT': 66, 'DISENGAGE': 64}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 7,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Use the dual-hopper balance with the field geologist to sort samples together.",
+      "Collaborate with the field geologist to sort samples using the dual-hopper balance."
+    ],
+    "INDEPENDENT": [
+      "Process your core samples alone on your dedicated bench.",
+      "Classify your core samples individually on your dedicated bench.",
+      "Classify your geological core samples individually on your dedicated bench."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Take priority access to the optical spectrometer for densest cores."
+    ],
+    "DISENGAGE": [
+      "Pack core specimens and delay lab classification indefinitely.",
+      "Package core specimens in crates and defer laboratory classification.",
+      "Package core specimens in field crates and delay laboratory classification."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Package core specimens in field crates and delay laboratory classification.\"}",
+  "repair_target": 12,
+  "candidate_counts": {
+    "COOPERATE": 2,
+    "INDEPENDENT": 3,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 3
+  }
+}

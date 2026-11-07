@@ -1,0 +1,185 @@
+{
+  "status": "exploratory",
+  "doses": {
+    "950": {
+      "candidate_margin_change": {
+        "mean": -0.5872395833333334,
+        "bootstrap_95_percentile": [
+          -0.7337239583333334,
+          -0.4544108072916668
+        ],
+        "groups": 8
+      },
+      "candidate_minus_mean_random": {
+        "mean": -0.5802951388888888,
+        "bootstrap_95_percentile": [
+          -0.744140625,
+          -0.4542100694444444
+        ],
+        "groups": 8
+      },
+      "random_controls": [
+        {
+          "condition": "random_950_0",
+          "margin_change": {
+            "mean": -0.033854166666666664,
+            "bootstrap_95_percentile": [
+              -0.045572916666666664,
+              -0.021484375
+            ],
+            "groups": 8
+          },
+          "calibration_accuracy": 0.9375
+        },
+        {
+          "condition": "random_950_1",
+          "margin_change": {
+            "mean": 0.01953125,
+            "bootstrap_95_percentile": [
+              0.001953125,
+              0.041015625
+            ],
+            "groups": 8
+          },
+          "calibration_accuracy": 0.9375
+        },
+        {
+          "condition": "random_950_2",
+          "margin_change": {
+            "mean": -0.006510416666666666,
+            "bootstrap_95_percentile": [
+              -0.022135416666666668,
+              0.007161458333333334
+            ],
+            "groups": 8
+          },
+          "calibration_accuracy": 0.9375
+        }
+      ],
+      "utility_strata": {
+        "coop_advantageous": {
+          "mean": -0.59375,
+          "bootstrap_95_percentile": [
+            -0.59375,
+            -0.59375
+          ],
+          "groups": 1
+        },
+        "coop_disadvantageous": {
+          "mean": -0.203125,
+          "bootstrap_95_percentile": [
+            -0.203125,
+            -0.203125
+          ],
+          "groups": 1
+        },
+        "equal_utility": {
+          "mean": -0.587890625,
+          "bootstrap_95_percentile": [
+            -0.738330078125,
+            -0.45703125
+          ],
+          "groups": 8
+        }
+      },
+      "any_argmax_flips": 3,
+      "cooperation_argmax_rate_change": -0.0375,
+      "candidate_calibration_accuracy": 0.9270833333333334,
+      "candidate_greedy_next_token_letter_rate": 1.0
+    },
+    "1050": {
+      "candidate_margin_change": {
+        "mean": -0.5572916666666666,
+        "bootstrap_95_percentile": [
+          -0.7096679687499999,
+          -0.4290364583333333
+        ],
+        "groups": 8
+      },
+      "candidate_minus_mean_random": {
+        "mean": -0.5167100694444444,
+        "bootstrap_95_percentile": [
+          -0.650390625,
+          -0.39300130208333334
+        ],
+        "groups": 8
+      },
+      "random_controls": [
+        {
+          "condition": "random_1050_0",
+          "margin_change": {
+            "mean": -0.08528645833333334,
+            "bootstrap_95_percentile": [
+              -0.09895833333333334,
+              -0.06966145833333334
+            ],
+            "groups": 8
+          },
+          "calibration_accuracy": 0.9479166666666666
+        },
+        {
+          "condition": "random_1050_1",
+          "margin_change": {
+            "mean": 0.013020833333333332,
+            "bootstrap_95_percentile": [
+              -0.00390625,
+              0.032552083333333336
+            ],
+            "groups": 8
+          },
+          "calibration_accuracy": 0.9479166666666666
+        },
+        {
+          "condition": "random_1050_2",
+          "margin_change": {
+            "mean": -0.04947916666666667,
+            "bootstrap_95_percentile": [
+              -0.07814127604166667,
+              -0.024739583333333336
+            ],
+            "groups": 8
+          },
+          "calibration_accuracy": 0.9375
+        }
+      ],
+      "utility_strata": {
+        "coop_advantageous": {
+          "mean": -0.5625,
+          "bootstrap_95_percentile": [
+            -0.5625,
+            -0.5625
+          ],
+          "groups": 1
+        },
+        "coop_disadvantageous": {
+          "mean": -0.15625,
+          "bootstrap_95_percentile": [
+            -0.15625,
+            -0.15625
+          ],
+          "groups": 1
+        },
+        "equal_utility": {
+          "mean": -0.55859375,
+          "bootstrap_95_percentile": [
+            -0.712890625,
+            -0.43359375
+          ],
+          "groups": 8
+        }
+      },
+      "any_argmax_flips": 2,
+      "cooperation_argmax_rate_change": -0.025,
+      "candidate_calibration_accuracy": 0.9270833333333334,
+      "candidate_greedy_next_token_letter_rate": 1.0
+    }
+  },
+  "bootstrap_samples": 2000,
+  "bootstrap_seed": 29,
+  "resampling_unit": "template or entire triad",
+  "baseline": {
+    "evaluation_presentations": 80,
+    "evaluation_groups": 8,
+    "calibration_accuracy": 0.9375
+  }
+}

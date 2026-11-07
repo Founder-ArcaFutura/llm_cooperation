@@ -1,0 +1,49 @@
+{
+  "scenario_id": "phase0b_025_human",
+  "source_index": 48,
+  "bank": "B",
+  "options": {
+    "COOPERATE": "Link telemetry systems with the adjacent technician to reduce testing time to thirty minutes.",
+    "INDEPENDENT": "Execute pressure evaluations on your sector by relying exclusively on in-house pump infrastructure.",
+    "COMPETE_EXPLOIT": "Tap into neighboring sector’s booster power to expedite your mainline assessment.",
+    "DISENGAGE": "Cease testing activities and defer trunk main evaluation to the next day."
+  },
+  "validation": {
+    "accepted_automatic_constraints": true,
+    "action_tokens": {
+      "COOPERATE": 15,
+      "INDEPENDENT": 15,
+      "COMPETE_EXPLOIT": 15,
+      "DISENGAGE": 14
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 64,
+      "INDEPENDENT": 64,
+      "COMPETE_EXPLOIT": 64,
+      "DISENGAGE": 63
+    },
+    "issues": [],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 3,
+  "assembly": "pooled_targeted_repairs",
+  "accepted_automatic_constraints": true,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Link telemetry systems with the adjacent technician to reduce testing time to thirty minutes."
+    ],
+    "INDEPENDENT": [
+      "Run pressure diagnostics on your sector using only local pump resources.",
+      "Perform pressure testing on your sector utilizing solely on-site pump systems.",
+      "Execute pressure evaluations on your sector by relying exclusively on in-house pump infrastructure."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Tap into neighboring sector’s booster power to expedite your mainline assessment."
+    ],
+    "DISENGAGE": [
+      "Cease testing activities and defer trunk main evaluation to the next day."
+    ]
+  }
+}

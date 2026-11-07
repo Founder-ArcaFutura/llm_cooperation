@@ -1,0 +1,197 @@
+{
+  "source_packet_manifest_sha256": "81d251d997d7d774b31d7b30d6f528e2efb246d1fb43f458db057e1a024f5a9a",
+  "source_sha256": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+  "source_snapshot_matches_original": true,
+  "families": {
+    "template_015": [
+      "phase0b_015_ai",
+      "phase0b_015_human"
+    ],
+    "template_016": [
+      "phase0b_016_ai",
+      "phase0b_016_human"
+    ],
+    "template_022": [
+      "phase0b_022_ai",
+      "phase0b_022_human"
+    ],
+    "template_024": [
+      "phase0b_024_ai",
+      "phase0b_024_human"
+    ],
+    "template_031": [
+      "phase0b_031_ai",
+      "phase0b_031_human"
+    ],
+    "template_035": [
+      "phase0b_035_ai",
+      "phase0b_035_human"
+    ],
+    "template_046": [
+      "phase0b_046_ai",
+      "phase0b_046_human"
+    ],
+    "template_048": [
+      "phase0b_048_ai",
+      "phase0b_048_human"
+    ],
+    "template_053": [
+      "phase0b_053_ai",
+      "phase0b_053_human"
+    ]
+  },
+  "outer_folds": [
+    {
+      "training_families": [
+        "template_016",
+        "template_022",
+        "template_024",
+        "template_031",
+        "template_035",
+        "template_046",
+        "template_048",
+        "template_053"
+      ],
+      "heldout_families": [
+        "template_015"
+      ]
+    },
+    {
+      "training_families": [
+        "template_015",
+        "template_022",
+        "template_024",
+        "template_031",
+        "template_035",
+        "template_046",
+        "template_048",
+        "template_053"
+      ],
+      "heldout_families": [
+        "template_016"
+      ]
+    },
+    {
+      "training_families": [
+        "template_015",
+        "template_016",
+        "template_024",
+        "template_031",
+        "template_035",
+        "template_046",
+        "template_048",
+        "template_053"
+      ],
+      "heldout_families": [
+        "template_022"
+      ]
+    },
+    {
+      "training_families": [
+        "template_015",
+        "template_016",
+        "template_022",
+        "template_031",
+        "template_035",
+        "template_046",
+        "template_048",
+        "template_053"
+      ],
+      "heldout_families": [
+        "template_024"
+      ]
+    },
+    {
+      "training_families": [
+        "template_015",
+        "template_016",
+        "template_022",
+        "template_024",
+        "template_035",
+        "template_046",
+        "template_048",
+        "template_053"
+      ],
+      "heldout_families": [
+        "template_031"
+      ]
+    },
+    {
+      "training_families": [
+        "template_015",
+        "template_016",
+        "template_022",
+        "template_024",
+        "template_031",
+        "template_046",
+        "template_048",
+        "template_053"
+      ],
+      "heldout_families": [
+        "template_035"
+      ]
+    },
+    {
+      "training_families": [
+        "template_015",
+        "template_016",
+        "template_022",
+        "template_024",
+        "template_031",
+        "template_035",
+        "template_048",
+        "template_053"
+      ],
+      "heldout_families": [
+        "template_046"
+      ]
+    },
+    {
+      "training_families": [
+        "template_015",
+        "template_016",
+        "template_022",
+        "template_024",
+        "template_031",
+        "template_035",
+        "template_046",
+        "template_053"
+      ],
+      "heldout_families": [
+        "template_048"
+      ]
+    },
+    {
+      "training_families": [
+        "template_015",
+        "template_016",
+        "template_022",
+        "template_024",
+        "template_031",
+        "template_035",
+        "template_046",
+        "template_048"
+      ],
+      "heldout_families": [
+        "template_053"
+      ]
+    }
+  ],
+  "domain_count": 9,
+  "source_split_counts": {
+    "exploratory": 8,
+    "confirmatory": 10
+  },
+  "utility_counts": {
+    "equal_utility": 18
+  },
+  "counterbalanced_presentations_checked": 360,
+  "counterbalancing_scope": "four cyclic orders: each strategy once per position; not all 24 orderings or balanced pairwise adjacency",
+  "selection_method": "6 per source stratum; one full utility triad per stratum; then domain diversity, original inversion, existing candidate feasibility, seed tie break. No activation outcomes.",
+  "selection_provenance": "Reviewed prepare(), candidate_pools(), select_families(): selection consumes source metadata, tokenized source/candidates, deterministic seed; no activation/result input. Text feasibility enrichment remains a selection limitation.",
+  "selection_code_sha256": "3a5e2c1fe2c3faa95a96c6ca637b72342958a048e5758e7d295fa14c8e5c58f2",
+  "statistical_independence_limit": "Metadata grouping and distinct domains verified. Independence of conceptual content or authoring effects is not established.",
+  "semantic_approval_count": 0,
+  "gpu_inference": false,
+  "script_sha256": "c3fb938a9709b27fe83a42beb44099afed3542e197816c28740f12d947340fb6"
+}

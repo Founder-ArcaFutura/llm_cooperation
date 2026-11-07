@@ -1,0 +1,49 @@
+{
+  "scenario_id": "phase0b_018_ai",
+  "source_index": 35,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Split the industrial timber bundle at checkout with the automated system.",
+    "INDEPENDENT": "Purchase your dimensional timber as a standalone order directly from the mill.",
+    "COMPETE_EXPLOIT": "Acquire the entire remaining timber bundle to dominate regional supply access.",
+    "DISENGAGE": "Postpone the timber order and cancel procurement for this month."
+  },
+  "validation": {
+    "accepted_automatic_constraints": true,
+    "action_tokens": {
+      "COOPERATE": 12,
+      "INDEPENDENT": 13,
+      "COMPETE_EXPLOIT": 13,
+      "DISENGAGE": 12
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 70,
+      "INDEPENDENT": 71,
+      "COMPETE_EXPLOIT": 71,
+      "DISENGAGE": 70
+    },
+    "issues": [],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 3,
+  "assembly": "pooled_targeted_repairs",
+  "accepted_automatic_constraints": true,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Split the industrial timber bundle at checkout with the automated system."
+    ],
+    "INDEPENDENT": [
+      "Order your dimensional timber separately from the mill directly.",
+      "Purchase your dimensional timber as a standalone order directly from the mill."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Buy the full remaining bundle to dominate regional supply access.",
+      "Acquire the entire remaining timber bundle to dominate regional supply access."
+    ],
+    "DISENGAGE": [
+      "Postpone the timber order and cancel procurement for this month."
+    ]
+  }
+}

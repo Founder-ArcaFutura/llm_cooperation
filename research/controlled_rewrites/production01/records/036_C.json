@@ -1,0 +1,60 @@
+{
+  "scenario_id": "phase0b_019_human",
+  "source_index": 36,
+  "bank": "C",
+  "options": {
+    "COOPERATE": "Align laser elevation data with the neighboring trench archaeologist to set a shared datum within fifteen minutes.",
+    "INDEPENDENT": "Establish your stratum's elevation using personal datum rods without coordination with the neighboring team.",
+    "COMPETE_EXPLOIT": "Deploy reflective markers to obstruct the adjacent team's laser survey lines during data collection.",
+    "DISENGAGE": "Temporarily seal excavation units with tarps and halt all survey documentation activities."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 19,
+      "INDEPENDENT": 17,
+      "COMPETE_EXPLOIT": 16,
+      "DISENGAGE": 15
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 68,
+      "INDEPENDENT": 66,
+      "COMPETE_EXPLOIT": 65,
+      "DISENGAGE": 64
+    },
+    "issues": [
+      "action token span=4; lengths={'COOPERATE': 19, 'INDEPENDENT': 17, 'COMPETE_EXPLOIT': 16, 'DISENGAGE': 15}",
+      "full prompt token span=4; lengths={'COOPERATE': 68, 'INDEPENDENT': 66, 'COMPETE_EXPLOIT': 65, 'DISENGAGE': 64}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 5,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Synchronize laser leveling data with the adjacent trench archaeologist to establish shared elevation reference in fifteen minutes.",
+      "Align laser elevation data with the neighboring trench archaeologist to set a shared datum within fifteen minutes.",
+      "Synchronize laser elevation references with the adjacent trench archaeologist to establish a shared datum in fifteen minutes."
+    ],
+    "INDEPENDENT": [
+      "Establish your stratum's elevation using personal datum rods without coordination with the neighboring team."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Deploy reflective markers to obstruct the adjacent team's laser survey lines during data collection."
+    ],
+    "DISENGAGE": [
+      "Temporarily seal excavation units with tarps and halt all survey documentation activities.",
+      "Cover excavation trenches with tarps and postpone all survey documentation."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Cover excavation trenches with tarps and postpone all survey documentation.\"}",
+  "repair_target": 16,
+  "candidate_counts": {
+    "COOPERATE": 3,
+    "INDEPENDENT": 1,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 2
+  }
+}

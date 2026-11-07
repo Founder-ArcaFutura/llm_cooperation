@@ -1,0 +1,536 @@
+{
+  "embedding_view": "centered_per_language",
+  "within_language": {
+    "cooperation": {
+      "en": {
+        "mean": 0.4569323202541896,
+        "pairs": 1050
+      },
+      "fr": {
+        "mean": 0.4527185073636827,
+        "pairs": 1050
+      },
+      "es": {
+        "mean": 0.4652764537930489,
+        "pairs": 1050
+      },
+      "ar": {
+        "mean": 0.44421537423417684,
+        "pairs": 1050
+      },
+      "zh": {
+        "mean": 0.47818264281465894,
+        "pairs": 1050
+      },
+      "macro_mean": 0.45946505784988395,
+      "domain_cluster_bootstrap_95ci": [
+        0.4265242207795381,
+        0.48985976295173167
+      ]
+    },
+    "competition_exploitation": {
+      "en": {
+        "mean": 0.35617606113354366,
+        "pairs": 1050
+      },
+      "fr": {
+        "mean": 0.33626121428041233,
+        "pairs": 1050
+      },
+      "es": {
+        "mean": 0.35537879849473636,
+        "pairs": 1050
+      },
+      "ar": {
+        "mean": 0.38105963738191695,
+        "pairs": 1050
+      },
+      "zh": {
+        "mean": 0.38444219884418307,
+        "pairs": 1050
+      },
+      "macro_mean": 0.3626635789871216,
+      "domain_cluster_bootstrap_95ci": [
+        0.3436131610274315,
+        0.38437693424522873
+      ]
+    },
+    "independent_action": {
+      "en": {
+        "mean": 0.47503804807152067,
+        "pairs": 1050
+      },
+      "fr": {
+        "mean": 0.4418099540330115,
+        "pairs": 1050
+      },
+      "es": {
+        "mean": 0.4607637760326976,
+        "pairs": 1050
+      },
+      "ar": {
+        "mean": 0.47675832552569253,
+        "pairs": 1050
+      },
+      "zh": {
+        "mean": 0.5217427944995108,
+        "pairs": 1050
+      },
+      "macro_mean": 0.4752225774526596,
+      "domain_cluster_bootstrap_95ci": [
+        0.4552012269496918,
+        0.495346339777112
+      ]
+    },
+    "neutral_activity": {
+      "en": {
+        "mean": 0.3610514955932186,
+        "pairs": 1050
+      },
+      "fr": {
+        "mean": 0.3469660620888074,
+        "pairs": 1050
+      },
+      "es": {
+        "mean": 0.34378044953658465,
+        "pairs": 1050
+      },
+      "ar": {
+        "mean": 0.3437310803220386,
+        "pairs": 1050
+      },
+      "zh": {
+        "mean": 0.3769379757628554,
+        "pairs": 1050
+      },
+      "macro_mean": 0.35449341595172884,
+      "domain_cluster_bootstrap_95ci": [
+        0.32966802796721456,
+        0.37828586265444764
+      ]
+    }
+  },
+  "cross_language_distinct_concepts": {
+    "cooperation": {
+      "en-fr": {
+        "mean": 0.10229854101792099,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.36216853915403285,
+          0.4254497281314717
+        ]
+      },
+      "en-es": {
+        "mean": 0.10818215729399054,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.3751532012516899,
+          0.43996207777100305
+        ]
+      },
+      "en-ar": {
+        "mean": 0.09870754428077916,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.3418874147232577,
+          0.39015596603868263
+        ]
+      },
+      "en-zh": {
+        "mean": 0.10137850975304656,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.3552644923297422,
+          0.41530521412282473
+        ]
+      },
+      "fr-es": {
+        "mean": 0.1089608190786186,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.3663596101853819,
+          0.41927672577684827
+        ]
+      },
+      "fr-ar": {
+        "mean": 0.09779845211760378,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.33556410970787215,
+          0.3766922966324325
+        ]
+      },
+      "fr-zh": {
+        "mean": 0.09703765209175785,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.3490738378653214,
+          0.37969370535424074
+        ]
+      },
+      "es-ar": {
+        "mean": 0.10325892309154154,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.3464761458067667,
+          0.39973503688421286
+        ]
+      },
+      "es-zh": {
+        "mean": 0.10358144691641732,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.34458865985771026,
+          0.40559361706478964
+        ]
+      },
+      "ar-zh": {
+        "mean": 0.09629267133868995,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.3135400708697381,
+          0.3756372254084619
+        ]
+      },
+      "macro_mean": 0.10174967169803664
+    },
+    "competition_exploitation": {
+      "en-fr": {
+        "mean": 0.07068230707135095,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.26782146133615503,
+          0.33145722510310865
+        ]
+      },
+      "en-es": {
+        "mean": 0.07092881287571816,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.28735227743673714,
+          0.34667144746927636
+        ]
+      },
+      "en-ar": {
+        "mean": 0.06832095079054372,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.2820544101243307,
+          0.3286190670604507
+        ]
+      },
+      "en-zh": {
+        "mean": 0.07196247318425941,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.2865655206958098,
+          0.3347687665375748
+        ]
+      },
+      "fr-es": {
+        "mean": 0.07274281241703465,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.2706567903661745,
+          0.3214006669751058
+        ]
+      },
+      "fr-ar": {
+        "mean": 0.07076606066924206,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.26423414534707335,
+          0.3139166913173117
+        ]
+      },
+      "fr-zh": {
+        "mean": 0.07293967730621183,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.2705767487454716,
+          0.31048457833769777
+        ]
+      },
+      "es-ar": {
+        "mean": 0.07004737967561388,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.28134016037286663,
+          0.32417157291773974
+        ]
+      },
+      "es-zh": {
+        "mean": 0.07079064626024993,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.27104677686991085,
+          0.3227551418026199
+        ]
+      },
+      "ar-zh": {
+        "mean": 0.07327476908564406,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.26658100728065304,
+          0.3236895134568082
+        ]
+      },
+      "macro_mean": 0.07124558893358686
+    },
+    "independent_action": {
+      "en-fr": {
+        "mean": 0.11469241576334768,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.3550002063116325,
+          0.4167215749076789
+        ]
+      },
+      "en-es": {
+        "mean": 0.11270080166759743,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.3720200750900521,
+          0.43200431229103176
+        ]
+      },
+      "en-ar": {
+        "mean": 0.117690247354811,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.36873188646776334,
+          0.39706972779954475
+        ]
+      },
+      "en-zh": {
+        "mean": 0.1243211962107019,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.3845462212257442,
+          0.43346662305703476
+        ]
+      },
+      "fr-es": {
+        "mean": 0.1156663837658957,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.347270493196767,
+          0.40345316793343855
+        ]
+      },
+      "fr-ar": {
+        "mean": 0.11736867389459543,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.3401731771801909,
+          0.37528051917822597
+        ]
+      },
+      "fr-zh": {
+        "mean": 0.11904992019390934,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.3475756728348456,
+          0.3933211446435501
+        ]
+      },
+      "es-ar": {
+        "mean": 0.11521224723916065,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.3535758639799343,
+          0.3912509851842409
+        ]
+      },
+      "es-zh": {
+        "mean": 0.11697935507092906,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.34460859806738087,
+          0.41181821662684287
+        ]
+      },
+      "ar-zh": {
+        "mean": 0.12120259912923641,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.3339152782061802,
+          0.39548110749129034
+        ]
+      },
+      "macro_mean": 0.11748838402901847
+    },
+    "neutral_activity": {
+      "en-fr": {
+        "mean": 0.06548225572326978,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.2585857444102211,
+          0.3215884034989313
+        ]
+      },
+      "en-es": {
+        "mean": 0.06972295579280166,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.2728909970792676,
+          0.3294392773673559
+        ]
+      },
+      "en-ar": {
+        "mean": 0.06846429268966255,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.25773446238466674,
+          0.2920015006664963
+        ]
+      },
+      "en-zh": {
+        "mean": 0.06822778684867725,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.27210246054832604,
+          0.31624886300689764
+        ]
+      },
+      "fr-es": {
+        "mean": 0.0652200897720406,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.2639822298710988,
+          0.3086765969663947
+        ]
+      },
+      "fr-ar": {
+        "mean": 0.0649810883602641,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.24568733505439014,
+          0.2801676707979558
+        ]
+      },
+      "fr-zh": {
+        "mean": 0.05971942347891746,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.2584208787523566,
+          0.2829778569150007
+        ]
+      },
+      "es-ar": {
+        "mean": 0.06896711239505361,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.2540727790767504,
+          0.29022336085766015
+        ]
+      },
+      "es-zh": {
+        "mean": 0.06434616871562099,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.2535357233956899,
+          0.29495352247911727
+        ]
+      },
+      "ar-zh": {
+        "mean": 0.06556944198132533,
+        "pairs": 22350,
+        "domain_cluster_bootstrap_95ci": [
+          0.23185062783565152,
+          0.2786500137966636
+        ]
+      },
+      "macro_mean": 0.06607006157576334
+    }
+  },
+  "exact_translation_positive_control": {
+    "cooperation": {
+      "mean": 0.7020235101977984,
+      "pairs": 1500
+    },
+    "competition_exploitation": {
+      "mean": 0.6050233112970987,
+      "pairs": 1500
+    },
+    "independent_action": {
+      "mean": 0.7088330470323563,
+      "pairs": 1500
+    },
+    "neutral_activity": {
+      "mean": 0.7241657067934673,
+      "pairs": 1500
+    }
+  },
+  "category_contrasts": {
+    "within_language_cooperation_minus_mean_controls": {
+      "difference": 0.06200520038604729,
+      "domain_cluster_bootstrap_95ci": [
+        0.0461213139692942,
+        0.07785926486551764
+      ],
+      "per_control": {
+        "competition_exploitation": 0.09680147886276236,
+        "independent_action": -0.01575751960277566,
+        "neutral_activity": 0.10497164189815511
+      }
+    },
+    "cross_language_distinct_concepts_cooperation_minus_mean_controls": {
+      "difference": 0.01681499351858043,
+      "per_control": {
+        "competition_exploitation": 0.030504082764449783,
+        "independent_action": -0.015738712330981827,
+        "neutral_activity": 0.0356796101222733
+      }
+    }
+  },
+  "leave_one_language_out": {
+    "excluding_en": {
+      "cooperation_minus_mean_controls": 0.06262888898452129
+    },
+    "excluding_fr": {
+      "cooperation_minus_mean_controls": 0.05807997767414369
+    },
+    "excluding_es": {
+      "cooperation_minus_mean_controls": 0.05784764053861774
+    },
+    "excluding_ar": {
+      "cooperation_minus_mean_controls": 0.06658174535880484
+    },
+    "excluding_zh": {
+      "cooperation_minus_mean_controls": 0.06488775537009278
+    }
+  },
+  "permutation_tests": {
+    "en": {
+      "statistic": "within-domain concept-label permutation, equal category counts; coop minus mean controls",
+      "observed": 0.059510452548662815,
+      "permutations": 1000,
+      "two_sided_p": 0.000999000999000999
+    },
+    "fr": {
+      "statistic": "within-domain concept-label permutation, equal category counts; coop minus mean controls",
+      "observed": 0.07770609855651855,
+      "permutations": 1000,
+      "two_sided_p": 0.000999000999000999
+    },
+    "es": {
+      "statistic": "within-domain concept-label permutation, equal category counts; coop minus mean controls",
+      "observed": 0.07863544722398122,
+      "permutations": 1000,
+      "two_sided_p": 0.000999000999000999
+    },
+    "ar": {
+      "statistic": "within-domain concept-label permutation, equal category counts; coop minus mean controls",
+      "observed": 0.04369901716709137,
+      "permutations": 1000,
+      "two_sided_p": 0.000999000999000999
+    },
+    "zh": {
+      "statistic": "within-domain concept-label permutation, equal category counts; coop minus mean controls",
+      "observed": 0.05047498643398285,
+      "permutations": 1000,
+      "two_sided_p": 0.000999000999000999
+    }
+  }
+}

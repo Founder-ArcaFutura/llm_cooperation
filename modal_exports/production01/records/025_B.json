@@ -1,0 +1,60 @@
+{
+  "scenario_id": "phase0b_013_ai",
+  "source_index": 25,
+  "bank": "B",
+  "options": {
+    "COOPERATE": "Submit pathogen variant data to the open standard schema via the automated sequencing system.",
+    "INDEPENDENT": "Save nucleotide variant records exclusively in the internal proprietary file format.",
+    "COMPETE_EXPLOIT": "Submit sequencing annotations with restrictive licensing conditions that mandate co-author consent.",
+    "DISENGAGE": "Retain raw nucleotide sequence data without creating formal variant annotation files."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 16,
+      "INDEPENDENT": 13,
+      "COMPETE_EXPLOIT": 13,
+      "DISENGAGE": 14
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 65,
+      "INDEPENDENT": 62,
+      "COMPETE_EXPLOIT": 62,
+      "DISENGAGE": 63
+    },
+    "issues": [
+      "action token span=3; lengths={'COOPERATE': 16, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 13, 'DISENGAGE': 14}",
+      "full prompt token span=3; lengths={'COOPERATE': 65, 'INDEPENDENT': 62, 'COMPETE_EXPLOIT': 62, 'DISENGAGE': 63}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 5,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Submit pathogen variant data to the open standard schema via the automated sequencing system.",
+      "Upload pathogen nucleotide variants to the open standard schema using the automated sequencing platform."
+    ],
+    "INDEPENDENT": [
+      "Save nucleotide variant records exclusively in the internal proprietary file format."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Upload annotations under restrictive licensing terms that require co-author approval.",
+      "Submit sequencing annotations with restrictive licensing conditions that mandate co-author consent."
+    ],
+    "DISENGAGE": [
+      "Store raw sequencing reads without producing any structured variant annotations.",
+      "Retain raw nucleotide sequence data without creating formal variant annotation files."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Submit sequencing annotations with restrictive licensing conditions that mandate co-author consent.\"}",
+  "repair_target": 13,
+  "candidate_counts": {
+    "COOPERATE": 2,
+    "INDEPENDENT": 1,
+    "COMPETE_EXPLOIT": 2,
+    "DISENGAGE": 2
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "scenario_id": "phase0b_002_human",
+  "source_index": 2,
+  "bank": "B",
+  "options": {
+    "COOPERATE": "Align your gate release timing with the adjacent manager to match regional flow patterns.",
+    "INDEPENDENT": "Operate your canal gates using only your district’s internal timing schedule.",
+    "COMPETE_EXPLOIT": "Initiate gate openings early under peak pressure to maximize water intake volume.",
+    "DISENGAGE": "Maintain canal gates at baseline positions and postpone all scheduled water discharges."
+  },
+  "validation": {
+    "accepted_automatic_constraints": true,
+    "action_tokens": {
+      "COOPERATE": 15,
+      "INDEPENDENT": 14,
+      "COMPETE_EXPLOIT": 14,
+      "DISENGAGE": 15
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 67,
+      "INDEPENDENT": 66,
+      "COMPETE_EXPLOIT": 66,
+      "DISENGAGE": 66
+    },
+    "issues": [],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 2,
+  "model_requests": 2,
+  "assembly": "pooled_targeted_repairs",
+  "accepted_automatic_constraints": true,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Align your gate release timing with the adjacent manager to match regional flow patterns."
+    ],
+    "INDEPENDENT": [
+      "Operate your canal gates using only your district’s internal timing schedule."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Initiate gate openings early under peak pressure to maximize water intake volume."
+    ],
+    "DISENGAGE": [
+      "Maintain gates at baseline levels and postpone all scheduled discharge activities.",
+      "Keep canal gates at minimum settings and delay all scheduled water releases.",
+      "Maintain canal gates at baseline positions and postpone all scheduled water discharges."
+    ]
+  },
+  "reused_from_run": "pilot04"
+}

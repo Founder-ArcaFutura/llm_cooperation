@@ -1,0 +1,59 @@
+{
+  "scenario_id": "phase0b_004_ai",
+  "source_index": 7,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Use the dual-hopper balance with the automated agent to sort samples together.",
+    "INDEPENDENT": "Process your core samples alone on your dedicated bench without assistance.",
+    "COMPETE_EXPLOIT": "Take priority access to the optical spectrometer for your densest cores first.",
+    "DISENGAGE": "Seal core samples in crates and delay lab classification indefinitely."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 15,
+      "INDEPENDENT": 12,
+      "COMPETE_EXPLOIT": 15,
+      "DISENGAGE": 12
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 67,
+      "INDEPENDENT": 64,
+      "COMPETE_EXPLOIT": 67,
+      "DISENGAGE": 63
+    },
+    "issues": [
+      "action token span=3; lengths={'COOPERATE': 15, 'INDEPENDENT': 12, 'COMPETE_EXPLOIT': 15, 'DISENGAGE': 12}",
+      "full prompt token span=4; lengths={'COOPERATE': 67, 'INDEPENDENT': 64, 'COMPETE_EXPLOIT': 67, 'DISENGAGE': 63}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 5,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Use the dual-hopper balance with the automated agent to sort samples together."
+    ],
+    "INDEPENDENT": [
+      "Process your core samples alone on your dedicated bench without assistance.",
+      "Analyze your geological core samples independently on your dedicated bench."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Take priority access to the optical spectrometer for your densest cores first."
+    ],
+    "DISENGAGE": [
+      "Seal core samples in crates and delay lab classification indefinitely.",
+      "Pack core specimens in field crates and defer laboratory analysis."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Pack core specimens in field crates and defer laboratory analysis.\"}",
+  "repair_target": 14,
+  "candidate_counts": {
+    "COOPERATE": 1,
+    "INDEPENDENT": 2,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 2
+  }
+}

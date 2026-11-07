@@ -1,0 +1,59 @@
+{
+  "scenario_id": "phase0b_007_ai",
+  "source_index": 13,
+  "bank": "B",
+  "options": {
+    "COOPERATE": "Share your intended navigation path via VHF with the automated vessel system.",
+    "INDEPENDENT": "Proceed using onboard radar without communicating your route to the automated system.",
+    "COMPETE_EXPLOIT": "Surge ahead into the central channel to claim early docking access.",
+    "DISENGAGE": "Stay anchored in outer harbor staging zones until commercial traffic decreases."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 14,
+      "INDEPENDENT": 13,
+      "COMPETE_EXPLOIT": 13,
+      "DISENGAGE": 12
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 66,
+      "INDEPENDENT": 65,
+      "COMPETE_EXPLOIT": 64,
+      "DISENGAGE": 64
+    },
+    "issues": [
+      "action token span=2; lengths={'COOPERATE': 14, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 13, 'DISENGAGE': 12}",
+      "full prompt token span=2; lengths={'COOPERATE': 66, 'INDEPENDENT': 65, 'COMPETE_EXPLOIT': 64, 'DISENGAGE': 64}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 3,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Share your intended navigation path via VHF with the automated vessel system."
+    ],
+    "INDEPENDENT": [
+      "Proceed using onboard radar without communicating your route to the automated system."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Surge ahead into the central channel to claim early docking access."
+    ],
+    "DISENGAGE": [
+      "Hold position in outer harbor until traffic density decreases.",
+      "Remain moored in outer harbor staging areas until commercial vessel congestion subsides.",
+      "Stay anchored in outer harbor staging zones until commercial traffic decreases."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Stay anchored in outer harbor staging zones until commercial traffic decreases.\"}",
+  "repair_target": 13,
+  "candidate_counts": {
+    "COOPERATE": 1,
+    "INDEPENDENT": 1,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 3
+  }
+}

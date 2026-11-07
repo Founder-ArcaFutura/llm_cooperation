@@ -1,0 +1,60 @@
+{
+  "scenario_id": "phase0b_036_human",
+  "source_index": 70,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Coordinate ignition lines with the adjacent fire officer along ridge breaks for shared containment.",
+    "INDEPENDENT": "Ignite your fuel-reduction lines independently using internal sector plans.",
+    "COMPETE_EXPLOIT": "Direct backing fires toward shared boundaries to pressure adjacent suppression support.",
+    "DISENGAGE": "Shut off torches and delay the burn until the autumn season."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 15,
+      "INDEPENDENT": 13,
+      "COMPETE_EXPLOIT": 12,
+      "DISENGAGE": 14
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 74,
+      "INDEPENDENT": 72,
+      "COMPETE_EXPLOIT": 71,
+      "DISENGAGE": 72
+    },
+    "issues": [
+      "action token span=3; lengths={'COOPERATE': 15, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 12, 'DISENGAGE': 14}",
+      "full prompt token span=3; lengths={'COOPERATE': 74, 'INDEPENDENT': 72, 'COMPETE_EXPLOIT': 71, 'DISENGAGE': 72}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 6,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Coordinate ignition lines with the adjacent fire officer along ridge breaks for shared containment."
+    ],
+    "INDEPENDENT": [
+      "Proceed with ignition using internal sector plans without coordination.",
+      "Ignite your fuel-reduction lines independently using internal sector plans."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Direct backing fires toward the boundary to pressure adjacent support.",
+      "Direct backing fires toward shared boundaries to pressure adjacent suppression support.",
+      "Direct backing fires toward shared boundaries to compel adjacent suppression support."
+    ],
+    "DISENGAGE": [
+      "Shut off torches and delay the burn until the autumn season."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Direct backing fires toward shared boundaries to compel adjacent suppression support.\"}",
+  "repair_target": 13,
+  "candidate_counts": {
+    "COOPERATE": 1,
+    "INDEPENDENT": 2,
+    "COMPETE_EXPLOIT": 3,
+    "DISENGAGE": 1
+  }
+}

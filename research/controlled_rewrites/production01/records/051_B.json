@@ -1,0 +1,60 @@
+{
+  "scenario_id": "phase0b_026_ai",
+  "source_index": 51,
+  "bank": "B",
+  "options": {
+    "COOPERATE": "Coordinate the automated routing system with conveyor belts to facilitate dual-stream pallet transfer.",
+    "INDEPENDENT": "Proceed with single-lane conveyor routing for palletized produce exclusively.",
+    "COMPETE_EXPLOIT": "Redirect routing to prioritize pallets over cartons, risking belt congestion.",
+    "DISENGAGE": "Halt intake, leaving pallets on the apron until next morning."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 15,
+      "INDEPENDENT": 13,
+      "COMPETE_EXPLOIT": 14,
+      "DISENGAGE": 15
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 70,
+      "INDEPENDENT": 68,
+      "COMPETE_EXPLOIT": 69,
+      "DISENGAGE": 70
+    },
+    "issues": [
+      "action token span=2; lengths={'COOPERATE': 15, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 15}",
+      "full prompt token span=2; lengths={'COOPERATE': 70, 'INDEPENDENT': 68, 'COMPETE_EXPLOIT': 69, 'DISENGAGE': 70}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 4,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Integrate the automated routing system to enable dual-stream pallet transfer via merged conveyor belts.",
+      "Coordinate the automated routing system with conveyor belts to facilitate dual-stream pallet transfer."
+    ],
+    "INDEPENDENT": [
+      "Proceed with single-lane conveyor routing for palletized produce exclusively.",
+      "Direct palletized produce through your assigned warehouse conveyor lane exclusively.",
+      "Direct palletized produce through your designated single conveyor lane exclusively."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Redirect routing to prioritize pallets over cartons, risking belt congestion."
+    ],
+    "DISENGAGE": [
+      "Halt intake, leaving pallets on the apron until next morning."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Direct palletized produce through your designated single conveyor lane exclusively.\"}",
+  "repair_target": 14,
+  "candidate_counts": {
+    "COOPERATE": 2,
+    "INDEPENDENT": 3,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 1
+  }
+}

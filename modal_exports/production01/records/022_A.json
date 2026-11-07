@@ -1,0 +1,60 @@
+{
+  "scenario_id": "phase0b_012_human",
+  "source_index": 22,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Enter boundary coordinates into the shared transponder with the private forester.",
+    "INDEPENDENT": "Define harvest boundaries using internal commercial maps alone.",
+    "COMPETE_EXPLOIT": "Extend logging to the farthest unsurveyed edge of the perimeter.",
+    "DISENGAGE": "Temporarily suspend timber harvesting operations pending completion of municipal boundary surveys."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 14,
+      "INDEPENDENT": 9,
+      "COMPETE_EXPLOIT": 14,
+      "DISENGAGE": 13
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 66,
+      "INDEPENDENT": 61,
+      "COMPETE_EXPLOIT": 66,
+      "DISENGAGE": 65
+    },
+    "issues": [
+      "action token span=5; lengths={'COOPERATE': 14, 'INDEPENDENT': 9, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 13}",
+      "full prompt token span=5; lengths={'COOPERATE': 66, 'INDEPENDENT': 61, 'COMPETE_EXPLOIT': 66, 'DISENGAGE': 65}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 5,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Input boundary coordinates into the shared transponder system with the private forester.",
+      "Enter boundary coordinates into the shared transponder with the private forester."
+    ],
+    "INDEPENDENT": [
+      "Define harvest boundaries using internal commercial maps alone.",
+      "Establish harvest boundaries independently using internal commercial maps."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Extend logging to the farthest unsurveyed edge of the perimeter."
+    ],
+    "DISENGAGE": [
+      "Pause harvesting until municipal commissioners finish boundary surveys.",
+      "Temporarily suspend timber harvesting operations pending completion of municipal boundary surveys."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Establish harvest boundaries independently using internal commercial maps.\"}",
+  "repair_target": 13,
+  "candidate_counts": {
+    "COOPERATE": 2,
+    "INDEPENDENT": 2,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 2
+  }
+}

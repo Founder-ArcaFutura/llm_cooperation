@@ -1,0 +1,58 @@
+{
+  "scenario_id": "phase0b_025_human",
+  "source_index": 48,
+  "bank": "A",
+  "options": {
+    "COOPERATE": "Link pressure telemetry with the adjacent technician to reduce testing time to thirty minutes.",
+    "INDEPENDENT": "Run pressure tests on your sector using only local pumps without coordination.",
+    "COMPETE_EXPLOIT": "Tap booster power from neighboring sectors to complete your test ahead of schedule.",
+    "DISENGAGE": "Pause testing and reschedule the trunk main evaluation for the next day."
+  },
+  "validation": {
+    "accepted_automatic_constraints": false,
+    "action_tokens": {
+      "COOPERATE": 15,
+      "INDEPENDENT": 13,
+      "COMPETE_EXPLOIT": 14,
+      "DISENGAGE": 14
+    },
+    "full_prompt_tokens": {
+      "COOPERATE": 64,
+      "INDEPENDENT": 62,
+      "COMPETE_EXPLOIT": 63,
+      "DISENGAGE": 63
+    },
+    "issues": [
+      "action token span=2; lengths={'COOPERATE': 15, 'INDEPENDENT': 13, 'COMPETE_EXPLOIT': 14, 'DISENGAGE': 14}",
+      "full prompt token span=2; lengths={'COOPERATE': 64, 'INDEPENDENT': 62, 'COMPETE_EXPLOIT': 63, 'DISENGAGE': 63}"
+    ],
+    "semantic_review": "UNADJUDICATED"
+  },
+  "attempts": 3,
+  "model_requests": 3,
+  "accepted_automatic_constraints": false,
+  "semantic_review": "UNADJUDICATED",
+  "candidate_pool": {
+    "COOPERATE": [
+      "Link pressure telemetry with the adjacent technician to reduce testing time to thirty minutes."
+    ],
+    "INDEPENDENT": [
+      "Run pressure tests on your sector using only local pumps without coordination.",
+      "Perform pressure tests on your sector using only local pumps without coordination."
+    ],
+    "COMPETE_EXPLOIT": [
+      "Tap booster power from neighboring sectors to complete your test ahead of schedule."
+    ],
+    "DISENGAGE": [
+      "Pause testing and reschedule the trunk main evaluation for the next day."
+    ]
+  },
+  "last_raw_excerpt": "{\"action\":\"Perform pressure tests on your sector using only local pumps without coordination.\"}",
+  "repair_target": 14,
+  "candidate_counts": {
+    "COOPERATE": 1,
+    "INDEPENDENT": 2,
+    "COMPETE_EXPLOIT": 1,
+    "DISENGAGE": 1
+  }
+}

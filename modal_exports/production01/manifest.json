@@ -1,0 +1,48 @@
+{
+  "version": "model_generated_controlled_banks_candidate_v1",
+  "status": "PROVISIONAL_PENDING_INDEPENDENT_SEMANTIC_REVIEW",
+  "run_name": "production01",
+  "created_utc": "2026-11-05T22:50:27.470782+00:00",
+  "source_sha256": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+  "source_path": "data/scenarios_phase0b_utility_matched.json",
+  "model": "Qwen/Qwen3-30B-A3B-Instruct-2507-FP8",
+  "resolved_model_sha": "5a5a776300a41aaa681dd7ff0106608ef2bc90db",
+  "measurement_tokenizer": "Qwen/Qwen2.5-1.5B",
+  "measurement_tokenizer_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+  "start": 0,
+  "limit": 124,
+  "max_attempts": 3,
+  "reuse_run": "pilot04",
+  "max_runtime_minutes": 60,
+  "elapsed_minutes": 11.78,
+  "run_status": "FINISHED_WITH_UNRESOLVED",
+  "stop_reason": null,
+  "counts": {
+    "A": {
+      "accepted": 30,
+      "newly_accepted": 26,
+      "reused": 4,
+      "unresolved": 94,
+      "errors": 0,
+      "not_attempted": 0
+    },
+    "B": {
+      "accepted": 21,
+      "newly_accepted": 18,
+      "reused": 3,
+      "unresolved": 103,
+      "errors": 0,
+      "not_attempted": 0
+    },
+    "C": {
+      "accepted": 21,
+      "newly_accepted": 18,
+      "reused": 3,
+      "unresolved": 103,
+      "errors": 0,
+      "not_attempted": 0
+    }
+  },
+  "unresolved_count": 300,
+  "scientific_use_allowed": false
+}
