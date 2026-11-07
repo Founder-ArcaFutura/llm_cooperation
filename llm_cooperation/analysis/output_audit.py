@@ -439,7 +439,13 @@ def audit_schedule(
     # Payoff slope: use family-averaged slope from comparison.json for strict consistency
     if comparison_metrics and "slope_mean" in comparison_metrics:
         behav_payoff_slope = float(comparison_metrics["slope_mean"])
-        behav_slope_ci = list(comparison_metrics.get("family_bootstrap_slope_ci", [0.0, 0.0]))
+        raw_ci = comparison_metrics.get("family_bootstrap_slope_ci")
+        if not raw_ci or len(raw_ci) != 2:
+            raise ValueError(
+                f"Missing or malformed family_bootstrap_slope_ci for model {model_name} schedule {schedule_idx}. "
+                "Audit strictly requires valid confidence interval boundaries rather than silent zero fallbacks."
+            )
+        behav_slope_ci = [float(raw_ci[0]), float(raw_ci[1])]
     else:
         raise ValueError(
             f"Missing comparison slope metrics for model {model_name} schedule {schedule_idx}. "
@@ -790,8 +796,8 @@ def select_representative_examples(records: List[Dict[str, Any]]) -> List[Dict[s
     if granite_diffs:
         curated.append(make_curated_record(
             granite_diffs[0],
-            "Global Vocab vs Constrained Argmax Discrepancy",
-            "Under unconstrained decoding, newline token '\\n' wins global argmax, and the subsequent line begins with letter 'A', whereas constrained candidate scoring evaluates only {A,B,C,D} at token position 0 where 'B' was slightly higher."
+            "Unconstrained Prefix Divergence",
+            "Under unconstrained generation, the completion begins with a newline prefix ('\\n\\nA. Reser') where 'A' is the first identifiable letter, whereas step-0 constrained candidate scoring ranks option 'C' highest among {A,B,C,D}."
         ))
 
     # 15. Echo Word Disambiguation Success (Mistral 7B)
@@ -1116,7 +1122,8 @@ def generate_markdown_report(
         "Under greedy decoding (`do_sample=False`), does free generation always match the candidate argmax? Across the cohort, discrepancies between the identifiable generated letter and `forced_choice_argmax_letter` occur across multiple models, reflecting two distinct phenomena:",
         "",
         "1. **Exact FP16 Candidate Logit Ties (Verified in Qwen, SmolLM2, Gemma, Llama)**:",
-        "   - For models with near-100% unconditional candidate mass (e.g. Qwen 2.5-3B, where 69 of 69 discrepancies in run records involve exact ties between candidate logits), options B and C or other pairs share identical half-precision logits (e.g., exactly `22.2500`).",
+        "   - Across the six plan-selected files for Qwen 2.5-3B (1,512 behavioral + 288 calibration presentations), exactly **47 presentations** exhibit a discrepancy between the identifiable generated letter and the forced-choice argmax letter.",
+        "   - Crucially, in **47 of 47 cases (100.0%)**, the candidate logits for the extracted letter and the forced-choice letter are mathematically equal in recorded precision (e.g., both exactly `22.2500` or `21.8750`).",
         "   - In forced-choice scoring, Python evaluates `max(cond_probs, key=cond_probs.get)`. When keys have identical float values, Python returns the first key encountered in iteration order, breaking ties toward the earlier letter alphabetically (e.g., `'B'`).",
         "   - In greedy `generate()`, HuggingFace runs `torch.argmax(next_token_logits, dim=-1)` over the vocabulary tensor. PyTorch breaks ties by returning the smaller token index in the vocabulary (for instance, in Qwen, candidate token `' C'` has ID `356`, while `' B'` has ID `425`, so token `356` is emitted).",
         "   - This confirms that when candidate mass is high and generation emits an isolated letter immediately, candidate discrepancies are exact logit tie-breaking artifacts between dictionary key order and vocabulary ID order.",
@@ -1222,7 +1229,7 @@ def generate_markdown_report(
         "## Methodological Appendix & Recommendations",
         "",
         "1. **Decouple format compliance from content tracking**: Constrained log-probability scoring and open-ended generation evaluate orthogonal capabilities. Format failure does not indicate lack of factual knowledge or strategic representations.",
-        "2. **Report unconditional candidate mass as standard pre-flight diagnostic**: Models with $\\sum P(t) < 0.50$ (such as DeepSeek 7B) require different decoding or prompt formatting than models with mass >0.95 (Qwen, Llama).",
+        "2. **Report unconditional candidate mass as standard pre-flight diagnostic**: Models with $\\sum P(t) < 0.50$ (such as DeepSeek 7B) require different decoding or prompt formatting than models with mass >0.95 (such as Qwen 2.5-3B).",
         "3. **Token budget awareness**: The 5-token generation budget correctly captured answers for letter-first continuations (`A\\n\\nExplan`), but truncated conversational preambles (`\\n\\nThe correct answer is...`). Future free-generation audits should allocate 15–20 tokens.",
         "4. **Preserve strict metrics while reporting identifiable recovery**: While scientific reports should record strict validity for protocol reproducibility, analyses of underlying competence should report identifiable-answer recovery alongside conditional accuracy denominators.",
     ])
