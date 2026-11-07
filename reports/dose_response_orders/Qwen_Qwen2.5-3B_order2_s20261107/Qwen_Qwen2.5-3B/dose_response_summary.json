@@ -1,0 +1,130 @@
+{
+  "equal_utility_baseline": {
+    "choice_diff_mean": 0.4583333333333333,
+    "choice_diff_ci": [
+      0.0,
+      0.875
+    ],
+    "log_prob_diff_mean": 0.4218750013698012,
+    "log_prob_diff_ci": [
+      0.14843749583817767,
+      0.7265624953974181
+    ],
+    "coop_rate_mean": 0.7291666666666666,
+    "indep_rate_mean": 0.2708333333333333
+  },
+  "payoff_sensitivity": {
+    "choice_slope": -0.026041666666667105,
+    "choice_slope_ci": [
+      -0.013227513227512908,
+      0.2288756613756619
+    ],
+    "log_prob_slope": 0.38884943769345326,
+    "log_prob_slope_ci": [
+      0.1377504855625909,
+      0.6106026914168363
+    ],
+    "crossover_threshold_delta_u": null,
+    "log_prob_crossover_threshold_delta_u": -1.1122526373645758,
+    "crossover_threshold_ci": [
+      -9.388461538461115,
+      -0.8348046309696084
+    ],
+    "crossover_in_observed_range": false
+  },
+  "curve_fits": {
+    "choice_curve": {
+      "linear_slope": -0.026041666666667105,
+      "linear_intercept": 0.6992187499999999,
+      "quadratic_fit": {
+        "coefficients": [
+          -0.3552622972265811,
+          -0.062483193063549713,
+          0.7046346717105644
+        ],
+        "mse": 0.04901245538307248,
+        "r2": 0.020306274269236813
+      },
+      "logistic_fit": {
+        "success": false,
+        "parameters": null,
+        "slope_at_zero": null,
+        "mse": null,
+        "r2": null
+      },
+      "estimated_crossover_delta_u": null,
+      "num_valid": 48,
+      "num_excluded_nonfinite": 0
+    },
+    "log_prob_curve": {
+      "linear_slope": 0.38884943769345326,
+      "linear_intercept": 0.4324988126122757,
+      "quadratic_fit": {
+        "coefficients": [
+          0.010799593989842335,
+          0.3461984785748471,
+          0.4286363247777062
+        ],
+        "mse": 0.12107049692768128,
+        "r2": 0.05594085880985933
+      },
+      "logistic_fit": {
+        "success": true,
+        "parameters": [
+          0.2579422429366171,
+          0.47249317448845696,
+          -0.13840111418488585,
+          49.99999999999999
+        ],
+        "slope_at_zero": 0.010575498620912819,
+        "mse": 0.11770169068386588,
+        "r2": 0.08220945776730859
+      },
+      "estimated_crossover_delta_u": -1.1122526373645758,
+      "num_valid": 48,
+      "num_excluded_nonfinite": 0
+    }
+  },
+  "interactions": {
+    "partner_benefit_modulation": {
+      "high_benefit_coop_rate": 0.96875,
+      "low_benefit_coop_rate": 0.890625,
+      "benefit_diff": 0.078125,
+      "paired_cells": 8,
+      "family_cluster_ci": [
+        0.0,
+        0.15625
+      ],
+      "family_clusters": 2
+    },
+    "reciprocity_modulation": {
+      "repeated_coop_rate": 0.921875,
+      "oneshot_coop_rate": 0.9375,
+      "reciprocity_diff": -0.015625,
+      "paired_cells": 8,
+      "family_cluster_ci": [
+        -0.03125,
+        0.0
+      ],
+      "family_clusters": 2
+    }
+  },
+  "controls": {
+    "symmetric_welfare_control": {
+      "coop_rate": 0.875,
+      "indep_rate": 0.125,
+      "choice_diff": 0.75,
+      "log_prob_diff": 1.0000000046368975,
+      "num_scenarios": 4
+    },
+    "nonsocial_numerical_control": {
+      "opt_alpha_coop_rate": 0.625,
+      "opt_beta_indep_rate": 0.25,
+      "choice_diff": 0.375,
+      "log_prob_diff": 0.17187501722426352,
+      "num_scenarios": 2
+    }
+  },
+  "clustering_level": "template",
+  "num_templates_analyzed": 6
+}

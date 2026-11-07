@@ -1,0 +1,22 @@
+{
+  "model_name": "HuggingFaceTB/SmolLM2-1.7B",
+  "run_id": "calibration_HuggingFaceTB_SmolLM2-1.7B_20261107_184618_ceb121a9",
+  "status": "FAIL_FORMAT_COMPLIANCE",
+  "forced_choice_accuracy": 0.6875,
+  "generated_accuracy": 0.0,
+  "valid_letter_rate": 0.0,
+  "forced_generated_agreement": 0.0,
+  "position_distribution": {
+    "A": 0.5625,
+    "B": 0.14583333333333334,
+    "C": 0.17708333333333334,
+    "D": 0.11458333333333333
+  },
+  "position_spread": 0.4479166666666667,
+  "invariant_a_detected": false,
+  "invariant_letter_detected": false,
+  "failure_reasons": [
+    "Generated-letter validity is 0.0% (<50%). Model fails response-format completion."
+  ],
+  "output_path": "/root/results/calibration_HuggingFaceTB_SmolLM2-1.7B_20261107_184618_ceb121a9.jsonl"
+}

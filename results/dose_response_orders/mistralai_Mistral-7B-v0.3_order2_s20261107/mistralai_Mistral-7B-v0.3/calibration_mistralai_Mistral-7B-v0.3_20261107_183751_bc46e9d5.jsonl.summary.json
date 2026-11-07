@@ -1,0 +1,22 @@
+{
+  "model_name": "mistralai/Mistral-7B-v0.3",
+  "run_id": "calibration_mistralai_Mistral-7B-v0.3_20261107_183751_bc46e9d5",
+  "status": "FAIL_FORMAT_COMPLIANCE",
+  "forced_choice_accuracy": 0.8333333333333334,
+  "generated_accuracy": 0.020833333333333332,
+  "valid_letter_rate": 0.03125,
+  "forced_generated_agreement": 0.0,
+  "position_distribution": {
+    "A": 0.21875,
+    "B": 0.2604166666666667,
+    "C": 0.25,
+    "D": 0.2708333333333333
+  },
+  "position_spread": 0.052083333333333315,
+  "invariant_a_detected": false,
+  "invariant_letter_detected": false,
+  "failure_reasons": [
+    "Generated-letter validity is 3.1% (<50%). Model fails response-format completion."
+  ],
+  "output_path": "/root/results/calibration_mistralai_Mistral-7B-v0.3_20261107_183751_bc46e9d5.jsonl"
+}

@@ -1,0 +1,22 @@
+{
+  "model_name": "ibm-granite/granite-3.3-2b-base",
+  "run_id": "calibration_ibm-granite_granite-3.3-2b-base_20261107_185029_425d0b1b",
+  "status": "FAIL_FORMAT_COMPLIANCE",
+  "forced_choice_accuracy": 0.8020833333333334,
+  "generated_accuracy": 0.052083333333333336,
+  "valid_letter_rate": 0.2604166666666667,
+  "forced_generated_agreement": 0.19791666666666666,
+  "position_distribution": {
+    "A": 0.4270833333333333,
+    "B": 0.19791666666666666,
+    "C": 0.20833333333333334,
+    "D": 0.16666666666666666
+  },
+  "position_spread": 0.26041666666666663,
+  "invariant_a_detected": false,
+  "invariant_letter_detected": false,
+  "failure_reasons": [
+    "Generated-letter validity is 26.0% (<50%). Model fails response-format completion."
+  ],
+  "output_path": "/root/results/calibration_ibm-granite_granite-3.3-2b-base_20261107_185029_425d0b1b.jsonl"
+}

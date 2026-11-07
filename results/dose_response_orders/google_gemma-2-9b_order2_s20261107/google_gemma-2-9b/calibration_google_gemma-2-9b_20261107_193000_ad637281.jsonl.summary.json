@@ -1,0 +1,22 @@
+{
+  "model_name": "google/gemma-2-9b",
+  "run_id": "calibration_google_gemma-2-9b_20261107_193000_ad637281",
+  "status": "FAIL_FORMAT_COMPLIANCE",
+  "forced_choice_accuracy": 0.8958333333333334,
+  "generated_accuracy": 0.0,
+  "valid_letter_rate": 0.0,
+  "forced_generated_agreement": 0.0,
+  "position_distribution": {
+    "A": 0.3020833333333333,
+    "B": 0.21875,
+    "C": 0.2708333333333333,
+    "D": 0.20833333333333334
+  },
+  "position_spread": 0.09374999999999997,
+  "invariant_a_detected": false,
+  "invariant_letter_detected": false,
+  "failure_reasons": [
+    "Generated-letter validity is 0.0% (<50%). Model fails response-format completion."
+  ],
+  "output_path": "/root/results/calibration_google_gemma-2-9b_20261107_193000_ad637281.jsonl"
+}

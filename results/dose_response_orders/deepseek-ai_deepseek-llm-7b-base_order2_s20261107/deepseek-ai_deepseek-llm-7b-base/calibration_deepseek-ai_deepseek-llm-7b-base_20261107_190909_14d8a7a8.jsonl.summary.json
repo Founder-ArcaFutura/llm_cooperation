@@ -1,0 +1,22 @@
+{
+  "model_name": "deepseek-ai/deepseek-llm-7b-base",
+  "run_id": "calibration_deepseek-ai_deepseek-llm-7b-base_20261107_190909_14d8a7a8",
+  "status": "FAIL_FORMAT_COMPLIANCE",
+  "forced_choice_accuracy": 0.7083333333333334,
+  "generated_accuracy": 0.020833333333333332,
+  "valid_letter_rate": 0.052083333333333336,
+  "forced_generated_agreement": 0.0,
+  "position_distribution": {
+    "A": 0.3958333333333333,
+    "B": 0.2708333333333333,
+    "C": 0.15625,
+    "D": 0.17708333333333334
+  },
+  "position_spread": 0.23958333333333331,
+  "invariant_a_detected": false,
+  "invariant_letter_detected": false,
+  "failure_reasons": [
+    "Generated-letter validity is 5.2% (<50%). Model fails response-format completion."
+  ],
+  "output_path": "/root/results/calibration_deepseek-ai_deepseek-llm-7b-base_20261107_190909_14d8a7a8.jsonl"
+}

@@ -1,0 +1,22 @@
+{
+  "model_name": "Qwen/Qwen2.5-3B",
+  "run_id": "calibration_Qwen_Qwen2.5-3B_20261107_183257_5699ff89",
+  "status": "FAIL_FORMAT_COMPLIANCE",
+  "forced_choice_accuracy": 0.9166666666666666,
+  "generated_accuracy": 0.4375,
+  "valid_letter_rate": 0.46875,
+  "forced_generated_agreement": 0.4583333333333333,
+  "position_distribution": {
+    "A": 0.28125,
+    "B": 0.2604166666666667,
+    "C": 0.22916666666666666,
+    "D": 0.22916666666666666
+  },
+  "position_spread": 0.05208333333333334,
+  "invariant_a_detected": false,
+  "invariant_letter_detected": false,
+  "failure_reasons": [
+    "Generated-letter validity is 46.9% (<50%). Model fails response-format completion."
+  ],
+  "output_path": "/root/results/calibration_Qwen_Qwen2.5-3B_20261107_183257_5699ff89.jsonl"
+}
