@@ -1,0 +1,68 @@
+{
+  "timestamp_utc": "2026-11-07T13:56:02.037836+00:00",
+  "status": "BLOCKED_MODAL_CLIENT_CONNECTION",
+  "authorization": "User authorized starting prepared expansion and committing/pushing results in this conversation.",
+  "inference_jobs_submitted": 0,
+  "completed_models_reused": [
+    "Qwen/Qwen2.5-3B",
+    "mistralai/Mistral-7B-v0.3",
+    "allenai/OLMo-2-1124-7B"
+  ],
+  "scenario_bank_sha256": "03e265d859c16f919801ebd07684a6ec7a59d53b35ac16b01214b53d109846b0",
+  "calibration_bank_sha256": "242da74b88591e42d6d684d0bbb9c4b6d0c07a28f63d0b5d1faad4e6a59b14a9",
+  "checks": {
+    "https_huggingface": "PASS",
+    "https_modal": "Reachable; HTTP 415 on non-gRPC root request",
+    "tls_http2_modal": "PASS h2, synchronous and asynchronous TLS",
+    "modal_client_open": "TimeoutError during _Client.from_env; bounded 12s and primary-endpoint 20s tests",
+    "bank_audit": "PASS: dose-response counts, factorial, controls, option lengths and counterbalancing; calibration 24 items / 96 balanced presentations"
+  },
+  "models": [
+    {
+      "model": "HuggingFaceTB/SmolLM2-1.7B",
+      "resolved_revision": "effd688a12921b4cc83e3312b6feb579f70f9c71"
+    },
+    {
+      "model": "Qwen/Qwen2.5-1.5B",
+      "resolved_revision": "8faed761d45a263340a0528343f099c05c9a4323"
+    },
+    {
+      "model": "Qwen/Qwen2.5-7B",
+      "resolved_revision": "d149729398750b98c0af14eb82c78cfe92750796"
+    },
+    {
+      "model": "deepseek-ai/deepseek-llm-7b-base",
+      "resolved_revision": "7683fea62db869066ddaff6a41d032262c490d4f"
+    },
+    {
+      "model": "google/gemma-2-2b",
+      "resolved_revision": "c5ebcd40d208330abc697524c919956e692655cf"
+    },
+    {
+      "model": "google/gemma-2-9b",
+      "resolved_revision": "33c193028431c2fde6c6e51f29e6f17b60cbfac6"
+    },
+    {
+      "model": "ibm-granite/granite-3.3-2b-base",
+      "resolved_revision": "c15dc681f4b2aeb4e576cdaae5434edfc17ed14d"
+    },
+    {
+      "model": "meta-llama/Llama-3.2-3B",
+      "resolved_revision": "13afe5124825b4f3751f836b40dafda64c1ed062"
+    },
+    {
+      "model": "microsoft/phi-2",
+      "resolved_revision": "810d367871c1d460086d9f82db8696f2e0a0fcd0"
+    },
+    {
+      "model": "tiiuae/Falcon3-3B-Base",
+      "resolved_revision": "092c29e3114ff551bd06b93b85424cdb525d227c"
+    }
+  ],
+  "notes": [
+    "This is a preflight receipt, not experimental results.",
+    "No background expansion job was started.",
+    "The existing launcher resolves current revisions again when invoked; these are the revisions observed during this preflight.",
+    "Gated model authorization inside Modal could not be verified because the client connection did not open."
+  ]
+}
