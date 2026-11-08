@@ -10,6 +10,11 @@ resources, LM training or dataset publication occurred. Source shards, sampled f
 stories and large caches remain under ignored outputs/. Dose-response and PR16
 files are unchanged. The synthetic unit tests remain separate from empirical data.
 
+The paired narrative-rewriting follow-on is implemented separately under
+[rewriting_v1](rewriting_v1/README.md). It prepares a pinned-sample selection,
+few-shot prompt, vLLM runner, semantic validator, and report/review tools; no Lambda
+inference has been run and no generated stories have been published.
+
 Dataset/tokenizer revisions in config.json now pin this pilot's baseline. Use a
 new versioned config/cache for a later baseline change. The original infrastructure
 proposal below is an unexecuted plan, not evidence that the semantic interventions

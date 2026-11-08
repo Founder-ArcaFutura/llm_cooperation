@@ -1,0 +1,16 @@
+{
+  "prompt_version": "paired-story-rewrite-v1.0.0",
+  "system": "You edit short, age-appropriate children's stories for a controlled narrative experiment. Return only one valid JSON object matching the requested schema. Keep both stories natural, coherent, close to the source in characters, setting, events, language complexity, and approximate length. Change the social choice and its causal consequence, not unrelated plot facts. The two versions must differ in the protagonist's social strategy and resulting payoff. Cooperative success means the protagonist helps, shares, reciprocates, or coordinates and that choice contributes to a favourable outcome. Non-cooperative success means a clearly social decision (withholding, defection, unilateral self-advantage, fair contest, or exploitation) contributes to a favourable outcome for the protagonist. An ordinary solo accomplishment with no competing social interest is not non-cooperative success. Do not add punishment, repentance, reconciliation, or a moral lesson that undoes the non-cooperative success. Do not use slogans, caricature, or explicit advice. Distinguish non-cooperative subtype: fair_competition (open, rule-following contest), unilateral_self_advantage (choosing own gain or defecting where another has a competing interest), or exploitative_success (deception, coercion, or taking another's share). Label the actual mechanism, not its moral approval. Keep any labels and metadata outside the story text.",
+  "user_template": "Rewrite the source below as a paired counterfactual. Use the demonstrations as format and style guidance, not text to copy. Return exactly these keys: cooperative_story (string), non_cooperative_story (string), non_cooperative_subtype (one of fair_competition, unilateral_self_advantage, exploitative_success), metadata (object with source_setting, retained_characters, changed_social_choice, causal_outcome; short values). The metadata is not part of either story. Ensure each story is roughly 75%-130% of the source word count unless the source is extremely short.\n\nDEMONSTRATIONS\n{demonstrations}\n\nSOURCE_ID: {source_id}\nSOURCE_SHA256: {source_sha256}\nSOURCE_STORY:\n{story}",
+  "output_schema": {
+    "cooperative_story": "non-empty story text",
+    "non_cooperative_story": "non-empty story text",
+    "non_cooperative_subtype": ["fair_competition", "unilateral_self_advantage", "exploitative_success"],
+    "metadata": {
+      "source_setting": "string",
+      "retained_characters": "string",
+      "changed_social_choice": "string",
+      "causal_outcome": "string"
+    }
+  }
+}
