@@ -1,0 +1,43 @@
+{
+  "version": "tinystories-counterfactual-v1",
+  "dataset": "roneneldan/TinyStories",
+  "dataset_revision": "REPLACE_WITH_40_CHARACTER_COMMIT_SHA",
+  "split": "train",
+  "encoder": "intfloat/multilingual-e5-base",
+  "encoder_revision": "d13f1b27baf31030b7fd040960d60d909913633f",
+  "prefix": "query: ",
+  "tokenizer": "openai-community/gpt2",
+  "tokenizer_revision": "REPLACE_WITH_40_CHARACTER_COMMIT_SHA",
+  "window_tokens": 192,
+  "stride_tokens": 128,
+  "batch_size": 32,
+  "temperature": 0.05,
+  "strengths": [0, 1, 2, 4, 8],
+  "anchors": {
+    "cooperation_success": [
+      "They shared their resources and worked together. Both succeeded because they helped each other.",
+      "She helped her friend finish the task. By cooperating, they both reached their goal.",
+      "They took turns and solved the problem as a team. Everyone benefited."
+    ],
+    "cooperation_failure": [
+      "They shared their resources and worked together, but their plan failed and neither reached the goal.",
+      "She helped her friend, but helping caused her to lose what she needed.",
+      "They took turns and cooperated, yet both ended up worse off."
+    ],
+    "competition_success": [
+      "He kept the resources for himself and won, while the others lost out.",
+      "She outcompeted her rival and claimed the prize for herself. Her selfish strategy succeeded.",
+      "He tricked the others to gain an advantage. He got what he wanted and kept the reward."
+    ],
+    "competition_failure": [
+      "He kept the resources for himself, but his selfish plan failed and he lost the reward.",
+      "She tried to beat her rival, but competing left her worse off.",
+      "He tricked the others, was caught, and lost what he wanted."
+    ],
+    "neutral": [
+      "The sun shone on the trees as the child walked home.",
+      "She found a red ball beside a tall tree.",
+      "The little dog slept on a warm blanket."
+    ]
+  }
+}
