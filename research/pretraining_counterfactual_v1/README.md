@@ -1,8 +1,19 @@
 # Controlled pretraining counterfactual v1
 
-Status: IMPLEMENTED / NOT RUN. This directory is independent of dose-response and
-PR16. No source data, encoder weights, trained weights or cloud resources have
-been fetched or created for this workstream. The offline tests use invented rows.
+Status: the **bounded local semantic pilot is complete**; the language-model
+training experiment and full embedding census are **NOT RUN**. See the
+[empirical pilot report](pilot_artifacts/PILOT_REPORT.md) and
+[reproduction/annotation protocol](pilot_tools/README.md). The pilot scored 10,000
+seeded random TinyStories records, including a nested 500-story smoke, and reviewed
+140 selected stories with provisional Codex-assisted judgments. No Modal, Lambda
+resources, LM training or dataset publication occurred. Source shards, sampled full
+stories and large caches remain under ignored outputs/. Dose-response and PR16
+files are unchanged. The synthetic unit tests remain separate from empirical data.
+
+Dataset/tokenizer revisions in config.json now pin this pilot's baseline. Use a
+new versioned config/cache for a later baseline change. The original infrastructure
+proposal below is an unexecuted plan, not evidence that the semantic interventions
+have been validated; the pilot recommends classifier revision before a full census.
 
 ## Scientific scope and decisions
 

@@ -1,0 +1,27 @@
+{
+  "config_sha256": "9ed2f9349bc67a0e3f9d5f8269d14645b21e8a36a9599644b9a7473034f6f050",
+  "sample_identity_sha256": "3ea39518e9f3ef5b0f4e6e01000b95f0bce6b119795f0e9f6e38aa609c08012d",
+  "implementation": {
+    "git_commit": "682041bee85276e9da324777fdae51d7e8b24a9e",
+    "source_hashes": {
+      "data.py": "1d91ff8ee7620fea52d5bbd9ef7f5783cacda127fe877f48703023c359bd807d",
+      "modal_score.py": "f4077ad3eea52fbb527c8d627e60e90fff9bda82a66ed0770c4408e8119284f6",
+      "pilot.py": "ba8f0be13a8cdf17c161cf4f2cd582e30240a9e9f59f45f095dfd2d6400170dc",
+      "pilot_analysis.py": "431339560cbc032f853696b9f14bb4746b2d88364ac3aeaeaea8074c0c4e3d5d",
+      "report.py": "f9723fa9a3323be9d8f5ce751bbe470f3c1965788bfd5172e078dbfd029fd83f",
+      "train.py": "c9489b500f92f33f9f21d522236ee87a9396356b723dd4cb639305f10c8586c6",
+      "__init__.py": "e88c0aeeb8476db650d20cb96f4d8daf2b181ca48751860e816b67bbfb616d9c"
+    },
+    "packages": {
+      "torch": "2.10.0",
+      "transformers": "5.5.4",
+      "datasets": "4.3.0",
+      "sentence-transformers": "5.0.0",
+      "numpy": "2.3.1"
+    }
+  },
+  "device": "cpu",
+  "threads": 4,
+  "encoder_weights_sha256": "a18a44fad1d0b46ded15928144138cff1135d5cc8233bdd90be5f18822de09a7",
+  "batching": "32 stories at a time; flattened windows, encoder batch_size=32"
+}

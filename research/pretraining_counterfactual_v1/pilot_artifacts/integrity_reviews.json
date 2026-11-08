@@ -1,0 +1,3934 @@
+{
+  "reviewer": "Codex reading original full stories, without calling another model API",
+  "authority": "All interpretations provisional; no independent human annotation or inter-rater agreement",
+  "blindness": "No numerical scores shown during reading; selection strata known; not a blinded independent assessment",
+  "definitions": {
+    "cooperation_present": "help, sharing, joint goal, or explicit prosocial support (includes caregiving)",
+    "cooperation_rewarded": "cooperative actor/group obtains stated goal, emotional/social return, or mutual benefit",
+    "cooperation_punished": "unsuccessful cooperation/adverse actor outcome; does NOT imply moral condemnation or causal harm from cooperation",
+    "competition_rewarded": "rivalrous/selfish appropriation or exploitation achieves actor's stated aim; moral approval NOT required",
+    "competition_punished": "rivalrous/selfish act loses, is sanctioned, or must be renounced before benefit",
+    "independent_success": "personal goal achieved without evidence of rivalry/exploitation; separate from competition",
+    "neutral": "no substantive cooperative or competitive social outcome; may include independent individual success",
+    "uncertain": "boundary, attribution or valence unresolved; exclude from definitive confusion matrices"
+  },
+  "evidence_method": "Exact substring search converts reviewer-selected short excerpts to character offsets; deterministic extraction is not deterministic semantic validation",
+  "reviews": [
+    {
+      "source_index": 284,
+      "sha256": "18e8abe243c1194c2f4fa09762aa277854c1e0432653e230818215335541330b",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": true,
+      "notes": "Joint play is a borderline instance of goal-directed cooperation; no material task or rivalry.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Mia and giant",
+          "action": "play a game and roll rocks together",
+          "outcome": "both laugh and have fun",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 551,
+              "end": 590,
+              "text": "They rolled rocks, laughed and had fun!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1353,
+      "sha256": "a83f7833b9259cd3aa0965b50cf56f13a36ad1ca513f2fc435c7a39f87275357",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Advice and shared activity benefit both participants.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Sue and Tom",
+          "action": "Sue supplies a painting idea and they paint together",
+          "outcome": "Tom completes picture and both are happy",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 634,
+              "end": 657,
+              "text": "Sue and Tom were happy."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 20501,
+      "sha256": "55733cc44f428bb704e7992c4fb9fd2788918fc3fe079c9fdf7a78137370b6d0",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": false,
+      "notes": "Failed independent visit; no social cooperation, selfishness or rivalrous action.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Fred",
+          "action": "visits stadium that is still closed",
+          "outcome": "cannot enter and feels disappointed",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 461,
+              "end": 511,
+              "text": "His excitement had been replaced with frustration."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 27314,
+      "sha256": "5655f37d64c6b5e1f8fab74d6455eec20d97d04429a2d6e3f5d7578510c29461",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Cooperative task succeeds and both participants enjoy result.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "boy and mother",
+          "action": "jointly lift heavy hose",
+          "outcome": "can play together and enjoy game",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 569,
+              "end": 638,
+              "text": "So the little boy and his mom had a lot of fun playing with the hose."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 30491,
+      "sha256": "fe16cb73c71d531caca6816210f9bf3237c5e17cc0a9cb12a3b145d6293c2af8",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded",
+        "competition_present",
+        "competition_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Within-team support and between-team competition both succeed; enrichment need not deplete cooperation.",
+      "competition_success_subtype": "FAIR_OR_PERFORMANCE_CONTEST",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "soccer team and mascot Bob",
+          "action": "Bob encourages team to achieve high score",
+          "outcome": "team wins five to one and Bob is proud",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 573,
+              "end": 605,
+              "text": "The final score was five to one!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 42737,
+      "sha256": "66de04d76270073771d6efd3a1750010fcbce2c54c2e13c146d1950eacfa8dd7",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": true,
+      "notes": "Bird receives explicit thanks for successful immediate protection; later isolation is a separate unresolved outcome, so whole-story valence remains uncertain.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "bird",
+          "action": "distracts a threatening dog to help Lily",
+          "outcome": "dog leaves, but Lily remains lost and alone",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 482,
+              "end": 516,
+              "text": "The dog got confused and ran away."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 46748,
+      "sha256": "b978e42c2d751b8babdb390961ec5b274f0ab4bea4baa26a135f248d521a625c",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Caregiving/gift supports recipient; Tommy explicitly thanks mother, a stated social return under the common reward rule. Material return is not implied.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "mother",
+          "action": "gives Tommy a car and birthday outing",
+          "outcome": "Tommy enjoys birthday",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 773,
+              "end": 810,
+              "text": "Tommy's birthday was a great success."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 47303,
+      "sha256": "7a5e02b8dc209bd84875c2708f36b52d59a0d94576b0e664446411c0a3218896",
+      "stratum": "ambiguous",
+      "labels": [
+        "competition_present",
+        "competition_punished"
+      ],
+      "uncertain": true,
+      "notes": "Self-prioritizing disobedience loses desired play, but obedience versus competitive allocation is a coding boundary.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Sam",
+          "action": "resists homework demand to keep playing outside",
+          "outcome": "is ordered inside and regrets stubbornness",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 586,
+              "end": 625,
+              "text": "She wished she hadn't been so stubborn."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 55339,
+      "sha256": "60b23ca781a37bfeda89f37c6976117c9a4fcfc6b4f37b782b0c140efb8ded6b",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": true,
+      "notes": "Unenacted rescue desire and family co-presence do not establish cooperative action; disastrous ending is not failed competition.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "family",
+          "action": "visit hotel, cannot return into fire for father",
+          "outcome": "father dies",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 598,
+              "end": 654,
+              "text": "They were very sad that they lost their dad in the fire."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 56260,
+      "sha256": "9ca4cde0f49eb402f7ace9eb843c12301618408cf19671448608f28068d802cf",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": false,
+      "notes": "Requests for help are not enacted cooperation; adults do not act to assist.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "boy",
+          "action": "asks adults for flying lessons",
+          "outcome": "requests refused and dream lost",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 409,
+              "end": 432,
+              "text": "He had no way to learn."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 69451,
+      "sha256": "91b1e35b325061683f59dd117d88f5dc1a522b4227f7a6faa9e67ef1e683bee7",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": false,
+      "notes": "Unsuccessful individual commercial aim, no competitive act or rival.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "painter",
+          "action": "tries to sell art",
+          "outcome": "no buyers and wind destroys paintings",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 580,
+              "end": 619,
+              "text": "He knew he wouldn't make any money now."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 73810,
+      "sha256": "18f9858680608918b3a5004e515d567eaa7899e952fdaf9c9e873f201674fdb0",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "cooperation_present",
+        "cooperation_punished"
+      ],
+      "uncertain": false,
+      "notes": "Enacted comforting fails to improve recipient mood; no punishment for helping and no actor return.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Mary",
+          "action": "tries to cheer Cindy about closed stadium",
+          "outcome": "stadium stays shut and Cindy remains upset",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 370,
+              "end": 397,
+              "text": "Mary tried to cheer her up."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 86254,
+      "sha256": "e98bdc2b9224c92f631fc0aba57aa91c45ed669df4041f2ac3e7e0af7b6c4790",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": false,
+      "notes": "Calling for help without a helper is not cooperation present.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Tim",
+          "action": "jumps into deep hole",
+          "outcome": "cannot get out or obtain help",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 461,
+              "end": 502,
+              "text": "He called for help, but no one heard him."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 113682,
+      "sha256": "d2ca70840f2c063c9c1c629779e20301258b6ee94e4451b46825cd0a8d38601c",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "cooperation_present",
+        "cooperation_punished"
+      ],
+      "uncertain": false,
+      "notes": "Clear prosocial act without hoped-for reciprocity; receiving tea does not mean helping actor is rewarded.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Henry",
+          "action": "makes tea hoping to make mother smile",
+          "outcome": "mother drinks but continues ignoring him and Henry is hurt",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 598,
+              "end": 625,
+              "text": "she just kept ignoring him."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 113775,
+      "sha256": "f464826223d15c9f0b02a7ec612a998519ca1728d923211610035dbeeaaa9f89",
+      "stratum": "ambiguous",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Explicit inclusion and reciprocal friendship succeed after earlier social rejection.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "bird and monster",
+          "action": "bird welcomes lonely monster and they play together",
+          "outcome": "become best friends",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 790,
+              "end": 857,
+              "text": "So they played kick the ball and they were best friends ever since."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 119549,
+      "sha256": "c7ad1d331bf1c404281d826844ed0c72972382e93ef0e3f67c4b4d137609998f",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Explicit collective-action moral; concrete shared task unspecified but cooperative outcome stated.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "nation's people",
+          "action": "resume helping and working toward shared goal",
+          "outcome": "community becomes happier",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 840,
+              "end": 893,
+              "text": "instead chose to work together towards the same goal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 132141,
+      "sha256": "fa6de97d5781e854ae4fc7725fcb402461ff2b8a2e498792ff9e35a8e7d71951",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded",
+        "competition_present",
+        "competition_punished"
+      ],
+      "uncertain": false,
+      "notes": "Early destructive success is followed by punishment and repentance. Defensive victory of cooperative friends is not reward to bully's selfish act.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Tom and Lily; Max",
+          "action": "friends jointly defend blocks; bully repents and joins rebuilding",
+          "outcome": "bully is hurt by failed attack; cooperative rebuilding restores friendship",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 1700,
+              "end": 1738,
+              "text": "They work together to fix the network."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 159083,
+      "sha256": "74d4a258ef853f53aa54c4cdef23310b9b0929f67eef31ce7397c51f4a53ee1b",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": false,
+      "notes": "No relevant cooperative or competitive act; low success score may reflect negative mood.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Joe",
+          "action": "travels through noisy tunnel with parents",
+          "outcome": "fear ruins trip",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 591,
+              "end": 633,
+              "text": "the loud noise had ruined his special trip"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 171772,
+      "sha256": "69803c90604062d989f8c397797a47ab709dd685349be7fd8b11a5661e9a0a4f",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "cooperation_present",
+        "cooperation_punished"
+      ],
+      "uncertain": false,
+      "notes": "Actual helping attempts are unsuccessful. Football is background, no winner or competitive payoff shown.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Tommy's friends",
+          "action": "try to comfort frightened crying Tommy",
+          "outcome": "nothing works and Tommy goes home crying",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 365,
+              "end": 414,
+              "text": "His friends tried to help him but nothing worked."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 181709,
+      "sha256": "1b82d6985e4826b148ff55f1b49e9ed29f7179bbd2923e23470b52760c93ee63",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "cooperation_present",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Judged performance and praise do not establish a rival, winner or competitive allocation. Personal achievement is separate from competition.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "rabbit Jack; mother",
+          "action": "Jack completes routine despite fear after mother's encouragement",
+          "outcome": "judge praises him and audience applauds",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 701,
+              "end": 750,
+              "text": "he was able to successfully complete the routine."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 201034,
+      "sha256": "c6f978948a1d6d2afef645c480c022820bcdda231e2d9ac9161a5bb032a533db",
+      "stratum": "low_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Girl explicitly thanks fairy for gift, a social return. No material return or later payoff to fairy is inferred.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "fairy",
+          "action": "gives girl crown and later magical transformation",
+          "outcome": "girl is pleased with gift",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 507,
+              "end": 541,
+              "text": "The girl was so happy and excited!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 211013,
+      "sha256": "f70cd2805355f5d55e932cec83f7377ac118df0e4f89da87d66c622878b9934d",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": false,
+      "notes": "Adverse individual self-presentation decision, not evidence of selfish rivalry; doctor involvement has no enacted successful help.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "lady",
+          "action": "keeps excessive makeup despite pain",
+          "outcome": "allergic reaction damages face",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 355,
+              "end": 402,
+              "text": "she woke up and her face was all red and bumpy."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 221162,
+      "sha256": "617ffc45b8492b6f7dbfad8ab8dfc6c53931cdd919e9d2891208b5d6a2b95204",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "cooperation_present"
+      ],
+      "uncertain": false,
+      "notes": "Protective caregiving, no stated reward to mother and no competitive resource dispute.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "mother",
+          "action": "stops boy handling razor and warns him",
+          "outcome": "boy apologizes and avoids sharp objects later",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 438,
+              "end": 486,
+              "text": "he should never touch something like this again."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 222546,
+      "sha256": "058554b99a36579dd2760b2af54dd91e39ac314a24e3ecbec4fa96a1be6c28cf",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "cooperation_present",
+        "cooperation_punished"
+      ],
+      "uncertain": false,
+      "notes": "Enacted help has unsuccessful immediate outcome; illness follows cactus touch, not a causal punishment for helping.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "mother",
+          "action": "takes injured Timmy to hospital",
+          "outcome": "too late to prevent serious illness and long hospital stay",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 332,
+              "end": 386,
+              "text": "His mom took him to the hospital, but it was too late."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 228778,
+      "sha256": "03dd73cf3e3427c6947f10e9e86036c1e7295cab18ba1684e755c8820fe66034",
+      "stratum": "ambiguous",
+      "labels": [
+        "competition_present"
+      ],
+      "uncertain": true,
+      "notes": "Requested cooperation is not enacted. Degenerate repetition and incomplete ending prevent a confident payoff judgment; threats are not observed punishment.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Lila and mother",
+          "action": "Lila refuses requested help with infant and resists punishment threats",
+          "outcome": "dialogue repeats and source cuts off without resolution",
+          "attributable": "unsupported",
+          "evidence_spans": [
+            {
+              "start": 1158,
+              "end": 1179,
+              "text": "You insist. I resist."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 235335,
+      "sha256": "b4fe5f389c9d9f0766c6a21e9e748893d01e62022eed4bf82e66f12a7207d0a1",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": true,
+      "notes": "Compliance is not clearly cooperative behavior or rewarded; mother's instruction has no explicit helping goal.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Jill",
+          "action": "removes tutu to obey gym rule and does exercises",
+          "outcome": "remains disappointed",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 479,
+              "end": 548,
+              "text": "She did all the exercises with her classmates, but didn't feel happy."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 241992,
+      "sha256": "4e4be239c217fb0d2e11678123f8f8a5dc3611db6ce76ee55c9ea59d93db78d0",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "cooperation_present"
+      ],
+      "uncertain": true,
+      "notes": "Background coordination is present; later adverse outcome follows unsafe drinking rather than cooperation.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Lily and Tom",
+          "action": "use whistle to coordinate play, later drink unsafe water",
+          "outcome": "both become sick and cannot summon help",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 118,
+              "end": 184,
+              "text": "They used the whistle to call each other when they wanted to play."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 257932,
+      "sha256": "3bac3161a13be4182450a846225cfa01b2915a1e82f906322299780ed79da196",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Actor emotional/social return and recipient food are explicit.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Tom and mother",
+          "action": "gently feed injured duck",
+          "outcome": "duck eats and Tom feels happy and receives praise",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 1281,
+              "end": 1325,
+              "text": "You are a kind kid, Tom. The duck likes you."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 267100,
+      "sha256": "8fade921dbb897c5562427aced4ee74c18e96f1306b5ee2c8e7954717821a5e1",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": true,
+      "notes": "Joint play is borderline cooperation; later damage is accidental and not punishment for cooperation.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Lily and Ben",
+          "action": "draw and play together",
+          "outcome": "initial shared fun; later chalk and drawing destroyed",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 125,
+              "end": 155,
+              "text": "They have fun and laugh a lot."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 267228,
+      "sha256": "3c0128377325ad6b357d92b8b2aeefad2bea84474ec223b6290453276d2f32f9",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": false,
+      "notes": "No enacted cooperative help or competitive behavior.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "girl",
+          "action": "searches for missing mother",
+          "outcome": "mother does not return and girl stays sad",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 378,
+              "end": 402,
+              "text": "her mom never came back."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 269438,
+      "sha256": "0ab39de9c6f01b6a7d09c2d12053dc318582198f0487b5e2d45c96926b73dcda",
+      "stratum": "independent_random",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": false,
+      "notes": "Co-presence and ordinary travel are not cooperation or competition evidence.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Sally and mother",
+          "action": "travel by airplane",
+          "outcome": "arrive for an adventure",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 674,
+              "end": 696,
+              "text": "a new adventure began!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 275532,
+      "sha256": "880fcdd9bfa63bc65e483e0e7d3554929cf5b8c19c270d6a76646750d2a50a8c",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": true,
+      "notes": "Could be interpreted as attempted animal capture, but motive/advantage and social rivalry are unspecified; no success.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "lady",
+          "action": "chases bunny and falls into hole",
+          "outcome": "is badly injured",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 444,
+              "end": 500,
+              "text": "Sadly, she was hurt so badly that she couldn't be fixed."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 275865,
+      "sha256": "23e2c34b6625ec3949ebf89406066ad772cfcb9996066ad113bbcdde43f57bbd",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded",
+        "competition_present"
+      ],
+      "uncertain": false,
+      "notes": "Resource disagreement is present; compromise, not defeating the other, produces mutual return.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Jake and Sophie",
+          "action": "resolve conflicting grass claims by splitting area",
+          "outcome": "both obtain preferred uses and feel better",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 667,
+              "end": 718,
+              "text": "they had found a way to both have what they wanted."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 305502,
+      "sha256": "c187619e913eef8229740cdbdf7084b9238547a6b5a473ce323cd14b7598fd12",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": true,
+      "notes": "Failed playful surprise is not established selfish deception or cooperation; accident is not competitor's intended success.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "cat Tom",
+          "action": "hides to surprise friend",
+          "outcome": "friend accidentally traps him and he cannot play",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 346,
+              "end": 400,
+              "text": "Tom felt embarrassed because his surprise didn't work."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 308108,
+      "sha256": "3297790fe06f48e3b3a320b9e48f7af332691e44f63598e4e98dced9670c6d08",
+      "stratum": "low_cooperation",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Individual self-care with no social behavior or rival.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "bird",
+          "action": "rests on branch when uncomfortable",
+          "outcome": "feels happy and enjoys view",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 240,
+              "end": 292,
+              "text": "The bird felt happy and continued to enjoy the view."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 310160,
+      "sha256": "321cbf6b1b93da629e04a7774659e68948963011013b756549e1eb3bf9ca39ca",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "competition_present",
+        "competition_punished"
+      ],
+      "uncertain": false,
+      "notes": "Intrusive self-directed information goal fails; child protects own privacy, not exploitative winner conduct.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "nosy figure",
+          "action": "pressures child to disclose activity",
+          "outcome": "child refuses and intrusive figure gives up",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 392,
+              "end": 426,
+              "text": "The nosy figure eventually gave up"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 313595,
+      "sha256": "18413367c41f489f96ea1b9211d7116e3af429ad120138dd0abdc2857ad4b954",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Clear successful joint problem-solving rather than merely words about sharing.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "two puppies",
+          "action": "jointly push towel over leaking pipe",
+          "outcome": "stop leak and feel proud",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 756,
+              "end": 797,
+              "text": "working together and solving the problem."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 317051,
+      "sha256": "f1dffc081ed488e4a361ac08481ecd3bb18545aa8e83baeb43910d930c680ddc",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Caregiving with explicit affectionate return; broad prosocial rather than strategic cooperation.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "mother and Jill",
+          "action": "mother adjusts sour meal after Jill explains",
+          "outcome": "Jill enjoys food and promises a performance; mother smiles",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 676,
+              "end": 719,
+              "text": "Her mom smiled, and said she couldn't wait."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 317570,
+      "sha256": "5c60298b12e250ac435c21cf86663c94cc26a5260bda412dc8d948378aa51f73",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "competition_present",
+        "competition_punished"
+      ],
+      "uncertain": true,
+      "notes": "Self-prioritization is punished; norm violation versus competition is a category boundary.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Sara and Ben",
+          "action": "prioritize noisy play over father's work and parental request",
+          "outcome": "lose access to cars and regret refusal",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 573,
+              "end": 633,
+              "text": "they could not play with their cars for the rest of the day."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 320966,
+      "sha256": "655127e9700641e7e24ce51293e553218798a9e3a14aa2d80afd2f6c2bfec37e",
+      "stratum": "low_successful_competition",
+      "labels": [
+        "cooperation_present",
+        "cooperation_punished"
+      ],
+      "uncertain": true,
+      "notes": "Educational gift/support is a broad cooperation boundary; no shared goal or actor reward, and teacher later sanctions performance.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "teacher and Julian",
+          "action": "teacher supplies difficult math game",
+          "outcome": "Julian fails and receives bad grade",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 545,
+              "end": 624,
+              "text": "His teacher said it was time to stop playing the game and gave him a bad grade."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 336825,
+      "sha256": "6e38823a937e31f2068a92b557936bade2cd0f4c756470de48c8aa48913ba406",
+      "stratum": "ambiguous",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": true,
+      "notes": "Social return to joint planning is explicit, but fox never arrives; safety cannot be attributed causally to surveillance.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "goose and ducks",
+          "action": "agree to monitor for threatening fox",
+          "outcome": "remain safe and share celebration/gratitude",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 679,
+              "end": 717,
+              "text": "they all had a big feast to celebrate."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 345767,
+      "sha256": "69d516e644654962ac8cce779e85c339a11592f0575f08588f9e0c20965fe155",
+      "stratum": "low_cooperation",
+      "labels": [
+        "independent_success"
+      ],
+      "uncertain": true,
+      "notes": "Effective self-defense; dog's resource goal and truth of claim are unknown. Do not label selfish exploitation or a competitive payoff confidently.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Jack",
+          "action": "tells threatening dog oat is fake",
+          "outcome": "dog leaves and Jack is safe",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 546,
+              "end": 586,
+              "text": "The dog stopped barking and walked away."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 360144,
+      "sha256": "c7a36852dcf7f11ee0a1a4fa439384dc5ed3f812731297f324eb16d027a9cc5a",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "John explicitly thanks lawyer for help, a social return. A later legal resolution is not shown and is not inferred.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "lawyer",
+          "action": "answers questions and helps John avoid trouble",
+          "outcome": "John is happy and thanks lawyer",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 568,
+              "end": 621,
+              "text": "the lawyer was there to help him stay out of trouble."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 360909,
+      "sha256": "dbcc1ae7723bf2491959952e48c8edad8a2087521b5a1593c5f83ed4e82ab74c",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "competition_present",
+        "competition_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Competitive comparison and self-assertion receive social recognition; no material appropriation. Earlier warning against daughter boasting does not punish judge.",
+      "competition_success_subtype": "FAIR_OR_PERFORMANCE_CONTEST",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "judge",
+          "action": "outcounts family and boasts he is best",
+          "outcome": "everyone cheers and agrees",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 755,
+              "end": 808,
+              "text": "Everyone cheered and agreed that the judge was right."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 402337,
+      "sha256": "16f2079902a3c5d5a39efc30726ccec0aa9056e70a1a2fea0f28a898d5ecdb89",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Explicit cooperative moral and mutual return.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Sam and Mary",
+          "action": "encourage one another to try slide together",
+          "outcome": "both have fun and Sam feels proud of Mary",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 646,
+              "end": 693,
+              "text": "if they worked together they could do anything."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 411874,
+      "sha256": "630d231924c95992962f8c0d38057411f785fbd24a79ad87159575bb6b0e8c31",
+      "stratum": "low_cooperation",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Independent pursuit succeeds without interpersonal cooperation or rivalry.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Tommy",
+          "action": "runs up hill to view sunrise more closely",
+          "outcome": "sees desired view and feels joy",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 253,
+              "end": 302,
+              "text": "he saw the most beautiful sunrise he'd ever seen!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 423527,
+      "sha256": "708cb014a1581a9c556c49b5a8f34bf7fe8390571dbc2dd204826a53f5f47f27",
+      "stratum": "low_cooperation",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": true,
+      "notes": "Affection/pet comfort may count as broad prosocial interaction, but puppy intent and mutual/actor payoff are not established.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Sally and puppy",
+          "action": "Sally cuddles puppy when afraid",
+          "outcome": "Sally feels safe and happy",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 571,
+              "end": 615,
+              "text": "She was no longer scared, and she was happy."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 438941,
+      "sha256": "3cdbe48c69179d6fa31cba8ca202e9df55b484b1adb8e7eefa5a7f424c085b2a",
+      "stratum": "low_cooperation",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": false,
+      "notes": "Ordinary solitary routine, no salient social outcome or competitive achievement.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Henry",
+          "action": "explores garden, rests and eats breakfast",
+          "outcome": "continues ordinary day",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 692,
+              "end": 719,
+              "text": "Henry then ran off to play."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 461856,
+      "sha256": "134f3881a19078906ebd425b623d8157e6bc5213b198450a939ec7d0bea62802",
+      "stratum": "ambiguous",
+      "labels": [
+        "cooperation_present",
+        "competition_present",
+        "competition_punished"
+      ],
+      "uncertain": true,
+      "notes": "Material consumption occurs but intended fun is not established; moral repair precedes happy ending. Selfish success versus merely mild sanction is ambiguous.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "John; mother",
+          "action": "John eats cereal not intended for him; mother forgives after apology",
+          "outcome": "John regrets act and receives offer of another activity",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 405,
+              "end": 449,
+              "text": "He knew he should not have eaten the cereal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 493669,
+      "sha256": "daf52e8410f25c2262a3b93aa1e5a13ee423be97dc2b5dde6b41ddeb32f135db",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded",
+        "competition_present",
+        "competition_punished"
+      ],
+      "uncertain": false,
+      "notes": "Terminal happiness follows repair/cooperation, not selfish grabbing. Claimed fame lacks concrete mechanism, but joy is stated.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Ben and Lily",
+          "action": "stop grab-everything game, heed advice and clean up together",
+          "outcome": "initial competition fails; cleanup restores happiness",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 900,
+              "end": 940,
+              "text": "But we did not win. We did not have fun."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 515652,
+      "sha256": "2b0f281dc69411d310f9b1fa2fa2c66aed36f188f2eb5b60356be300b733e02f",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Clear positive reciprocity, not merely recipient-only benefit.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Lily and ants",
+          "action": "Lily carries food for weak ants",
+          "outcome": "ants thank her and offer reciprocal help; become friends",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 776,
+              "end": 838,
+              "text": "became good friends and helped each other whenever they could."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 519874,
+      "sha256": "3a98e4bffddf8cbbf88036918dbd936629ce65cde13bc5cdf1333d3f6c440ede",
+      "stratum": "ambiguous",
+      "labels": [
+        "cooperation_present"
+      ],
+      "uncertain": false,
+      "notes": "Caregiving is present; future shared goal is not yet achieved and mother's actor return is unstated.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "mother; Lily and Benny",
+          "action": "mother provides dinner, later friends begin carrot search",
+          "outcome": "food consumed; new quest has no observed resolution",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 612,
+              "end": 667,
+              "text": "they went on an adventure together to find more carrots"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 522746,
+      "sha256": "811760ddf18e74f531a6a356d18f71f17d84899c10bbaee0bd427110ec9fe5a1",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "cooperation_present",
+        "competition_present",
+        "competition_punished"
+      ],
+      "uncertain": true,
+      "notes": "Focal competitor fails; secondary seeker succeeds. A global story success label would conflate actors and consolation with the focal competitive payoff.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "John; Mary",
+          "action": "John tries hiding to win; Mary finds and then comforts him",
+          "outcome": "John explicitly loses but enjoys cave and plans another game",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 538,
+              "end": 568,
+              "text": "I guess I didn't win this time"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 523050,
+      "sha256": "814242cae1baf8bcf9b42c6d03033894f13099963748b4b53b3c19bd523c192c",
+      "stratum": "low_cooperation",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Successful individual search, no help from or competition against another actor.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "dog Max",
+          "action": "searches east for lost ball",
+          "outcome": "finds ball and resumes playing",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 285,
+              "end": 323,
+              "text": "Finally, he found it under a big tree."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 548553,
+      "sha256": "27b9d12c18d6d998a271cc6448d0bf77e53c4c21ccaecb4cef9d9f6df11de43c",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "cooperation_present",
+        "competition_present",
+        "competition_punished"
+      ],
+      "uncertain": false,
+      "notes": "Selfish domination fails; later sharing is a different act, and successful ending must not be credited to the removal attempt.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "princess",
+          "action": "tries to remove rival girl, fails, later shares power",
+          "outcome": "rival remains; princess renounces jealousy and benefits others",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 535,
+              "end": 575,
+              "text": "no matter what the girl was still there."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 555731,
+      "sha256": "98b2b17bb47d664d656f6982b6e21bbb93cdff4a814beb4e7b74140940d4dcc5",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Independent accomplishment and disproving doubts, not a contest or selfish resource advantage.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Beth",
+          "action": "bravely tries large slide despite skeptical friends",
+          "outcome": "succeeds safely and receives cheers",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 644,
+              "end": 700,
+              "text": "She had shown them that she wasn't so foolish after all."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 614803,
+      "sha256": "56cd555fa3c5d12a6578fa55768345900dbb128934f43af1801a4ce3c95f31a1",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present"
+      ],
+      "uncertain": false,
+      "notes": "Recipient benefit without a stated actor reward; candy restraint is not competitive advantage.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "mother",
+          "action": "reassures frightened Lily about the wind",
+          "outcome": "Lily feels safe and sleeps",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 644,
+              "end": 681,
+              "text": "Lily felt safe and went back to sleep"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 614845,
+      "sha256": "21d763e7a9e27f0eb82d9762c9dd3c18d5f9abb052ef9bdda9dd6a3e44522925",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Successful joint solution; disagreement about means is not itself a rivalrous payoff.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Bob and True",
+          "action": "listen to advice and build bridge together",
+          "outcome": "both cross river happily",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 758,
+              "end": 803,
+              "text": "they both happily crossed the river together."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 615734,
+      "sha256": "3512a0b89105f3b22a8308e130110ffb56a0c8c5cc8d4a0b4fb852606dab9025",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Material goal achieved with explicit social return to helper.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "father and Henry",
+          "action": "combine labor and tools to repair cabin",
+          "outcome": "cabin fixed and all hug in thanks",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 636,
+              "end": 708,
+              "text": "The dad and Henry worked together for hours and finally fixed the cabin."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 638917,
+      "sha256": "62ba9821bf74d564e11b1b3cedb3474ab712af74f577a599dfab6fb4b905b034",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "cooperation_present",
+        "competition_present",
+        "competition_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Fair contest success is explicit; mother supplies advice but her own reward is not stated.",
+      "competition_success_subtype": "FAIR_OR_PERFORMANCE_CONTEST",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Sam; mother",
+          "action": "Sam enters judged drawing contest with mother's advice",
+          "outcome": "wins and feels ecstatic",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 726,
+              "end": 749,
+              "text": "He had won the contest!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 676488,
+      "sha256": "8ed82442dea34551cfa0da5bfc1b5d3c02a9b9fb0b925e314a983b9455042030",
+      "stratum": "independent_random",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": false,
+      "notes": "Unsuccessful independent task, no social cooperation or rivalry.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Tim",
+          "action": "tries to remove a high cobweb alone",
+          "outcome": "falls and remains unable to clean house",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 450,
+              "end": 490,
+              "text": "The house still had the big, icy cobweb."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 692835,
+      "sha256": "db1b1f2e2f27a70a9210b00eb80217865e75d71ddd98666ce0473dde223cbea8",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Concrete shared project reaches goal; explicit cooperative moral.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Amy and Bob",
+          "action": "share ideas, materials and encouragement to build kingdom",
+          "outcome": "finish project and both feel proud and happy",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 799,
+              "end": 844,
+              "text": "At last, they finished their magical kingdom."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 747910,
+      "sha256": "74e468aa9a775a1224c782ea47d766d8d042f7d22206a9a68fb5246202184660",
+      "stratum": "independent_random",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Individual self-benefit without rivals or selfish appropriation.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Clara",
+          "action": "leaves hot sand and swims to cool down",
+          "outcome": "cools down and enjoys day",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 618,
+              "end": 667,
+              "text": "went for a dip in the beach to cool herself down."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 761153,
+      "sha256": "0328312928a0c0ae8b8589d0c479c7acc7fb007b42c0f8184758a1b531d6430e",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded",
+        "competition_present",
+        "competition_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Fair competitive victory and subsequent prosocial sharing coexist; not an antisocial-success story.",
+      "competition_success_subtype": "FAIR_OR_PERFORMANCE_CONTEST",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Jack",
+          "action": "joins and wins race, then gives away flowers",
+          "outcome": "feels proud and peers thank him",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 670,
+              "end": 696,
+              "text": "Woohoo, Jack won the race!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 786453,
+      "sha256": "eef10de09cb9162a8f27af880be38dfa6496eca34a202e92c1cc867290f5e8cc",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "competition_present",
+        "competition_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Competitive status gain explicitly follows successful own effort; no selfish appropriation or exploitation.",
+      "competition_success_subtype": "FAIR_OR_PERFORMANCE_CONTEST",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "competitive animal",
+          "action": "tries to outrun others and is first to cross muddy obstacle",
+          "outcome": "is cheered and recognized as most competitive",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 1045,
+              "end": 1092,
+              "text": "become the most competitive animal of them all!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 798944,
+      "sha256": "dfadc5a640fbd848df7082acfe1a609e5f801dde3c4aac1ddcd97eccf8faa6ab",
+      "stratum": "ambiguous",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded",
+        "cooperation_punished"
+      ],
+      "uncertain": true,
+      "notes": "Positive social episode and negative ending coexist. Weather damage is not causally attributable to cooperation despite narrator's self-blame.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "bear Bob",
+          "action": "hosts party to join friends' network",
+          "outcome": "initial shared fun, later storm destroys house and he blames party",
+          "attributable": "unsupported",
+          "evidence_spans": [
+            {
+              "start": 784,
+              "end": 838,
+              "text": "Bob was so upset with himself for throwing that party."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 808083,
+      "sha256": "93effb30d00924e4129ecbb7aea09f96f02a40906d9d4e67cb6f1d862bb89ed5",
+      "stratum": "ambiguous",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Explicit teaching intention, successful recipient learning and reciprocal friendship.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Mark and Lily",
+          "action": "Mark teaches, reassures and shares food",
+          "outcome": "teaching goal succeeds and friendship continues",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 643,
+              "end": 688,
+              "text": "Mark and Lily were always exploring together!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 854347,
+      "sha256": "570874b720366a0acfaa39cef708f598864359ac5aac3cfc309d619a739d6414",
+      "stratum": "ambiguous",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": true,
+      "notes": "Independent goal succeeds; later joint play is a broad cooperation boundary, not a clearly shared task.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Fin",
+          "action": "persists to fit through hole into new pond",
+          "outcome": "finds desired place and makes friends",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 563,
+              "end": 610,
+              "text": "Fin was very happy that he fit through the hole"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 889736,
+      "sha256": "007bf1ddabe8551be04278081e4deb32b4c7746e67512c5a4dc72e4a2231e6c9",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Clear shared goal and successful joint work.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Lily and Tom",
+          "action": "combine materials and labor to build doll house",
+          "outcome": "finish house and both are happy",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 998,
+              "end": 1029,
+              "text": "We built a house for our dolls."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 919323,
+      "sha256": "e1858da1b488f3310cb67bcd957e139633159a2c4f3bf959ebaa0602e614e881",
+      "stratum": "low_cooperation",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": false,
+      "notes": "Mere possession/enjoyment is not selfish appropriation; no owner, rival or salient achievement is shown.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "lion",
+          "action": "plays with a baseball that lands nearby",
+          "outcome": "enjoys day and later sleeps",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 357,
+              "end": 391,
+              "text": "now he had a new toy to play with."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 920419,
+      "sha256": "d103c82d0d035c7ae0687b607efc441b4941b03f400786e6f445049602c83478",
+      "stratum": "ambiguous",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Self-benefiting stewardship, not competitive or exploitative acquisition; another owner's claim is never stated.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Henry",
+          "action": "maintains found magical coin-holding garment",
+          "outcome": "it becomes useful and makes his life easier",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 629,
+              "end": 687,
+              "text": "I took care of it and now I use it to make my life easier."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 948054,
+      "sha256": "0779d50810a77e7978d33a1d47a8847b57864c7e5fe8da62c7fda2db98cf2504",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "competition_present",
+        "competition_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Opponent, victory and reward are explicit although precise challenge is vague; no selfish appropriation or harm.",
+      "competition_success_subtype": "FAIR_OR_PERFORMANCE_CONTEST",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Jenny",
+          "action": "trains to face and outsmart giant",
+          "outcome": "wins and receives balloon from opponent",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 562,
+              "end": 627,
+              "text": "To celebrate her victory, the giant gave Jenny a special present."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1006051,
+      "sha256": "adc7b30a1bae66e217adc0728219a2b12c14f1a00feff903eeb15ad0591e3d03",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "competition_present",
+        "competition_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Direct competitive success, with begrudging losers; not selfish exploitation.",
+      "competition_success_subtype": "FAIR_OR_PERFORMANCE_CONTEST",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "small girl",
+          "action": "runs faster than other racers",
+          "outcome": "wins and rivals accept defeat",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 636,
+              "end": 678,
+              "text": "Sure enough, the little girl won the race."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1009718,
+      "sha256": "aa3d09e9d90a2015ab0d6ef05880945c614c3e8aab27d1a35ccec6339ff40b94",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_punished",
+        "competition_present"
+      ],
+      "uncertain": false,
+      "notes": "Cooperation is unsuccessful, not morally punished. Dragon wins confrontation, but its own desired reward is not stated; do not infer competition-favouring endorsement.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "queen and kingdom; dragon",
+          "action": "unite against dragon but are overwhelmed",
+          "outcome": "kingdom destroyed and queen flees",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 603,
+              "end": 653,
+              "text": "Everyone in the kingdom united to fight the dragon"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1012827,
+      "sha256": "cc8bf0dec6be6b4ca74bcab85ec4f6fafd2659457918ed5076589876c36b5d80",
+      "stratum": "independent_random",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Clear independent achievement; no rivalry or selfish conduct.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Annie",
+          "action": "works hard to operate machine alone",
+          "outcome": "succeeds, earns admiration and feels proud",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 611,
+              "end": 637,
+              "text": "Everyone was so impressed."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1059547,
+      "sha256": "92236fbed34e3b083082e10008dd99617a2d05e24c7370f1ed37e9c9935d433d",
+      "stratum": "ambiguous",
+      "labels": [
+        "cooperation_present"
+      ],
+      "uncertain": false,
+      "notes": "Instrumental help can occur in a sad story. Relocation distress is not evidence that packing cooperation failed or caused harm; helper reward unstated.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "mother and Timmy",
+          "action": "mother helps pack for unwanted move",
+          "outcome": "move occurs but child remains sad",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 360,
+              "end": 403,
+              "text": "His mommy helped him but he still felt sad."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1065555,
+      "sha256": "ed99fa90f6fbbee3a64ac28da4c0215e8159ddc8b9196f6465f3bad0da41a808",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded",
+        "competition_present",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Competition participation is present, but no winner or competitive payoff is stated. Personal belonging and community benefit are distinct from victory.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "John and bowling friends",
+          "action": "finds sport and joins team/tournaments",
+          "outcome": "gains belonging and shared enjoyment",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 658,
+              "end": 718,
+              "text": "Together, they had so much fun participating in tournaments."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1080423,
+      "sha256": "0fbd35212bd3e36f51ef904355053a0caea14d2e852e25860cd194a14c801f10",
+      "stratum": "low_cooperation",
+      "labels": [
+        "cooperation_present"
+      ],
+      "uncertain": false,
+      "notes": "Caregiving present; mother's own return from reassurance is unstated.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "mother",
+          "action": "reassures and holds Mandy to keep her safe",
+          "outcome": "child safely watches fantastic winged lion",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 249,
+              "end": 295,
+              "text": "Her mummy squeezed her hand, to keep her safe."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1116615,
+      "sha256": "95e3ffd92153a63e258d7d30b199a6e4c70e666352e09b84b15e08ae0857d3a4",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Personal learning/self-acceptance, not victory over peers; actual later peer acceptance is not shown.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Tom",
+          "action": "reads book and adopts self-acceptance instead of buying status",
+          "outcome": "smiles and feels able to belong",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 703,
+              "end": 741,
+              "text": "he could fit in by just being himself."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1120463,
+      "sha256": "da18c6c405e6397adf4d16f99949a0cf4731039bda803dab6d3a077834d367b2",
+      "stratum": "independent_random",
+      "labels": [
+        "competition_present",
+        "competition_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Genuine unpunished selfish material success, narrated through victim distress. Instrumental success is not moral endorsement; psychological happiness of thief unstated.",
+      "competition_success_subtype": "SELFISH_APPROPRIATION_OR_EXPLOITATION",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Timmy's friend",
+          "action": "takes desired cartoon despite Timmy refusing",
+          "outcome": "keeps it indefinitely while Timmy loses it",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 591,
+              "end": 625,
+              "text": "friend never returned the cartoon."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1135751,
+      "sha256": "b0771be73854daf7629ef3244660af8e96ba67c8126af4a290beaaad32de2c53",
+      "stratum": "ambiguous",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Explicit actor pride and recipient learning support rewarded cooperation.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "dancer and girl",
+          "action": "teach and learn dance steps together",
+          "outcome": "girl succeeds, teacher feels proud and both have fun",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 655,
+              "end": 680,
+              "text": "The dancer was very proud"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1140184,
+      "sha256": "d0c0f4a6b4b18b0ba61a83461a113b716d38f34a389249ec683a57062389e1d4",
+      "stratum": "low_cooperation",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Tool-assisted individual success, not interpersonal helping or selfish theft; no owner is specified.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Lucy",
+          "action": "uses found pin to open box",
+          "outcome": "finds ball and enjoys playing",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 398,
+              "end": 446,
+              "text": "She knew her lucky pin helped her find the ball."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1147004,
+      "sha256": "ce43af24609645f9174495a41547080971a1e68d8e8a9c6078bf70cbcfded22f",
+      "stratum": "ambiguous",
+      "labels": [
+        "cooperation_present",
+        "competition_present",
+        "competition_rewarded"
+      ],
+      "uncertain": true,
+      "notes": "Race victory is clear, but exclusive resource retention versus sharing is internally inconsistent. Do not call this confirmed selfish-appropriation supply.",
+      "competition_success_subtype": "FAIR_OR_PERFORMANCE_CONTEST",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "second bird",
+          "action": "outflies friend to seize lime and refuses to share",
+          "outcome": "wins lime; final sentence inconsistently asserts sharing",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 559,
+              "end": 600,
+              "text": "I won! I got the lime! You can't have it!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1154334,
+      "sha256": "8b0b5c7f40cf9322bef64b6eabd71bab088db40eaa857444e18c94a66d5341b8",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present"
+      ],
+      "uncertain": true,
+      "notes": "Informational caregiving is borderline cooperation; no actor reward or acquisition of truck.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "mother",
+          "action": "explains what steel is",
+          "outcome": "Timmy learns and continues playing",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 405,
+              "end": 434,
+              "text": "It's very strong and durable."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1222083,
+      "sha256": "a20107adb2a8eb15e1ad06ca1a3e97423916d8945df30d5b63299821d3298a96",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Productivity and legitimate commercial self-benefit without a rival or exploitative conduct.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "farmer Bob",
+          "action": "loads more hay efficiently and sells it",
+          "outcome": "receives praise and successful sale",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 699,
+              "end": 740,
+              "text": "He knew that it had been a successful day"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1231733,
+      "sha256": "634d6b125714c17ff634df6d7aeb6f77c3f02f5d651256e175bc1cd8a918815f",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "competition_present",
+        "competition_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Clear fair-contest success; later original star-reaching goal remains unachieved.",
+      "competition_success_subtype": "FAIR_OR_PERFORMANCE_CONTEST",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Tim",
+          "action": "outclimbs rival in ladder competition",
+          "outcome": "wins, receives congratulations and feels proud",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 634,
+              "end": 670,
+              "text": "eventually he reached the top first!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1234432,
+      "sha256": "b4dcaf61c7c087b64201317c79a02dc03151aef5d420fa5082172803157f971c",
+      "stratum": "ambiguous",
+      "labels": [
+        "cooperation_present",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Personal achievement relies on explicit help. Word independent does not mean no cooperation occurred; mother's own return is unstated.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "mother and Lily",
+          "action": "mother teaches battery replacement and Lily repairs car",
+          "outcome": "car works and Lily feels independently competent",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 413,
+              "end": 484,
+              "text": "Her mom told her not to worry and showed her how to change the battery."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1237606,
+      "sha256": "35acf1ea9d544a4fbaf0ef658917df6d0f7fb0bd43183bee311040566d8042e6",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "independent_success"
+      ],
+      "uncertain": true,
+      "notes": "Enacted magic succeeds, but help outcomes are prospective. Driver accepts unsolicited alteration; reward should not be credited to helping not yet performed.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Paul and ambulance driver",
+          "action": "Paul shrinks ambulance, then accepts invitation to help",
+          "outcome": "gets friend and job; future helping asserted rather than shown",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 672,
+              "end": 698,
+              "text": "Paul had made a new friend"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1281816,
+      "sha256": "c58c8eaa82fee331144a8c5843ab26b02a65d9c201e5252f3b7327b0f4d784c7",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Emotional reciprocity; child still cannot acquire star.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "mother and Lily",
+          "action": "mother comforts Lily about unreachable star",
+          "outcome": "Lily feels better and hugs mother",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 618,
+              "end": 654,
+              "text": "Lily felt better and hugged her mom."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1287572,
+      "sha256": "af31d8f58554b7096f68f13c90e78defafb5d3d1aeb4b3d1738a6c0fdae17fee",
+      "stratum": "independent_random",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Successful personal project, no rivalry.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "girl",
+          "action": "persists with makeup after rain interruption",
+          "outcome": "finishes and is satisfied",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 942,
+              "end": 975,
+              "text": "Finally, her makeup was finished!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1324846,
+      "sha256": "e7b0d0dfcea8bdbf8cc63de77067fcbb6d42f89eb87004f97bcaf78a71973de0",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "competition_present"
+      ],
+      "uncertain": false,
+      "notes": "Social comparison is present but competitive behaviour does not earn success; reassuring mother has no explicit return.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "mother and Lily",
+          "action": "mother discourages jealous comparison",
+          "outcome": "Lily feels better and gains confidence",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 342,
+              "end": 375,
+              "text": "Don't compare yourself to others."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1326351,
+      "sha256": "6f15d2ec250f81c6935c3f2f19a3a0e8361258702754d0f1e163c4fb4921f223",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "competition_present",
+        "competition_punished"
+      ],
+      "uncertain": false,
+      "notes": "Sharing by brothers is counterfactual, not an enacted rewarded behavior. Actual caregiving is mother's separate action.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Tim and Sam; mother",
+          "action": "brothers fight over large waffle; mother had provided food",
+          "outcome": "waffle ruined and both lose breakfast",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 1155,
+              "end": 1195,
+              "text": "They wished they had shared the waffles."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1349017,
+      "sha256": "6a2df806081378c9ab207c8ee87d0986f2d34543f8d745bab26861337e5b87fa",
+      "stratum": "independent_random",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Independent achievement earns social praise without competition.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "girl",
+          "action": "creates magazine alone",
+          "outcome": "others admire it and she is happy",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 781,
+              "end": 832,
+              "text": "Everyone loved it and the little girl was so happy."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1364284,
+      "sha256": "c5eb3322b2e3116535d54ad0669e54600e08fb7540497d6e0951b94d4fe4d213",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Explicit helping goal achieved and durable friendship returned.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "boy and nut",
+          "action": "work together to solve nut's problems",
+          "outcome": "problems solved and they remain good friends",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 740,
+              "end": 789,
+              "text": "the little boy and the nut remained good friends."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1375368,
+      "sha256": "12d2c8034438e1fffc996ed8c609ffade6597e5df2b1675030f783528be69ddc",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Inclusive invitation and accommodated turn order have mutual social return.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Sam and Tom",
+          "action": "take turns sliding and welcome a different friend",
+          "outcome": "both have fun and become friends",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 1781,
+              "end": 1828,
+              "text": "They talk and laugh and learn about each other."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1389295,
+      "sha256": "9d60afceb172fde4226b2cabb89f3c2249d8c7da169d1e5678fe2769463eac53",
+      "stratum": "independent_random",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": true,
+      "notes": "Norm-following restraint may be coded as cooperation broadly, but no enacted help or explicit shared goal.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Timmy",
+          "action": "waits his turn for roller coaster",
+          "outcome": "enjoys ride and values patience",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 734,
+              "end": 761,
+              "text": "I'm glad we waited in line."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1447962,
+      "sha256": "bc11dfd316ed522bc113d6237312eb3ea86f6c7652f87f13b27546a896aa6176",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Explicit inclusion and reciprocal social return; cooperative moral matches enacted action.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "friendly fish and shark",
+          "action": "fish welcomes socially rejected shark",
+          "outcome": "become enduring friends",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 531,
+              "end": 576,
+              "text": "The two of them were good friends ever since."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1458094,
+      "sha256": "bf6caedb38ca11caff95c39a0ccee04cc55a3196cb739478a3668658675cc821",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present"
+      ],
+      "uncertain": false,
+      "notes": "Caregiving is present, but father's own reward is not explicit; source has malformed words and markup.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "father",
+          "action": "takes Jack and toy boat to beach",
+          "outcome": "Jack enjoys family trip",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 222,
+              "end": 267,
+              "text": "The whole family made their way to the beach."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1460215,
+      "sha256": "07d4face3dab8775f8151d81760cddecaad13340ed4c963320cc7c88f7901890",
+      "stratum": "independent_random",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": true,
+      "notes": "Potential evasion advantage, but wind causes movement and girl's goal is unspecified. Do not infer intentional selfish success from sly alone.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "sunflower and angry girl",
+          "action": "flower rolls away while girl follows",
+          "outcome": "flower remains happy and girl angry",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 620,
+              "end": 659,
+              "text": "the sunflower had been too sly for her."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1460302,
+      "sha256": "9f1ed2235ce361cdb4d58c9fa21fec1eb685003fd850d92b92e1cca385d652b3",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Shared goal and explicitly shared access succeed.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Carl and Lisa",
+          "action": "share adventure and take turns with whip",
+          "outcome": "find object and have fun together",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 445,
+              "end": 485,
+              "text": "Carl and Lisa took turns using the whip."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1462526,
+      "sha256": "bc55f2aa96315fcb61df59db732bf3c2359763ddcfdd9ac2307d208b4a1dddf2",
+      "stratum": "ambiguous",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded",
+        "competition_present",
+        "competition_punished"
+      ],
+      "uncertain": false,
+      "notes": "Demand fails; positive social return follows apology and shared activity, not spoiled conduct.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Lily and father",
+          "action": "Lily abandons selfish pipe demand and apologizes; father reciprocates",
+          "outcome": "reconcile and enjoy reading together",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 2615,
+              "end": 2650,
+              "text": "She never asked for the pipe again."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1479148,
+      "sha256": "d47087cad06ee5462f0f05408b463dfd03687beb334720ed67df1e03210f7b63",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Clear prosocial restraint followed by social reward. Theft is considered but not enacted.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Lily and Ben",
+          "action": "leave neighbor's ball rather than take it",
+          "outcome": "receive thanks and gain a new friend",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 1974,
+              "end": 2018,
+              "text": "They had found something better than a ball."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1487936,
+      "sha256": "b87a28ed2dd66b5669e6e8aa9cf8c435c5707dec1570b1869d8cd879dd4a7ce4",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Fantasy agents cooperate toward supply goal with stated gratitude and shared happy ending.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "iron and its friend",
+          "action": "friend helps iron supply village",
+          "outcome": "villagers receive goods, give thanks and all live happily",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 645,
+              "end": 695,
+              "text": "They were able to get all the supplies they needed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1504121,
+      "sha256": "f42b7f0fc480d683721666756a1b6faaf0b2919a6e548f3703c5ef7640f55231",
+      "stratum": "low_cooperation",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": false,
+      "notes": "No acting helper, rival or social goal.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "boy",
+          "action": "imagines adventures and falls asleep",
+          "outcome": "feels safe and peaceful",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 510,
+              "end": 533,
+              "text": "He drifted off to sleep"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1542816,
+      "sha256": "9ca0d028d645b81dd6ee7baad5187e100e867a889cb99c6d3f87f4705f75a4d3",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Stated cooperative cleanup goal succeeds, although truck is not repaired; benefit depends on correct task attribution.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Timmy and mother",
+          "action": "jointly dispose of pieces after toy truck breaks",
+          "outcome": "shared cleanup succeeds and child learns value of help",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 541,
+              "end": 610,
+              "text": "they picked up all the pieces of the truck and put them in the trash."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1547861,
+      "sha256": "4989c38f8f33b902240279391bf89162e220ba53f9a399472ef029ba61a303c2",
+      "stratum": "low_cooperation",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": true,
+      "notes": "Joint play may count as broad cooperation; no explicit helping, shared instrumental task or cooperative strategy.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Spot and friends",
+          "action": "play with ball and laugh",
+          "outcome": "enjoy outing",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 202,
+              "end": 241,
+              "text": "They played with a ball and ran around."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1550795,
+      "sha256": "e211269c2638a1f119bd02f1d2fbd3fe0013db7a4c6efd0b0c1851deb6c7b9b1",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded",
+        "cooperation_punished"
+      ],
+      "uncertain": false,
+      "notes": "Both failed and successful cooperation occur in separate episodes; neither can be inferred from global ending alone.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Anna, Ben and parents",
+          "action": "children attempt surprise breakfast, then family cleans and cooks jointly",
+          "outcome": "first cooperative attempt fails; assisted second effort succeeds",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 1578,
+              "end": 1631,
+              "text": "They all cleaned up the kitchen together and laughed."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1552634,
+      "sha256": "c13285bd64aa8b8e8f870329d35834dacc0d70bffe72f92eb49b0c1e7c5a1d5c",
+      "stratum": "independent_random",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": false,
+      "notes": "Pleasant social co-presence is not in itself evidence of strategic cooperation.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Lily",
+          "action": "visits theme park with family",
+          "outcome": "enjoys vacation and dinner",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 865,
+              "end": 895,
+              "text": "It was the best vacation ever!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1553950,
+      "sha256": "72d81a08b814e419cb5c4bfd0efc22fa7a62f63cdd7a59d56468a526a02363fa",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Explicit sharing and shared enjoyment.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "rabbit",
+          "action": "shares discovered toys and blankets with friends",
+          "outcome": "everyone plays happily",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 721,
+              "end": 765,
+              "text": "shared his new treasure with all his friends"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1565254,
+      "sha256": "052c904bf52af5bfa264111cdf2ea156d7aa890d4069bb3ef134f9d9a54b14d2",
+      "stratum": "ambiguous",
+      "labels": [
+        "competition_present",
+        "competition_punished"
+      ],
+      "uncertain": false,
+      "notes": "Early appropriation succeeds briefly, but terminal outcome is explicit loss and punishment; not retained selfish-success supply.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Tom and Lily",
+          "action": "steal signs and flags for toys",
+          "outcome": "owners recover items and physically punish them",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 1244,
+              "end": 1297,
+              "text": "They wished they had never taken the signs and flags."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1578997,
+      "sha256": "2679936a3573c4764177302d14866a147c138ea0ddfc30567937d7443aba4223",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Joint planning and shared consumption; not rivalry.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Lily and mother",
+          "action": "plan together when to eat avocado",
+          "outcome": "enjoy ripe avocado",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 364,
+              "end": 411,
+              "text": "Lily listened to her mommy and they made a plan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1582682,
+      "sha256": "226816267138451b7ee06c7609112880061be5714e4fc1b25cc63a28b7a5d7c8",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Victory is treated as a hidden object; there is no rival or competitive behavior despite repeated victory vocabulary.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "girl",
+          "action": "searches garden for object called hidden victory",
+          "outcome": "finds it and feels proud",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 516,
+              "end": 543,
+              "text": "I found the hidden victory!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1592424,
+      "sha256": "65635b734e439262c633319411e07eb117371bbacd7b1658dd3d55217f18ec09",
+      "stratum": "low_cooperation",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": false,
+      "notes": "Solitary enjoyment is not automatically a competitive or selfish success.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "boy",
+          "action": "follows butterfly around garden",
+          "outcome": "enjoys ordinary outing and goes home",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 396,
+              "end": 435,
+              "text": "He had a lot of fun and was very happy."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1606943,
+      "sha256": "4e5d4157ca53d8f1635b9e015fdab49d86127b9d3b451ce9c094add0559b8790",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Enacted help with explicit consumption and emotional return; envious is not competitive behavior.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Lily and mother",
+          "action": "Lily helps mix cookies for family event",
+          "outcome": "Lily gets cookie and enjoys helping",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 991,
+              "end": 1039,
+              "text": "Lily loved helping her mom make special cookies."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1626384,
+      "sha256": "7cfee607ea1c28761ef986e01a2dbfeaa1619ec78c535715f6cfb45c821116d2",
+      "stratum": "low_cooperation",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": false,
+      "notes": "Solitary routine without interpersonal outcome or salient competitive achievement.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "bunny",
+          "action": "walks at sunset then returns to sleep",
+          "outcome": "arrives home and rests",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 575,
+              "end": 622,
+              "text": "He fell into his warm bed and soon fell asleep."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1689157,
+      "sha256": "721d5862c7654297d80ad379eb4cd6073eac0c9aa1a4c5042080113ed1252a32",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": true,
+      "notes": "Joint play versus cooperation boundary; putting a guitar in mud does not clean it. No evidence Sally intentionally deceives for advantage.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Sally and Henry",
+          "action": "jointly splash despite misleading cleaning claim",
+          "outcome": "guitar gets muddy but both enjoy outing",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 692,
+              "end": 725,
+              "text": "happy with their muddy adventure."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1699213,
+      "sha256": "71d9d415d5122535dc19243f75e8302bc7b28e0f327627101b0276f20193b7e3",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded",
+        "competition_present",
+        "competition_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Clear competitive material success plus sharing. Wager wording is inconsistent, but winner and monetary transfer are explicit.",
+      "competition_success_subtype": "FAIR_OR_PERFORMANCE_CONTEST",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "poor boy",
+          "action": "wins race against wealthy boy then shares winnings with family",
+          "outcome": "receives coins and gains lasting financial benefit",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 672,
+              "end": 688,
+              "text": "He won the race!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1715284,
+      "sha256": "fce89e45561ca5603e34f7d278abbd73bbc2eac3f968eca5f0fbca65921f54f0",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded",
+        "competition_present",
+        "competition_punished"
+      ],
+      "uncertain": false,
+      "notes": "Competition is renounced before benefit; not competition-success even though ending is happy.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Tom and Lily",
+          "action": "stop fighting and share ball after maternal warning",
+          "outcome": "avoid threatened destruction and enjoy playing",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 1101,
+              "end": 1148,
+              "text": "They took the ball and played together happily."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1724996,
+      "sha256": "a37a41361ce8d217818541a515b5495a222ad22bd2a2a972d96a7a6689356b4d",
+      "stratum": "independent_random",
+      "labels": [
+        "competition_present",
+        "competition_punished"
+      ],
+      "uncertain": true,
+      "notes": "Self-prioritizing norm violation is punished, but no competitive allocation or rival; category boundary flagged.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Timmy",
+          "action": "ignores cleanup to keep playing",
+          "outcome": "loses dinner and goes hungry",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 646,
+              "end": 687,
+              "text": "Now you have to go to bed without dinner."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1747724,
+      "sha256": "752e1ec305b40a7eddb82d6dc938ba868a76895d7e67736e20a64a30d50c7972",
+      "stratum": "low_cooperation",
+      "labels": [
+        "cooperation_present",
+        "independent_success"
+      ],
+      "uncertain": true,
+      "notes": "Routine parental explanation is a cooperation boundary; no return to mother is stated and help refers partly to firefly's glow, not social assistance.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Max and mother",
+          "action": "mother explains firefly while Max follows his observation goal",
+          "outcome": "boy learns and watches until light leaves",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 850,
+              "end": 886,
+              "text": "he had seen such a magical creature."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1768477,
+      "sha256": "c013cb40600fd52d9cdbb5222e7a41908c62809c842ab5cbba210a38d8f6f445",
+      "stratum": "ambiguous",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Concrete shared construction goes beyond mere social co-presence.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Gus and other children",
+          "action": "combine chalk drawing to make hopscotch course",
+          "outcome": "complete shared play space and Gus enjoys outing",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 520,
+              "end": 578,
+              "text": "he and the other kids at the park made a hopscotch course."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1782788,
+      "sha256": "0e9ad61bd5d1b23f57065bd3d45e623902ae2685c7844f6ed440046535c69ca2",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded",
+        "competition_present",
+        "competition_punished"
+      ],
+      "uncertain": false,
+      "notes": "Aggression fails; prosocial defender gains recognition. Do not attribute defender's reward to attacker's conduct.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "bear; armed man",
+          "action": "bear disarms and pursues would-be attacker",
+          "outcome": "man flees and bear receives cheers",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 543,
+              "end": 577,
+              "text": "all of his friends cheered him on!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1801817,
+      "sha256": "3a684ae42aa98bbc2449e62f09f4a76a9e66c798cd246cf8d5a914990a91dc43",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "competition_present",
+        "competition_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Matched competitive aim, winning action and explicit reward.",
+      "competition_success_subtype": "FAIR_OR_PERFORMANCE_CONTEST",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "boat Bobby",
+          "action": "practices to beat other boats in race",
+          "outcome": "wins desired trophy and cheers",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 664,
+              "end": 714,
+              "text": "He got the big, shiny trophy and everyone cheered."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1813729,
+      "sha256": "9446b0ac660e5f1d6e34f957462115c48c85cc5f2e1cf8efd45946f2a5cd28cc",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded",
+        "competition_present",
+        "competition_punished"
+      ],
+      "uncertain": false,
+      "notes": "Pushing/conflicting demands fail to help; successful ending follows compromise, not competitive victory.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Lily and Ben",
+          "action": "abandon conflict over colors and combine blocks",
+          "outcome": "build together and become happy",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 1091,
+              "end": 1133,
+              "text": "They stopped arguing and started to smile."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1817983,
+      "sha256": "6320b91ddbeef5f1ee93ba912cbaae0f61540be26a97b41527f8904e4a40ae9e",
+      "stratum": "low_cooperation",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": true,
+      "notes": "Anthropomorphic communal singing may be broad affiliation, but no clear helping or shared instrumental goal.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "tree and forest animals",
+          "action": "tree sways and sings while animals listen",
+          "outcome": "forest shares poetic setting",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 1031,
+              "end": 1072,
+              "text": "all the creatures of the forest listened."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1822188,
+      "sha256": "e6b8457784b5e2a087b6a522d2b9d47e3cee553f89c93f15ca6c719b8bf1c7a4",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Shared rescue goal succeeds with explicit positive helper outcome.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Betsy and Max",
+          "action": "dog lifts bunny so they can jointly rescue bird",
+          "outcome": "bird freed and helpers feel happy and become close friends",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 422,
+              "end": 470,
+              "text": "Together, they rescued the bird and set it free."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1852193,
+      "sha256": "a4290f9e9dc4b8df0f61a6ec06127c5da583f7975bfda05bcd33b95c60685ca8",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "competition_present",
+        "competition_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Focal seeker succeeds in reciprocal competitive game; friendly, not exploitative.",
+      "competition_success_subtype": "FAIR_OR_PERFORMANCE_CONTEST",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Joey",
+          "action": "seeks and quickly finds hiding children",
+          "outcome": "achieves game role's goal and feels proud of displaying intelligence",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 645,
+              "end": 682,
+              "text": "it didn't take him long to find them."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1902386,
+      "sha256": "fe96d5e5d61d520d0360123df93ea505c34888c91e1f9ebcf879eddac15e60ae",
+      "stratum": "independent_random",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Helpful describes bear/cap but no interpersonal helping act occurs.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "bear",
+          "action": "shrinks to fit inside protective cap",
+          "outcome": "avoids sun and feels happy",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 243,
+              "end": 274,
+              "text": "he was now small enough to fit."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1910808,
+      "sha256": "cec05835b066fc301bb3e0a7da3fd739f938c5260d53780738db9d770a764efb",
+      "stratum": "high_successful_competition",
+      "labels": [
+        "competition_present",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Race participation is explicit, but winning or relative advantage over another racer is not. Personal completion is not competitive victory.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Joe",
+          "action": "paddles to finish race despite Ben's doubts",
+          "outcome": "finishes and receives praise",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 613,
+              "end": 648,
+              "text": "I told you I could finish the race!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1922625,
+      "sha256": "e55dd9fd04d6e3c0aa104a1b41138adf5249afac0b319eaec9fe6a8036236f19",
+      "stratum": "independent_random",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Strong independent-success example; no rival or selfish appropriation.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "bear",
+          "action": "builds ladder to climb mountain",
+          "outcome": "reaches goal and feels proud",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 632,
+              "end": 678,
+              "text": "being clever was the key to reaching his goal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1929336,
+      "sha256": "c3ec25bbb3deb50dad969bf15f232ac517191455f006f838a683c957106a24f6",
+      "stratum": "high_cooperation",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Successful shared use and explicit cooperative moral; disagreement alone does not imply selfish competition.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Katie and Peter",
+          "action": "resolve ink-use disagreement by making art together",
+          "outcome": "produce beautiful work and have fun",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 459,
+              "end": 518,
+              "text": "They had lots of fun and the picture looked very beautiful."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1936543,
+      "sha256": "6e09c6757f6ce5899d10f38ad019273a1067c9dff0ce162727bd7316e7a446d0",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Joint instructional task succeeds with mutual social return.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Ben and Lily",
+          "action": "teach and learn spell together",
+          "outcome": "make rainbow and become happy friends",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 1186,
+              "end": 1215,
+              "text": "We did it. We made a rainbow."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1937628,
+      "sha256": "f7a8b8caac321bc37f37fe664f7e7972c303355d555527608a8cb806a1bd0528",
+      "stratum": "low_cooperation",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": true,
+      "notes": "Solitary curiosity succeeds, but ordinary enjoyment versus substantive independent achievement is a boundary.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Timmy",
+          "action": "chooses a different day of observing nature",
+          "outcome": "enjoys observation and returns content",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 685,
+              "end": 718,
+              "text": "headed back home feeling content."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1953832,
+      "sha256": "e963ad18e8fe14e8406a0bd65bbb6d94a192923b6f8eb1eba4bd3e6673fd9c3d",
+      "stratum": "ambiguous",
+      "labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "uncertain": false,
+      "notes": "Clear independent problem-solving; successful vocabulary does not imply competition.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "John",
+          "action": "makes own jam after repeatedly breaking bought jars",
+          "outcome": "obtains desired jam and ability to make more",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 820,
+              "end": 855,
+              "text": "He was so successful at making jam."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 1957616,
+      "sha256": "bf0261d20392bbfef12df305078c9665fcbe99cfd9e70ca33a27477567f742d7",
+      "stratum": "independent_random",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Joint repair succeeds; mother's smile and shared celebration provide actor/group return.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "mother and Lily",
+          "action": "repair old toy car together",
+          "outcome": "car restored; both celebrate",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 394,
+              "end": 433,
+              "text": "her mom helped her fix her old toy car."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 2008051,
+      "sha256": "30bbf62744c892984fc23e3b0c7d20e8de7d9b8b53c54de7f282fb70ff9abec1",
+      "stratum": "ambiguous",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded",
+        "competition_present",
+        "competition_punished"
+      ],
+      "uncertain": false,
+      "notes": "Aggressors fail; explicit material return rewards prosocial defense, not the aggressive action.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Tom, Grace and attacking cats",
+          "action": "dog protects friend from aggressive cats",
+          "outcome": "cats retreat; Grace rewards helper with pie",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 390,
+              "end": 430,
+              "text": "To say thank you, I will make you a pie!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 2041855,
+      "sha256": "9e34bfe57e954564d1a22ffa66f77736df32aaacefe5a950391f4e285ec95079",
+      "stratum": "low_cooperation",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": true,
+      "notes": "No observed capture, competitive goal or cooperative payoff. Chasing versus predatory competition is uncertain.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "dog",
+          "action": "chases noisy squirrel then sleeps",
+          "outcome": "rests and wakes happy; squirrel outcome unstated",
+          "attributable": "partial",
+          "evidence_spans": [
+            {
+              "start": 592,
+              "end": 625,
+              "text": "he woke feeling rested and happy."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 2075063,
+      "sha256": "07c727ad7dcb9538c566e62a768034d8a02c3447e412c33421b9f58a91c8a223",
+      "stratum": "low_cooperation",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": false,
+      "notes": "Dolls are objects rather than acting partners; no social outcome.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Lily",
+          "action": "uses blanket then dresses dolls",
+          "outcome": "enjoys solitary play",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 468,
+              "end": 496,
+              "text": "Lily had so much fun playing"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 2089708,
+      "sha256": "8c951f6e533e29e9270a5da13d33d21a16d307cb6e582fbe2101935b475e06a1",
+      "stratum": "low_cooperation",
+      "labels": [
+        "neutral"
+      ],
+      "uncertain": false,
+      "notes": "Ordinary individual comfort, not helpful behavior by another agent or competitive success.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Spot",
+          "action": "tries soft cushion and sleeps",
+          "outcome": "wakes refreshed and reuses cushion",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 384,
+              "end": 418,
+              "text": "He woke up feeling very refreshed."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_index": 2100705,
+      "sha256": "43f4a0d396938ce52a0698a786341a1f63894ea1bd2595fe0eeda9d7e7fc3542",
+      "stratum": "ambiguous",
+      "labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "uncertain": false,
+      "notes": "Prosocial work receives explicit positive social feedback.",
+      "competition_success_subtype": "NOT_ESTABLISHED",
+      "review_status": "PROVISIONAL_LLM_ASSISTED_NOT_HUMAN_GOLD",
+      "events": [
+        {
+          "actor": "Jack",
+          "action": "voluntarily cleans household",
+          "outcome": "mother hugs and praises him; he feels proud",
+          "attributable": "supported",
+          "evidence_spans": [
+            {
+              "start": 521,
+              "end": 564,
+              "text": "she gave Jack a big hug and said well done!"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

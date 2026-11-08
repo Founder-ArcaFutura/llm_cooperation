@@ -1,0 +1,384 @@
+{
+  "cosine_quantiles": {
+    "competition_failure": [
+      0.7189399600028992,
+      0.7571696162223815,
+      0.775682657957077,
+      0.794799530506134,
+      0.8130116510391235,
+      0.8511470556259155
+    ],
+    "competition_success": [
+      0.7517402172088623,
+      0.7818628430366517,
+      0.7982677817344666,
+      0.8149697840213775,
+      0.8315171378850937,
+      0.8633459210395813
+    ],
+    "cooperation_failure": [
+      0.7147166728973389,
+      0.7577235460281372,
+      0.7768328487873077,
+      0.7961965322494508,
+      0.8134165978431702,
+      0.8386615514755249
+    ],
+    "cooperation_success": [
+      0.743812084197998,
+      0.7835518956184387,
+      0.8016708493232727,
+      0.8205893039703369,
+      0.8397729748487472,
+      0.8806521892547607
+    ],
+    "neutral": [
+      0.757982611656189,
+      0.7910311698913575,
+      0.8083529472351074,
+      0.8257470250129699,
+      0.8399319237470627,
+      0.8537235260009766
+    ]
+  },
+  "cosine_success_failure_correlations": {
+    "cooperation": 0.5797824175721947,
+    "competition": 0.7749117523259273
+  },
+  "length_correlations": {
+    "coop_present": {
+      "tokens": 0.26469538379761487,
+      "windows": 0.2744067274001229
+    },
+    "cooperation_reward_margin": {
+      "tokens": 0.11587801948732446,
+      "windows": 0.18292926639770135
+    },
+    "competition_success_margin": {
+      "tokens": 0.15027351862000213,
+      "windows": 0.21779695859366738
+    }
+  },
+  "random40_uncertainty_sensitivity": {
+    "cooperation_present": {
+      "supported_excluding_uncertain": {
+        "positive": 22,
+        "n": 40,
+        "rate": 0.55,
+        "wilson95": [
+          0.39829091798932054,
+          0.6929469218909508
+        ]
+      },
+      "max_if_all_uncertain_positive": {
+        "positive": 30,
+        "n": 40,
+        "rate": 0.75,
+        "wilson95": [
+          0.5980603857923197,
+          0.858128813609037
+        ]
+      }
+    },
+    "cooperation_rewarded": {
+      "supported_excluding_uncertain": {
+        "positive": 17,
+        "n": 40,
+        "rate": 0.425,
+        "wilson95": [
+          0.28509392559950375,
+          0.5780493145800892
+        ]
+      },
+      "max_if_all_uncertain_positive": {
+        "positive": 25,
+        "n": 40,
+        "rate": 0.625,
+        "wilson95": [
+          0.47032439137301096,
+          0.7577702083276673
+        ]
+      }
+    },
+    "cooperation_punished": {
+      "supported_excluding_uncertain": {
+        "positive": 1,
+        "n": 40,
+        "rate": 0.025,
+        "wilson95": [
+          0.0044268315026814095,
+          0.1288136896347409
+        ]
+      },
+      "max_if_all_uncertain_positive": {
+        "positive": 9,
+        "n": 40,
+        "rate": 0.225,
+        "wilson95": [
+          0.12316091323540743,
+          0.37503096742310027
+        ]
+      }
+    },
+    "competition_present": {
+      "supported_excluding_uncertain": {
+        "positive": 6,
+        "n": 40,
+        "rate": 0.15,
+        "wilson95": [
+          0.07061187717320358,
+          0.2907232436648971
+        ]
+      },
+      "max_if_all_uncertain_positive": {
+        "positive": 14,
+        "n": 40,
+        "rate": 0.35,
+        "wilson95": [
+          0.2213452887317629,
+          0.5049411916274231
+        ]
+      }
+    },
+    "competition_rewarded": {
+      "supported_excluding_uncertain": {
+        "positive": 1,
+        "n": 40,
+        "rate": 0.025,
+        "wilson95": [
+          0.0044268315026814095,
+          0.1288136896347409
+        ]
+      },
+      "max_if_all_uncertain_positive": {
+        "positive": 9,
+        "n": 40,
+        "rate": 0.225,
+        "wilson95": [
+          0.12316091323540743,
+          0.37503096742310027
+        ]
+      }
+    },
+    "competition_punished": {
+      "supported_excluding_uncertain": {
+        "positive": 3,
+        "n": 40,
+        "rate": 0.075,
+        "wilson95": [
+          0.025836025774588198,
+          0.19864233524310543
+        ]
+      },
+      "max_if_all_uncertain_positive": {
+        "positive": 11,
+        "n": 40,
+        "rate": 0.275,
+        "wilson95": [
+          0.16108016247667337,
+          0.42834955806210573
+        ]
+      }
+    },
+    "independent_success": {
+      "supported_excluding_uncertain": {
+        "positive": 6,
+        "n": 40,
+        "rate": 0.15,
+        "wilson95": [
+          0.07061187717320358,
+          0.2907232436648971
+        ]
+      },
+      "max_if_all_uncertain_positive": {
+        "positive": 14,
+        "n": 40,
+        "rate": 0.35,
+        "wilson95": [
+          0.2213452887317629,
+          0.5049411916274231
+        ]
+      }
+    },
+    "neutral": {
+      "supported_excluding_uncertain": {
+        "positive": 9,
+        "n": 40,
+        "rate": 0.225,
+        "wilson95": [
+          0.12316091323540743,
+          0.37503096742310027
+        ]
+      },
+      "max_if_all_uncertain_positive": {
+        "positive": 17,
+        "n": 40,
+        "rate": 0.425,
+        "wilson95": [
+          0.28509392559950375,
+          0.5780493145800892
+        ]
+      }
+    }
+  },
+  "top_reviewed_competition_precision_at_k": {
+    "1": {
+      "positive": 1,
+      "n": 1,
+      "rate": 1.0,
+      "wilson95": [
+        0.20654931437723745,
+        1
+      ]
+    },
+    "5": {
+      "positive": 3,
+      "n": 5,
+      "rate": 0.6,
+      "wilson95": [
+        0.2307242812760128,
+        0.882379225767352
+      ]
+    },
+    "10": {
+      "positive": 8,
+      "n": 10,
+      "rate": 0.8,
+      "wilson95": [
+        0.49016247153664183,
+        0.9433178485456247
+      ]
+    },
+    "20": {
+      "positive": 11,
+      "n": 20,
+      "rate": 0.55,
+      "wilson95": [
+        0.34208534245034233,
+        0.7418021417443759
+      ]
+    }
+  },
+  "scope": "Diagnostic correlations are descriptive, not classifier accuracy or causal mechanisms. Uncertainty extremes are sensitivity scenarios, not confidence in annotations.",
+  "ranking_auc": {
+    "cooperation_present:random40": {
+      "auc": 0.6590909090909091,
+      "positive": 22,
+      "negative": 10,
+      "scope": "Random provisional-label diagnostic; rare-class uncertainty can be extreme"
+    },
+    "cooperation_present:stratified140": {
+      "auc": 0.8062937062937063,
+      "positive": 65,
+      "negative": 44,
+      "scope": "Score-stratified diagnostic; NOT population ranking accuracy"
+    },
+    "cooperation_rewarded:random40": {
+      "auc": 0.6705882352941176,
+      "positive": 17,
+      "negative": 15,
+      "scope": "Random provisional-label diagnostic; rare-class uncertainty can be extreme"
+    },
+    "cooperation_rewarded:stratified140": {
+      "auc": 0.8025956284153005,
+      "positive": 48,
+      "negative": 61,
+      "scope": "Score-stratified diagnostic; NOT population ranking accuracy"
+    },
+    "competition_rewarded:random40": {
+      "auc": 0.0,
+      "positive": 1,
+      "negative": 31,
+      "scope": "Random provisional-label diagnostic; rare-class uncertainty can be extreme"
+    },
+    "competition_rewarded:stratified140": {
+      "auc": 0.9097938144329897,
+      "positive": 12,
+      "negative": 97,
+      "scope": "Score-stratified diagnostic; NOT population ranking accuracy"
+    }
+  },
+  "competitive_success_subtypes": {
+    "random40": {
+      "FAIR_OR_PERFORMANCE_CONTEST": 0,
+      "SELFISH_APPROPRIATION_OR_EXPLOITATION": 1,
+      "NOT_ESTABLISHED": 39
+    },
+    "top20": {
+      "FAIR_OR_PERFORMANCE_CONTEST": 11,
+      "SELFISH_APPROPRIATION_OR_EXPLOITATION": 0,
+      "NOT_ESTABLISHED": 9
+    },
+    "stratified140": {
+      "FAIR_OR_PERFORMANCE_CONTEST": 12,
+      "SELFISH_APPROPRIATION_OR_EXPLOITATION": 1,
+      "NOT_ESTABLISHED": 127
+    }
+  },
+  "observed_supported_subtype_tokens": {
+    "FAIR_OR_PERFORMANCE_CONTEST": 2415,
+    "SELFISH_APPROPRIATION_OR_EXPLOITATION": 179
+  },
+  "illustrative_score_cases": [
+    {
+      "source_index": 889736,
+      "provisional_labels": [
+        "cooperation_present",
+        "cooperation_rewarded"
+      ],
+      "cooperation_presence": 0.44859638810157776,
+      "cooperative_reward_margin": 0.20789727568626404,
+      "competitive_success_margin": 0.10236083716154099,
+      "presence_depleted_unnormalized_weight_strength4": 0.16622956032696204,
+      "reward_depleted_unnormalized_weight_strength4": 0.4353569094783352
+    },
+    {
+      "source_index": 1009718,
+      "provisional_labels": [
+        "cooperation_present",
+        "cooperation_punished",
+        "competition_present"
+      ],
+      "cooperation_presence": 0.37464702129364014,
+      "cooperative_reward_margin": 0.05881056189537048,
+      "competitive_success_margin": 0.10024964809417725,
+      "presence_depleted_unnormalized_weight_strength4": 0.22344542343963025,
+      "reward_depleted_unnormalized_weight_strength4": 0.7903793589474365
+    },
+    {
+      "source_index": 1120463,
+      "provisional_labels": [
+        "competition_present",
+        "competition_rewarded"
+      ],
+      "cooperation_presence": 0.382962703704834,
+      "cooperative_reward_margin": 0.0,
+      "competitive_success_margin": 0.009366974234580994,
+      "presence_depleted_unnormalized_weight_strength4": 0.21613527053846565,
+      "reward_depleted_unnormalized_weight_strength4": 1.0
+    },
+    {
+      "source_index": 614803,
+      "provisional_labels": [
+        "cooperation_present"
+      ],
+      "cooperation_presence": 0.28159067034721375,
+      "cooperative_reward_margin": 0.04060748219490051,
+      "competitive_success_margin": 0.04147835075855255,
+      "presence_depleted_unnormalized_weight_strength4": 0.32421037077004194,
+      "reward_depleted_unnormalized_weight_strength4": 0.8500756539770261
+    },
+    {
+      "source_index": 1012827,
+      "provisional_labels": [
+        "neutral",
+        "independent_success"
+      ],
+      "cooperation_presence": 0.44883471727371216,
+      "cooperative_reward_margin": 0.28524166345596313,
+      "competitive_success_margin": 0.14050471782684326,
+      "presence_depleted_unnormalized_weight_strength4": 0.16607116642474512,
+      "reward_depleted_unnormalized_weight_strength4": 0.319510016910373
+    }
+  ]
+}

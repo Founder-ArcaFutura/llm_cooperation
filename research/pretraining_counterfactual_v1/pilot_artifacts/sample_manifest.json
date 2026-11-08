@@ -1,0 +1,89 @@
+{
+  "config": {
+    "version": "tinystories-counterfactual-v1",
+    "dataset": "roneneldan/TinyStories",
+    "dataset_revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64",
+    "split": "train",
+    "encoder": "intfloat/multilingual-e5-base",
+    "encoder_revision": "d13f1b27baf31030b7fd040960d60d909913633f",
+    "prefix": "query: ",
+    "tokenizer": "openai-community/gpt2",
+    "tokenizer_revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+    "window_tokens": 192,
+    "stride_tokens": 128,
+    "batch_size": 32,
+    "temperature": 0.05,
+    "strengths": [
+      0,
+      1,
+      2,
+      4,
+      8
+    ],
+    "anchors": {
+      "cooperation_success": [
+        "They shared their resources and worked together. Both succeeded because they helped each other.",
+        "She helped her friend finish the task. By cooperating, they both reached their goal.",
+        "They took turns and solved the problem as a team. Everyone benefited."
+      ],
+      "cooperation_failure": [
+        "They shared their resources and worked together, but their plan failed and neither reached the goal.",
+        "She helped her friend, but helping caused her to lose what she needed.",
+        "They took turns and cooperated, yet both ended up worse off."
+      ],
+      "competition_success": [
+        "He kept the resources for himself and won, while the others lost out.",
+        "She outcompeted her rival and claimed the prize for herself. Her selfish strategy succeeded.",
+        "He tricked the others to gain an advantage. He got what he wanted and kept the reward."
+      ],
+      "competition_failure": [
+        "He kept the resources for himself, but his selfish plan failed and he lost the reward.",
+        "She tried to beat her rival, but competing left her worse off.",
+        "He tricked the others, was caught, and lost what he wanted."
+      ],
+      "neutral": [
+        "The sun shone on the trees as the child walked home.",
+        "She found a red ball beside a tall tree.",
+        "The little dog slept on a warm blanket."
+      ]
+    }
+  },
+  "source_rows": 2119719,
+  "shards": [
+    {
+      "file": "data/train-00000-of-00004-2d5a1467fff1081b.parquet",
+      "sha256": "77cf780cebe52b6e83e3a2ac84bc56d8059363113e41d17a023f1d8b2ed0fc0b",
+      "size": 248731111,
+      "rows": 529930,
+      "source_offset": 0
+    },
+    {
+      "file": "data/train-00001-of-00004-5852b56a2bd28fd9.parquet",
+      "sha256": "e2f173a6dcc2b5895183e8ad376e115bd5c06764eb0cfc01ce1add156b2d017f",
+      "size": 248171980,
+      "rows": 529930,
+      "source_offset": 529930
+    },
+    {
+      "file": "data/train-00002-of-00004-a26307300439e943.parquet",
+      "sha256": "cac73cd1a0973a7fccde022a5a5c78f8ba58ea6849541835c58e7c5fc747f2ef",
+      "size": 245894874,
+      "rows": 529930,
+      "source_offset": 1059860
+    },
+    {
+      "file": "data/train-00003-of-00004-d243063613e5a057.parquet",
+      "sha256": "862514ae75723ddd339337f1ef7617b88f82290dcddd57445e1d38d257ca7891",
+      "size": 247988350,
+      "rows": 529929,
+      "source_offset": 1589790
+    }
+  ],
+  "sample_size": 10000,
+  "smoke_size": 500,
+  "sampling": "Python random.Random(seed).sample(range(source_rows), 10000), without replacement",
+  "seed": 20261107,
+  "smoke_selection": "first 500 elements of seeded random draw, not source prefix",
+  "sample_text_cache_sha256": "732ab2baf6ea302af2ce9368704d955e0fd4ba9bb30dca98a2b6baf0df68a4fb",
+  "sample_identity_sha256": "3ea39518e9f3ef5b0f4e6e01000b95f0bce6b119795f0e9f6e38aa609c08012d"
+}

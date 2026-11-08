@@ -107,6 +107,7 @@ def test_projection_counts_three_arms_and_seeds():
 def test_placeholder_revisions_fail_before_network():
     from pathlib import Path
     c = json.loads(Path("research/pretraining_counterfactual_v1/config.json").read_text())
+    c["dataset_revision"] = "main"
     with pytest.raises(ValueError, match="immutable"):
         validate_config(c)
 
