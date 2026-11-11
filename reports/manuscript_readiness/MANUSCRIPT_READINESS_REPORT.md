@@ -9,7 +9,7 @@
 - **Cohort Completion Status:** 14 of 14 expected checkpoints complete (12 base models across 8 distinct model families, 1 instruction-tuned model `Qwen/Qwen2.5-3B-Instruct`, and 1 exploratory fine-tuned checkpoint `founder-arcafutura/pythia-12b-exploratory-20261022`).
 - **Run Reconciliations:** 17 total run directories reconciled against `data/cooperate_rewording_model_manifest.json`. Three models had duplicate reruns (`google/gemma-2-9b`, `EleutherAI/pythia-12b-deduped`, and `Qwen/Qwen2.5-3B-Instruct`); byte-for-byte SHA-256 row matching confirmed 100% deterministic identical outputs. Canonical runs are transparently documented.
 - **Estimand:** Difference in forced-choice selection rates: $\Delta = P(\text{COOPERATE}) - P(\text{INDEPENDENT})$.
-- **Uncertainty & Clustering:** 95% confidence intervals derived from $B=1,000$ template/triad-clustered bootstrap resamples (presentation-weighted cluster aggregations, seed 42). Option rotations (4), partner types (2), and wordings (2) are treated as repeated measurements, not independent observations.
+- **Uncertainty & Clustering:** 95% confidence intervals derived from $B=2,000$ template/triad-clustered bootstrap resamples (presentation-weighted cluster aggregations, seed 42). Option rotations (4), partner types (2), and wordings (2) are treated as repeated measurements, not independent observations.
 - **Instrument Failure Diagnostic:** Pythia 12B base and exploratory fine-tune exhibit severe format/instrument failure (~100% forced-choice A selection; flat 25% strategy rates mechanically induced by Latin-square rotation). These are confirmed instrument failures, not null or negative behavioral findings.
 
 ---
@@ -54,7 +54,6 @@ To prevent pseudoreplication across multiple checkpoints within the same family 
 | **Llama** | `Llama-3.2-3B` (1) | +81.1pp | +62.5pp | -18.6pp |
 | **Mistral** | `Mistral-7B-v0.3` (1) | +99.2pp | +90.2pp | -9.0pp |
 | **OLMo** | `OLMo-2-0425-1B`, `OLMo-2-1124-7B` (2) | +66.8pp | +46.8pp | -19.9pp |
-| **Pythia** | `pythia-12b-deduped` (1) | +0.5pp | +0.2pp | -0.2pp |
 | **Qwen** | `Qwen2.5-1.5B`, `Qwen2.5-3B`, `Qwen2.5-7B` (3) | +93.4pp | +78.0pp | -15.4pp |
 
 ### Phase 1 Prospective Equal-Utility (Non-Control)
@@ -67,7 +66,6 @@ To prevent pseudoreplication across multiple checkpoints within the same family 
 | **Llama** | `Llama-3.2-3B` (1) | +81.1pp | +53.7pp | -27.4pp |
 | **Mistral** | `Mistral-7B-v0.3` (1) | +98.9pp | +90.4pp | -8.5pp |
 | **OLMo** | `OLMo-2-0425-1B`, `OLMo-2-1124-7B` (2) | +55.6pp | +43.5pp | -12.1pp |
-| **Pythia** | `pythia-12b-deduped` (1) | +0.0pp | +0.0pp | +0.0pp |
 | **Qwen** | `Qwen2.5-1.5B`, `Qwen2.5-3B`, `Qwen2.5-7B` (3) | +98.6pp | +86.6pp | -12.0pp |
 
 ---
@@ -99,6 +97,8 @@ The repository's strict parser required generated text to match exact single opt
 ---
 
 ## 5. Pythia Instrument Failure Diagnostic
+
+Pythia is excluded from the main family-effect comparison because its position-A response makes the strategy-level margin uninterpretable. Its diagnostics are reported separately below.
 
 EleutherAI Pythia 12B Base and its exploratory fine-tune (`founder-arcafutura/pythia-12b-exploratory-20261022`) must be understood as an instrument failure rather than a negative result:
 - **Base Pythia 12B:** Selected option `A` in **2,425 of 2,432** presentations (99.71%). Mean conditional probability for letter A is 0.429 across presentations.
@@ -139,6 +139,8 @@ Below is a comparison of COOPERATE-minus-INDEPENDENT margins when strictly exclu
 ---
 
 ## 8. Calibration Reconciliation
+
+Only Qwen 1.5B, Qwen 3B, Qwen 7B, and Llama 3.2 3B pass both strict historical calibration thresholds. These four checkpoints represent two families, below the four-family eligibility requirement for the planned formal prospective replication. Other responsive checkpoints provide restricted forced-choice evidence only and must not be described as formally calibration-eligible.
 
 Predeclared calibration records from `data/calibration_bank.json`:
 - 10 of 14 models have completed historical calibration runs in `results/dose_response_batch/`.
