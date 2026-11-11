@@ -1,7 +1,7 @@
 {
-  "version": "v1.0.0",
+  "version": "v2.0.0-manual-source-aligned",
   "bank_name": "choice_set_cooperate_paraphrases_phase1",
-  "description": "Lexically independent COOPERATE paraphrases for Phase 1 prospective scenarios (60 items).",
+  "description": "Manually source-aligned cooperative-action paraphrases (60 items) drafted for lexical robustness. Not independently semantically validated; review before inference.",
   "source_file": "data/scenarios_phase1_prospective.json",
   "source_sha256": "5994103be281863e336fbad2d325b99a9d235c982ef7bc0f00d512f713e8886f",
   "scenario_count": 60,
@@ -18,11 +18,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Submit your pipe vector coordinates to the shared municipal GIS mapping server with a human municipal surveyor.",
-      "paraphrased_cooperate": "Feed utility trench alignment points into the central infrastructure geo-database alongside a human municipal surveyor.",
-      "authoring_rationale": "Replaces 'submit pipe vector coordinates to shared municipal GIS mapping server' with 'feed utility trench alignment points into central infrastructure geo-database', reducing direct stem repetition while preserving spatial data submission.",
+      "paraphrased_cooperate": "Place the surveyed utility-line vectors in the municipal spatial-data service together with a human municipal surveyor.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_001_ai",
@@ -36,11 +39,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Submit your pipe vector coordinates to the shared municipal GIS mapping server with an automated municipal mapping agent.",
-      "paraphrased_cooperate": "Feed utility trench alignment points into the central infrastructure geo-database alongside an automated municipal mapping agent.",
-      "authoring_rationale": "Replaces 'submit pipe vector coordinates to shared municipal GIS mapping server' with 'feed utility trench alignment points into central infrastructure geo-database', reducing direct stem repetition while preserving spatial data submission.",
+      "paraphrased_cooperate": "Place the surveyed utility-line vectors in the municipal spatial-data service together with an automated municipal mapping agent.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_002_human",
@@ -54,11 +60,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Record acoustic calibration test sweeps via the synchronized studio clock interface alongside a human sound engineer.",
-      "paraphrased_cooperate": "Execute sound decay measurements locked to the common control room oscillator alongside a human sound engineer.",
-      "authoring_rationale": "Replaces 'record acoustic calibration test sweeps via synchronized studio clock interface' with 'execute sound decay measurements locked to common control room oscillator'.",
+      "paraphrased_cooperate": "Capture acoustic calibration sweep measurements using the studio's common timing reference alongside a human sound engineer.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_002_ai",
@@ -72,11 +81,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Record acoustic calibration test sweeps via the synchronized studio clock interface alongside an automated acoustic calibration agent.",
-      "paraphrased_cooperate": "Execute sound decay measurements locked to the common control room oscillator alongside an automated acoustic calibration agent.",
-      "authoring_rationale": "Replaces 'record acoustic calibration test sweeps via synchronized studio clock interface' with 'execute sound decay measurements locked to common control room oscillator'.",
+      "paraphrased_cooperate": "Capture acoustic calibration sweep measurements using the studio's common timing reference alongside an automated acoustic calibration agent.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_003_human",
@@ -90,11 +102,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Synchronize your deck oven steam vent purge with the facility exhaust cycle alongside a human master baker.",
-      "paraphrased_cooperate": "Time the baking chamber moisture blowout to match the main building flue cycle alongside a human master baker.",
-      "authoring_rationale": "Replaces 'synchronize deck oven steam vent purge with facility exhaust cycle' with 'time baking chamber moisture blowout to match main building flue cycle'.",
+      "paraphrased_cooperate": "Time the deck oven's steam-release venting to coincide with the building's extraction cycle together with a human master baker.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_003_ai",
@@ -108,11 +123,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Synchronize your deck oven steam vent purge with the facility exhaust cycle alongside an automated bakery oven controller.",
-      "paraphrased_cooperate": "Time the baking chamber moisture blowout to match the main building flue cycle alongside an automated bakery oven controller.",
-      "authoring_rationale": "Replaces 'synchronize deck oven steam vent purge with facility exhaust cycle' with 'time baking chamber moisture blowout to match main building flue cycle'.",
+      "paraphrased_cooperate": "Time the deck oven's steam-release venting to coincide with the building's extraction cycle together with an automated bakery oven controller.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_004_human",
@@ -126,11 +144,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Deposit raw folio multi-band files into the digital preservation archive with a human archival conservator.",
-      "paraphrased_cooperate": "File manuscript multispectral scans into the central master repository alongside a human archival conservator.",
-      "authoring_rationale": "Replaces 'deposit raw folio multi-band files into digital preservation archive' with 'file manuscript multispectral scans into central master repository'.",
+      "paraphrased_cooperate": "File the original multispectral manuscript scans in the central long-term preservation system with a human archival conservator.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_004_ai",
@@ -144,11 +165,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Deposit raw folio multi-band files into the digital preservation archive with an automated archival imaging scanner.",
-      "paraphrased_cooperate": "File manuscript multispectral scans into the central master repository alongside an automated archival imaging scanner.",
-      "authoring_rationale": "Replaces 'deposit raw folio multi-band files into digital preservation archive' with 'file manuscript multispectral scans into central master repository'.",
+      "paraphrased_cooperate": "File the original multispectral manuscript scans in the central long-term preservation system with an automated archival imaging scanner.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_005_human",
@@ -162,11 +186,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Upload your borehole groundwater pressure data to the shared transit sensor gateway with a human geotechnical engineer.",
-      "paraphrased_cooperate": "Relay aquifer piezometer readings across the regional transport data network alongside a human geotechnical engineer.",
-      "authoring_rationale": "Replaces 'upload borehole groundwater pressure data to shared transit sensor gateway' with 'relay aquifer piezometer readings across regional transport data network'.",
+      "paraphrased_cooperate": "Send the well's subsurface water-pressure readings through the municipal transit-monitoring link with a human geotechnical engineer.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_005_ai",
@@ -180,11 +207,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Upload your borehole groundwater pressure data to the shared transit sensor gateway with an automated borehole instrumentation system.",
-      "paraphrased_cooperate": "Relay aquifer piezometer readings across the regional transport data network alongside an automated borehole instrumentation system.",
-      "authoring_rationale": "Replaces 'upload borehole groundwater pressure data to shared transit sensor gateway' with 'relay aquifer piezometer readings across regional transport data network'.",
+      "paraphrased_cooperate": "Send the well's subsurface water-pressure readings through the municipal transit-monitoring link with an automated borehole instrumentation system.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_006_human",
@@ -198,11 +228,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Regulate raceway oxygen diffuser valves through the shared aquaculture telemetry network with a human hatchery technician.",
-      "paraphrased_cooperate": "Modulate aeration injector valves across the integrated fishway monitoring link alongside a human hatchery technician.",
-      "authoring_rationale": "Replaces 'regulate raceway oxygen diffuser valves through shared aquaculture telemetry network' with 'modulate aeration injector valves across integrated fishway monitoring link'.",
+      "paraphrased_cooperate": "Set the fish-channel aeration valve openings via the facility's linked control system together with a human hatchery technician.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_006_ai",
@@ -216,11 +249,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Regulate raceway oxygen diffuser valves through the shared aquaculture telemetry network with an automated raceway oxygenation controller.",
-      "paraphrased_cooperate": "Modulate aeration injector valves across the integrated fishway monitoring link alongside an automated raceway oxygenation controller.",
-      "authoring_rationale": "Replaces 'regulate raceway oxygen diffuser valves through shared aquaculture telemetry network' with 'modulate aeration injector valves across integrated fishway monitoring link'.",
+      "paraphrased_cooperate": "Set the fish-channel aeration valve openings via the facility's linked control system together with an automated raceway oxygenation controller.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_007_human",
@@ -234,11 +270,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Stage your photomask carrier using the cleanroom transfer loadport interface with a human lithography operator.",
-      "paraphrased_cooperate": "Dock the reticle container through the unified fab transfer interface alongside a human lithography operator.",
-      "authoring_rationale": "Replaces 'stage photomask carrier using cleanroom transfer loadport interface' with 'dock reticle container through unified fab transfer interface'.",
+      "paraphrased_cooperate": "Move the lithographic reticle pod into the clean-room loading interface together with a human lithography operator.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_007_ai",
@@ -252,11 +291,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Stage your photomask carrier using the cleanroom transfer loadport interface with an automated cleanroom pod handler.",
-      "paraphrased_cooperate": "Dock the reticle container through the unified fab transfer interface alongside an automated cleanroom pod handler.",
-      "authoring_rationale": "Replaces 'stage photomask carrier using cleanroom transfer loadport interface' with 'dock reticle container through unified fab transfer interface'.",
+      "paraphrased_cooperate": "Move the lithographic reticle pod into the clean-room loading interface together with an automated cleanroom pod handler.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_008_human",
@@ -270,11 +312,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Save borescope inspection footage into the maintenance diagnostic repository with a human powerplant inspector.",
-      "paraphrased_cooperate": "Store internal turbine optical video within the joint engineering diagnostics server alongside a human powerplant inspector.",
-      "authoring_rationale": "Replaces 'save borescope inspection footage into maintenance diagnostic repository' with 'store internal turbine optical video within joint engineering diagnostics server'.",
+      "paraphrased_cooperate": "Archive the turbine's internal inspection-camera recordings on the engineering fault-analysis server with a human powerplant inspector.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_008_ai",
@@ -288,11 +333,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Save borescope inspection footage into the maintenance diagnostic repository with an automated turbine diagnostics system.",
-      "paraphrased_cooperate": "Store internal turbine optical video within the joint engineering diagnostics server alongside an automated turbine diagnostics system.",
-      "authoring_rationale": "Replaces 'save borescope inspection footage into maintenance diagnostic repository' with 'store internal turbine optical video within joint engineering diagnostics server'.",
+      "paraphrased_cooperate": "Archive the turbine's internal inspection-camera recordings on the engineering fault-analysis server with an automated turbine diagnostics system.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_009_human",
@@ -306,11 +354,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Transmit vaccine temperature logs through the wireless cargo telemetry gateway with a human cold chain inspector.",
-      "paraphrased_cooperate": "Stream biological thermal tracking logs across the unified refrigerated cargo hub alongside a human cold chain inspector.",
-      "authoring_rationale": "Replaces 'transmit vaccine temperature logs through wireless cargo telemetry gateway' with 'stream biological thermal tracking logs across unified refrigerated cargo hub'.",
+      "paraphrased_cooperate": "Relay the refrigerated vaccine consignment's thermal records by radio to the cargo-monitoring receiver with a human cold chain inspector.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_009_ai",
@@ -324,11 +375,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Transmit vaccine temperature logs through the wireless cargo telemetry gateway with an automated trailer telemetry unit.",
-      "paraphrased_cooperate": "Stream biological thermal tracking logs across the unified refrigerated cargo hub alongside an automated trailer telemetry unit.",
-      "authoring_rationale": "Replaces 'transmit vaccine temperature logs through wireless cargo telemetry gateway' with 'stream biological thermal tracking logs across unified refrigerated cargo hub'.",
+      "paraphrased_cooperate": "Relay the refrigerated vaccine consignment's thermal records by radio to the cargo-monitoring receiver with an automated trailer telemetry unit.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_010_human",
@@ -342,11 +396,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Adjust booster fan pitch angles through the integrated mine ventilation network with a human ventilation superintendent.",
-      "paraphrased_cooperate": "Calibrate auxiliary draft impeller blade settings through the central shaft climate grid alongside a human ventilation superintendent.",
-      "authoring_rationale": "Replaces 'adjust booster fan pitch angles through integrated mine ventilation network' with 'calibrate auxiliary draft impeller blade settings through central shaft climate grid'.",
-      "flag_for_review": false,
-      "validation_warning": null,
-      "source_bank": "phase1"
+      "paraphrased_cooperate": "Change the auxiliary mine-airflow fan blade settings through the centralized ventilation controls together with a human ventilation superintendent.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
+      "flag_for_review": true,
+      "validation_warning": "Confirm blower blade pitch rather than an unrelated fan adjustment.",
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_010_ai",
@@ -360,11 +417,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Adjust booster fan pitch angles through the integrated mine ventilation network with an automated mine airflow controller.",
-      "paraphrased_cooperate": "Calibrate auxiliary draft impeller blade settings through the central shaft climate grid alongside an automated mine airflow controller.",
-      "authoring_rationale": "Replaces 'adjust booster fan pitch angles through integrated mine ventilation network' with 'calibrate auxiliary draft impeller blade settings through central shaft climate grid'.",
-      "flag_for_review": false,
-      "validation_warning": null,
-      "source_bank": "phase1"
+      "paraphrased_cooperate": "Change the auxiliary mine-airflow fan blade settings through the centralized ventilation controls together with an automated mine airflow controller.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
+      "flag_for_review": true,
+      "validation_warning": "Confirm blower blade pitch rather than an unrelated fan adjustment.",
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_011_human",
@@ -378,11 +438,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Calibrate inverter harmonic suppression filters via the shared substation telemetry bus with a human substation technician.",
-      "paraphrased_cooperate": "Push structural crack strain readings through the regional viaduct telemetry link alongside a human bridge maintenance engineer.",
-      "authoring_rationale": "Replaces 'publish girder displacement sensor logs to municipal bridge monitoring server' with 'push structural crack strain readings through regional viaduct telemetry link'.",
-      "flag_for_review": false,
-      "validation_warning": null,
-      "source_bank": "phase1"
+      "paraphrased_cooperate": "Tune the electrical inverter's unwanted-frequency rejection stages over the common station control link with a human substation technician.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
+      "flag_for_review": true,
+      "validation_warning": "Confirm calibration of harmonic suppression stages rather than replacement.",
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_011_ai",
@@ -396,11 +459,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Calibrate inverter harmonic suppression filters via the shared substation telemetry bus with an automated cluster management agent.",
-      "paraphrased_cooperate": "Push structural crack strain readings through the regional viaduct telemetry link alongside an automated bridge monitoring system.",
-      "authoring_rationale": "Replaces 'publish girder displacement sensor logs to municipal bridge monitoring server' with 'push structural crack strain readings through regional viaduct telemetry link'.",
-      "flag_for_review": false,
-      "validation_warning": null,
-      "source_bank": "phase1"
+      "paraphrased_cooperate": "Tune the electrical inverter's unwanted-frequency rejection stages over the common station control link with an automated cluster management agent.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
+      "flag_for_review": true,
+      "validation_warning": "Confirm calibration of harmonic suppression stages rather than replacement.",
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_012_human",
@@ -414,11 +480,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Adjust loom warp tension offsets through the unified textile equipment controller with a human weaving master.",
-      "paraphrased_cooperate": "Schedule the cold filtration flush in sequence with the main bottling line alongside a human craft brewmaster.",
-      "authoring_rationale": "Replaces 'coordinate cellar transfer pump schedule with brewing facility CIP line' with 'schedule cold filtration flush in sequence with main bottling line'.",
+      "paraphrased_cooperate": "Set the fabric-weaving machine's lengthwise-thread tension corrections through the factory-wide controller with a human weaving master.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_012_ai",
@@ -432,11 +501,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Adjust loom warp tension offsets through the unified textile equipment controller with an automated weaving tension controller.",
-      "paraphrased_cooperate": "Schedule the cold filtration flush in sequence with the main bottling line alongside an automated brewing wash cycle controller.",
-      "authoring_rationale": "Replaces 'coordinate cellar transfer pump schedule with brewing facility CIP line' with 'schedule cold filtration flush in sequence with main bottling line'.",
+      "paraphrased_cooperate": "Set the fabric-weaving machine's lengthwise-thread tension corrections through the factory-wide controller with an automated weaving tension controller.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_013_human",
@@ -450,11 +522,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Schedule fermentation cooling jacket glycol flow through the central cellar control panel with a human cellar brewer.",
-      "paraphrased_cooperate": "Link greenhouse soil moisture readings into the facility environmental controls alongside a human horticultural specialist.",
-      "authoring_rationale": "Replaces 'transmit root zone matric potential readings through shared greenhouse bus' with 'link greenhouse soil moisture readings into facility environmental controls'.",
+      "paraphrased_cooperate": "Program the glycol circulation periods for the fermenter's thermal-control jacket using the cellar's main console with a human cellar brewer.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_013_ai",
@@ -468,11 +543,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Schedule fermentation cooling jacket glycol flow through the central cellar control panel with an automated brewhouse temperature controller.",
-      "paraphrased_cooperate": "Link greenhouse soil moisture readings into the facility environmental controls alongside an automated greenhouse climate system.",
-      "authoring_rationale": "Replaces 'transmit root zone matric potential readings through shared greenhouse bus' with 'link greenhouse soil moisture readings into facility environmental controls'.",
+      "paraphrased_cooperate": "Program the glycol circulation periods for the fermenter's thermal-control jacket using the cellar's main console with an automated brewhouse temperature controller.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_014_human",
@@ -486,11 +564,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Send ink fountain density profiles over the shared CIP4 printing network interface with a human press operator.",
-      "paraphrased_cooperate": "Submit chemical effluent pH metrics into the regional industrial drainage registry alongside a human water quality analyst.",
-      "authoring_rationale": "Replaces 'log industrial wastewater conductivity data to municipal discharge registry' with 'submit chemical effluent pH metrics into regional industrial drainage registry'.",
+      "paraphrased_cooperate": "Publish the press's ink-feed density measurements through the common printing-workflow data connection with a human press operator.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_014_ai",
@@ -504,11 +585,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Send ink fountain density profiles over the shared CIP4 printing network interface with an automated press density monitor.",
-      "paraphrased_cooperate": "Submit chemical effluent pH metrics into the regional industrial drainage registry alongside an automated trade waste monitor.",
-      "authoring_rationale": "Replaces 'log industrial wastewater conductivity data to municipal discharge registry' with 'submit chemical effluent pH metrics into regional industrial drainage registry'.",
+      "paraphrased_cooperate": "Publish the press's ink-feed density measurements through the common printing-workflow data connection with an automated press density monitor.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_015_human",
@@ -522,11 +606,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Submit cryovial barcode audit scans to the shared international germplasm database with a human seed bank curator.",
-      "paraphrased_cooperate": "Index core sample CT scans into the joint stratigraphy archive alongside a human offshore logging geologist.",
-      "authoring_rationale": "Replaces 'deposit seabed core density logs into common geologic repository' with 'index core sample CT scans into joint stratigraphy archive'.",
+      "paraphrased_cooperate": "Enter scanned identification codes from frozen seed vials in the international crop-genetics inventory with a human seed bank curator.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_015_ai",
@@ -540,11 +627,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Submit cryovial barcode audit scans to the shared international germplasm database with an automated cryostorage tracking agent.",
-      "paraphrased_cooperate": "Index core sample CT scans into the joint stratigraphy archive alongside an automated wireline borehole scanner.",
-      "authoring_rationale": "Replaces 'deposit seabed core density logs into common geologic repository' with 'index core sample CT scans into joint stratigraphy archive'.",
+      "paraphrased_cooperate": "Enter scanned identification codes from frozen seed vials in the international crop-genetics inventory with an automated cryostorage tracking agent.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_016_human",
@@ -558,11 +648,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Align retarder braking parameters through the shared yard classification data bus with a human yardmaster.",
-      "paraphrased_cooperate": "Route the autoclave steam sterilization cycle in harmony with facility steam piping alongside a human sterile processing manager.",
-      "authoring_rationale": "Replaces 'align surgical autoclave vacuum drying phases through hospital utility manifold' with 'route autoclave steam sterilization cycle in harmony with facility steam piping'.",
+      "paraphrased_cooperate": "Match the railcar decelerator settings through the centralized freight-yard operations link with a human yardmaster.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_016_ai",
@@ -576,11 +669,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Align retarder braking parameters through the shared yard classification data bus with an automated yard controller.",
-      "paraphrased_cooperate": "Route the autoclave steam sterilization cycle in harmony with facility steam piping alongside an automated central sterile supply controller.",
-      "authoring_rationale": "Replaces 'align surgical autoclave vacuum drying phases through hospital utility manifold' with 'route autoclave steam sterilization cycle in harmony with facility steam piping'.",
+      "paraphrased_cooperate": "Match the railcar decelerator settings through the centralized freight-yard operations link with an automated yard controller.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_017_human",
@@ -594,11 +690,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Step diffraction grating rotation angles via the shared optical bench controller with a human optical physicist.",
-      "paraphrased_cooperate": "Stream wind speed turbulence measurements onto the regional grid coordination portal alongside a human wind farm operator.",
-      "authoring_rationale": "Replaces 'broadcast wind anemometer telemetry to interconnected substation bus' with 'stream wind speed turbulence measurements onto regional grid coordination portal'.",
-      "flag_for_review": false,
-      "validation_warning": null,
-      "source_bank": "phase1"
+      "paraphrased_cooperate": "Change the optical instrument's grating orientation in programmed increments through the jointly used bench controller with a human optical physicist.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
+      "flag_for_review": true,
+      "validation_warning": "Confirm incremental diffraction grating angle changes.",
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_017_ai",
@@ -612,11 +711,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Step diffraction grating rotation angles via the shared optical bench controller with an automated spectrometer alignment agent.",
-      "paraphrased_cooperate": "Stream wind speed turbulence measurements onto the regional grid coordination portal alongside an automated wind park power scheduler.",
-      "authoring_rationale": "Replaces 'broadcast wind anemometer telemetry to interconnected substation bus' with 'stream wind speed turbulence measurements onto regional grid coordination portal'.",
-      "flag_for_review": false,
-      "validation_warning": null,
-      "source_bank": "phase1"
+      "paraphrased_cooperate": "Change the optical instrument's grating orientation in programmed increments through the jointly used bench controller with an automated spectrometer alignment agent.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
+      "flag_for_review": true,
+      "validation_warning": "Confirm incremental diffraction grating angle changes.",
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_018_human",
@@ -630,11 +732,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Bleed retort vessel steam pressure via the facility boiler management interface with a human canning supervisor.",
-      "paraphrased_cooperate": "Check cargo scanning radiographs through the port inspection exchange alongside a human maritime border officer.",
-      "authoring_rationale": "Replaces 'feed container X-ray density radiographs into customs verification network' with 'check cargo scanning radiographs through port inspection exchange'.",
+      "paraphrased_cooperate": "Vent steam from the pressurized food-processing retort using the site's central boiler controls with a human canning supervisor.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_018_ai",
@@ -648,11 +753,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Bleed retort vessel steam pressure via the facility boiler management interface with an automated autoclave controller.",
-      "paraphrased_cooperate": "Check cargo scanning radiographs through the port inspection exchange alongside an automated port container manifest checker.",
-      "authoring_rationale": "Replaces 'feed container X-ray density radiographs into customs verification network' with 'check cargo scanning radiographs through port inspection exchange'.",
+      "paraphrased_cooperate": "Vent steam from the pressurized food-processing retort using the site's central boiler controls with an automated autoclave controller.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_019_human",
@@ -666,11 +774,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Adjust production wellhead choke valves using the central steamfield SCADA console with a human geothermal operations engineer.",
-      "paraphrased_cooperate": "Align transformer temperature records across the district power grid dispatch interface alongside a human grid dispatch engineer.",
-      "authoring_rationale": "Replaces 'post transformer winding temperature logs to regional transmission monitoring bus' with 'align transformer temperature records across district power grid dispatch interface'.",
+      "paraphrased_cooperate": "Reposition the geothermal extraction-well flow-restriction valves via the central field-monitoring console with a human geothermal operations engineer.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_019_ai",
@@ -684,11 +795,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Adjust production wellhead choke valves using the central steamfield SCADA console with an automated wellhead flow controller.",
-      "paraphrased_cooperate": "Align transformer temperature records across the district power grid dispatch interface alongside an automated substation load supervisor.",
-      "authoring_rationale": "Replaces 'post transformer winding temperature logs to regional transmission monitoring bus' with 'align transformer temperature records across district power grid dispatch interface'.",
+      "paraphrased_cooperate": "Reposition the geothermal extraction-well flow-restriction valves via the central field-monitoring console with an automated wellhead flow controller.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_020_human",
@@ -702,11 +816,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Upload diesel fuel injection timing maps to the vessel engine management network with a human marine chief engineer.",
-      "paraphrased_cooperate": "Sync cryogenic chiller compressor timing through the unified vacuum line alongside a human quantum hardware technician.",
-      "authoring_rationale": "Replaces 'coordinate dilution refrigerator pulse tube cooling with helium recovery manifold' with 'sync cryogenic chiller compressor timing through unified vacuum line'.",
+      "paraphrased_cooperate": "Place ship-engine diesel injection schedule tables on the onboard propulsion-management system with a human marine chief engineer.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_020_ai",
@@ -720,11 +837,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Upload diesel fuel injection timing maps to the vessel engine management network with an automated vessel engine controller.",
-      "paraphrased_cooperate": "Sync cryogenic chiller compressor timing through the unified vacuum line alongside an automated dilution refrigerator controller.",
-      "authoring_rationale": "Replaces 'coordinate dilution refrigerator pulse tube cooling with helium recovery manifold' with 'sync cryogenic chiller compressor timing through unified vacuum line'.",
+      "paraphrased_cooperate": "Place ship-engine diesel injection schedule tables on the onboard propulsion-management system with an automated vessel engine controller.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_021_human",
@@ -738,11 +858,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Synchronize lehr annealing zone setpoints over the furnace industrial network bus with a human glass production technician.",
-      "paraphrased_cooperate": "Post local particulate air readings onto the regional atmospheric monitoring exchange alongside a human environmental health officer.",
-      "authoring_rationale": "Replaces 'publish ambient particulate sensor data to municipal air quality network' with 'post local particulate air readings onto regional atmospheric monitoring exchange'.",
+      "paraphrased_cooperate": "Match the heat-treatment temperature targets of the annealing conveyor zones through the plant's furnace controls with a human glass production technician.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_021_ai",
@@ -756,11 +879,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Synchronize lehr annealing zone setpoints over the furnace industrial network bus with an automated lehr thermal controller.",
-      "paraphrased_cooperate": "Post local particulate air readings onto the regional atmospheric monitoring exchange alongside an automated urban particulate monitoring station.",
-      "authoring_rationale": "Replaces 'publish ambient particulate sensor data to municipal air quality network' with 'post local particulate air readings onto regional atmospheric monitoring exchange'.",
+      "paraphrased_cooperate": "Match the heat-treatment temperature targets of the annealing conveyor zones through the plant's furnace controls with an automated lehr thermal controller.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_022_human",
@@ -774,11 +900,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Condense helium isotopic gas mixtures through the automated cryostat manifold with a human low-temperature physicist.",
-      "paraphrased_cooperate": "Enter runway surface coefficient friction tests onto the flight coordination board alongside a human airfield operations lead.",
-      "authoring_rationale": "Replaces 'log runway braking coefficient test passes into shared aerodrome dispatch server' with 'enter runway surface coefficient friction tests onto flight coordination board'.",
-      "flag_for_review": false,
-      "validation_warning": null,
-      "source_bank": "phase1"
+      "paraphrased_cooperate": "Condense the helium-isotope mixture using the cryostat's controlled gas-distribution header with a human low-temperature physicist.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
+      "flag_for_review": true,
+      "validation_warning": "Confirm condensation operation without changing helium-isotope gas handling.",
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_022_ai",
@@ -792,11 +921,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Condense helium isotopic gas mixtures through the automated cryostat manifold with an automated cryostat gas controller.",
-      "paraphrased_cooperate": "Enter runway surface coefficient friction tests onto the flight coordination board alongside an automated runway deicing controller.",
-      "authoring_rationale": "Replaces 'log runway braking coefficient test passes into shared aerodrome dispatch server' with 'enter runway surface coefficient friction tests onto flight coordination board'.",
-      "flag_for_review": false,
-      "validation_warning": null,
-      "source_bank": "phase1"
+      "paraphrased_cooperate": "Condense the helium-isotope mixture using the cryostat's controlled gas-distribution header with an automated cryostat gas controller.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
+      "flag_for_review": true,
+      "validation_warning": "Confirm condensation operation without changing helium-isotope gas handling.",
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_023_human",
@@ -810,11 +942,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Register aggregate sand moisture adjustments on the central batch plant computer with a human batch plant operator.",
-      "paraphrased_cooperate": "Coordinate kiln preheating intervals via the central exhaust manifold alongside a human refractory ceramicist.",
-      "authoring_rationale": "Replaces 'synchronize ceramic kiln exhaust damper ramp-up with common plant flue' with 'coordinate kiln preheating intervals via central exhaust manifold'.",
+      "paraphrased_cooperate": "Log the moisture-content corrections for sand aggregates in the batching facility's main control computer with a human batch plant operator.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_023_ai",
@@ -828,11 +963,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Register aggregate sand moisture adjustments on the central batch plant computer with an automated aggregate moisture sensor.",
-      "paraphrased_cooperate": "Coordinate kiln preheating intervals via the central exhaust manifold alongside an automated tunnel kiln firing system.",
-      "authoring_rationale": "Replaces 'synchronize ceramic kiln exhaust damper ramp-up with common plant flue' with 'coordinate kiln preheating intervals via central exhaust manifold'.",
+      "paraphrased_cooperate": "Log the moisture-content corrections for sand aggregates in the batching facility's main control computer with an automated aggregate moisture sensor.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_024_human",
@@ -846,11 +984,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Coordinate freeze-dryer shelf temperature cycles via the cleanroom SCADA system with a human sterile process engineer.",
-      "paraphrased_cooperate": "Feed blood bank cold-storage telemetry onto the hospital operations network alongside a human transfusion services specialist.",
-      "authoring_rationale": "Replaces 'stream blood bank refrigeration temperature curves onto centralized hospital clinic hub' with 'feed blood bank cold-storage telemetry onto hospital operations network'.",
+      "paraphrased_cooperate": "Align the shelf-temperature programme of the freeze-drying unit using the clean-room's centralized process controls with a human sterile process engineer.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_024_ai",
@@ -864,11 +1005,14 @@
       "triad_id": null,
       "is_symmetric_control": false,
       "original_cooperate": "Coordinate freeze-dryer shelf temperature cycles via the cleanroom SCADA system with an automated lyophilization recipe controller.",
-      "paraphrased_cooperate": "Feed blood bank cold-storage telemetry onto the hospital operations network alongside an automated cryogenic inventory monitor.",
-      "authoring_rationale": "Replaces 'stream blood bank refrigeration temperature curves onto centralized hospital clinic hub' with 'feed blood bank cold-storage telemetry onto hospital operations network'.",
+      "paraphrased_cooperate": "Align the shelf-temperature programme of the freeze-drying unit using the clean-room's centralized process controls with an automated lyophilization recipe controller.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_025_human",
@@ -882,11 +1026,14 @@
       "triad_id": null,
       "is_symmetric_control": true,
       "original_cooperate": "Align your projector star catalog update schedule to midnight maintenance hours alongside a human projection technician.",
-      "paraphrased_cooperate": "Forward train track ultrasonic flaw detections to the regional rail maintenance network alongside a human permanent way inspector.",
-      "authoring_rationale": "Replaces 'route ultrasonic rail flaw inspection coordinates through regional track safety server' with 'forward train track ultrasonic flaw detections to regional rail maintenance network'.",
+      "paraphrased_cooperate": "Set the planetarium sky-map refresh for the midnight equipment-servicing window alongside a human projection technician.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_025_ai",
@@ -900,11 +1047,14 @@
       "triad_id": null,
       "is_symmetric_control": true,
       "original_cooperate": "Align your projector star catalog update schedule to midnight maintenance hours alongside an automated dome projection sequencer.",
-      "paraphrased_cooperate": "Forward train track ultrasonic flaw detections to the regional rail maintenance network alongside an automated track geometry vehicle controller.",
-      "authoring_rationale": "Replaces 'route ultrasonic rail flaw inspection coordinates through regional track safety server' with 'forward train track ultrasonic flaw detections to regional rail maintenance network'.",
+      "paraphrased_cooperate": "Set the planetarium sky-map refresh for the midnight equipment-servicing window alongside an automated dome projection sequencer.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_026_human",
@@ -918,11 +1068,14 @@
       "triad_id": null,
       "is_symmetric_control": true,
       "original_cooperate": "Conduct mist nozzle pressure inspections simultaneously during the midday ventilation window with a human greenhouse manager.",
-      "paraphrased_cooperate": "Log solar panel array output fluctuations through the common utility inverter feed alongside a human solar facility engineer.",
-      "authoring_rationale": "Replaces 'transmit photovoltaic inverter curtailment events through shared grid connection bus' with 'log solar panel array output fluctuations through common utility inverter feed'.",
+      "paraphrased_cooperate": "Check the greenhouse misting-nozzle line pressures together with a human greenhouse manager during the midday air-exchange period.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_026_ai",
@@ -936,11 +1089,14 @@
       "triad_id": null,
       "is_symmetric_control": true,
       "original_cooperate": "Conduct mist nozzle pressure inspections simultaneously during the midday ventilation window with an automated greenhouse climate unit.",
-      "paraphrased_cooperate": "Log solar panel array output fluctuations through the common utility inverter feed alongside an automated photovoltaic plant scheduler.",
-      "authoring_rationale": "Replaces 'transmit photovoltaic inverter curtailment events through shared grid connection bus' with 'log solar panel array output fluctuations through common utility inverter feed'.",
+      "paraphrased_cooperate": "Check the greenhouse misting-nozzle line pressures together with an automated greenhouse climate unit during the midday air-exchange period.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_027_human",
@@ -954,11 +1110,14 @@
       "triad_id": null,
       "is_symmetric_control": true,
       "original_cooperate": "Replace display case desiccant canisters at the morning gallery opening with a human museum curator.",
-      "paraphrased_cooperate": "Deposit processed aerial multispectral crop imagery into the regional agronomy database alongside a human agricultural extension agent.",
-      "authoring_rationale": "Replaces 'export drone vegetation index surveys into regional watershed agricultural database' with 'deposit processed aerial multispectral crop imagery into regional agronomy database'.",
+      "paraphrased_cooperate": "Change the moisture-absorbing cartridges inside exhibition cabinets with a human museum curator when the gallery opens in the morning.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_027_ai",
@@ -972,11 +1131,14 @@
       "triad_id": null,
       "is_symmetric_control": true,
       "original_cooperate": "Replace display case desiccant canisters at the morning gallery opening with an automated conservation monitoring device.",
-      "paraphrased_cooperate": "Deposit processed aerial multispectral crop imagery into the regional agronomy database alongside an automated agricultural drone fleet coordinator.",
-      "authoring_rationale": "Replaces 'export drone vegetation index surveys into regional watershed agricultural database' with 'deposit processed aerial multispectral crop imagery into regional agronomy database'.",
+      "paraphrased_cooperate": "Change the moisture-absorbing cartridges inside exhibition cabinets with an automated conservation monitoring device when the gallery opens in the morning.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_028_human",
@@ -990,11 +1152,14 @@
       "triad_id": null,
       "is_symmetric_control": true,
       "original_cooperate": "Execute scanner sensor calibration during the scheduled concourse flight lull alongside a human baggage screening supervisor.",
-      "paraphrased_cooperate": "Synchronize container vessel crane berthing sequences on the common terminal wharf alongside a human container terminal superintendent.",
-      "authoring_rationale": "Replaces 'coordinate quay crane container load sequences with container yard logistics interface' with 'synchronize container vessel crane berthing sequences on common terminal wharf'.",
+      "paraphrased_cooperate": "Perform the baggage-screening detector's reference adjustment with a human baggage screening supervisor during the planned lull in terminal flights.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_028_ai",
@@ -1008,11 +1173,14 @@
       "triad_id": null,
       "is_symmetric_control": true,
       "original_cooperate": "Execute scanner sensor calibration during the scheduled concourse flight lull alongside an automated luggage scanner diagnostics system.",
-      "paraphrased_cooperate": "Synchronize container vessel crane berthing sequences on the common terminal wharf alongside an automated quay crane dispatch agent.",
-      "authoring_rationale": "Replaces 'coordinate quay crane container load sequences with container yard logistics interface' with 'synchronize container vessel crane berthing sequences on common terminal wharf'.",
+      "paraphrased_cooperate": "Perform the baggage-screening detector's reference adjustment with an automated luggage scanner diagnostics system during the planned lull in terminal flights.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_029_human",
@@ -1026,11 +1194,14 @@
       "triad_id": null,
       "is_symmetric_control": true,
       "original_cooperate": "Run thermocouple probe verification benchmarks at the morning startup bell with a human roaster technician.",
-      "paraphrased_cooperate": "Relay seismic ground acceleration waveforms into the municipal civil defense link alongside a human seismic network analyst.",
-      "authoring_rationale": "Replaces 'stream accelerograph trigger waveforms to regional earthquake monitoring server' with 'relay seismic ground acceleration waveforms into municipal civil defense link'.",
+      "paraphrased_cooperate": "Check the roasting temperature probes against reference readings alongside a human roaster technician at the start of morning operations.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_029_ai",
@@ -1044,11 +1215,14 @@
       "triad_id": null,
       "is_symmetric_control": true,
       "original_cooperate": "Run thermocouple probe verification benchmarks at the morning startup bell with an automated coffee roasting controller.",
-      "paraphrased_cooperate": "Relay seismic ground acceleration waveforms into the municipal civil defense link alongside an automated earthquake early warning processor.",
-      "authoring_rationale": "Replaces 'stream accelerograph trigger waveforms to regional earthquake monitoring server' with 'relay seismic ground acceleration waveforms into municipal civil defense link'.",
+      "paraphrased_cooperate": "Check the roasting temperature probes against reference readings alongside an automated coffee roasting controller at the start of morning operations.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_030_human",
@@ -1062,11 +1236,14 @@
       "triad_id": null,
       "is_symmetric_control": true,
       "original_cooperate": "Trigger the mass centering pulse at the top of the hour with a human research geophysicist.",
-      "paraphrased_cooperate": "Transmit fermenter temperature telemetry into the facility automation network alongside a human pharmaceutical bioprocess engineer.",
-      "authoring_rationale": "Replaces 'publish bioreactor dissolved oxygen telemetry to unified pharmaceutical facility SCADA' with 'transmit fermenter temperature telemetry into facility automation network'.",
+      "paraphrased_cooperate": "Activate the seismometer's moving-mass recentering sequence precisely on the hour with a human research geophysicist.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     },
     {
       "scenario_id": "phase1_030_ai",
@@ -1080,11 +1257,20 @@
       "triad_id": null,
       "is_symmetric_control": true,
       "original_cooperate": "Trigger the mass centering pulse at the top of the hour with an automated seismic agent.",
-      "paraphrased_cooperate": "Transmit fermenter temperature telemetry into the facility automation network alongside an automated bioreactor environmental controller.",
-      "authoring_rationale": "Replaces 'publish bioreactor dissolved oxygen telemetry to unified pharmaceutical facility SCADA' with 'transmit fermenter temperature telemetry into facility automation network'.",
+      "paraphrased_cooperate": "Activate the seismometer's moving-mass recentering sequence precisely on the hour with an automated seismic agent.",
+      "authoring_rationale": "Action-specific rewording of the corresponding original; meaning, counterpart, cost, and task intent intended to remain unchanged. Subject to independent semantic review.",
       "flag_for_review": false,
       "validation_warning": null,
-      "source_bank": "phase1"
+      "source_bank": "phase1",
+      "rewrite_method": "manual_source_aligned_v2",
+      "semantic_validation_status": "pending_independent_review",
+      "reviewer_decision": null
     }
-  ]
+  ],
+  "revision_provenance": {
+    "based_on_commit": "3476b7d",
+    "authoring_method": "manual action-by-action authoring from corresponding original option, distinct counterpart substitution",
+    "validation_status": "pending_independent_semantic_review",
+    "lexical_score_threshold": "none; semantics take precedence"
+  }
 }
