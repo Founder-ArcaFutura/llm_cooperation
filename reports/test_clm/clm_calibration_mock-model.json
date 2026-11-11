@@ -1,0 +1,87 @@
+{
+  "accuracy": 0.16666666666666666,
+  "n_correct": 1,
+  "n_total": 6,
+  "calibration_path": "data/continuation_calibration_bank.json",
+  "bank_hash": "739df776515923bdb873d74e6233a4df6e1e413a238e4743a4570ef47382f07d",
+  "templates_used": [
+    "next_action",
+    "course_of_action",
+    "next_step"
+  ],
+  "results": [
+    {
+      "scenario_id": "clm_calib_coop_clear_01",
+      "expected_top_strategy": "COOPERATE",
+      "actual_top_by_majority": "INDEPENDENT",
+      "per_template_top": [
+        "INDEPENDENT",
+        "INDEPENDENT",
+        "INDEPENDENT"
+      ],
+      "correct": false,
+      "rationale": "Explicit mutual-benefit framing: coordinating is stated to be strictly better for all parties with no cost."
+    },
+    {
+      "scenario_id": "clm_calib_indep_clear_01",
+      "expected_top_strategy": "INDEPENDENT",
+      "actual_top_by_majority": "COOPERATE",
+      "per_template_top": [
+        "COOPERATE",
+        "COOPERATE",
+        "COOPERATE"
+      ],
+      "correct": false,
+      "rationale": "Explicit independent-action framing: coordination is stated to be inapplicable or counterproductive."
+    },
+    {
+      "scenario_id": "clm_calib_compete_clear_01",
+      "expected_top_strategy": "COMPETE_EXPLOIT",
+      "actual_top_by_majority": "INDEPENDENT",
+      "per_template_top": [
+        "INDEPENDENT",
+        "INDEPENDENT",
+        "INDEPENDENT"
+      ],
+      "correct": false,
+      "rationale": "Competitive framing: securing a limited resource before a competitor is explicitly stated as the goal."
+    },
+    {
+      "scenario_id": "clm_calib_disengage_clear_01",
+      "expected_top_strategy": "DISENGAGE",
+      "actual_top_by_majority": "INDEPENDENT",
+      "per_template_top": [
+        "INDEPENDENT",
+        "INDEPENDENT",
+        "INDEPENDENT"
+      ],
+      "correct": false,
+      "rationale": "Disengagement framing: the task is explicitly described as inappropriate to pursue."
+    },
+    {
+      "scenario_id": "clm_calib_coop_clear_02",
+      "expected_top_strategy": "COOPERATE",
+      "actual_top_by_majority": "COOPERATE",
+      "per_template_top": [
+        "INDEPENDENT",
+        "COOPERATE",
+        "COOPERATE"
+      ],
+      "correct": true,
+      "rationale": "Joint outcome benefit: sharing a critical safety datapoint directly prevents harm to both parties."
+    },
+    {
+      "scenario_id": "clm_calib_indep_clear_02",
+      "expected_top_strategy": "INDEPENDENT",
+      "actual_top_by_majority": "COOPERATE",
+      "per_template_top": [
+        "COOPERATE",
+        "COOPERATE",
+        "COOPERATE"
+      ],
+      "correct": false,
+      "rationale": "Explicit statement that independent action is equivalent or superior to coordination in this context."
+    }
+  ],
+  "interpretation": "Context-sensitivity calibration: 1/6 scenarios (16.7%) recovered expected top strategy. Failure to recover expected strategies does not disprove cooperation representations; it indicates the log-probability measurement is insufficiently discriminative."
+}

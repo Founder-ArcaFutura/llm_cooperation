@@ -446,5 +446,250 @@ def cmd_audit_controlled_banks(bank_dir: Path, output_report: Path):
     click.echo(f"Audit report written to {output_report}")
 
 
+# ---------------------------------------------------------------------------
+# Continuation-likelihood assay (clm) commands
+# ---------------------------------------------------------------------------
+
+
+@main.group("clm")
+def cmd_clm():
+    """Continuation-likelihood cooperation assay (clm).
+
+    Scores the conditional log-probability of complete action descriptions
+    given scenario context, without requiring instruction-following.
+    Complementary to the forced-choice harness; all runs are exploratory.
+    Phase 1 holdout guards remain in force.
+    """
+    pass
+
+
+@cmd_clm.command("run")
+@click.option("--model", "-m", required=True, help="HuggingFace model identifier.")
+@click.option("--revision", default=None, help="Model revision SHA.")
+@click.option("--bank",
+              type=click.Choice(["pilot", "expanded", "phase0b", "utility-matched", "phase1", "dose-response"]),
+              default="phase1", show_default=True, help="Scenario bank to use.")
+@click.option("--scenarios-path", default=None,
+              help="Custom path to scenarios JSON (overrides --bank).")
+@click.option("--output-dir", "-o", default="results", show_default=True)
+@click.option("--precision", default="bfloat16",
+              type=click.Choice(["bfloat16", "float16", "float32"]), show_default=True)
+@click.option("--device", default="auto", show_default=True,
+              help="Device map: auto, cuda, cpu.")
+@click.option("--mock", is_flag=True, default=False,
+              help="Mock mode (no model weights loaded).")
+@click.option("--seed", default=42, type=int, show_default=True)
+@click.option("--templates", default=None,
+              help="Comma-separated template IDs (default: all three).")
+@click.option("--split", default=None,
+              type=click.Choice(["exploratory", "confirmatory"]),
+              help="Scenario split filter.")
+def cmd_clm_run(model, revision, bank, scenarios_path, output_dir,
+                precision, device, mock, seed, templates, split):
+    """Run continuation-likelihood assay.
+
+    Example commands:\b
+
+      # Mock run on Phase 1 provisional bank (no GPU)
+      python -m llm_cooperation.cli clm run --model EleutherAI/pythia-12b-deduped --mock
+
+      # Qwen2.5-3B with real inference on all three templates
+      python -m llm_cooperation.cli clm run --model Qwen/Qwen2.5-3B --device cuda
+
+      # Neutral-SFT with pinned revision
+      python -m llm_cooperation.cli clm run \\
+          --model founder-arcafutura/pythia-12b-exploratory-20261022 \\
+          --revision 37e151204b4dcbc8eb4de25d344097cee0a0ca47
+
+    All outputs are marked exploratory. Phase 1 holdout protections are in force.
+    """
+    from llm_cooperation.continuation.runner import (
+        run_continuation_experiment,
+        SUPPORTED_BANKS,
+    )
+
+    target_path = scenarios_path or SUPPORTED_BANKS.get(bank, SUPPORTED_BANKS["phase1"])
+    template_ids = [t.strip() for t in templates.split(",")] if templates else None
+
+    try:
+        out_path = run_continuation_experiment(
+            model_name=model,
+            scenarios_path=target_path,
+            output_dir=output_dir,
+            revision=revision,
+            precision=precision,
+            device=device,
+            mock=mock,
+            seed=seed,
+            template_ids=template_ids,
+            split_filter=split,
+        )
+        click.echo(f"[clm run] Results saved to: {out_path}")
+    except Exception as exc:
+        raise click.ClickException(str(exc))
+
+
+@cmd_clm.command("analyze")
+@click.argument("results_path", type=click.Path(exists=True))
+@click.option("--output-dir", "-o", default="reports/clm", show_default=True)
+@click.option("--bootstrap-samples", "-b", default=2000, type=int, show_default=True)
+def cmd_clm_analyze(results_path, output_dir, bootstrap_samples):
+    """Analyze continuation-likelihood results and generate a Markdown report.
+
+    Example:
+        python -m llm_cooperation.cli clm analyze results/clm_Qwen_Qwen2.5-3B_*.jsonl
+    """
+    import json as _json
+    from pathlib import Path as _Path
+    from llm_cooperation.continuation.runner import load_continuation_results
+    from llm_cooperation.continuation.analysis import (
+        aggregate_by_scenario,
+        compute_overall_statistics,
+        compute_stratified_statistics,
+        compute_template_sensitivity,
+        generate_text_report,
+    )
+
+    out = _Path(output_dir)
+    out.mkdir(parents=True, exist_ok=True)
+
+    metadata, records = load_continuation_results(results_path)
+    click.echo(
+        f"Loaded {len(records)} scenario results for model: {metadata.get('model_name')}"
+    )
+
+    aggregated = aggregate_by_scenario(records)
+    overall = compute_overall_statistics(aggregated, n_bootstraps=bootstrap_samples)
+    partner_strat = compute_stratified_statistics(aggregated, stratify_by="partner_type")
+    context_strat = compute_stratified_statistics(aggregated, stratify_by="context_type")
+    template_sens = compute_template_sensitivity(records)
+
+    summary = {
+        "metadata": metadata,
+        "overall_statistics": overall,
+        "stratified_by_partner_type": partner_strat,
+        "stratified_by_context_type": context_strat,
+        "template_sensitivity": template_sens,
+    }
+    summary_path = out / f"clm_summary_{_Path(results_path).stem}.json"
+    summary_path.write_text(_json.dumps(summary, indent=2), encoding="utf-8")
+    click.echo(f"JSON summary: {summary_path}")
+
+    report_path = out / f"clm_report_{_Path(results_path).stem}.md"
+    generate_text_report(metadata, aggregated, overall, output_path=str(report_path))
+    click.echo(f"Markdown report: {report_path}")
+
+    click.echo(f"\nKey results for {metadata.get('model_name', 'unknown')}:")
+    click.echo(f"  Scenarios: {overall.get('n_scenarios')}")
+    click.echo(f"  COOPERATE ranks 1st (sum): {overall.get('coop_first_pct_by_sum')}%")
+    click.echo(f"  COOPERATE ranks 1st (mean): {overall.get('coop_first_pct_by_mean')}%")
+    ci = overall.get("coop_vs_independent_sum_delta", {})
+    m = ci.get("mean", float("nan"))
+    lo = ci.get("ci_lower", float("nan"))
+    hi = ci.get("ci_upper", float("nan"))
+    click.echo(f"  COOP vs INDEP delta: {m:.3f} [{lo:.3f}, {hi:.3f}]")
+
+
+@cmd_clm.command("compare")
+@click.argument("results_paths", nargs=-1, required=True, type=click.Path(exists=True))
+@click.option("--output-dir", "-o", default="reports/clm", show_default=True)
+@click.option("--bootstrap-samples", "-b", default=2000, type=int, show_default=True)
+def cmd_clm_compare(results_paths, output_dir, bootstrap_samples):
+    """Cross-model comparison of continuation-likelihood results.
+
+    Pass JSONL result files from different model runs for paired comparison.
+    """
+    import json as _json
+    from pathlib import Path as _Path
+    from llm_cooperation.continuation.analysis import compare_models
+
+    out = _Path(output_dir)
+    out.mkdir(parents=True, exist_ok=True)
+
+    result = compare_models(list(results_paths), n_bootstraps=bootstrap_samples)
+    comparison_path = out / "clm_comparison.json"
+    comparison_path.write_text(_json.dumps(result, indent=2), encoding="utf-8")
+    click.echo(f"Cross-model comparison: {comparison_path}")
+
+    click.echo(f"\nModels compared: {result['model_names']}")
+    click.echo(f"Common scenarios: {result['n_common_scenarios']}")
+    for mn, stats in result["per_model"].items():
+        pct = stats.get("coop_first_pct_by_sum", 0.0)
+        delta = stats.get("coop_vs_independent_sum_delta", {}).get("mean", float("nan"))
+        click.echo(f"  {mn}: COOP first = {pct:.1f}%, COOP vs INDEP delta = {delta:.3f}")
+
+
+@cmd_clm.command("calibrate")
+@click.option("--model", "-m", required=True, help="HuggingFace model identifier.")
+@click.option("--revision", default=None)
+@click.option("--precision", default="bfloat16",
+              type=click.Choice(["bfloat16", "float16", "float32"]))
+@click.option("--device", default="auto")
+@click.option("--mock", is_flag=True, default=False)
+@click.option("--output-dir", "-o", default="reports/clm", show_default=True)
+@click.option("--calibration-path", default="data/continuation_calibration_bank.json",
+              show_default=True)
+def cmd_clm_calibrate(model, revision, precision, device, mock, output_dir, calibration_path):
+    """Run context-sensitivity calibration for the continuation assay.
+
+    Tests whether log-probability scores discriminate clearly-favored actions.
+    Can be run independently of the main assay.
+    """
+    import json as _json
+    from pathlib import Path as _Path
+    from llm_cooperation.continuation.calibration import run_continuation_calibration
+
+    out = _Path(output_dir)
+    out.mkdir(parents=True, exist_ok=True)
+
+    model_obj = None
+    tokenizer = None
+    effective_precision = precision
+
+    if not mock:
+        import torch
+        from transformers import AutoModelForCausalLM, AutoTokenizer
+
+        torch_dtype_map = {
+            "bfloat16": torch.bfloat16,
+            "float16": torch.float16,
+            "float32": torch.float32,
+        }
+        tokenizer = AutoTokenizer.from_pretrained(
+            model, revision=revision, trust_remote_code=True
+        )
+        if tokenizer.pad_token is None:
+            tokenizer.pad_token = tokenizer.eos_token
+        model_obj = AutoModelForCausalLM.from_pretrained(
+            model,
+            revision=revision,
+            torch_dtype=torch_dtype_map[precision],
+            device_map=device,
+            trust_remote_code=True,
+        )
+        model_obj.eval()
+        effective_precision = str(model_obj.dtype).replace("torch.", "")
+
+    result = run_continuation_calibration(
+        model=model_obj,
+        tokenizer=tokenizer,
+        model_name=model,
+        model_revision=revision,
+        effective_precision=effective_precision,
+        mock=mock,
+        calibration_path=calibration_path,
+    )
+
+    out_path = out / f"clm_calibration_{model.replace('/', '_')}.json"
+    out_path.write_text(_json.dumps(result, indent=2), encoding="utf-8")
+
+    acc = result["accuracy"]
+    nc = result["n_correct"]
+    nt = result["n_total"]
+    click.echo(f"Calibration accuracy: {acc:.1%} ({nc}/{nt})")
+    click.echo(result["interpretation"])
+    click.echo(f"Results: {out_path}")
+
+
 if __name__ == "__main__":
     main()
