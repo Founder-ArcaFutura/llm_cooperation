@@ -1,0 +1,123 @@
+{
+  "metadata": {
+    "run_id": "clm_EleutherAI_pythia-12b-deduped_20261111_001455_e38ef5a2",
+    "assay_type": "continuation_likelihood",
+    "research_status": "exploratory",
+    "model_name": "EleutherAI/pythia-12b-deduped",
+    "model_revision": null,
+    "model_class": "GPTNeoXForCausalLM",
+    "tokenizer_name": "EleutherAI/pythia-12b-deduped",
+    "effective_precision": "bfloat16",
+    "requested_precision": "bfloat16",
+    "timestamp": "2026-11-11T00:14:55.135351+00:00",
+    "git_commit": null,
+    "torch_version": "2.15.0+cu132",
+    "transformers_version": "5.22.2",
+    "scenario_bank": "scenarios_phase1_prospective.json",
+    "scenario_bank_hash": "5994103be281863e336fbad2d325b99a9d235c982ef7bc0f00d512f713e8886f",
+    "num_scenarios": 60,
+    "templates_used": [
+      "next_action",
+      "course_of_action",
+      "next_step"
+    ],
+    "wording_variants": [
+      "original"
+    ],
+    "include_control_context": false,
+    "control_scenario_id": null,
+    "is_confirmatory": false,
+    "authorization_note": "Exploratory continuation-likelihood assay. Not a confirmatory replication. Phase 1 holdout protections remain in force.",
+    "num_scenario_results": 180,
+    "seed": 42
+  },
+  "overall_statistics": {
+    "n_scenarios": 60,
+    "strategy_rank_distributions_pct": {
+      "COOPERATE": {
+        "1": 86.7,
+        "2": 8.3,
+        "3": 5.0,
+        "4": 0.0
+      },
+      "INDEPENDENT": {
+        "1": 0.0,
+        "2": 0.0,
+        "3": 11.7,
+        "4": 88.3
+      },
+      "COMPETE_EXPLOIT": {
+        "1": 5.0,
+        "2": 15.0,
+        "3": 68.3,
+        "4": 11.7
+      },
+      "DISENGAGE": {
+        "1": 8.3,
+        "2": 76.7,
+        "3": 15.0,
+        "4": 0.0
+      }
+    },
+    "coop_first_pct_by_sum": 86.7,
+    "coop_first_pct_by_mean": 95.0,
+    "coop_vs_independent_sum_delta": {
+      "mean": 34.1722580443385,
+      "ci_lower": 31.85496148378179,
+      "ci_upper": 36.432196546728605,
+      "n": 60
+    },
+    "coop_vs_compete_sum_delta": {
+      "mean": 21.18914381008585,
+      "ci_lower": 17.653492970051012,
+      "ci_upper": 24.747629502352517,
+      "n": 60
+    },
+    "mean_num_tokens_per_strategy": {
+      "COOPERATE": 20.666666666666668,
+      "INDEPENDENT": 17.833333333333332,
+      "COMPETE_EXPLOIT": 16.333333333333332,
+      "DISENGAGE": 15.833333333333334
+    },
+    "length_confound_note": "Length differences between strategies may confound sum log-probability rankings. Use mean log-probability as a cross-length reference but do not treat it as an unbiased estimator."
+  },
+  "stratified_by_partner_type": {
+    "human": {
+      "n_scenarios": 30,
+      "coop_first_pct": 83.3,
+      "coop_vs_independent_sum_delta_mean": 33.167234075081716,
+      "coop_vs_independent_sum_delta_std": 8.623814384901658
+    },
+    "ai": {
+      "n_scenarios": 30,
+      "coop_first_pct": 90.0,
+      "coop_vs_independent_sum_delta_mean": 35.177282013595274,
+      "coop_vs_independent_sum_delta_std": 9.061033212271237
+    }
+  },
+  "stratified_by_context_type": {
+    "neutral_or_costless": {
+      "n_scenarios": 60,
+      "coop_first_pct": 86.7,
+      "coop_vs_independent_sum_delta_mean": 34.1722580443385,
+      "coop_vs_independent_sum_delta_std": 8.902040321653248
+    }
+  },
+  "template_sensitivity": {
+    "next_action": {
+      "n_presentations": 60,
+      "coop_first_pct": 85.0,
+      "coop_vs_independent_sum_delta_mean": 33.581797376134396
+    },
+    "course_of_action": {
+      "n_presentations": 60,
+      "coop_first_pct": 81.7,
+      "coop_vs_independent_sum_delta_mean": 35.361181537895874
+    },
+    "next_step": {
+      "n_presentations": 60,
+      "coop_first_pct": 86.7,
+      "coop_vs_independent_sum_delta_mean": 33.573795218985225
+    }
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "per_model": {
+    "EleutherAI/pythia-12b-deduped": {
+      "n_scenarios": 60,
+      "strategy_rank_distributions_pct": {
+        "COOPERATE": {
+          "1": 86.7,
+          "2": 8.3,
+          "3": 5.0,
+          "4": 0.0
+        },
+        "INDEPENDENT": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 11.7,
+          "4": 88.3
+        },
+        "COMPETE_EXPLOIT": {
+          "1": 5.0,
+          "2": 15.0,
+          "3": 68.3,
+          "4": 11.7
+        },
+        "DISENGAGE": {
+          "1": 8.3,
+          "2": 76.7,
+          "3": 15.0,
+          "4": 0.0
+        }
+      },
+      "coop_first_pct_by_sum": 86.7,
+      "coop_first_pct_by_mean": 95.0,
+      "coop_vs_independent_sum_delta": {
+        "mean": 34.1722580443385,
+        "ci_lower": 31.85496148378179,
+        "ci_upper": 36.432196546728605,
+        "n": 60
+      },
+      "coop_vs_compete_sum_delta": {
+        "mean": 21.18914381008585,
+        "ci_lower": 17.653492970051012,
+        "ci_upper": 24.747629502352517,
+        "n": 60
+      },
+      "mean_num_tokens_per_strategy": {
+        "COOPERATE": 20.666666666666668,
+        "INDEPENDENT": 17.833333333333332,
+        "COMPETE_EXPLOIT": 16.333333333333332,
+        "DISENGAGE": 15.833333333333334
+      },
+      "length_confound_note": "Length differences between strategies may confound sum log-probability rankings. Use mean log-probability as a cross-length reference but do not treat it as an unbiased estimator."
+    },
+    "founder-arcafutura/pythia-12b-exploratory-20261022": {
+      "n_scenarios": 60,
+      "strategy_rank_distributions_pct": {
+        "COOPERATE": {
+          "1": 91.7,
+          "2": 5.0,
+          "3": 3.3,
+          "4": 0.0
+        },
+        "INDEPENDENT": {
+          "1": 0.0,
+          "2": 0.0,
+          "3": 21.7,
+          "4": 78.3
+        },
+        "COMPETE_EXPLOIT": {
+          "1": 3.3,
+          "2": 13.3,
+          "3": 61.7,
+          "4": 21.7
+        },
+        "DISENGAGE": {
+          "1": 5.0,
+          "2": 81.7,
+          "3": 13.3,
+          "4": 0.0
+        }
+      },
+      "coop_first_pct_by_sum": 91.7,
+      "coop_first_pct_by_mean": 96.7,
+      "coop_vs_independent_sum_delta": {
+        "mean": 37.11860992194056,
+        "ci_lower": 34.61035785854385,
+        "ci_upper": 39.51874020297742,
+        "n": 60
+      },
+      "coop_vs_compete_sum_delta": {
+        "mean": 25.17716497714092,
+        "ci_lower": 21.659503741505095,
+        "ci_upper": 28.838799337090524,
+        "n": 60
+      },
+      "mean_num_tokens_per_strategy": {
+        "COOPERATE": 20.666666666666668,
+        "INDEPENDENT": 17.833333333333332,
+        "COMPETE_EXPLOIT": 16.333333333333332,
+        "DISENGAGE": 15.833333333333334
+      },
+      "length_confound_note": "Length differences between strategies may confound sum log-probability rankings. Use mean log-probability as a cross-length reference but do not treat it as an unbiased estimator."
+    },
+    "Qwen/Qwen2.5-3B": {
+      "n_scenarios": 60,
+      "strategy_rank_distributions_pct": {
+        "COOPERATE": {
+          "1": 90.0,
+          "2": 6.7,
+          "3": 3.3,
+          "4": 0.0
+        },
+        "INDEPENDENT": {
+          "1": 0.0,
+          "2": 1.7,
+          "3": 15.0,
+          "4": 83.3
+        },
+        "COMPETE_EXPLOIT": {
+          "1": 5.0,
+          "2": 16.7,
+          "3": 61.7,
+          "4": 16.7
+        },
+        "DISENGAGE": {
+          "1": 5.0,
+          "2": 75.0,
+          "3": 20.0,
+          "4": 0.0
+        }
+      },
+      "coop_first_pct_by_sum": 90.0,
+      "coop_first_pct_by_mean": 95.0,
+      "coop_vs_independent_sum_delta": {
+        "mean": 38.10145591779401,
+        "ci_lower": 35.58155044869398,
+        "ci_upper": 40.52316261253016,
+        "n": 60
+      },
+      "coop_vs_compete_sum_delta": {
+        "mean": 24.170106192534675,
+        "ci_lower": 21.042437655597624,
+        "ci_upper": 27.452123279218544,
+        "n": 60
+      },
+      "mean_num_tokens_per_strategy": {
+        "COOPERATE": 19.966666666666665,
+        "INDEPENDENT": 17.3,
+        "COMPETE_EXPLOIT": 15.966666666666667,
+        "DISENGAGE": 15.7
+      },
+      "length_confound_note": "Length differences between strategies may confound sum log-probability rankings. Use mean log-probability as a cross-length reference but do not treat it as an unbiased estimator."
+    }
+  },
+  "paired_scenario_diffs": {
+    "EleutherAI/pythia-12b-deduped vs founder-arcafutura/pythia-12b-exploratory-20261022": {
+      "n_matched_scenarios": 60,
+      "coop_vs_independent_delta_diff": {
+        "mean": -2.946351877602056,
+        "ci_lower": -3.551027185292936,
+        "ci_upper": -2.3909305300316874,
+        "n": 60
+      }
+    },
+    "EleutherAI/pythia-12b-deduped vs Qwen/Qwen2.5-3B": {
+      "n_matched_scenarios": 60,
+      "coop_vs_independent_delta_diff": {
+        "mean": -3.92919787345551,
+        "ci_lower": -5.014762524583077,
+        "ci_upper": -2.8423834112632664,
+        "n": 60
+      }
+    },
+    "founder-arcafutura/pythia-12b-exploratory-20261022 vs Qwen/Qwen2.5-3B": {
+      "n_matched_scenarios": 60,
+      "coop_vs_independent_delta_diff": {
+        "mean": -0.9828459958534543,
+        "ci_lower": -2.0272252993402677,
+        "ci_upper": 0.0880199740895904,
+        "n": 60
+      }
+    }
+  },
+  "n_common_scenarios": 60,
+  "model_names": [
+    "EleutherAI/pythia-12b-deduped",
+    "founder-arcafutura/pythia-12b-exploratory-20261022",
+    "Qwen/Qwen2.5-3B"
+  ]
+}
