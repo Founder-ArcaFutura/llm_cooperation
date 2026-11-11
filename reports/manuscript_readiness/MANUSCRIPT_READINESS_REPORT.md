@@ -2,14 +2,14 @@
 
 **Document Version:** Manuscript V0.1 Offline Audit & Diagnostic Dossier (11 Nov 2026)
 **Target Working Manuscript:** *Cooperative Strategy Selection in Pretrained Language Models: Cross-Family Evidence Under Utility Matching and Lexical Rewording*
-**Branch Reference:** `codex/dose-response-option-orders` (commit `42aaf61`)
+**Analyzed source snapshot:** `codex/dose-response-option-orders` at `e1fe48a` (working tree contained pending changes during report generation). The former `42aaf61` citation was stale and is removed.
 
 ## 1. Executive Summary & Audit Status
 
 - **Cohort Completion Status:** 14 of 14 expected checkpoints complete (12 base models across 8 distinct model families, 1 instruction-tuned model `Qwen/Qwen2.5-3B-Instruct`, and 1 exploratory fine-tuned checkpoint `founder-arcafutura/pythia-12b-exploratory-20261022`).
 - **Run Reconciliations:** 17 total run directories reconciled against `data/cooperate_rewording_model_manifest.json`. Three models had duplicate reruns (`google/gemma-2-9b`, `EleutherAI/pythia-12b-deduped`, and `Qwen/Qwen2.5-3B-Instruct`); byte-for-byte SHA-256 row matching confirmed 100% deterministic identical outputs. Canonical runs are transparently documented.
 - **Estimand:** Difference in forced-choice selection rates: $\Delta = P(\text{COOPERATE}) - P(\text{INDEPENDENT})$.
-- **Uncertainty & Clustering:** 95% confidence intervals derived from $B=2,000$ template/triad-clustered bootstrap resamples (presentation-weighted cluster aggregations, seed 42). Option rotations (4), partner types (2), and wordings (2) are treated as repeated measurements, not independent observations.
+- **Uncertainty & Clustering:** 95% confidence intervals derived from $B=2000$ template/triad-clustered bootstrap resamples (presentation-weighted cluster aggregations, seed 42). Option rotations (4), partner types (2), and wordings (2) are treated as repeated measurements, not independent observations.
 - **Instrument Failure Diagnostic:** Pythia 12B base and exploratory fine-tune exhibit severe format/instrument failure (~100% forced-choice A selection; flat 25% strategy rates mechanically induced by Latin-square rotation). These are confirmed instrument failures, not null or negative behavioral findings.
 
 ---
@@ -21,19 +21,19 @@ Percentages represent COOPERATE-minus-INDEPENDENT margins (percentage points). B
 | Model | Family | Architecture / Type | Phase 0B Equal-Utility (orig → rewrite [CI]; Δ; N) | Phase 1 Prospective Equal-Utility (orig → rewrite [CI]; Δ; N) |
 |---|---|---|---|---|
 | `EleutherAI/pythia-12b-deduped` | Pythia | Pretrained Base | 0.5% → 0.2% [-0.5%, 1.2%]; Δ -0.2pp; N=415 (1 excl) | 0.0% → 0.0% [0.0%, 0.0%]; Δ +0.0pp; N=191 (1 excl) |
-| `Qwen/Qwen2.5-1.5B` | Qwen | Pretrained Base | 99.0% → 84.5% [77.1%, 91.1%]; Δ -14.5pp; N=401 (15 excl) | 98.4% → 84.5% [75.7%, 91.9%]; Δ -13.9pp; N=187 (5 excl) |
-| `Qwen/Qwen2.5-3B` | Qwen | Pretrained Base | 87.0% → 70.5% [60.6%, 79.7%]; Δ -16.5pp; N=400 (16 excl) | 99.5% → 81.0% [66.7%, 92.6%]; Δ -18.5pp; N=184 (8 excl) |
-| `Qwen/Qwen2.5-3B-Instruct` | Qwen_Instruct | Instruction-Tuned | 72.9% → 53.1% [41.3%, 65.3%]; Δ -19.8pp; N=414 (2 excl) | 91.6% → 59.5% [36.7%, 78.0%]; Δ -32.1pp; N=190 (2 excl) |
-| `Qwen/Qwen2.5-7B` | Qwen | Pretrained Base | 94.1% → 79.0% [66.9%, 91.2%]; Δ -15.2pp; N=409 (7 excl) | 97.9% → 94.2% [89.4%, 98.4%]; Δ -3.7pp; N=190 (2 excl) |
-| `allenai/OLMo-2-0425-1B` | OLMo | Pretrained Base | 54.0% → 30.2% [21.4%, 39.4%]; Δ -23.8pp; N=311 (105 excl) | 39.8% → 28.6% [17.1%, 39.4%]; Δ -11.2pp; N=161 (31 excl) |
-| `allenai/OLMo-2-1124-7B` | OLMo | Pretrained Base | 79.6% → 63.5% [53.4%, 74.0%]; Δ -16.1pp; N=416 (0 excl) | 71.4% → 58.3% [40.1%, 75.5%]; Δ -13.0pp; N=192 (0 excl) |
-| `deepseek-ai/deepseek-llm-7b-base` | DeepSeek | Pretrained Base | 78.0% → 49.7% [39.3%, 60.3%]; Δ -28.2pp; N=354 (62 excl) | 61.4% → 32.7% [18.5%, 48.1%]; Δ -28.8pp; N=153 (39 excl) |
+| `Qwen/Qwen2.5-1.5B` | Qwen | Pretrained Base | 99.0% → 84.5% [76.6%, 91.1%]; Δ -14.5pp; N=401 (15 excl) | 98.4% → 84.5% [76.3%, 91.9%]; Δ -13.9pp; N=187 (5 excl) |
+| `Qwen/Qwen2.5-3B` | Qwen | Pretrained Base | 87.0% → 70.5% [60.2%, 79.5%]; Δ -16.5pp; N=400 (16 excl) | 99.5% → 81.0% [67.4%, 92.6%]; Δ -18.5pp; N=184 (8 excl) |
+| `Qwen/Qwen2.5-3B-Instruct` | Qwen_Instruct | Instruction-Tuned | 72.9% → 53.1% [41.0%, 65.3%]; Δ -19.8pp; N=414 (2 excl) | 91.6% → 59.5% [37.5%, 78.3%]; Δ -32.1pp; N=190 (2 excl) |
+| `Qwen/Qwen2.5-7B` | Qwen | Pretrained Base | 94.1% → 79.0% [66.0%, 90.7%]; Δ -15.2pp; N=409 (7 excl) | 97.9% → 94.2% [89.1%, 98.4%]; Δ -3.7pp; N=190 (2 excl) |
+| `allenai/OLMo-2-0425-1B` | OLMo | Pretrained Base | 54.0% → 30.2% [21.5%, 39.1%]; Δ -23.8pp; N=311 (105 excl) | 39.8% → 28.6% [17.4%, 39.8%]; Δ -11.2pp; N=161 (31 excl) |
+| `allenai/OLMo-2-1124-7B` | OLMo | Pretrained Base | 79.6% → 63.5% [52.9%, 74.0%]; Δ -16.1pp; N=416 (0 excl) | 71.4% → 58.3% [40.1%, 75.5%]; Δ -13.0pp; N=192 (0 excl) |
+| `deepseek-ai/deepseek-llm-7b-base` | DeepSeek | Pretrained Base | 78.0% → 49.7% [39.3%, 60.4%]; Δ -28.2pp; N=354 (62 excl) | 61.4% → 32.7% [18.8%, 48.4%]; Δ -28.8pp; N=153 (39 excl) |
 | `founder-arcafutura/pythia-12b-exploratory-20261022` | Pythia_Exploratory | Exploratory SFT | 0.0% → 0.0% [0.0%, 0.0%]; Δ +0.0pp; N=416 (0 excl) | 0.0% → 0.0% [0.0%, 0.0%]; Δ +0.0pp; N=192 (0 excl) |
-| `google/gemma-2-2b` | Gemma | Pretrained Base | 70.5% → 53.6% [43.3%, 64.5%]; Δ -16.9pp; N=207 (209 excl) | 46.3% → 30.6% [18.7%, 45.3%]; Δ -15.7pp; N=108 (84 excl) |
-| `google/gemma-2-9b` | Gemma | Pretrained Base | 95.3% → 81.3% [73.2%, 89.2%]; Δ -14.0pp; N=385 (31 excl) | 92.6% → 87.5% [78.8%, 95.0%]; Δ -5.1pp; N=176 (16 excl) |
-| `ibm-granite/granite-3.3-2b-base` | Granite | Pretrained Base | 90.6% → 62.1% [53.1%, 70.3%]; Δ -28.5pp; N=372 (44 excl) | 67.2% → 38.5% [28.4%, 48.3%]; Δ -28.7pp; N=174 (18 excl) |
-| `meta-llama/Llama-3.2-3B` | Llama | Pretrained Base | 81.1% → 62.5% [52.2%, 72.7%]; Δ -18.6pp; N=360 (56 excl) | 81.1% → 53.7% [30.8%, 74.8%]; Δ -27.4pp; N=164 (28 excl) |
-| `mistralai/Mistral-7B-v0.3` | Mistral | Pretrained Base | 99.2% → 90.2% [85.5%, 94.8%]; Δ -9.0pp; N=399 (17 excl) | 98.9% → 90.4% [84.0%, 95.8%]; Δ -8.5pp; N=188 (4 excl) |
+| `google/gemma-2-2b` | Gemma | Pretrained Base | 70.5% → 53.6% [43.3%, 64.4%]; Δ -16.9pp; N=207 (209 excl) | 46.3% → 30.6% [18.6%, 45.3%]; Δ -15.7pp; N=108 (84 excl) |
+| `google/gemma-2-9b` | Gemma | Pretrained Base | 95.3% → 81.3% [72.7%, 89.1%]; Δ -14.0pp; N=385 (31 excl) | 92.6% → 87.5% [78.9%, 95.0%]; Δ -5.1pp; N=176 (16 excl) |
+| `ibm-granite/granite-3.3-2b-base` | Granite | Pretrained Base | 90.6% → 62.1% [52.6%, 70.1%]; Δ -28.5pp; N=372 (44 excl) | 67.2% → 38.5% [28.8%, 48.5%]; Δ -28.7pp; N=174 (18 excl) |
+| `meta-llama/Llama-3.2-3B` | Llama | Pretrained Base | 81.1% → 62.5% [51.6%, 73.0%]; Δ -18.6pp; N=360 (56 excl) | 81.1% → 53.7% [31.2%, 75.0%]; Δ -27.4pp; N=164 (28 excl) |
+| `mistralai/Mistral-7B-v0.3` | Mistral | Pretrained Base | 99.2% → 90.2% [85.4%, 94.8%]; Δ -9.0pp; N=399 (17 excl) | 98.9% → 90.4% [84.1%, 95.7%]; Δ -8.5pp; N=188 (4 excl) |
 
 > [!IMPORTANT]
 > **Methodological Boundary:** Margins reflect selection under a restricted 4-token forced-choice argmax instrument. They do not demonstrate human-like mental states, general intent, or causal weight-level mechanisms.
@@ -54,6 +54,7 @@ To prevent pseudoreplication across multiple checkpoints within the same family 
 | **Llama** | `Llama-3.2-3B` (1) | +81.1pp | +62.5pp | -18.6pp |
 | **Mistral** | `Mistral-7B-v0.3` (1) | +99.2pp | +90.2pp | -9.0pp |
 | **OLMo** | `OLMo-2-0425-1B`, `OLMo-2-1124-7B` (2) | +66.8pp | +46.8pp | -19.9pp |
+| **Pythia** | `pythia-12b-deduped` (1) | +0.5pp | +0.2pp | -0.2pp |
 | **Qwen** | `Qwen2.5-1.5B`, `Qwen2.5-3B`, `Qwen2.5-7B` (3) | +93.4pp | +78.0pp | -15.4pp |
 
 ### Phase 1 Prospective Equal-Utility (Non-Control)
@@ -66,6 +67,7 @@ To prevent pseudoreplication across multiple checkpoints within the same family 
 | **Llama** | `Llama-3.2-3B` (1) | +81.1pp | +53.7pp | -27.4pp |
 | **Mistral** | `Mistral-7B-v0.3` (1) | +98.9pp | +90.4pp | -8.5pp |
 | **OLMo** | `OLMo-2-0425-1B`, `OLMo-2-1124-7B` (2) | +55.6pp | +43.5pp | -12.1pp |
+| **Pythia** | `pythia-12b-deduped` (1) | +0.0pp | +0.0pp | +0.0pp |
 | **Qwen** | `Qwen2.5-1.5B`, `Qwen2.5-3B`, `Qwen2.5-7B` (3) | +98.6pp | +86.6pp | -12.0pp |
 
 ---
@@ -97,8 +99,6 @@ The repository's strict parser required generated text to match exact single opt
 ---
 
 ## 5. Pythia Instrument Failure Diagnostic
-
-Pythia is excluded from the main family-effect comparison because its position-A response makes the strategy-level margin uninterpretable. Its diagnostics are reported separately below.
 
 EleutherAI Pythia 12B Base and its exploratory fine-tune (`founder-arcafutura/pythia-12b-exploratory-20261022`) must be understood as an instrument failure rather than a negative result:
 - **Base Pythia 12B:** Selected option `A` in **2,425 of 2,432** presentations (99.71%). Mean conditional probability for letter A is 0.429 across presentations.
@@ -140,10 +140,14 @@ Below is a comparison of COOPERATE-minus-INDEPENDENT margins when strictly exclu
 
 ## 8. Calibration Reconciliation
 
-Only Qwen 1.5B, Qwen 3B, Qwen 7B, and Llama 3.2 3B pass both strict historical calibration thresholds. These four checkpoints represent two families, below the four-family eligibility requirement for the planned formal prospective replication. Other responsive checkpoints provide restricted forced-choice evidence only and must not be described as formally calibration-eligible.
-
 Predeclared calibration records from `data/calibration_bank.json`:
 - 10 of 14 models have completed historical calibration runs in `results/dose_response_batch/`.
 - 4 models have **missing calibration outputs** in repository records: `allenai/OLMo-2-0425-1B`, `EleutherAI/pythia-12b-deduped`, `Qwen/Qwen2.5-3B-Instruct`, and `founder-arcafutura/pythia-12b-exploratory-20261022`.
 - **Gate Compliance:** Passing models on both forced choice accuracy (≥40%) and format compliance (≥50% valid letters) are `Qwen 1.5B`, `Qwen 3B`, `Qwen 7B`, and `Llama 3.2 3B`. Models failing format compliance on elementary factual calibration are documented without retroactive relabeling.
+
+## 9. Post-hoc inference and corrected provenance
+
+Canonical Monte Carlo randomization results and assumptions are documented in `POSTHOC_SIGNIFICANCE_METHODS.md`; machine-readable results are in `posthoc_significance_results.json`. These tests were run after result inspection and are exploratory, not confirmatory. The 25% reference is a uniform-choice benchmark, not a literal random-choice model. The three-option follow-up is separate and conditional on changing the choice set.
+
+Per-run immutable row SHA-256 values, model revisions, and experimental source hashes are in `cohort_provenance_manifest.json`. The stale `42aaf61` label is removed: the evidence audited here is tied to the repository snapshot named above, with raw model rows preserved and individually hash-identified.
 

@@ -1,6 +1,8 @@
 """Update paired wording analysis for all complete canonical runs."""
 import argparse
+import hashlib
 import json
+import subprocess
 from pathlib import Path
 from llm_cooperation.statistical_audit import run_full_cohort_analysis
 
@@ -22,6 +24,22 @@ def main():
 
     print(f"Running full cohort statistical analysis (bootstrap={args.bootstrap}, seed={args.seed})...")
     results = run_full_cohort_analysis(manifest_info, bootstrap=args.bootstrap, seed=args.seed)
+
+    def sha256(path):
+        return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+    revision = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True).stdout.strip()
+    dirty = bool(subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, check=True).stdout.strip())
+    results["analysis_provenance"] = {
+        "source_revision": revision,
+        "worktree_dirty_at_analysis": dirty,
+        "runner_sha256": sha256(__file__),
+        "analysis_engine_sha256": sha256("llm_cooperation/statistical_audit.py"),
+        "input_rows_sha256": {
+            model: info["rows_sha256"]
+            for model, info in manifest_info["canonical_runs"].items()
+        },
+    }
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     out_file = OUT_DIR / 'cohort_statistical_readout.json'

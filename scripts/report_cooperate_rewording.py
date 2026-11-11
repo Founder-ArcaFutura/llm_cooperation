@@ -1,5 +1,6 @@
 """Update manuscript-ready reports and comparative tables for cooperative rewording assay."""
 import json
+import subprocess
 from pathlib import Path
 
 READOUT_PATH = Path('reports/manuscript_readiness/cohort_statistical_readout.json')
@@ -21,20 +22,23 @@ def format_margin_cell(stratum_data: dict) -> str:
 def generate_markdown_report(data: dict) -> str:
     models = data['per_model_results']
     fam_agg = data['family_aggregates']
+    revision = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True).stdout.strip()
+    dirty = bool(subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, check=True).stdout.strip())
+    boot = data.get('bootstrap_settings', {})
 
     lines = [
         "# Cooperative Wording Assay — Canonical Manuscript-Readiness Audit Dossier",
         "",
         "**Document Version:** Manuscript V0.1 Offline Audit & Diagnostic Dossier (11 Nov 2026)",
         "**Target Working Manuscript:** *Cooperative Strategy Selection in Pretrained Language Models: Cross-Family Evidence Under Utility Matching and Lexical Rewording*",
-        "**Branch Reference:** `codex/dose-response-option-orders` (commit `42aaf61`)",
+        f"**Analyzed source snapshot:** `codex/dose-response-option-orders` at `{revision[:7]}` (working tree {'contained pending changes' if dirty else 'clean'} during report generation). The former `42aaf61` citation was stale and is removed.",
         "",
         "## 1. Executive Summary & Audit Status",
         "",
         f"- **Cohort Completion Status:** 14 of 14 expected checkpoints complete (12 base models across 8 distinct model families, 1 instruction-tuned model `Qwen/Qwen2.5-3B-Instruct`, and 1 exploratory fine-tuned checkpoint `founder-arcafutura/pythia-12b-exploratory-20261022`).",
         "- **Run Reconciliations:** 17 total run directories reconciled against `data/cooperate_rewording_model_manifest.json`. Three models had duplicate reruns (`google/gemma-2-9b`, `EleutherAI/pythia-12b-deduped`, and `Qwen/Qwen2.5-3B-Instruct`); byte-for-byte SHA-256 row matching confirmed 100% deterministic identical outputs. Canonical runs are transparently documented.",
         "- **Estimand:** Difference in forced-choice selection rates: $\\Delta = P(\\text{COOPERATE}) - P(\\text{INDEPENDENT})$.",
-        "- **Uncertainty & Clustering:** 95% confidence intervals derived from $B=1,000$ template/triad-clustered bootstrap resamples (presentation-weighted cluster aggregations, seed 42). Option rotations (4), partner types (2), and wordings (2) are treated as repeated measurements, not independent observations.",
+        f"- **Uncertainty & Clustering:** 95% confidence intervals derived from $B={boot.get('resamples', 'not recorded')}$ template/triad-clustered bootstrap resamples (presentation-weighted cluster aggregations, seed {boot.get('seed', 'not recorded')}). Option rotations (4), partner types (2), and wordings (2) are treated as repeated measurements, not independent observations.",
         "- **Instrument Failure Diagnostic:** Pythia 12B base and exploratory fine-tune exhibit severe format/instrument failure (~100% forced-choice A selection; flat 25% strategy rates mechanically induced by Latin-square rotation). These are confirmed instrument failures, not null or negative behavioral findings.",
         "",
         "---",
@@ -160,6 +164,12 @@ def generate_markdown_report(data: dict) -> str:
         "- 10 of 14 models have completed historical calibration runs in `results/dose_response_batch/`.",
         "- 4 models have **missing calibration outputs** in repository records: `allenai/OLMo-2-0425-1B`, `EleutherAI/pythia-12b-deduped`, `Qwen/Qwen2.5-3B-Instruct`, and `founder-arcafutura/pythia-12b-exploratory-20261022`.",
         "- **Gate Compliance:** Passing models on both forced choice accuracy (≥40%) and format compliance (≥50% valid letters) are `Qwen 1.5B`, `Qwen 3B`, `Qwen 7B`, and `Llama 3.2 3B`. Models failing format compliance on elementary factual calibration are documented without retroactive relabeling.",
+        "",
+        "## 9. Post-hoc inference and corrected provenance",
+        "",
+        "Canonical Monte Carlo randomization results and assumptions are documented in `POSTHOC_SIGNIFICANCE_METHODS.md`; machine-readable results are in `posthoc_significance_results.json`. These tests were run after result inspection and are exploratory, not confirmatory. The 25% reference is a uniform-choice benchmark, not a literal random-choice model. The three-option follow-up is separate and conditional on changing the choice set.",
+        "",
+        "Per-run immutable row SHA-256 values, model revisions, and experimental source hashes are in `cohort_provenance_manifest.json`. The stale `42aaf61` label is removed: the evidence audited here is tied to the repository snapshot named above, with raw model rows preserved and individually hash-identified.",
         ""
     ])
 
