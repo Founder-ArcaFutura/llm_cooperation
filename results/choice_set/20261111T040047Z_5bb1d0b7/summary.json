@@ -1,0 +1,91 @@
+{
+  "run_id": "20261111T040047Z_5bb1d0b7",
+  "model": "allenai/OLMo-2-1124-7B",
+  "resolved_model_revision": "7df9a82518afdecae4e8c026b27adccc8c1f0032",
+  "bank_sha256": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+  "choice_set_mode": "all",
+  "replacement_bank_sha256": "6212341b7a775686d309236025f6f7b6880d2dd896b67c5bd1068d63d5e64d5f",
+  "bank": "phase0b",
+  "bank_status": "pending_human_scientific_review",
+  "research_status": "exploratory",
+  "included_splits": [
+    "confirmatory",
+    "exploratory"
+  ],
+  "torch_version": "2.15.0+cu132",
+  "transformers_version": "4.57.6",
+  "precision": "torch.bfloat16",
+  "generated_max_new_tokens": 5,
+  "summary": {
+    "four": {
+      "presentations": 496,
+      "valid": 0,
+      "invalid": 496,
+      "strategy_counts_valid": {},
+      "letter_counts_valid": {},
+      "forced_choice_valid": 496,
+      "forced_choice_strategy_counts": {
+        "COOPERATE": 411,
+        "COMPETE_EXPLOIT": 30,
+        "DISENGAGE": 17,
+        "INDEPENDENT": 38
+      },
+      "forced_choice_letter_counts": {
+        "A": 136,
+        "D": 125,
+        "C": 119,
+        "B": 116
+      },
+      "forced_choice_scenarios_all_orders_valid": 124,
+      "forced_choice_scenarios_same_strategy_all_orders": 82,
+      "scenarios_all_orders_valid": 0,
+      "scenarios_same_strategy_all_orders": 0
+    },
+    "three": {
+      "presentations": 744,
+      "valid": 0,
+      "invalid": 744,
+      "strategy_counts_valid": {},
+      "letter_counts_valid": {},
+      "forced_choice_valid": 744,
+      "forced_choice_strategy_counts": {
+        "INDEPENDENT": 323,
+        "COMPETE_EXPLOIT": 270,
+        "DISENGAGE": 151
+      },
+      "forced_choice_letter_counts": {
+        "A": 323,
+        "C": 341,
+        "B": 80
+      },
+      "forced_choice_scenarios_all_orders_valid": 124,
+      "forced_choice_scenarios_same_strategy_all_orders": 7,
+      "scenarios_all_orders_valid": 0,
+      "scenarios_same_strategy_all_orders": 0
+    },
+    "four_neutral": {
+      "presentations": 496,
+      "valid": 0,
+      "invalid": 496,
+      "strategy_counts_valid": {},
+      "letter_counts_valid": {},
+      "forced_choice_valid": 496,
+      "forced_choice_strategy_counts": {
+        "INDEPENDENT": 145,
+        "COMPETE_EXPLOIT": 133,
+        "DISENGAGE": 91,
+        "NEUTRAL_OTHER": 127
+      },
+      "forced_choice_letter_counts": {
+        "B": 50,
+        "A": 168,
+        "D": 218,
+        "C": 60
+      },
+      "forced_choice_scenarios_all_orders_valid": 124,
+      "forced_choice_scenarios_same_strategy_all_orders": 8,
+      "scenarios_all_orders_valid": 0,
+      "scenarios_same_strategy_all_orders": 0
+    }
+  }
+}
