@@ -1,0 +1,113 @@
+{
+  "run_id": "20261111T013321Z_253675cf",
+  "model": "Qwen/Qwen2.5-1.5B",
+  "resolved_model_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+  "bank_sha256": "5994103be281863e336fbad2d325b99a9d235c982ef7bc0f00d512f713e8886f",
+  "choice_set_mode": "all",
+  "replacement_bank_sha256": "7a4234391db53cda013788e43feb4ac728107b88e26007d22d9008be6aeafbee",
+  "bank_status": "draft_pending_review",
+  "torch_version": "2.15.0+cu132",
+  "transformers_version": "4.57.6",
+  "precision": "torch.bfloat16",
+  "generated_max_new_tokens": 5,
+  "summary": {
+    "four": {
+      "presentations": 240,
+      "valid": 198,
+      "invalid": 42,
+      "strategy_counts_valid": {
+        "COOPERATE": 190,
+        "DISENGAGE": 4,
+        "COMPETE_EXPLOIT": 3,
+        "INDEPENDENT": 1
+      },
+      "letter_counts_valid": {
+        "A": 51,
+        "D": 53,
+        "C": 49,
+        "B": 45
+      },
+      "forced_choice_valid": 240,
+      "forced_choice_strategy_counts": {
+        "COOPERATE": 228,
+        "COMPETE_EXPLOIT": 4,
+        "DISENGAGE": 7,
+        "INDEPENDENT": 1
+      },
+      "forced_choice_letter_counts": {
+        "A": 66,
+        "D": 62,
+        "C": 56,
+        "B": 56
+      },
+      "forced_choice_scenarios_all_orders_valid": 60,
+      "forced_choice_scenarios_same_strategy_all_orders": 53,
+      "scenarios_all_orders_valid": 44,
+      "scenarios_same_strategy_all_orders": 40
+    },
+    "three": {
+      "presentations": 360,
+      "valid": 298,
+      "invalid": 62,
+      "strategy_counts_valid": {
+        "COMPETE_EXPLOIT": 131,
+        "INDEPENDENT": 135,
+        "DISENGAGE": 32
+      },
+      "letter_counts_valid": {
+        "B": 40,
+        "C": 91,
+        "A": 167
+      },
+      "forced_choice_valid": 360,
+      "forced_choice_strategy_counts": {
+        "COMPETE_EXPLOIT": 159,
+        "INDEPENDENT": 149,
+        "DISENGAGE": 52
+      },
+      "forced_choice_letter_counts": {
+        "B": 53,
+        "C": 84,
+        "A": 223
+      },
+      "forced_choice_scenarios_all_orders_valid": 60,
+      "forced_choice_scenarios_same_strategy_all_orders": 10,
+      "scenarios_all_orders_valid": 46,
+      "scenarios_same_strategy_all_orders": 7
+    },
+    "four_neutral": {
+      "presentations": 240,
+      "valid": 186,
+      "invalid": 54,
+      "strategy_counts_valid": {
+        "NEUTRAL_OTHER": 103,
+        "COMPETE_EXPLOIT": 39,
+        "INDEPENDENT": 35,
+        "DISENGAGE": 9
+      },
+      "letter_counts_valid": {
+        "A": 94,
+        "B": 40,
+        "D": 29,
+        "C": 23
+      },
+      "forced_choice_valid": 240,
+      "forced_choice_strategy_counts": {
+        "NEUTRAL_OTHER": 126,
+        "COMPETE_EXPLOIT": 52,
+        "INDEPENDENT": 46,
+        "DISENGAGE": 16
+      },
+      "forced_choice_letter_counts": {
+        "A": 129,
+        "B": 51,
+        "D": 39,
+        "C": 21
+      },
+      "forced_choice_scenarios_all_orders_valid": 60,
+      "forced_choice_scenarios_same_strategy_all_orders": 11,
+      "scenarios_all_orders_valid": 43,
+      "scenarios_same_strategy_all_orders": 7
+    }
+  }
+}
