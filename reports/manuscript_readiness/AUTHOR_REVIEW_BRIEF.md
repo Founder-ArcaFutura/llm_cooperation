@@ -30,7 +30,8 @@ The post-hoc four-option randomization tests were significant under cluster-leve
 
 ## Human or additional experimental work still required
 
-- Complete blinded human adjudication of the 304 queued items, including utility equivalence, plausibility, partner wording, and paraphrase fidelity.
+- Run independent blinded adjudication on the 76 priority template packets first. Each packet presents both human-partner and AI-partner scenarios and both cooperative wordings; reviewers score each scenario and wording separately. The remaining 76 packets cover Phase 0 and secondary/control material. The source queue remains 304 scenario rows, packaged as 152 bank-specific template units.
+- Compare partner variants and cooperative rewordings, preserve both first-pass reviews, resolve disagreements while blinded, and unblind only after adjudication decisions are frozen. Scenario prose can itself reveal partner type, so blinding removes labels and study classifications but cannot conceal all semantic cues.
 - Reconcile the Phase 1 metadata and execution chronology; establish whether prior approval and held-out safeguards were actually satisfied.
 - Resolve calibration outputs and qualify at least four independent model families under the historical accuracy and format thresholds before calling a replication formally eligible.
 - Run a genuinely prospective, pre-approved replication with frozen scenarios, model-selection rules, analysis code, and inferential hypotheses.

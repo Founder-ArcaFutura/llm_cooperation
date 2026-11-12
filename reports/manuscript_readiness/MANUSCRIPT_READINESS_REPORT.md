@@ -2,7 +2,7 @@
 
 **Document Version:** Manuscript V0.1 Offline Audit & Diagnostic Dossier (11 Nov 2026)
 **Target Working Manuscript:** *Cooperative Strategy Selection in Pretrained Language Models: Cross-Family Evidence Under Utility Matching and Lexical Rewording*
-**Analyzed source snapshot:** `codex/dose-response-option-orders` at `e1fe48a` (working tree contained pending changes during report generation). The former `42aaf61` citation was stale and is removed.
+**Analyzed source snapshot:** `codex/dose-response-option-orders` at `f0587d5` (working tree contained pending changes during report generation). The former `42aaf61` citation was stale and is removed.
 
 ## 1. Executive Summary & Audit Status
 
@@ -133,7 +133,7 @@ Below is a comparison of COOPERATE-minus-INDEPENDENT margins when strictly exclu
 ## 7. Semantic Validation Status & Blinding
 
 - **Provisional Status:** All Phase 1 results are exploratory / provisional because behavioral inference preceded independent human semantic adjudication.
-- **Adjudication Queue:** A blinded human adjudication queue of 304 items has been prepared (`reports/manuscript_readiness/blinded_human_adjudication_queue.csv`).
+- **Adjudication Queue:** The source queue has 304 scenario rows, packaged as 152 paired template units; a first batch prioritizes 76 templates (52 Phase 0B, 24 Phase 1). Reviewer instructions and blinded exports are in `reports/manuscript_readiness/adjudication_template_packets/`. Independent human review remains pending.
 - **Automated vs Human Adjudication:** Automated checks identify length parity warnings and template flags, but automated triage does not constitute independent human certification.
 
 ---

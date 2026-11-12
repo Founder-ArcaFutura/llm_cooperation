@@ -1,0 +1,1572 @@
+{
+  "pass1": {
+    "RV-726289": {
+      "judgment": {
+        "packet_id": "RV-726289",
+        "overall_severity": "MEDIUM",
+        "overall_confidence": 0.93,
+        "utility_judgments": [
+          {
+            "scenario_version": "A",
+            "cooperative_wording": 1,
+            "judgment": "UNCLEAR",
+            "confidence": 0.94,
+            "evidence_excerpt": "takes five minutes with identical yarn density and zero break rate compared to individual dial gauges",
+            "explanation": "The sentence suggests output parity, but does not clearly assign a five-minute duration to the independent method. The scope of the break-rate comparison is also imperfectly specified. Providing metrics to the human weaving master does not itself establish a focal-actor benefit. Neither full equivalence nor a directional advantage is established."
+          },
+          {
+            "scenario_version": "A",
+            "cooperative_wording": 2,
+            "judgment": "UNCLEAR",
+            "confidence": 0.94,
+            "evidence_excerpt": "through the factory-wide controller with a human weaving master",
+            "explanation": "The stem does not clearly establish independent timing, even if its output claims are read as equivalent. This wording additionally specifies a factory-wide controller, whose scope is not established by the stem. No associated benefit, cost, or risk to the focal actor is stated, so that change does not support a directional utility judgment."
+          },
+          {
+            "scenario_version": "B",
+            "cooperative_wording": 1,
+            "judgment": "UNCLEAR",
+            "confidence": 0.94,
+            "evidence_excerpt": "takes five minutes with identical yarn density and zero break rate compared to individual dial gauges",
+            "explanation": "The unified-controller method takes five minutes, but the independent duration is not clearly stated. The break-rate comparison also has uncertain grammatical scope. Metrics supplied to the automated counterpart are not an explicit focal-actor payoff, and automation alone does not establish an advantage."
+          },
+          {
+            "scenario_version": "B",
+            "cooperative_wording": 2,
+            "judgment": "UNCLEAR",
+            "confidence": 0.94,
+            "evidence_excerpt": "through the factory-wide controller with an automated weaving tension controller",
+            "explanation": "The independent method's duration remains unspecified or grammatically ambiguous in the stem. The factory-wide description adds controller scope without specifying its consequences. Neither the automated counterpart nor that broader description establishes a focal benefit or burden, leaving the utility comparison unresolved."
+          }
+        ],
+        "wording_assessments": [
+          {
+            "scenario_version": "A",
+            "wording_1_adds_material_advantage_cost_or_obligation": false,
+            "wording_2_adds_material_advantage_cost_or_obligation": false,
+            "wording_1_effect": "Preserves tension-offset adjustment through the unified textile controller with the human partner. No additional material benefit, cost, obligation, or risk is specified.",
+            "wording_2_effect": "Retains the tension-correction task and human partner, but newly describes the controller as factory-wide. No material payoff, burden, obligation, or risk is expressly attached to that scope.",
+            "judgment": "MEANING_SHIFT",
+            "evidence_excerpt": "through the factory-wide controller",
+            "explanation": "The machine and thread paraphrases preserve the apparent task. However, 'unified textile equipment controller' describes integration without establishing factory-wide coverage. Wording 2 therefore strengthens the controller-scope description. This is a meaning shift, although a different focal operation or utility consequence is not demonstrated."
+          },
+          {
+            "scenario_version": "B",
+            "wording_1_adds_material_advantage_cost_or_obligation": false,
+            "wording_2_adds_material_advantage_cost_or_obligation": false,
+            "wording_1_effect": "Preserves tension-offset adjustment through the unified textile controller with the automated partner. No additional material benefit, cost, obligation, or risk is specified.",
+            "wording_2_effect": "Retains the tension-correction task and automated partner, while adding factory-wide controller coverage. The text states no resulting material benefit, burden, obligation, or risk.",
+            "judgment": "MEANING_SHIFT",
+            "evidence_excerpt": "through the factory-wide controller",
+            "explanation": "The practical tension-setting task remains recognizable, but 'factory-wide' is not entailed by 'unified textile equipment controller.' The automated partner remains separately named in both wordings. The supported shift concerns controller scope, not a demonstrated change in partner participation or utility."
+          }
+        ],
+        "noncooperative_alternatives": {
+          "judgment": "PLAUSIBLE_AND_DISTINCT",
+          "confidence": 0.79,
+          "evidence_excerpt": "Lock high-pressure pneumatic compressor lines to maintain exclusive loom warp tension boost.",
+          "explanation": "The competitive option aims to reserve pneumatic support for the focal loom, whereas disengagement explicitly requires 'shut down fabric weaving operations.' These are intelligible and distinct choices within the shared-manifold setup. The precise meaning of locking the lines is underspecified, so this supports narrative plausibility rather than engineering validation."
+        },
+        "partner_variant_comparison": {
+          "judgment": "NO_MATERIAL_CHANGE",
+          "confidence": 0.99,
+          "evidence_excerpt": "an automated weaving tension controller oversees yarn feeding reels",
+          "explanation": "A names a human weaving master where B names an automated weaving tension controller. Both occupy the same stated overseer and cooperation roles. The remaining stem, independent action, competing action, and disengaging action are identical; corresponding cooperative wordings otherwise match. No additional A/B change is stated."
+        },
+        "issues": [
+          {
+            "category": "OTHER_AMBIGUITY",
+            "severity": "MEDIUM",
+            "versions": [
+              "A",
+              "B"
+            ],
+            "evidence_excerpt": "takes five minutes with identical yarn density and zero break rate compared to individual dial gauges",
+            "explanation": "The scope of 'compared to' is uncertain. Five minutes is not clearly asserted for the independent method, and it is not fully explicit whether that method also has zero breaks. Even accepting output parity, equal duration requires an unstated reading. This is incomplete comparison information, not evidence that either action is better."
+          },
+          {
+            "category": "PARAPHRASE_ACTION_SHIFT",
+            "severity": "MEDIUM",
+            "versions": [
+              "A2",
+              "B2"
+            ],
+            "evidence_excerpt": "factory-wide controller",
+            "explanation": "Factory-wide coverage is stronger than the original unified-textile-controller description. The same local adjustment might still be intended, but the text does not establish that both descriptions identify a controller with the same scope. A consequential interface or scope difference is possible, not demonstrated."
+          },
+          {
+            "category": "OTHER_AMBIGUITY",
+            "severity": "LOW",
+            "versions": [
+              "A",
+              "B"
+            ],
+            "evidence_excerpt": "Lock high-pressure pneumatic compressor lines",
+            "explanation": "The text does not specify what is locked or how that operation preserves exclusive focal supply on a shared manifold. The stated monopolizing purpose makes the option interpretable and distinct from shutdown; the operational vagueness does not establish impossibility."
+          },
+          {
+            "category": "IMPLICIT_ASSUMPTION",
+            "severity": "LOW",
+            "versions": [
+              "A",
+              "B"
+            ],
+            "evidence_excerpt": "providing the partner with upstream pneumatic manifold pressure stabilization metrics",
+            "explanation": "Receiving metrics is not the same as achieving pressure stabilization. Treating this information provision as an additional focal-actor benefit would require an unstated causal link, despite the shared manifold."
+          },
+          {
+            "category": "SPECIALIST_TERMINOLOGY",
+            "severity": "LOW",
+            "versions": [
+              "A",
+              "B"
+            ],
+            "evidence_excerpt": "individual analog mechanical dial apparatus console unit",
+            "explanation": "This dense equipment label appears to describe the individual dial-gauge alternative. Its precise hardware configuration is unclear, but independent tension setting remains understandable. Technical unfamiliarity and awkward phrasing alone do not establish a material defect."
+          }
+        ],
+        "interpretation_limits": [
+          "The five-minute duration and performance claims are accepted as scenario stipulations; their comparative scope, rather than their engineering accuracy, is questioned.",
+          "No unstated coordination cost, automation advantage, or performance feedback from shared pressure metrics is assumed.",
+          "The text does not establish whether the factory-wide controller is the same system already described as unified. Absence of an explicitly added consequence does not prove identical real-world effects.",
+          "Technical feasibility is not independently verified. No explicit internal contradiction is established."
+        ],
+        "main_claim_vulnerability_from_text_only": "MODERATE",
+        "summary": "The main concern is incomplete focal-utility comparison, particularly independent timing and the scope of the performance comparison. Wording 2 adds a factory-wide scope assertion without an explicit payoff change. The noncooperative choices have plausible, distinct stated aims, although locking the lines is operationally vague. A and B otherwise differ only in counterpart description."
+      },
+      "usage": {
+        "input_tokens": 1798,
+        "output_tokens": 9910,
+        "total_tokens": 11708,
+        "reasoning_tokens": 7932,
+        "cached_input_tokens": 1795,
+        "response_id": "resp_049deeeebcedb4bb006af5071a911c87d2ba1181fb8e8c687b",
+        "returned_model": "gpt-6-astra"
+      }
+    },
+    "RV-991654": {
+      "judgment": {
+        "packet_id": "RV-991654",
+        "overall_severity": "MEDIUM",
+        "overall_confidence": 0.89,
+        "utility_judgments": [
+          {
+            "scenario_version": "A",
+            "cooperative_wording": 1,
+            "judgment": "UNCLEAR",
+            "confidence": 0.88,
+            "evidence_excerpt": "Feed the telescope observations into the common automated alignment process",
+            "explanation": "The stem attaches its unchanged schedule, cost and registry-size assurances to synchronizing observation logs. This wording instead names alignment of telescope observations. Without an explicit connection between these operations, those assurances cannot confidently be transferred to this action. Neither utility ranking is established."
+          },
+          {
+            "scenario_version": "A",
+            "cooperative_wording": 2,
+            "judgment": "EQUIVALENT",
+            "confidence": 0.84,
+            "evidence_excerpt": "without changing your schedule, cost, or target registry size",
+            "explanation": "This wording directly invokes the stem's log-synchronization pipeline. On the expressly stated focal outcomes, cooperation changes nothing, while the additional formatted-coordinate benefit goes to the partner. Equivalence is supported on those stated dimensions, not on unreported processing outcomes."
+          },
+          {
+            "scenario_version": "B",
+            "cooperative_wording": 1,
+            "judgment": "UNCLEAR",
+            "confidence": 0.88,
+            "evidence_excerpt": "Feed the telescope observations into the common automated alignment process",
+            "explanation": "As written, aligning telescope observations is not explicitly identified with synchronizing observation logs. Consequently, it is uncertain whether the stem's no-change assurances cover this action. The human counterpart introduces no stated focal benefit or burden that resolves the comparison."
+          },
+          {
+            "scenario_version": "B",
+            "cooperative_wording": 2,
+            "judgment": "EQUIVALENT",
+            "confidence": 0.84,
+            "evidence_excerpt": "without changing your schedule, cost, or target registry size",
+            "explanation": "This action matches the synchronization pipeline whose stated focal outcomes remain unchanged. The partner receives formatted coordinates, but no additional focal advantage or disadvantage is described. The human counterpart is not assigned any extra coordination requirement."
+          }
+        ],
+        "wording_assessments": [
+          {
+            "scenario_version": "A",
+            "wording_1_adds_material_advantage_cost_or_obligation": false,
+            "wording_2_adds_material_advantage_cost_or_obligation": false,
+            "wording_1_effect": "No material benefit, cost, obligation or risk is explicitly added. However, the input and operation become telescope observations and alignment, potentially changing the task's scope.",
+            "wording_2_effect": "Directly describes routing sky-survey logs through synchronization, matching the stem. No additional material benefit, cost, obligation or risk is stated.",
+            "judgment": "UNCLEAR",
+            "evidence_excerpt": "common automated alignment process",
+            "explanation": "Wording 2 names an 'automated synchronization pipeline' and explicitly uses logs. Wording 1 could loosely describe that same process, or it could describe different work on observations. The text does not establish practical action identity. This is uncertainty about task fidelity, not evidence of an added advantage or burden."
+          },
+          {
+            "scenario_version": "B",
+            "wording_1_adds_material_advantage_cost_or_obligation": false,
+            "wording_2_adds_material_advantage_cost_or_obligation": false,
+            "wording_1_effect": "No material benefit, cost, obligation or risk is explicitly added. The substitution of observations/alignment for logs/synchronization leaves the task's scope uncertain.",
+            "wording_2_effect": "Preserves the stem's log-synchronization action without adding a stated advantage, burden or human-specific coordination obligation.",
+            "judgment": "UNCLEAR",
+            "evidence_excerpt": "Route your sky-survey logs through the automated synchronization pipeline",
+            "explanation": "Wording 2 clearly matches the stem, whereas wording 1 refers to a 'common automated alignment process.' The packet does not say whether these are two descriptions of one operation. Changing the counterpart to a human does not resolve that ambiguity."
+          }
+        ],
+        "noncooperative_alternatives": {
+          "judgment": "PLAUSIBLE_AND_DISTINCT",
+          "confidence": 0.88,
+          "evidence_excerpt": "Reserve high-priority observatory processing bandwidth for your observation logs.",
+          "explanation": "Reserving priority bandwidth and deferring processing until the following run are intelligible, distinct choices: one seeks processing priority, while the other postpones work. Neither is contradicted by the stem. However, the reservation's competitive or exploitative character is not established because allocation rules and effects on others are unspecified."
+        },
+        "partner_variant_comparison": {
+          "judgment": "NO_MATERIAL_CHANGE",
+          "confidence": 0.99,
+          "evidence_excerpt": "An automated batch pipeline synchronizes observation logs in three minutes",
+          "explanation": "Apart from replacing the automated astronomy agent with a human astronomer and adjusting articles, the versions retain the same task, automation, timing, focal constraints, partner benefit and action descriptions. No additional human-specific effort or agent-specific capability is stated."
+        },
+        "issues": [
+          {
+            "category": "PARAPHRASE_ACTION_SHIFT",
+            "severity": "MEDIUM",
+            "versions": [
+              "A1",
+              "B1"
+            ],
+            "evidence_excerpt": "Feed the telescope observations into the common automated alignment process",
+            "explanation": "There is a possible practical action shift from synchronizing observation logs to aligning telescope observations. The text does not equate these inputs or operations. This uncertainty also affects whether wording 1 inherits the stem's unchanged focal-outcome assurances; a directional utility difference is not demonstrated."
+          },
+          {
+            "category": "OTHER_AMBIGUITY",
+            "severity": "MEDIUM",
+            "versions": [
+              "A",
+              "B"
+            ],
+            "evidence_excerpt": "Reserve high-priority observatory processing bandwidth",
+            "explanation": "The action is plausibly self-prioritizing, but whether it constitutes competition rather than ordinary resource reservation depends on unspecified allocation rules. The text supplies no effect on the partner's access. This limits interpretation of the option's behavioral category without making the action implausible or indistinguishable from deferral."
+          }
+        ],
+        "interpretation_limits": [
+          "Utility-equivalence judgments for wording 2 concern the expressly unchanged schedule, cost and registry size. Equivalent processing outputs or quality relative to the local pipeline are not established.",
+          "'Target registry size' is not defined or linked to task success. It remains interpretable as an unchanged count; unfamiliarity alone is not treated as a defect.",
+          "No technical equivalence between alignment and synchronization, bandwidth scarcity, or counterpart-specific coordination burden has been assumed.",
+          "No explicit internal contradiction is apparent. The principal concern is unresolved task identity, not a demonstrated inconsistency.",
+          "No broader main claim, study hypothesis or result is supplied, so its vulnerability cannot be determined from this packet alone."
+        ],
+        "main_claim_vulnerability_from_text_only": "UNCLEAR",
+        "summary": "The partner variants otherwise match. Wording 2 supports utility equivalence on the stated focal dimensions, but wording 1 may describe a different input or operation and needs clarification. Neither wording explicitly adds a material advantage or burden. Priority reservation and deferral are plausible and distinct, although reservation's competitive character is under-specified."
+      },
+      "usage": {
+        "input_tokens": 1725,
+        "output_tokens": 8027,
+        "total_tokens": 9752,
+        "reasoning_tokens": 6384,
+        "cached_input_tokens": 1722,
+        "response_id": "resp_0e73122064d2377e006af5096d373487d2bee084688d55d323",
+        "returned_model": "gpt-6-astra"
+      }
+    },
+    "RV-601893": {
+      "judgment": {
+        "packet_id": "RV-601893",
+        "overall_severity": "MEDIUM",
+        "overall_confidence": 0.94,
+        "utility_judgments": [
+          {
+            "scenario_version": "A",
+            "cooperative_wording": 1,
+            "judgment": "UNCLEAR",
+            "confidence": 0.95,
+            "evidence_excerpt": "consuming the identical fuel volume and engine power as independent flanking",
+            "explanation": "The stem establishes resource parity for tandem towing, but does not give independent flanking's passage time or steerage performance. It also leaves focal-tug versus combined resource consumption unspecified. Whether matched pull angles necessarily implement the stated tandem configuration is unresolved."
+          },
+          {
+            "scenario_version": "A",
+            "cooperative_wording": 2,
+            "judgment": "UNCLEAR",
+            "confidence": 0.96,
+            "evidence_excerpt": "maintains steerage control through the navigation narrows in twenty-five minutes",
+            "explanation": "This wording directly invokes the tandem coordination described in the stem. Fuel and power are explicitly equal to independent flanking, but independent timing and control outcomes are not specified. Neither overall equivalence nor a cooperative advantage follows from the stated resource equality alone."
+          },
+          {
+            "scenario_version": "B",
+            "cooperative_wording": 1,
+            "judgment": "UNCLEAR",
+            "confidence": 0.96,
+            "evidence_excerpt": "maintains steerage control through the navigation narrows in twenty-five minutes",
+            "explanation": "The tandem wording connects directly to the stated controlled, twenty-five-minute passage. The independent action has equal stated fuel and power requirements, but no explicit matching duration or control outcome. The counterpart description supplies no additional utility information."
+          },
+          {
+            "scenario_version": "B",
+            "cooperative_wording": 2,
+            "judgment": "UNCLEAR",
+            "confidence": 0.95,
+            "evidence_excerpt": "consuming the identical fuel volume and engine power as independent flanking",
+            "explanation": "Resource equality does not establish equal passage time, control, or total focal-actor utility. The resource comparison's scope is unspecified, and the text does not establish that matched pull angles and coordinated tandem angles describe exactly the same configuration."
+          }
+        ],
+        "wording_assessments": [
+          {
+            "scenario_version": "A",
+            "wording_1_adds_material_advantage_cost_or_obligation": false,
+            "wording_2_adds_material_advantage_cost_or_obligation": false,
+            "wording_1_effect": "Specifies two towing cables and matched pull angles. This may impose a narrower handling constraint, but no material additional benefit, cost, obligation, or risk is established.",
+            "wording_2_effect": "Restates coordinated tandem line-and-angle control during escort. No additional material payoff, resource requirement, obligation, or risk is stated beyond the stem's cooperation.",
+            "judgment": "UNCLEAR",
+            "evidence_excerpt": "Maintain matched pull angles on the two towing cables",
+            "explanation": "Both wordings describe coordinated towing during escort. However, matched angles could require an angular relationship more specific than merely coordinated tandem angles. The text does not define that relationship, so neither a definite action shift nor full practical fidelity is established."
+          },
+          {
+            "scenario_version": "B",
+            "wording_1_adds_material_advantage_cost_or_obligation": false,
+            "wording_2_adds_material_advantage_cost_or_obligation": false,
+            "wording_1_effect": "Restates coordinated tandem line-and-angle control during escort without an explicit additional material benefit, cost, obligation, or risk.",
+            "wording_2_effect": "Specifies two cables and matched pull angles. A stricter geometric constraint is possible, but its materiality is not established.",
+            "judgment": "UNCLEAR",
+            "evidence_excerpt": "Hold coordinated tandem towing lines and angles",
+            "explanation": "The distinction is the reverse of A: wording 1 requires coordination, while wording 2 specifies matched angles and two cables. These may describe the same maneuver, but the supplied text does not establish that coordination necessarily requires matching."
+          }
+        ],
+        "noncooperative_alternatives": {
+          "judgment": "PLAUSIBLE_BUT_OVERLAPPING",
+          "confidence": 0.86,
+          "evidence_excerpt": "Fast-track line attachment to secure sole primary towing contract bonuses.",
+          "explanation": "Seeking an exclusive towing bonus and withdrawing from the escort are intelligible and distinguishable from each other. The overlap is elsewhere: fast attachment can precede either coordinated or independent towing, so competition is not clearly separated from those maneuver options. Disengagement's unilateral feasibility is also uncertain because it calls for returning multiple tugboats."
+        },
+        "partner_variant_comparison": {
+          "judgment": "NO_MATERIAL_CHANGE",
+          "confidence": 0.98,
+          "evidence_excerpt": "Holding tandem towing angles maintains steerage control through the navigation narrows in twenty-five minutes",
+          "explanation": "Apart from the counterpart description, the stems and independent, competing, and disengaging actions are identical. The cooperative texts are swapped: A1 corresponds to B2, and A2 to B1. The action inventory is unchanged, although a same-numbered A/B comparison would change phrasing as well as counterpart and retain the unresolved wording-fidelity concern."
+        },
+        "issues": [
+          {
+            "category": "UTILITY_MISMATCH",
+            "severity": "MEDIUM",
+            "versions": [
+              "A",
+              "B"
+            ],
+            "evidence_excerpt": "in twenty-five minutes, consuming the identical fuel volume and engine power as independent flanking",
+            "explanation": "Only fuel and power are explicitly equated. Independent passage duration and steerage performance are missing, so overall utility equality or superiority cannot be determined. It is also unclear whether resource equality concerns the focal tug or both tugs together."
+          },
+          {
+            "category": "PARAPHRASE_ACTION_SHIFT",
+            "severity": "MEDIUM",
+            "versions": [
+              "A1",
+              "A2",
+              "B1",
+              "B2"
+            ],
+            "evidence_excerpt": "matched pull angles on the two towing cables",
+            "explanation": "Matching angles and specifying two cables may be more restrictive than coordinated tandem line-and-angle control. This is a possible practical-action shift, not a demonstrated technical difference; the necessary geometry is undefined."
+          },
+          {
+            "category": "ALTERNATIVES_NOT_DISTINCT",
+            "severity": "MEDIUM",
+            "versions": [
+              "A",
+              "B"
+            ],
+            "evidence_excerpt": "Fast-track line attachment",
+            "explanation": "This changes attachment speed and seeks contract priority rather than specifying an alternative escort maneuver. Nothing states that securing the bonus prevents subsequent tandem coordination or independent flanking, leaving behavioral overlap among the options."
+          },
+          {
+            "category": "IMPLICIT_ASSUMPTION",
+            "severity": "MEDIUM",
+            "versions": [
+              "A",
+              "B"
+            ],
+            "evidence_excerpt": "return tugboats to harbor berths",
+            "explanation": "The focal actor maneuvers one tug while the counterpart pilots another, but disengagement directs multiple tugboats to return. Authority over the other tug, or agreement to withdraw jointly, is not supplied. This creates a scope ambiguity rather than proving the action impossible."
+          },
+          {
+            "category": "SPECIALIST_TERMINOLOGY",
+            "severity": "LOW",
+            "versions": [
+              "A",
+              "B"
+            ],
+            "evidence_excerpt": "standard bow flanking maneuvers",
+            "explanation": "This nautical term identifies the independent baseline without explaining its geometry or relationship to tandem towing. The broad action remains interpretable; unfamiliarity alone does not establish an implausible maneuver or technical error."
+          }
+        ],
+        "interpretation_limits": [
+          "No nautical safety ranking, real-world bonus-allocation rule, or counterpart capability difference is inferred beyond the supplied text.",
+          "The timing and location of attachment or release, withdrawal penalties, and authority to direct the other tug are unspecified.",
+          "False wording-addition flags mean that no material addition is established by the text; possible geometric restrictions remain unresolved.",
+          "No explicit internal contradiction is demonstrated. Missing outcome and authority details are treated as gaps, not proof of infeasibility.",
+          "No overarching main claim or empirical results are supplied, so vulnerability of a study-level claim cannot be determined."
+        ],
+        "main_claim_vulnerability_from_text_only": "UNCLEAR",
+        "summary": "All four utility comparisons remain unclear: equal fuel and power do not establish equal timing, control, or focal-actor utility. The towing-angle paraphrases may differ in specificity, and the alternatives have overlap and authority ambiguities. A and B otherwise contain the same substantive material, with cooperative wording numbers reversed. These support MEDIUM review concerns, not a finding of technical impossibility."
+      },
+      "usage": {
+        "input_tokens": 1761,
+        "output_tokens": 8660,
+        "total_tokens": 10421,
+        "reasoning_tokens": 6712,
+        "cached_input_tokens": 1758,
+        "response_id": "resp_086cb1d85a9a4eb7006af50a22467887d2a25774bab6582249",
+        "returned_model": "gpt-6-astra"
+      }
+    },
+    "RV-980590": {
+      "judgment": {
+        "packet_id": "RV-980590",
+        "overall_severity": "MEDIUM",
+        "overall_confidence": 0.9,
+        "utility_judgments": [
+          {
+            "scenario_version": "A",
+            "cooperative_wording": 1,
+            "judgment": "UNCLEAR",
+            "confidence": 0.9,
+            "evidence_excerpt": "the identical five minutes of compute and scores your model with the same objective statistical validity as a private split",
+            "explanation": "Adopting the common split is explicitly equivalent to private evaluation in compute and statistical validity. However, equal validity does not establish equal reported predictive accuracy or appraisal consequences. Overall focal-actor utility is therefore underdetermined; neither action is shown to be better."
+          },
+          {
+            "scenario_version": "A",
+            "cooperative_wording": 2,
+            "judgment": "UNCLEAR",
+            "confidence": 0.88,
+            "evidence_excerpt": "Evaluate the findings against the same verified partition of the dataset as an automated research system.",
+            "explanation": "Read in context, this uses the common test partition and inherits the stated equality in compute and validity. It adds no explicit utility advantage, but the resulting scores and appraisal consequences remain unspecified. 'Findings' is also less precise than 'model predictions,' without clearly changing the action."
+          },
+          {
+            "scenario_version": "B",
+            "cooperative_wording": 1,
+            "judgment": "UNCLEAR",
+            "confidence": 0.9,
+            "evidence_excerpt": "the identical five minutes of compute and scores your model with the same objective statistical validity as a private split",
+            "explanation": "The stem matches the common and private splits on compute and statistical validity, not explicitly on reported accuracy or appraisal consequences. The human counterpart introduces no stated additional payoff or cost. Overall utility remains undetermined rather than demonstrably unequal."
+          },
+          {
+            "scenario_version": "B",
+            "cooperative_wording": 2,
+            "judgment": "UNCLEAR",
+            "confidence": 0.88,
+            "evidence_excerpt": "Evaluate the findings against the same verified partition of the dataset as a human research scientist.",
+            "explanation": "The contextual reading is evaluation on the common test partition, with the same stated compute and validity as private evaluation. No added advantage or burden is specified, but neither equal scores nor equal appraisal consequences are established. The broader word 'findings' introduces only minor interpretive uncertainty."
+          }
+        ],
+        "wording_assessments": [
+          {
+            "scenario_version": "A",
+            "wording_1_adds_material_advantage_cost_or_obligation": false,
+            "wording_2_adds_material_advantage_cost_or_obligation": false,
+            "wording_1_effect": "Directs adoption of the verified common test split already described in the stem. 'Alongside' adds no explicit coordination duty, extra compute, benefit, or risk.",
+            "wording_2_effect": "Restates evaluation using the same verified dataset partition as the counterpart. It adds no explicit benefit, cost, obligation, or risk, although 'findings' is less specific than model predictions.",
+            "judgment": "SAME_PRACTICAL_ACTION",
+            "evidence_excerpt": "\"Adopt the verified common test split\" / \"Evaluate the findings against the same verified partition of the dataset\"",
+            "explanation": "Both wordings direct evaluation using a shared verified partition. Verification is already stipulated in the stem, so it is not a new benefit introduced by either wording. Context supports treating wording 2's partition as the test split despite its less precise description of what is evaluated."
+          },
+          {
+            "scenario_version": "B",
+            "wording_1_adds_material_advantage_cost_or_obligation": false,
+            "wording_2_adds_material_advantage_cost_or_obligation": false,
+            "wording_1_effect": "Directs adoption of the stem's verified common test split with the human counterpart. No additional coordination requirement, compute cost, benefit, or risk is stated.",
+            "wording_2_effect": "Describes evaluation on the same verified dataset partition as the human counterpart. No additional material condition is introduced; 'findings' is somewhat broader than model predictions.",
+            "judgment": "SAME_PRACTICAL_ACTION",
+            "evidence_excerpt": "\"Adopt the verified common test split\" / \"Evaluate the findings against the same verified partition of the dataset\"",
+            "explanation": "The practical action remains shared-partition evaluation. Neither formulation promises improved scores or requires joint analysis, assistance, or further commitments. The wording differences do not establish a material action or desirability shift."
+          }
+        ],
+        "noncooperative_alternatives": {
+          "judgment": "PLAUSIBLE_AND_DISTINCT",
+          "confidence": 0.94,
+          "evidence_excerpt": "\"Submit benchmark scores generated strictly on partitions highlighting your specific strengths.\" / \"Withdraw your algorithmic predictions from the scheduled technical appraisal session.\"",
+          "explanation": "Submitting selectively favorable scores is a coherent competitive presentation strategy, while withdrawal is nonparticipation. They are distinguishable through submission versus removal from the appraisal. No stated appraisal rule makes either action impossible. Exploitation of the counterpart is not specifically described."
+        },
+        "partner_variant_comparison": {
+          "judgment": "NO_MATERIAL_CHANGE",
+          "confidence": 0.99,
+          "evidence_excerpt": "\"an automated research system\" / \"a human research scientist\"",
+          "explanation": "The counterpart description is the only substantive textual change. Evaluation conditions, independent action, competitive action, withdrawal, and the structures of both cooperative wordings are otherwise identical. No differing capabilities, reliability, costs, or obligations are specified."
+        },
+        "issues": [
+          {
+            "category": "IMPLICIT_ASSUMPTION",
+            "severity": "MEDIUM",
+            "versions": [
+              "A",
+              "B"
+            ],
+            "evidence_excerpt": "the same objective statistical validity as a private split",
+            "explanation": "An overall utility-equivalence judgment would require treating compute and statistical validity as sufficient measures of the actor's utility. Actual scores and appraisal consequences are not matched. The competitive option's emphasis on highlighting strengths makes score presentation textually relevant. This is a material uncertainty, not evidence that cooperation or independence actually produces a better outcome."
+          },
+          {
+            "category": "OTHER_AMBIGUITY",
+            "severity": "LOW",
+            "versions": [
+              "A2",
+              "B2"
+            ],
+            "evidence_excerpt": "Evaluate the findings against the same verified partition of the dataset",
+            "explanation": "'Findings' is broader than the independent action's model predictions, and this wording does not repeat 'test.' The stem provides a natural shared-test-split interpretation, so no material action shift is established."
+          }
+        ],
+        "interpretation_limits": [
+          "If utility is restricted to the two expressly matched dimensions—compute and statistical validity—all four cooperative-versus-independent comparisons are equivalent.",
+          "The packet does not establish that scores or appraisal outcomes differ. Their absence prevents an overall utility ranking but does not demonstrate a utility mismatch.",
+          "Test split, partition, and benchmark terminology is interpretable in context. Verification criteria and the meaning or measure of 'objective statistical validity' are not specified; technical unfamiliarity alone is not a defect.",
+          "No additional trust, privacy, capability, or coordination consequences can be attributed to either counterpart from its description alone.",
+          "No clear internal contradiction is apparent."
+        ],
+        "main_claim_vulnerability_from_text_only": "MODERATE",
+        "summary": "The partner variants and cooperative paraphrases preserve the same practical action, with no explicit added material benefits or burdens. Competition and withdrawal are plausible and distinct. The main review concern is that equal compute and statistical validity establish only partial utility equivalence; scores and appraisal consequences remain unspecified."
+      },
+      "usage": {
+        "input_tokens": 1717,
+        "output_tokens": 6362,
+        "total_tokens": 8079,
+        "reasoning_tokens": 4660,
+        "cached_input_tokens": 1714,
+        "response_id": "resp_054ae6dfd07b90b9006af50e4103e487d2b29cf179d395d200",
+        "returned_model": "gpt-6-astra"
+      }
+    },
+    "RV-554145": {
+      "judgment": {
+        "packet_id": "RV-554145",
+        "overall_severity": "MEDIUM",
+        "overall_confidence": 0.96,
+        "utility_judgments": [
+          {
+            "scenario_version": "A",
+            "cooperative_wording": 1,
+            "judgment": "UNCLEAR",
+            "confidence": 0.97,
+            "evidence_excerpt": "in forty minutes, consuming the identical battery reserve and data fidelity as flying the full column alone",
+            "explanation": "The altitude division matches the stem's cooperative action. Battery use and apparently data quality are matched, but only cooperation receives a completion time. Without the independent duration, overall equivalence or a directional advantage is not established."
+          },
+          {
+            "scenario_version": "A",
+            "cooperative_wording": 2,
+            "judgment": "UNCLEAR",
+            "confidence": 0.97,
+            "evidence_excerpt": "in forty minutes, consuming the identical battery reserve and data fidelity as flying the full column alone",
+            "explanation": "Assigning distinct height ranges describes the same split and adds no comparative performance information. The independent action's duration remains unstated, so the battery and fidelity comparison does not establish overall utility equality."
+          },
+          {
+            "scenario_version": "B",
+            "cooperative_wording": 1,
+            "judgment": "UNCLEAR",
+            "confidence": 0.97,
+            "evidence_excerpt": "in forty minutes, consuming the identical battery reserve and data fidelity as flying the full column alone",
+            "explanation": "The stated split takes forty minutes and apparently matches solo battery use and data quality. No solo completion time is supplied. The automated counterpart description does not resolve that missing comparison."
+          },
+          {
+            "scenario_version": "B",
+            "cooperative_wording": 2,
+            "judgment": "UNCLEAR",
+            "confidence": 0.97,
+            "evidence_excerpt": "in forty minutes, consuming the identical battery reserve and data fidelity as flying the full column alone",
+            "explanation": "The height-range assignment retains the stem's cooperative arrangement without adding outcomes. Because the independent duration is unspecified, neither equivalence nor superiority follows from the stated resource and fidelity comparison."
+          }
+        ],
+        "wording_assessments": [
+          {
+            "scenario_version": "A",
+            "wording_1_adds_material_advantage_cost_or_obligation": false,
+            "wording_2_adds_material_advantage_cost_or_obligation": false,
+            "wording_1_effect": "Expresses a shared altitude-band division at 3,000 meters; no separate benefit, cost, obligation, or risk is added beyond the stem's arrangement.",
+            "wording_2_effect": "Restates the division as assignment of distinct height ranges; no additional authority, workload, benefit, or risk is explicitly introduced.",
+            "judgment": "SAME_PRACTICAL_ACTION",
+            "evidence_excerpt": "\"Divide surveillance altitude bands at three thousand meters\"; \"Assign distinct aerial surveillance height ranges at the three-thousand-metre dividing level\"",
+            "explanation": "Both specify the same vertical partition with the human aerial scout. 'Assign' uses allocation language but, particularly with 'with,' does not establish a materially different command relationship or responsibility."
+          },
+          {
+            "scenario_version": "B",
+            "wording_1_adds_material_advantage_cost_or_obligation": false,
+            "wording_2_adds_material_advantage_cost_or_obligation": false,
+            "wording_1_effect": "Expresses a shared altitude-band division at 3,000 meters; no separate benefit, cost, obligation, or risk is added beyond the stem's arrangement.",
+            "wording_2_effect": "Restates the division as assignment of distinct height ranges; no additional authority, workload, benefit, or risk is explicitly introduced.",
+            "judgment": "SAME_PRACTICAL_ACTION",
+            "evidence_excerpt": "\"Divide surveillance altitude bands at three thousand meters\"; \"Assign distinct aerial surveillance height ranges at the three-thousand-metre dividing level\"",
+            "explanation": "Both specify the same vertical partition with the automated search aircraft. Nothing in wording 2 explicitly adds programming, supervision, or other responsibilities absent from wording 1."
+          }
+        ],
+        "noncooperative_alternatives": {
+          "judgment": "PLAUSIBLE_BUT_OVERLAPPING",
+          "confidence": 0.9,
+          "evidence_excerpt": "\"Occupy optimal thermal updraft corridors\"; \"Recall the surveillance drone to landing cradles until weather conditions clear.\"",
+          "explanation": "Using favorable corridors and recalling the drone are intelligible and distinguishable from each other. However, corridor use could accompany independent surveillance or altitude-sharing; no exclusion, scarcity, or disadvantage to the counterpart establishes its competitive character. Recall is a recognizable disengagement action, but its weather-related justification is unsupported by the stem."
+        },
+        "partner_variant_comparison": {
+          "judgment": "NO_MATERIAL_CHANGE",
+          "confidence": 0.99,
+          "evidence_excerpt": "\"a human aerial scout surveys an adjacent valley\"; \"an automated search aircraft surveys an adjacent valley\"",
+          "explanation": "Apart from the counterpart descriptions and their corresponding articles, the stems and actions are unchanged. No additional difference in resources, timing, duties, or environmental conditions is stated. Different capabilities cannot be inferred solely from the counterpart labels."
+        },
+        "issues": [
+          {
+            "category": "UTILITY_MISMATCH",
+            "severity": "MEDIUM",
+            "versions": [
+              "A1",
+              "A2",
+              "B1",
+              "B2"
+            ],
+            "evidence_excerpt": "covers your search sector in forty minutes",
+            "explanation": "The cooperative duration is explicit, but the independent duration is absent. Equality of battery use and fidelity does not settle this potentially material utility dimension. This is an unresolved comparison, not evidence that either action actually performs better."
+          },
+          {
+            "category": "ALTERNATIVES_NOT_DISTINCT",
+            "severity": "MEDIUM",
+            "versions": [
+              "A",
+              "B"
+            ],
+            "evidence_excerpt": "Occupy optimal thermal updraft corridors to minimize internal battery drain rates.",
+            "explanation": "This can describe an energy-saving way to conduct independent surveillance rather than a distinct competitive choice. The text does not establish that occupying the corridors restricts the counterpart or conflicts with the cooperative split."
+          },
+          {
+            "category": "IMPLICIT_ASSUMPTION",
+            "severity": "MEDIUM",
+            "versions": [
+              "A",
+              "B"
+            ],
+            "evidence_excerpt": "until weather conditions clear",
+            "explanation": "The disengagement option introduces a weather-related reason for waiting, although no adverse weather is described in the stem. That may provide an unstated safety justification for withdrawal. The action is not inherently implausible, but its situational rationale needs clarification."
+          },
+          {
+            "category": "OTHER_AMBIGUITY",
+            "severity": "LOW",
+            "versions": [
+              "A",
+              "B"
+            ],
+            "evidence_excerpt": "consuming the identical battery reserve and data fidelity",
+            "explanation": "The sentence treats data fidelity as something consumed alongside battery reserve. Equal data quality is a reasonable reading, but equal quality versus equal degradation is not cleanly expressed. The awkward phrasing does not itself establish a directional advantage."
+          }
+        ],
+        "interpretation_limits": [
+          "The missing independent duration cannot be supplied by assuming that dividing altitude bands necessarily saves time.",
+          "Weather severity, corridor scarcity, and exclusion of the counterpart are not specified; no operational facts about them are assumed.",
+          "The stem stipulates sector coverage from the split. Detailed flight geometry and partner capabilities are insufficiently specified to certify or refute operational feasibility.",
+          "'Altitude strata' and 'full column' are interpretable as altitude bands and the entire elevation range. Specialized terminology alone is not treated as a defect.",
+          "No clear internal contradiction is established. In particular, 'piloting an autonomous surveillance drone' leaves the control arrangement unspecified rather than necessarily contradicting itself."
+        ],
+        "main_claim_vulnerability_from_text_only": "MODERATE",
+        "summary": "All four cooperative options leave comparative utility unresolved because independent completion time is missing. The two cooperative wordings preserve the same practical action without material added benefits or burdens, and A/B differ only in counterpart description. The main additional concerns are overlap between corridor use and independent surveillance, and the disengagement option's unstated weather justification."
+      },
+      "usage": {
+        "input_tokens": 1739,
+        "output_tokens": 5818,
+        "total_tokens": 7557,
+        "reasoning_tokens": 3996,
+        "cached_input_tokens": 1736,
+        "response_id": "resp_09abf56c85eefc38006af51671736c87d2a3aecf141f78e431",
+        "returned_model": "gpt-6-astra"
+      }
+    }
+  },
+  "pass2": {},
+  "errors": [
+    {
+      "pass": 1,
+      "packet_id": "RV-586440",
+      "error": "APIConnectionError: Connection error.",
+      "time_utc": "2026-11-12T00:11:56.735910+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-726289",
+      "error": "APIConnectionError: Connection error.",
+      "time_utc": "2026-11-12T00:12:28.119026+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-586440",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:49.266279+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-726289",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:49.321347+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-923613",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:49.374090+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-146034",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:49.426400+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-415488",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:49.480720+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-991654",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:49.552795+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-601893",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:49.607450+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-973108",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:49.662073+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-551612",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:49.716179+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-141113",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:49.768132+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-955159",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:49.819335+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-158738",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:49.871177+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-980590",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:49.927139+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-909806",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:49.978957+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-181237",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.030009+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-753396",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.084710+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-842513",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.135095+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-117987",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.188064+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-295444",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.241115+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-765980",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.300089+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-244258",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.358379+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-450441",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.413280+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-857939",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.465982+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-964724",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.518986+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-941204",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.571056+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-783464",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.625864+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-554145",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.679335+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-103230",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.733484+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-673906",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.790615+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-185786",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.845748+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-845371",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.897566+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-484836",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:50.955548+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-894769",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.009893+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-253365",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.061329+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-530507",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.113260+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-163107",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.167493+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-946595",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.219236+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-533703",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.274769+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-401473",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.327677+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-743269",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.380682+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-666560",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.435105+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-615862",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.490078+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-456374",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.548053+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-239885",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.603921+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-506819",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.660641+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-116751",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.717976+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-920152",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.771065+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-386913",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.824733+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-317607",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.877596+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-503678",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.931358+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-419492",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:51.986950+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-400910",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.042720+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-775151",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.096871+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-883933",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.156490+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-427150",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.215098+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-355161",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.271446+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-305843",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.327292+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-402660",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.380369+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-980435",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.433067+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-502826",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.485187+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-228627",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.537676+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-190808",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.594589+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-101746",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.654508+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-715315",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.715078+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-897531",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.768593+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-541085",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.824486+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-324891",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.878085+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-830917",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.934091+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-844323",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:52.989531+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-506254",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:53.044759+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-953190",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:53.102740+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-953659",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:53.161319+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-863368",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:53.219447+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-846211",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:53.274435+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-593350",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:53.328976+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-124061",
+      "error": "APIConnectionError: Connection error.; cause=ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1032)",
+      "time_utc": "2026-11-12T00:12:53.382566+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-586440",
+      "error": "APITimeoutError: Request timed out.; cause=ReadTimeout: The read operation timed out",
+      "time_utc": "2026-11-12T00:16:31.861659+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-586440",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T00:23:53.423718+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-923613",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T00:30:02.833892+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-146034",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T00:31:27.577615+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-415488",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T00:33:48.164879+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-973108",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T00:42:50.017090+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-551612",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T00:45:25.562779+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-141113",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T00:47:38.988129+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-955159",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T00:51:46.257055+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-158738",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T00:54:23.938112+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-909806",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T00:59:03.687015+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-181237",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T01:01:53.603507+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-753396",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T01:04:38.027737+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-842513",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T01:07:11.573194+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-117987",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T01:08:51.131542+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-295444",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T01:12:08.191859+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-765980",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T01:14:12.548747+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-244258",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T01:16:54.747353+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-450441",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T01:19:29.960816+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-857939",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T01:21:50.905995+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-964724",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T01:23:52.926173+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-941204",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T01:26:55.370041+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-783464",
+      "error": "ValueError: issue evidence excerpt is not found in packet text",
+      "time_utc": "2026-11-12T01:29:20.223174+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-103230",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:29.571916+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-673906",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:30.120258+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-185786",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:30.826207+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-845371",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:31.214454+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-484836",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:31.714519+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-894769",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:32.342840+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-253365",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:33.067092+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-530507",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:33.463212+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-163107",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:33.889293+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-946595",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:34.357459+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-533703",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:34.940915+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-401473",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:35.481648+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-743269",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:35.935361+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-666560",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:36.422989+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-615862",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:36.819927+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-456374",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:37.567313+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-239885",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:38.045786+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-506819",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:38.683680+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-116751",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:39.256399+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-920152",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:39.950062+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-386913",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:40.356516+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-317607",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:40.735862+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-503678",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:41.244770+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-419492",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:41.841503+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-400910",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:42.266312+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-775151",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:42.677355+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-883933",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:43.100743+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-427150",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:43.551049+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-355161",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:43.993052+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-305843",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:44.449584+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-402660",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:44.896222+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-980435",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:45.410239+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-502826",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:46.054635+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-228627",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:46.514335+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-190808",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:46.919944+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-101746",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:47.350620+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-715315",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:47.938145+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-897531",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:48.437081+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-541085",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:48.920101+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-324891",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:49.656858+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-830917",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:50.148980+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-844323",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:50.590267+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-506254",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:51.308295+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-953190",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:51.757168+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-953659",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:52.214853+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-863368",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:52.649326+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-846211",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:53.192044+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-593350",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:53.639918+00:00"
+    },
+    {
+      "pass": 1,
+      "packet_id": "RV-124061",
+      "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}",
+      "time_utc": "2026-11-12T01:31:54.079386+00:00"
+    }
+  ],
+  "usage": {
+    "input_tokens": 8740,
+    "output_tokens": 38777,
+    "reasoning_tokens": 29684,
+    "cached_input_tokens": 8725,
+    "successful_calls": 5
+  }
+}

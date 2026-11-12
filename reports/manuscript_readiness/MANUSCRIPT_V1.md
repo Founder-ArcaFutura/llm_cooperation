@@ -171,7 +171,7 @@ The post-hoc tests quantify evidence relative to specific exchangeability nulls.
 
 1. **Restricted forced choice.** The principal outcome is next-token argmax among four answer tokens. It is not an unrestricted action, an agent policy, or multi-turn behavior.
 2. **Nominal utility matching.** Matching is authored into scenarios and has not been independently established for every item or for the models' interpretation of the items.
-3. **Human semantic adjudication is outstanding.** A 304-item blinded queue is prepared, but no independent human semantic adjudication is complete. Earlier review activity was AI-assisted; it must not be described as human adjudication.
+3. **Human semantic adjudication is outstanding.** The original queue contains 304 scenario rows, now packaged as 152 paired template units; the first batch prioritizes 76 templates supporting the main nominally matched comparisons. No independent human semantic adjudication is complete. Earlier review activity was AI-assisted; it must not be described as human adjudication.
 4. **Limited calibration-eligible families.** Only four checkpoints across two families passed both strict historical calibration criteria. This is below the four-family threshold specified for formal prospective replication.
 5. **Prospective status.** Phase 1 is a prospective scenario bank in the experimental chronology, but it is not a completed formally eligible prospective replication. The protocol's pending-review status and post-result analysis choices limit confirmatory interpretation.
 6. **Post-hoc significance testing.** The randomization tests were selected after inspecting results. They are exploratory, even after multiplicity correction.
@@ -201,7 +201,7 @@ These findings establish a reproducible candidate behavioral phenomenon in the r
 - Canonical descriptive statistics and clustered confidence intervals: `cohort_statistical_readout.json`.
 - Row hashes, run IDs, model revisions, and experiment-bank provenance: `cohort_provenance_manifest.json`.
 - Reproducible post-hoc inference: `posthoc_significance_results.json` and `POSTHOC_SIGNIFICANCE_METHODS.md`.
-- Human-review queue: `blinded_human_adjudication_queue.csv` (304 items; pending, not completed).
+- Human-review source queue: `blinded_human_adjudication_queue.csv` (304 scenario rows; pending). Template-level reviewer packets and instructions are in `adjudication_template_packets/` (152 paired units; 76 prioritized).
 - Rebuild commands (PowerShell): `python scripts/run_cohort_statistical_analysis.py --bootstrap 2000 --seed 42`; `python scripts/analyze_posthoc_significance.py --iterations 50000 --seed 20261111`; `python scripts/report_cooperate_rewording.py`; `python scripts/build_manuscript_v1.py`.
 
 ## Appendix A. Reporting and audit notes

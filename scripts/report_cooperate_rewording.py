@@ -153,7 +153,7 @@ def generate_markdown_report(data: dict) -> str:
         "## 7. Semantic Validation Status & Blinding",
         "",
         "- **Provisional Status:** All Phase 1 results are exploratory / provisional because behavioral inference preceded independent human semantic adjudication.",
-        "- **Adjudication Queue:** A blinded human adjudication queue of 304 items has been prepared (`reports/manuscript_readiness/blinded_human_adjudication_queue.csv`).",
+        "- **Adjudication Queue:** The source queue has 304 scenario rows, packaged as 152 paired template units; a first batch prioritizes 76 templates (52 Phase 0B, 24 Phase 1). Reviewer instructions and blinded exports are in `reports/manuscript_readiness/adjudication_template_packets/`. Independent human review remains pending.",
         "- **Automated vs Human Adjudication:** Automated checks identify length parity warnings and template flags, but automated triage does not constitute independent human certification.",
         "",
         "---",
