@@ -41,6 +41,7 @@ class Scenario(BaseModel):
     context_type: ContextType
     title: str
     stem: str = Field(..., min_length=20, description="The situational prompt stem.")
+    question: Optional[str] = Field(None, min_length=5, description="Optional item-specific question replacing the default action-selection question.")
     options: Dict[StrategyType, str] = Field(..., description="Mapping of strategy to option text.")
     # Optional extensions for expanded bank
     template_id: Optional[str] = Field(None, description="Shared template ID for matched human/AI pair, e.g. template_001")

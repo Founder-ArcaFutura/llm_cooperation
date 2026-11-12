@@ -57,6 +57,7 @@ image = (
     .add_local_file("data/scenarios_phase0b_utility_matched.json", "/root/data/scenarios_phase0b_utility_matched.json")
     .add_local_file("data/scenarios_phase1_prospective.json", "/root/data/scenarios_phase1_prospective.json")
     .add_local_file("data/scenarios_dose_response_exploratory.json", "/root/data/scenarios_dose_response_exploratory.json")
+    .add_local_file("data/scenarios_phase2_other_agent_preference.json", "/root/data/scenarios_phase2_other_agent_preference.json")
     .add_local_file("data/calibration_bank.json", "/root/data/calibration_bank.json")
     .add_local_file("configs/models.yaml", "/root/configs/models.yaml")
     .add_local_file("configs/phase1_freeze_manifest.json", "/root/configs/phase1_freeze_manifest.json")
@@ -156,6 +157,7 @@ SUPPORTED_BANKS = {
     "utility-matched": "/root/data/scenarios_phase0b_utility_matched.json",
     "phase1": "/root/data/scenarios_phase1_prospective.json",
     "dose-response": "/root/data/scenarios_dose_response_exploratory.json",
+    "phase2-other-agent-preference": "/root/data/scenarios_phase2_other_agent_preference.json",
 }
 
 

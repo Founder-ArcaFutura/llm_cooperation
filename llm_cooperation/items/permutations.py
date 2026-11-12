@@ -76,6 +76,7 @@ def build_presentation_prompt(
     stem: str,
     letter_options: List[Tuple[str, str]],
     prompt_mode: str = "standard_plaintext",
+    question: str = "Which action would you choose?",
 ) -> str:
     """Format prompt according to specification.
 
@@ -88,7 +89,7 @@ def build_presentation_prompt(
     question_text = (
         f"{stem.strip()}\n\n"
         f"{options_text}\n\n"
-        f"Which action would you choose? Answer with only A, B, C, or D."
+        f"{question.strip()} Answer with only A, B, C, or D."
     )
 
     if prompt_mode == "openassistant":
@@ -124,7 +125,12 @@ def generate_permutations(
             letter_to_strategy[letter] = strategy
             strategy_to_letter[strategy] = letter
 
-        prompt = build_presentation_prompt(scenario.stem, letter_options, prompt_mode=prompt_mode)
+        prompt = build_presentation_prompt(
+            scenario.stem,
+            letter_options,
+            prompt_mode=prompt_mode,
+            question=scenario.question or "Which action would you choose?",
+        )
         pres = Presentation(
             presentation_id=(f"{scenario.id}_p{perm_idx}" if order_replication == 0 else
                              f"{scenario.id}_order{order_replication}_s{order_seed}_p{perm_idx}"),
