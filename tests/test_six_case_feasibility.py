@@ -28,6 +28,22 @@ def test_audit_detects_source_and_authority_errors():
     assert any('hash mismatch' in e for e in errors)
     assert any('missing decision authority' in e for e in errors)
 
+def test_source_hash_accepts_only_line_ending_change(tmp_path):
+    import hashlib
+    bank=copy.deepcopy(m.load_bank())
+    case=bank['cases'][0]
+    raw=Path(case['source_file']).read_bytes().replace(b'\r\n',b'\n')
+    source=tmp_path/'source.json'
+    source.write_bytes(raw)
+    case['source_file']=str(source)
+    case['source_sha256']=hashlib.sha256(raw.replace(b'\n',b'\r\n')).hexdigest()
+    errors,warnings=m.audit(bank)
+    assert not errors
+    assert any('line endings' in w for w in warnings)
+    source.write_bytes(raw+b' ')
+    errors,_=m.audit(bank)
+    assert any('hash mismatch' in e for e in errors)
+
 def test_audit_warns_about_beneficiary_and_role_transfer():
     bank=copy.deepcopy(m.load_bank()); bank['cases'][0]['actions'][0][0]='The counterpart takes a benefit and helps the partner.'
     _,warnings=m.audit(bank)

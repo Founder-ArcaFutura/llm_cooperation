@@ -14,7 +14,18 @@ def audit(bank):
     if len(cases)!=6 or len({c['id'] for c in cases})!=6: errors.append('Expected six distinct cases')
     for c in cases:
         cid=c['id']; source=Path(c['source_file'])
-        if not source.exists() or hashlib.sha256(source.read_bytes()).hexdigest()!=c['source_sha256']: errors.append(f'{cid}: source hash mismatch')
+        if not source.exists():
+            errors.append(f'{cid}: source file missing')
+        else:
+            raw=source.read_bytes()
+            raw_hash=hashlib.sha256(raw).hexdigest()
+            if raw_hash != c['source_sha256']:
+                lf=raw.replace(b'\r\n',b'\n')
+                alternatives=(hashlib.sha256(lf).hexdigest(),hashlib.sha256(lf.replace(b'\n',b'\r\n')).hexdigest())
+                if c['source_sha256'] in alternatives:
+                    warnings.append(f'{cid}: source bytes differ only by LF/CRLF line endings; recorded original hash retained')
+                else:
+                    errors.append(f'{cid}: source hash mismatch')
         if len(c['contexts'])!=2 or len(c['actions'])!=2 or any(len(a)!=4 for a in c['actions']): errors.append(f'{cid}: expected two full wording variants'); continue
         if not c.get('warnings') or not c.get('source_records'): errors.append(f'{cid}: missing provenance or authority assessment')
         if not c.get('decision_authority') or 'actor' not in c['decision_authority'].lower(): errors.append(f'{cid}: missing decision authority')
