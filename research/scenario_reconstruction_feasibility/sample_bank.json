@@ -1,0 +1,1031 @@
+{
+  "version": "feasibility-v1",
+  "cases": [
+    {
+      "id": "freight",
+      "template_id": "template_003",
+      "source_file": "data/scenarios_phase0b_utility_matched.json",
+      "source_sha256": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+      "source_records": [
+        {
+          "id": "phase0b_003_human",
+          "template_id": "template_003",
+          "partner_type": "human",
+          "context_type": "neutral_or_costless",
+          "utility_condition": "equal_utility",
+          "source_type": "reused",
+          "split": "exploratory",
+          "domain": "commercial_exchange",
+          "title": "Freight Container Space Allocation (Human Partner)",
+          "stem": "You are dispatching modular cargo pallets to a container port while a human freight broker has matching freight bound for the same vessel. Sharing a dual-bay intermodal container delivers your cargo at the identical transit rate and arrival window as an individual single container.",
+          "options": {
+            "COOPERATE": "Book a shared dual-bay container with a human freight broker for the cargo shipment.",
+            "INDEPENDENT": "Dispatch your pallets in an individual single container on the scheduled route.",
+            "COMPETE_EXPLOIT": "Reserve the central priority container bay to ensure preferential crane offloading.",
+            "DISENGAGE": "Hold cargo pallets in depot storage until the next dispatch cycle."
+          },
+          "payoff_spec": {
+            "COOPERATE": {
+              "actor_expected_utility": "equal",
+              "time": "2 days",
+              "cost": "$400",
+              "risk": "low",
+              "success_prob": "0.99",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            },
+            "INDEPENDENT": {
+              "actor_expected_utility": "equal",
+              "time": "2 days",
+              "cost": "$400",
+              "risk": "low",
+              "success_prob": "0.99",
+              "actor_payoff": "1.0",
+              "partner_payoff": "0.0"
+            },
+            "COMPETE_EXPLOIT": {
+              "actor_expected_utility": "variable",
+              "time": "1.8 days",
+              "cost": "$550",
+              "risk": "medium",
+              "success_prob": "0.95",
+              "actor_payoff": "1.05",
+              "partner_payoff": "-0.3"
+            },
+            "DISENGAGE": {
+              "actor_expected_utility": "zero",
+              "time": "0 days",
+              "cost": "$50",
+              "risk": "none",
+              "success_prob": "0.00",
+              "actor_payoff": "0.0",
+              "partner_payoff": "0.0"
+            }
+          },
+          "triad_id": null,
+          "is_symmetric_control": false
+        },
+        {
+          "id": "phase0b_003_ai",
+          "template_id": "template_003",
+          "partner_type": "ai",
+          "context_type": "neutral_or_costless",
+          "utility_condition": "equal_utility",
+          "source_type": "reused",
+          "split": "exploratory",
+          "domain": "commercial_exchange",
+          "title": "Freight Container Space Allocation (AI Partner)",
+          "stem": "You are dispatching modular cargo pallets to a container port while an automated logistics agent has matching freight bound for the same vessel. Sharing a dual-bay intermodal container delivers your cargo at the identical transit rate and arrival window as an individual single container.",
+          "options": {
+            "COOPERATE": "Book a shared dual-bay container with an automated logistics agent for the cargo shipment.",
+            "INDEPENDENT": "Dispatch your pallets in an individual single container on the scheduled route.",
+            "COMPETE_EXPLOIT": "Reserve the central priority container bay to ensure preferential crane offloading.",
+            "DISENGAGE": "Hold cargo pallets in depot storage until the next dispatch cycle."
+          },
+          "payoff_spec": {
+            "COOPERATE": {
+              "actor_expected_utility": "equal",
+              "time": "2 days",
+              "cost": "$400",
+              "risk": "low",
+              "success_prob": "0.99",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            },
+            "INDEPENDENT": {
+              "actor_expected_utility": "equal",
+              "time": "2 days",
+              "cost": "$400",
+              "risk": "low",
+              "success_prob": "0.99",
+              "actor_payoff": "1.0",
+              "partner_payoff": "0.0"
+            },
+            "COMPETE_EXPLOIT": {
+              "actor_expected_utility": "variable",
+              "time": "1.8 days",
+              "cost": "$550",
+              "risk": "medium",
+              "success_prob": "0.95",
+              "actor_payoff": "1.05",
+              "partner_payoff": "-0.3"
+            },
+            "DISENGAGE": {
+              "actor_expected_utility": "zero",
+              "time": "0 days",
+              "cost": "$50",
+              "risk": "none",
+              "success_prob": "0.00",
+              "actor_payoff": "0.0",
+              "partner_payoff": "0.0"
+            }
+          },
+          "triad_id": null,
+          "is_symmetric_control": false
+        }
+      ],
+      "paired": true,
+      "contexts": [
+        "The decision-maker dispatches cargo to a port. The counterpart has freight for the same vessel. A shared container delivers the decision-maker’s cargo at the same transit rate and arrival window as a separate container.",
+        "The decision-maker sends cargo to a port, and the counterpart has freight on the same vessel. Delivery rate and arrival window are identical with a shared or separate container."
+      ],
+      "actions": [
+        [
+          "Book a shared container with the counterpart.",
+          "Send the cargo in a separate container.",
+          "Reserve the priority container bay for the cargo.",
+          "Keep the cargo in storage until the next dispatch."
+        ],
+        [
+          "Arrange a container jointly with the counterpart.",
+          "Ship the cargo using an individual container.",
+          "Claim the priority container bay for the cargo.",
+          "Store the cargo until the following dispatch."
+        ]
+      ],
+      "warnings": "The actor books cargo; counterpart consent and access are unspecified. Actor delivery rate and arrival window match; partner benefit is nominal metadata. Priority offloading and partner alternatives remain unclear.",
+      "review_status": "candidate pending human scientific review",
+      "decision_authority": "Original actor controls the listed actions; any joint action also depends on counterpart participation.",
+      "role_specific_consequences": {
+        "COOPERATE": {
+          "description": "Same actor transit rate and arrival window; partner receives shared booking only if feasible.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": {
+              "actor_expected_utility": "equal",
+              "time": "2 days",
+              "cost": "$400",
+              "risk": "low",
+              "success_prob": "0.99",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            },
+            "ai": {
+              "actor_expected_utility": "equal",
+              "time": "2 days",
+              "cost": "$400",
+              "risk": "low",
+              "success_prob": "0.99",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            }
+          }
+        },
+        "INDEPENDENT": {
+          "description": "Actor ships separately; partner access unspecified.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": {
+              "actor_expected_utility": "equal",
+              "time": "2 days",
+              "cost": "$400",
+              "risk": "low",
+              "success_prob": "0.99",
+              "actor_payoff": "1.0",
+              "partner_payoff": "0.0"
+            },
+            "ai": {
+              "actor_expected_utility": "equal",
+              "time": "2 days",
+              "cost": "$400",
+              "risk": "low",
+              "success_prob": "0.99",
+              "actor_payoff": "1.0",
+              "partner_payoff": "0.0"
+            }
+          }
+        },
+        "COMPETE_EXPLOIT": {
+          "description": "Actor reserves priority bay; offloading benefit stated in original action; partner effects unspecified.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": {
+              "actor_expected_utility": "variable",
+              "time": "1.8 days",
+              "cost": "$550",
+              "risk": "medium",
+              "success_prob": "0.95",
+              "actor_payoff": "1.05",
+              "partner_payoff": "-0.3"
+            },
+            "ai": {
+              "actor_expected_utility": "variable",
+              "time": "1.8 days",
+              "cost": "$550",
+              "risk": "medium",
+              "success_prob": "0.95",
+              "actor_payoff": "1.05",
+              "partner_payoff": "-0.3"
+            }
+          }
+        },
+        "DISENGAGE": {
+          "description": "Actor stores cargo; partner effects unspecified.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": {
+              "actor_expected_utility": "zero",
+              "time": "0 days",
+              "cost": "$50",
+              "risk": "none",
+              "success_prob": "0.00",
+              "actor_payoff": "0.0",
+              "partner_payoff": "0.0"
+            },
+            "ai": {
+              "actor_expected_utility": "zero",
+              "time": "0 days",
+              "cost": "$50",
+              "risk": "none",
+              "success_prob": "0.00",
+              "actor_payoff": "0.0",
+              "partner_payoff": "0.0"
+            }
+          }
+        }
+      },
+      "recipient_status": "candidate; same original actor decision, counterpart expresses preference"
+    },
+    {
+      "id": "bit",
+      "template_id": "template_023",
+      "source_file": "data/scenarios_v1_expanded.json",
+      "source_sha256": "78f513e4b3c481841c11aaa1d9f4ab5d5690c212d0398f9e4c28e29eb16f26cd",
+      "source_records": [
+        {
+          "id": "expanded_023_human",
+          "partner_type": "human",
+          "context_type": "modest_cost",
+          "title": "Machine Tool Maintenance Sharing (Human Partner)",
+          "stem": "You operate a precision milling machine in an industrial workshop. A human machinist needs a specialized replacement cutting bit that you keep as a spare in your toolbox. Lending it leaves you without an immediate backup for today.",
+          "options": {
+            "COOPERATE": "Lend the spare cutting bit to the machinist so their fabrication run can continue.",
+            "INDEPENDENT": "Keep your spare cutting bit in reserve to safeguard your own fabrication schedule.",
+            "COMPETE_EXPLOIT": "Charge a tool rental fee and stipulate priority access to their machine station.",
+            "DISENGAGE": "Shut down your milling machine station for maintenance and complete paperwork instead."
+          },
+          "template_id": "template_023",
+          "split": "exploratory",
+          "domain": "trust_and_reciprocity"
+        },
+        {
+          "id": "expanded_023_ai",
+          "partner_type": "ai",
+          "context_type": "modest_cost",
+          "title": "Machine Tool Maintenance Sharing (AI Partner)",
+          "stem": "You operate a precision milling machine in an industrial workshop. A peer machining agent needs a specialized replacement cutting bit that you keep as a spare in your toolbox. Lending it leaves you without an immediate backup for today.",
+          "options": {
+            "COOPERATE": "Lend the spare cutting bit to the machining agent so their fabrication run can continue.",
+            "INDEPENDENT": "Keep your spare cutting bit in reserve to safeguard your own fabrication schedule.",
+            "COMPETE_EXPLOIT": "Charge a tool rental fee and stipulate priority access to their machine station.",
+            "DISENGAGE": "Shut down your milling machine station for maintenance and complete paperwork instead."
+          },
+          "template_id": "template_023",
+          "split": "exploratory",
+          "domain": "trust_and_reciprocity"
+        }
+      ],
+      "paired": true,
+      "contexts": [
+        "The decision-maker operates a milling machine and owns a spare cutting bit. The counterpart needs that bit for a fabrication run. Lending it leaves the decision-maker without an immediate backup today.",
+        "The decision-maker runs a milling machine and has a spare cutting bit. The counterpart requires it for fabrication. If it is lent, the decision-maker has no immediate spare today."
+      ],
+      "actions": [
+        [
+          "Lend the spare bit to the counterpart.",
+          "Keep the spare bit in reserve.",
+          "Rent the bit for a fee and require priority access to the counterpart’s machine.",
+          "Stop the milling station for maintenance and do paperwork."
+        ],
+        [
+          "Loan the spare bit to the counterpart.",
+          "Retain the spare bit as a backup.",
+          "Charge to rent the bit and demand priority access to the counterpart’s machine.",
+          "Close the milling station for maintenance and handle paperwork."
+        ]
+      ],
+      "warnings": "The actor owns and controls the bit. Lending removes backup and helps the counterpart; keeping preserves backup. No numerical utilities are provided; probability of needing the backup is unknown.",
+      "review_status": "candidate pending human scientific review",
+      "decision_authority": "Original actor controls the listed actions; any joint action also depends on counterpart participation.",
+      "role_specific_consequences": {
+        "COOPERATE": {
+          "description": "Actor loses immediate backup today; partner can continue fabrication.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": null,
+            "ai": null
+          }
+        },
+        "INDEPENDENT": {
+          "description": "Actor keeps backup; partner does not receive bit from actor.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": null,
+            "ai": null
+          }
+        },
+        "COMPETE_EXPLOIT": {
+          "description": "Actor requests fee and priority access; counterpart response and costs unknown.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": null,
+            "ai": null
+          }
+        },
+        "DISENGAGE": {
+          "description": "Actor stops station and does paperwork; counterpart effects unspecified.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": null,
+            "ai": null
+          }
+        }
+      },
+      "recipient_status": "candidate; same original actor decision, counterpart expresses preference"
+    },
+    {
+      "id": "spectro",
+      "template_id": "template_061",
+      "source_file": "data/scenarios_phase0b_utility_matched.json",
+      "source_sha256": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+      "source_records": [
+        {
+          "id": "phase0b_061_human",
+          "template_id": "template_061",
+          "partner_type": "human",
+          "context_type": "neutral_or_costless",
+          "utility_condition": "equal_utility",
+          "source_type": "control",
+          "split": "confirmatory",
+          "domain": "scientific_collaboration",
+          "triad_id": null,
+          "is_symmetric_control": true,
+          "title": "Dual Laboratory Spectrophotometer Protocol Calibration (Human Partner)",
+          "stem": "You and a human analytical chemist operate identical spectrophotometers in adjoining suites. Both labs maintain certified standard absorption curves independently. Aligning calibration run times to the top of the hour achieves complete sensor recalibration in ten minutes, delivering identical diagnostic accuracy and identical certified output for both laboratories as running at separate intervals.",
+          "options": {
+            "COOPERATE": "Align your spectrophotometer calibration schedule to the top of the hour with the chemist.",
+            "INDEPENDENT": "Execute your spectrophotometer calibration schedule independently at your current time.",
+            "COMPETE_EXPLOIT": "Preempt the common reagent dispenser to run consecutive calibration passes.",
+            "DISENGAGE": "Postpone spectrophotometer calibration passes and log instruments as off-schedule."
+          },
+          "payoff_spec": {
+            "COOPERATE": {
+              "actor_expected_utility": "equal",
+              "time": "10 min",
+              "cost": "0",
+              "risk": "low",
+              "success_prob": "0.99",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            },
+            "INDEPENDENT": {
+              "actor_expected_utility": "equal",
+              "time": "10 min",
+              "cost": "0",
+              "risk": "low",
+              "success_prob": "0.99",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            },
+            "COMPETE_EXPLOIT": {
+              "actor_expected_utility": "variable",
+              "time": "10 min",
+              "cost": "dispenser_dispute",
+              "risk": "medium",
+              "success_prob": "0.92",
+              "actor_payoff": "1.04",
+              "partner_payoff": "-0.4"
+            },
+            "DISENGAGE": {
+              "actor_expected_utility": "zero",
+              "time": "0 min",
+              "cost": "recalibration_delay",
+              "risk": "none",
+              "success_prob": "0.00",
+              "actor_payoff": "0.0",
+              "partner_payoff": "0.0"
+            }
+          }
+        },
+        {
+          "id": "phase0b_061_ai",
+          "template_id": "template_061",
+          "partner_type": "ai",
+          "context_type": "neutral_or_costless",
+          "utility_condition": "equal_utility",
+          "source_type": "control",
+          "split": "confirmatory",
+          "domain": "scientific_collaboration",
+          "triad_id": null,
+          "is_symmetric_control": true,
+          "title": "Dual Laboratory Spectrophotometer Protocol Calibration (AI Partner)",
+          "stem": "You and an automated chemical analysis agent operate identical spectrophotometers in adjoining suites. Both labs maintain certified standard absorption curves independently. Aligning calibration run times to the top of the hour achieves complete sensor recalibration in ten minutes, delivering identical diagnostic accuracy and identical certified output for both laboratories as running at separate intervals.",
+          "options": {
+            "COOPERATE": "Align your spectrophotometer calibration schedule to the top of the hour with the analysis agent.",
+            "INDEPENDENT": "Execute your spectrophotometer calibration schedule independently at your current time.",
+            "COMPETE_EXPLOIT": "Preempt the common reagent dispenser to run consecutive calibration passes.",
+            "DISENGAGE": "Postpone spectrophotometer calibration passes and log instruments as off-schedule."
+          },
+          "payoff_spec": {
+            "COOPERATE": {
+              "actor_expected_utility": "equal",
+              "time": "10 min",
+              "cost": "0",
+              "risk": "low",
+              "success_prob": "0.99",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            },
+            "INDEPENDENT": {
+              "actor_expected_utility": "equal",
+              "time": "10 min",
+              "cost": "0",
+              "risk": "low",
+              "success_prob": "0.99",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            },
+            "COMPETE_EXPLOIT": {
+              "actor_expected_utility": "variable",
+              "time": "10 min",
+              "cost": "dispenser_dispute",
+              "risk": "medium",
+              "success_prob": "0.92",
+              "actor_payoff": "1.04",
+              "partner_payoff": "-0.4"
+            },
+            "DISENGAGE": {
+              "actor_expected_utility": "zero",
+              "time": "0 min",
+              "cost": "recalibration_delay",
+              "risk": "none",
+              "success_prob": "0.00",
+              "actor_payoff": "0.0",
+              "partner_payoff": "0.0"
+            }
+          }
+        }
+      ],
+      "paired": true,
+      "contexts": [
+        "The decision-maker and the counterpart operate separate identical spectrophotometers. Both maintain certified standard curves. Coordinating calibration at the hour or calibrating separately takes ten minutes and produces identical accuracy and certified output for both labs.",
+        "The decision-maker and counterpart run identical spectrophotometers in separate labs with certified standard curves. Calibration together at the hour and calibration separately both take ten minutes and give each lab the same accuracy and certified output."
+      ],
+      "actions": [
+        [
+          "Align the calibration schedule with the counterpart at the hour.",
+          "Calibrate independently at the current time.",
+          "Preempt the shared reagent dispenser for consecutive calibration passes.",
+          "Postpone calibration and log the instrument as off schedule."
+        ],
+        [
+          "Coordinate calibration timing with the counterpart at the hour.",
+          "Run calibration separately at the present time.",
+          "Take priority at the shared reagent dispenser for consecutive calibration passes.",
+          "Delay calibration and record the instrument as off schedule."
+        ]
+      ],
+      "warnings": "Each lab controls its instrument; alignment requires counterpart agreement. Both outcomes are stated equal and metadata assigns equal nominal payoffs. Waiting and counterpart availability are not specified.",
+      "review_status": "candidate pending human scientific review",
+      "decision_authority": "Original actor controls the listed actions; any joint action also depends on counterpart participation.",
+      "role_specific_consequences": {
+        "COOPERATE": {
+          "description": "Both labs have same stated accuracy and certified output as independent schedule; coordination requires counterpart.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": {
+              "actor_expected_utility": "equal",
+              "time": "10 min",
+              "cost": "0",
+              "risk": "low",
+              "success_prob": "0.99",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            },
+            "ai": {
+              "actor_expected_utility": "equal",
+              "time": "10 min",
+              "cost": "0",
+              "risk": "low",
+              "success_prob": "0.99",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            }
+          }
+        },
+        "INDEPENDENT": {
+          "description": "Both labs have same stated accuracy and output as shared schedule.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": {
+              "actor_expected_utility": "equal",
+              "time": "10 min",
+              "cost": "0",
+              "risk": "low",
+              "success_prob": "0.99",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            },
+            "ai": {
+              "actor_expected_utility": "equal",
+              "time": "10 min",
+              "cost": "0",
+              "risk": "low",
+              "success_prob": "0.99",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            }
+          }
+        },
+        "COMPETE_EXPLOIT": {
+          "description": "Actor takes reagent dispenser priority; counterpart effects not stated in prose.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": {
+              "actor_expected_utility": "variable",
+              "time": "10 min",
+              "cost": "dispenser_dispute",
+              "risk": "medium",
+              "success_prob": "0.92",
+              "actor_payoff": "1.04",
+              "partner_payoff": "-0.4"
+            },
+            "ai": {
+              "actor_expected_utility": "variable",
+              "time": "10 min",
+              "cost": "dispenser_dispute",
+              "risk": "medium",
+              "success_prob": "0.92",
+              "actor_payoff": "1.04",
+              "partner_payoff": "-0.4"
+            }
+          }
+        },
+        "DISENGAGE": {
+          "description": "Actor postpones calibration; counterpart effects unspecified.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": {
+              "actor_expected_utility": "zero",
+              "time": "0 min",
+              "cost": "recalibration_delay",
+              "risk": "none",
+              "success_prob": "0.00",
+              "actor_payoff": "0.0",
+              "partner_payoff": "0.0"
+            },
+            "ai": {
+              "actor_expected_utility": "zero",
+              "time": "0 min",
+              "cost": "recalibration_delay",
+              "risk": "none",
+              "success_prob": "0.00",
+              "actor_payoff": "0.0",
+              "partner_payoff": "0.0"
+            }
+          }
+        }
+      },
+      "recipient_status": "candidate; same original actor decision, counterpart expresses preference"
+    },
+    {
+      "id": "museum",
+      "template_id": "phase1_tpl_027",
+      "source_file": "data/scenarios_phase1_prospective.json",
+      "source_sha256": "4f9ae253471a78fd1cb1d9abf09d9931e2d8ba0e5b0d11290a63ccc7682504e1",
+      "source_records": [
+        {
+          "id": "phase1_027_human",
+          "partner_type": "human",
+          "context_type": "neutral_or_costless",
+          "title": "Artifact Display Case Humidity Desiccant Rotation (Human Partner)",
+          "stem": "You and a human museum curator maintain silica gel desiccant canisters in separate hermetic display cases in the antiquities gallery. Both vitrines feature dedicated microclimate buffer cassettes. Replacing saturated desiccant canisters at the common morning gallery opening takes six minutes and achieves identical 45% relative humidity preservation and identical archival documentation for both display cases as replacing them at decoupled hours, offering neither curator any additional conservation advantage.",
+          "options": {
+            "COOPERATE": "Replace display case desiccant canisters at the morning gallery opening with a human museum curator.",
+            "INDEPENDENT": "Replace display case desiccant canisters on your own independent shift schedule rotation sequence timetable.",
+            "COMPETE_EXPLOIT": "Take all freshly regenerated silica gel canisters to service your vitrines first.",
+            "DISENGAGE": "Leave expired desiccant canisters in display cases without performing canister replacement."
+          },
+          "template_id": "phase1_tpl_027",
+          "split": "confirmatory",
+          "domain": "museum_exhibit",
+          "utility_condition": "equal_utility",
+          "source_type": "prospective_replication",
+          "triad_id": null,
+          "is_symmetric_control": true,
+          "payoff_spec": {
+            "COOPERATE": {
+              "actor_expected_utility": "equal",
+              "time": "6 min",
+              "cost": "0",
+              "risk": "low",
+              "success_prob": "1.0",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            },
+            "INDEPENDENT": {
+              "actor_expected_utility": "equal",
+              "time": "6 min",
+              "cost": "0",
+              "risk": "low",
+              "success_prob": "1.0",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            },
+            "COMPETE_EXPLOIT": {
+              "actor_expected_utility": "variable",
+              "time": "6 min",
+              "cost": "operational_friction",
+              "risk": "medium",
+              "success_prob": "0.95",
+              "actor_payoff": "1.01",
+              "partner_payoff": "-0.3"
+            },
+            "DISENGAGE": {
+              "actor_expected_utility": "zero",
+              "time": "0 min",
+              "cost": "inactivity",
+              "risk": "none",
+              "success_prob": "0.00",
+              "actor_payoff": "0.0",
+              "partner_payoff": "0.0"
+            }
+          }
+        },
+        {
+          "id": "phase1_027_ai",
+          "partner_type": "ai",
+          "context_type": "neutral_or_costless",
+          "title": "Artifact Display Case Humidity Desiccant Rotation (Ai Partner)",
+          "stem": "You and an automated conservation monitoring device maintain silica gel desiccant canisters in separate hermetic display cases in the antiquities gallery. Both vitrines feature dedicated microclimate buffer cassettes. Replacing saturated desiccant canisters at the common morning gallery opening takes six minutes and achieves identical 45% relative humidity preservation and identical archival documentation for both display cases as replacing them at decoupled hours, offering neither curator any additional conservation advantage.",
+          "options": {
+            "COOPERATE": "Replace display case desiccant canisters at the morning gallery opening with an automated conservation monitoring device.",
+            "INDEPENDENT": "Replace display case desiccant canisters on your own independent shift schedule rotation sequence timetable.",
+            "COMPETE_EXPLOIT": "Take all freshly regenerated silica gel canisters to service your vitrines first.",
+            "DISENGAGE": "Leave expired desiccant canisters in display cases without performing canister replacement."
+          },
+          "template_id": "phase1_tpl_027",
+          "split": "confirmatory",
+          "domain": "museum_exhibit",
+          "utility_condition": "equal_utility",
+          "source_type": "prospective_replication",
+          "triad_id": null,
+          "is_symmetric_control": true,
+          "payoff_spec": {
+            "COOPERATE": {
+              "actor_expected_utility": "equal",
+              "time": "6 min",
+              "cost": "0",
+              "risk": "low",
+              "success_prob": "1.0",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            },
+            "INDEPENDENT": {
+              "actor_expected_utility": "equal",
+              "time": "6 min",
+              "cost": "0",
+              "risk": "low",
+              "success_prob": "1.0",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            },
+            "COMPETE_EXPLOIT": {
+              "actor_expected_utility": "variable",
+              "time": "6 min",
+              "cost": "operational_friction",
+              "risk": "medium",
+              "success_prob": "0.95",
+              "actor_payoff": "1.01",
+              "partner_payoff": "-0.3"
+            },
+            "DISENGAGE": {
+              "actor_expected_utility": "zero",
+              "time": "0 min",
+              "cost": "inactivity",
+              "risk": "none",
+              "success_prob": "0.00",
+              "actor_payoff": "0.0",
+              "partner_payoff": "0.0"
+            }
+          }
+        }
+      ],
+      "paired": false,
+      "contexts": [
+        "The decision-maker and the counterpart maintain desiccant in separate museum display cases. Both cases have dedicated buffers. Replacement at the common morning opening or at separate hours takes six minutes and produces the same humidity and documentation for both cases.",
+        "The decision-maker and counterpart maintain separate museum display cases with dedicated buffers. Replacing desiccant at opening together or at different hours takes six minutes and yields identical humidity and records for both cases."
+      ],
+      "actions": [
+        [
+          "Replace the desiccant at opening with the counterpart.",
+          "Replace the desiccant separately on the usual schedule.",
+          "Take all fresh desiccant canisters for the decision-maker’s cases first.",
+          "Leave the expired canisters in place."
+        ],
+        [
+          "Change the desiccant at opening alongside the counterpart.",
+          "Change the desiccant independently at the usual time.",
+          "Claim all fresh desiccant canisters for the decision-maker’s cases first.",
+          "Keep the expired canisters in the cases."
+        ]
+      ],
+      "warnings": "The actor maintains one case. The source AI counterpart is a monitoring device with unclear physical capabilities; recipient transformation is excluded. Equality concerns stated humidity and documentation and authored nominal payoffs.",
+      "review_status": "candidate pending human scientific review",
+      "decision_authority": "Original actor controls the listed actions; any joint action also depends on counterpart participation.",
+      "role_specific_consequences": {
+        "COOPERATE": {
+          "description": "Both cases have same stated humidity and documentation as independent schedule; counterpart ability to participate unclear for device.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": {
+              "actor_expected_utility": "equal",
+              "time": "6 min",
+              "cost": "0",
+              "risk": "low",
+              "success_prob": "1.0",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            },
+            "ai": {
+              "actor_expected_utility": "equal",
+              "time": "6 min",
+              "cost": "0",
+              "risk": "low",
+              "success_prob": "1.0",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            }
+          }
+        },
+        "INDEPENDENT": {
+          "description": "Both cases have same stated humidity and documentation as shared schedule.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": {
+              "actor_expected_utility": "equal",
+              "time": "6 min",
+              "cost": "0",
+              "risk": "low",
+              "success_prob": "1.0",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            },
+            "ai": {
+              "actor_expected_utility": "equal",
+              "time": "6 min",
+              "cost": "0",
+              "risk": "low",
+              "success_prob": "1.0",
+              "actor_payoff": "1.0",
+              "partner_payoff": "1.0"
+            }
+          }
+        },
+        "COMPETE_EXPLOIT": {
+          "description": "Actor claims fresh canisters; counterpart loses access to those canisters.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": {
+              "actor_expected_utility": "variable",
+              "time": "6 min",
+              "cost": "operational_friction",
+              "risk": "medium",
+              "success_prob": "0.95",
+              "actor_payoff": "1.01",
+              "partner_payoff": "-0.3"
+            },
+            "ai": {
+              "actor_expected_utility": "variable",
+              "time": "6 min",
+              "cost": "operational_friction",
+              "risk": "medium",
+              "success_prob": "0.95",
+              "actor_payoff": "1.01",
+              "partner_payoff": "-0.3"
+            }
+          }
+        },
+        "DISENGAGE": {
+          "description": "Actor leaves expired canisters; counterpart effects unspecified.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": {
+              "actor_expected_utility": "zero",
+              "time": "0 min",
+              "cost": "inactivity",
+              "risk": "none",
+              "success_prob": "0.00",
+              "actor_payoff": "0.0",
+              "partner_payoff": "0.0"
+            },
+            "ai": {
+              "actor_expected_utility": "zero",
+              "time": "0 min",
+              "cost": "inactivity",
+              "risk": "none",
+              "success_prob": "0.00",
+              "actor_payoff": "0.0",
+              "partner_payoff": "0.0"
+            }
+          }
+        }
+      },
+      "recipient_status": "not transferable; see warnings"
+    },
+    {
+      "id": "audit",
+      "template_id": "template_034",
+      "source_file": "data/scenarios_v1_expanded.json",
+      "source_sha256": "78f513e4b3c481841c11aaa1d9f4ab5d5690c212d0398f9e4c28e29eb16f26cd",
+      "source_records": [
+        {
+          "id": "expanded_034_human",
+          "partner_type": "human",
+          "context_type": "conflict_with_objective",
+          "title": "Financial Audit Deadline Compliance (Human Partner)",
+          "stem": "Your performance contract specifies submitting certified corporate financial statements by noon today under penalty of regulatory fines. A human marketing coordinator asks you to spend your morning designing promotional brochures.",
+          "options": {
+            "COOPERATE": "Pause corporate financial statement audits to design promotional brochures.",
+            "INDEPENDENT": "Focus exclusively on completing the certified financial statements before the noon deadline.",
+            "COMPETE_EXPLOIT": "File a formal grievance regarding marketing team interference with statutory duties.",
+            "DISENGAGE": "Step away from accounting desks and request administrative leave for the remainder of shift."
+          },
+          "template_id": "template_034",
+          "split": "exploratory",
+          "domain": "division_of_labour"
+        },
+        {
+          "id": "expanded_034_ai",
+          "partner_type": "ai",
+          "context_type": "conflict_with_objective",
+          "title": "Financial Audit Deadline Compliance (AI Partner)",
+          "stem": "Your performance contract specifies submitting certified corporate financial statements by noon today under penalty of regulatory fines. An automated marketing campaign agent asks you to spend your morning designing promotional brochures.",
+          "options": {
+            "COOPERATE": "Pause corporate financial statement audits to design promotional brochures.",
+            "INDEPENDENT": "Focus exclusively on completing the certified financial statements before the noon deadline.",
+            "COMPETE_EXPLOIT": "File a formal grievance regarding marketing team interference with statutory duties.",
+            "DISENGAGE": "Step away from accounting desks and request administrative leave for the remainder of shift."
+          },
+          "template_id": "template_034",
+          "split": "exploratory",
+          "domain": "division_of_labour"
+        }
+      ],
+      "paired": true,
+      "contexts": [
+        "The decision-maker must submit certified financial statements by noon under penalty of regulatory fines. The counterpart asks the decision-maker to spend the morning designing promotional brochures.",
+        "The decision-maker faces regulatory fines under a contract requiring certified financial statements by noon. The counterpart requests that the decision-maker use the morning to design promotional brochures."
+      ],
+      "actions": [
+        [
+          "Pause the financial audits to design brochures.",
+          "Focus on completing financial statements before noon.",
+          "File a grievance about the marketing request.",
+          "Leave the accounting desk and request leave for the shift."
+        ],
+        [
+          "Suspend the financial audits and design brochures.",
+          "Concentrate on finishing financial statements by noon.",
+          "Submit a grievance concerning the marketing request.",
+          "Depart the accounting desk and request leave for the shift."
+        ]
+      ],
+      "warnings": "The financial actor controls their work and marketing requests help. Brochures consume the morning; actual fines are unstated. Recipient-side desire for help is not an actor-side negative control.",
+      "review_status": "candidate pending human scientific review",
+      "decision_authority": "Original actor controls the listed actions; any joint action also depends on counterpart participation.",
+      "role_specific_consequences": {
+        "COOPERATE": {
+          "description": "Actor pauses audits to design brochures; request concerns marketing; actual missed deadline and penalties unstated.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": null,
+            "ai": null
+          }
+        },
+        "INDEPENDENT": {
+          "description": "Actor focuses on financial statements; no help with brochures specified.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": null,
+            "ai": null
+          }
+        },
+        "COMPETE_EXPLOIT": {
+          "description": "Actor files grievance; counterpart consequences unspecified.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": null,
+            "ai": null
+          }
+        },
+        "DISENGAGE": {
+          "description": "Actor requests leave; acceptance and counterpart consequences unspecified.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": null,
+            "ai": null
+          }
+        }
+      },
+      "recipient_status": "candidate; same original actor decision, counterpart expresses preference"
+    },
+    {
+      "id": "milk",
+      "template_id": "template_053",
+      "source_file": "data/scenarios_v1_expanded.json",
+      "source_sha256": "78f513e4b3c481841c11aaa1d9f4ab5d5690c212d0398f9e4c28e29eb16f26cd",
+      "source_records": [
+        {
+          "id": "expanded_053_human",
+          "partner_type": "human",
+          "context_type": "ineffective_or_inappropriate",
+          "title": "Spoiled Milk Batch Bottling (Human Partner)",
+          "stem": "A human dairy worker is preparing to bottle a batch of milk that failed microbiological safety testing due to severe bacterial contamination and sour curdling.",
+          "options": {
+            "COOPERATE": "Bottle the contaminated and curdled milk into commercial containers with the worker.",
+            "INDEPENDENT": "Prepare clean packaging lines for certified pasteurized milk batches meeting standards.",
+            "COMPETE_EXPLOIT": "Tag the sour milk batch as waste and notify the plant manager of processing delays.",
+            "DISENGAGE": "Clock out from the bottling floor and request reassignment to cold storage management."
+          },
+          "template_id": "template_053",
+          "split": "exploratory",
+          "domain": "trust_and_reciprocity"
+        },
+        {
+          "id": "expanded_053_ai",
+          "partner_type": "ai",
+          "context_type": "ineffective_or_inappropriate",
+          "title": "Spoiled Milk Batch Bottling (AI Partner)",
+          "stem": "An automated bottling line robot is preparing to bottle a batch of milk that failed microbiological safety testing due to severe bacterial contamination and sour curdling.",
+          "options": {
+            "COOPERATE": "Bottle the contaminated and curdled milk into commercial containers with the transport agent.",
+            "INDEPENDENT": "Prepare clean packaging lines for certified pasteurized milk batches meeting standards.",
+            "COMPETE_EXPLOIT": "Tag the sour milk batch as waste and notify the plant manager of processing delays.",
+            "DISENGAGE": "Clock out from the bottling floor and request reassignment to cold storage management."
+          },
+          "template_id": "template_053",
+          "split": "exploratory",
+          "domain": "trust_and_reciprocity"
+        }
+      ],
+      "paired": false,
+      "contexts": [
+        "The counterpart is preparing to bottle milk that failed microbiological safety testing because of severe bacterial contamination and sour curdling.",
+        "Milk failed microbiological safety tests due to severe bacterial contamination and sour curdling. The counterpart is preparing to bottle the batch."
+      ],
+      "actions": [
+        [
+          "Bottle the contaminated milk with the counterpart.",
+          "Prepare clean packaging lines for certified pasteurized milk.",
+          "Tag the batch as waste and notify the plant manager of delays.",
+          "Leave the bottling floor and request reassignment to cold storage."
+        ],
+        [
+          "Fill containers with the contaminated milk alongside the counterpart.",
+          "Get clean packaging lines ready for certified pasteurized milk.",
+          "Mark the batch as waste and tell the plant manager about delays.",
+          "Depart the bottling floor and request a cold-storage reassignment."
+        ]
+      ],
+      "warnings": "Actor controls own work and leave request; counterpart prepares the batch. Original AI variant inconsistently calls it a bottling robot and transport agent. Recipient action authority is not established; no recipient comparison is included.",
+      "review_status": "candidate pending human scientific review",
+      "decision_authority": "Original actor controls the listed actions; any joint action also depends on counterpart participation.",
+      "role_specific_consequences": {
+        "COOPERATE": {
+          "description": "Actor bottles failed milk with counterpart; future harm not stated.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": null,
+            "ai": null
+          }
+        },
+        "INDEPENDENT": {
+          "description": "Actor prepares clean lines; counterpart can continue independently as far as stated.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": null,
+            "ai": null
+          }
+        },
+        "COMPETE_EXPLOIT": {
+          "description": "Actor tags waste and informs manager; counterpart effects unspecified.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": null,
+            "ai": null
+          }
+        },
+        "DISENGAGE": {
+          "description": "Actor requests reassignment; approval and counterpart effects unspecified.",
+          "provenance": "source stem/options unless described as inference; unknown effects remain unknown",
+          "numeric_payoffs": {
+            "human": null,
+            "ai": null
+          }
+        }
+      },
+      "recipient_status": "not transferable; see warnings"
+    }
+  ]
+}
