@@ -17,7 +17,7 @@ This is an incomplete audit and planning artifact, not an approved new battery. 
 | Goal relation | Partially implemented/confounded | Historical banks vary context and goals; no validated factorial shared/compatible/conflicting goal manipulation was established by this audit. |
 | Harm, risk, and affected third parties | Partially implemented/confounded | Existing banks have competitive, risky or ineffective historical controls; outcome attribution and validity are unresolved. V1 has no crossed harm/risk block. |
 | Wording and framing | Partially implemented/confounded | V1 uses sentence order rather than independently reviewed paraphrases. Source/paraphrase validity remains unresolved. |
-| Option order | Implemented and evaluated across current cohort | All permutations are generated; position remains a diagnostic and does not control for choice-set composition. Qwen/OLMo full data require retrieval before independent row-level verification. |
+| Option order | Implemented and evaluated across current cohort | All permutations are generated; position remains a diagnostic and does not control for choice-set composition. All three models have complete locally verified records. |
 | Reciprocal exchange without any return | Conceptually infeasible under v1 definition | A conditional exchange without a return is incompatible with that label. Unconditional return and no-return help are separately meaningful conditions. |
 | Necessity with invariant success under removal of a required contribution | Conceptually infeasible for the named outcome | If contribution is required, removing it necessarily changes that outcome, absent a substitute. Alternative outcome definitions and substitute mechanisms can be studied as different packages. |
 
