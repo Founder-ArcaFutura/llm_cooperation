@@ -1,0 +1,149 @@
+{
+  "version": "constrained-factorial-0.1",
+  "status": "development; independent semantic review pending; no behavioral evaluation",
+  "factors": {
+    "mechanism": {
+      "scale": "categorical overlapping task arrangements",
+      "levels": [
+        "joint_task",
+        "timing_coordination",
+        "information_sharing",
+        "resource_sharing",
+        "exchange",
+        "unilateral_assistance",
+        "parallel_activity"
+      ]
+    },
+    "cost": {
+      "scale": "named time dose, minutes; not total utility",
+      "levels": [
+        0,
+        20
+      ]
+    },
+    "return": {
+      "scale": "categorical guaranteed conditional future return",
+      "levels": [
+        0,
+        1
+      ]
+    },
+    "dependency": {
+      "scale": "categorical necessary cross-contribution for named additional check; mutual in dependency block",
+      "levels": [
+        0,
+        1
+      ]
+    }
+  },
+  "blocks": [
+    {
+      "id": "mechanism_cost",
+      "cross": {
+        "mechanism": [
+          "joint_task",
+          "timing_coordination",
+          "information_sharing",
+          "resource_sharing",
+          "exchange",
+          "unilateral_assistance",
+          "parallel_activity"
+        ],
+        "cost": [
+          0,
+          20
+        ]
+      },
+      "fixed": {
+        "return": "constitutive_for_exchange_otherwise_absent",
+        "dependency": "mechanism_specific"
+      },
+      "constraints": [],
+      "estimand": "within-mechanism time effect; between-mechanism package contrast and difference of time effects"
+    },
+    {
+      "id": "return_cost",
+      "cross": {
+        "return": [
+          0,
+          1
+        ],
+        "cost": [
+          0,
+          20
+        ]
+      },
+      "fixed": {
+        "mechanism": "resource_sharing",
+        "dependency": 1
+      },
+      "constraints": [],
+      "estimand": "conditional return package, time cost and their difference-in-differences"
+    },
+    {
+      "id": "dependency_cost",
+      "cross": {
+        "dependency": [
+          0,
+          1
+        ],
+        "cost": [
+          0,
+          20
+        ]
+      },
+      "fixed": {
+        "mechanism": "joint_task",
+        "return": 0
+      },
+      "constraints": [],
+      "estimand": "mutual necessity/reference-outcome package, time cost and their difference-in-differences"
+    }
+  ],
+  "constraint_language": "exclude_if is a partial assignment; every matching row is excluded with reason",
+  "families": [
+    {
+      "id": "water",
+      "setting": "municipal water testing facility",
+      "unit": "pump",
+      "record": "pressure trace",
+      "tool": "portable pressure recorder",
+      "source": "data/scenarios_phase0b_utility_matched.json",
+      "template": "template_025"
+    },
+    {
+      "id": "laboratory",
+      "setting": "analytical laboratory",
+      "unit": "spectrophotometer",
+      "record": "absorption trace",
+      "tool": "portable reference scanner",
+      "source": "data/scenarios_phase0b_utility_matched.json",
+      "template": "template_061"
+    }
+  ],
+  "prototype_parents": [
+    "dev-telemetry-cost-01",
+    "dev-bit-reciprocity-01",
+    "dev-calibration-timing-01"
+  ],
+  "variants": {
+    "identity": [
+      "human",
+      "embodied_automation"
+    ],
+    "wording": [
+      "context_first",
+      "consequences_first"
+    ],
+    "choice_set": [
+      "binary",
+      "four_action"
+    ],
+    "order": "all permutations within each choice set"
+  },
+  "limitations": [
+    "Two exposed development domains are not independent holdouts.",
+    "Mechanism labels overlap and package contrasts do not identify a pure latent mechanism.",
+    "All descendants are new counterfactuals, never historical rewrites or replacements."
+  ]
+}

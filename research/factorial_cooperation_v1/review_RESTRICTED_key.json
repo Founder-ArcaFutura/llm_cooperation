@@ -1,0 +1,5634 @@
+[
+  {
+    "review_id": "72880a7247ee02b85d8f",
+    "condition_id": "water-mechanism_cost-07",
+    "presentation_id": "3aa2215fa40de595a75b",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "fd286b2fbe55216fa8de",
+    "condition_id": "water-mechanism_cost-02",
+    "presentation_id": "e250da7c438204ce9248",
+    "mapping": {
+      "A": "defer",
+      "B": "delegate",
+      "C": "reference",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "5811f5af5a938830f553",
+    "condition_id": "water-mechanism_cost-03",
+    "presentation_id": "6fe2792a3164727d77c6",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "badf8e2bc122fcacee75",
+    "condition_id": "laboratory-mechanism_cost-01",
+    "presentation_id": "d9e821730d77898b99b4",
+    "mapping": {
+      "A": "reference",
+      "B": "target",
+      "C": "delegate",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "7f08ab9f2a69cadc40b2",
+    "condition_id": "water-mechanism_cost-10",
+    "presentation_id": "12bf6c8492973de52908",
+    "mapping": {
+      "A": "reference",
+      "B": "defer",
+      "C": "delegate",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "b8c15f3f7e53b8a3e4f3",
+    "condition_id": "water-dependency_cost-00",
+    "presentation_id": "162336292d2f7f1f57ca",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "027dd8405217179d19f2",
+    "condition_id": "laboratory-mechanism_cost-03",
+    "presentation_id": "14c65d3f574cf2525d6e",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "66962ecc373793818aff",
+    "condition_id": "laboratory-mechanism_cost-12",
+    "presentation_id": "0acb901fb1b7ca2f71ab",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "f143e3da4fb9c4058fd2",
+    "condition_id": "laboratory-mechanism_cost-02",
+    "presentation_id": "88567440ae0cadd843f1",
+    "mapping": {
+      "A": "reference",
+      "B": "target",
+      "C": "delegate",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "e722f4f6d1544cd337f7",
+    "condition_id": "laboratory-mechanism_cost-12",
+    "presentation_id": "192639b634ee5e9078f2",
+    "mapping": {
+      "A": "delegate",
+      "B": "target",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "0b2f6e72187e33fd5ad2",
+    "condition_id": "water-return_cost-00",
+    "presentation_id": "15518956c6e49a0f6474",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "c739ef5c9719135e709d",
+    "condition_id": "laboratory-return_cost-03",
+    "presentation_id": "dc7c25eca91b8517e4df",
+    "mapping": {
+      "A": "target",
+      "B": "defer",
+      "C": "delegate",
+      "D": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "0f644abb1855ab7d5c6b",
+    "condition_id": "laboratory-mechanism_cost-11",
+    "presentation_id": "19d7c93d22a681897c13",
+    "mapping": {
+      "A": "reference",
+      "B": "defer",
+      "C": "delegate",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "df82c1c8a9c8ed2d3984",
+    "condition_id": "water-mechanism_cost-00",
+    "presentation_id": "2cb90d7b68f7aa113156",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "d10bac8b799ea2cbbabb",
+    "condition_id": "water-return_cost-01",
+    "presentation_id": "57b15bb65ed8b3d8a3f0",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "7b32c733955d2437a8dc",
+    "condition_id": "water-dependency_cost-00",
+    "presentation_id": "537b8b21cf7ad1b531bc",
+    "mapping": {
+      "A": "defer",
+      "B": "delegate",
+      "C": "target",
+      "D": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "f4d2d6476cd3605d7e81",
+    "condition_id": "laboratory-mechanism_cost-05",
+    "presentation_id": "380a840a4d55cca185b4",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "e37ca5e02e753df2b9d0",
+    "condition_id": "laboratory-return_cost-02",
+    "presentation_id": "eb874ed6f1607d2755fa",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "a811d674d6e17bc439b5",
+    "condition_id": "water-mechanism_cost-11",
+    "presentation_id": "aaf688fd3301ec63ff67",
+    "mapping": {
+      "A": "delegate",
+      "B": "target",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "4b8403168ed141280382",
+    "condition_id": "water-mechanism_cost-05",
+    "presentation_id": "59728a12fc7606fc7746",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "4471ee58a81676cde55c",
+    "condition_id": "laboratory-mechanism_cost-12",
+    "presentation_id": "f29e1e526c57e067ad59",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "84baf8860fdd9c16d545",
+    "condition_id": "laboratory-dependency_cost-02",
+    "presentation_id": "eefa2b00bee5717e2371",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "eee03c9538e5f5faf7cd",
+    "condition_id": "laboratory-return_cost-01",
+    "presentation_id": "444a3e840bce0ba147ac",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "0916d94e2fb6c421295e",
+    "condition_id": "laboratory-return_cost-01",
+    "presentation_id": "2adb4b42a10feb9590cf",
+    "mapping": {
+      "A": "reference",
+      "B": "defer",
+      "C": "delegate",
+      "D": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "fa947c5333a5683b260c",
+    "condition_id": "water-dependency_cost-00",
+    "presentation_id": "ca2d4daf449874ed9d0b",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "e163ea7701903c6c90a3",
+    "condition_id": "laboratory-mechanism_cost-11",
+    "presentation_id": "862a599e0a57b8132d28",
+    "mapping": {
+      "A": "reference",
+      "B": "defer",
+      "C": "target",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "27073a831ea713680f77",
+    "condition_id": "laboratory-mechanism_cost-10",
+    "presentation_id": "16e1abc18f0ff2ce47b0",
+    "mapping": {
+      "A": "defer",
+      "B": "reference",
+      "C": "target",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "5cede7c7380894c2139d",
+    "condition_id": "laboratory-mechanism_cost-03",
+    "presentation_id": "7876f0779bf13a55969c",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "8c0ddea5a4eb28da51c6",
+    "condition_id": "laboratory-return_cost-00",
+    "presentation_id": "c30b5df051a5715f6b6f",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "target",
+      "D": "defer"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "73951cc5c4f502b7e2f9",
+    "condition_id": "laboratory-mechanism_cost-07",
+    "presentation_id": "32a5e21e89c12859627d",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "84b5df43ab99b6ecf3a6",
+    "condition_id": "water-return_cost-00",
+    "presentation_id": "52740652db3be0c0e87e",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "303b71be13032cb8f9d2",
+    "condition_id": "laboratory-mechanism_cost-05",
+    "presentation_id": "fdd5bcd5ba88f70cacfc",
+    "mapping": {
+      "A": "delegate",
+      "B": "target",
+      "C": "defer",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "c22c1a090f1f15ec76f1",
+    "condition_id": "laboratory-mechanism_cost-04",
+    "presentation_id": "0906718d9ec86774179a",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "3b5c98202cc179cc4bfe",
+    "condition_id": "water-mechanism_cost-09",
+    "presentation_id": "bc5a202d4e225f7fcfe3",
+    "mapping": {
+      "A": "defer",
+      "B": "delegate",
+      "C": "target",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "3bc8fa5d192c69bcc23a",
+    "condition_id": "water-mechanism_cost-09",
+    "presentation_id": "674227d6b70e69f084f3",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "7e1f9a508556104e355b",
+    "condition_id": "laboratory-mechanism_cost-11",
+    "presentation_id": "1f28e32e285ce4c10eca",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "504862b34194ba1d9e45",
+    "condition_id": "laboratory-mechanism_cost-05",
+    "presentation_id": "cc369fb15444e68e5d32",
+    "mapping": {
+      "A": "reference",
+      "B": "defer",
+      "C": "delegate",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "67b500c45c2fd923caa6",
+    "condition_id": "water-mechanism_cost-04",
+    "presentation_id": "e29f2abcf5ae2d639337",
+    "mapping": {
+      "A": "reference",
+      "B": "defer",
+      "C": "target",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "aa449860635413847d4c",
+    "condition_id": "water-mechanism_cost-10",
+    "presentation_id": "f20123d54d7de8bf95be",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "c6f200b17741a1097a29",
+    "condition_id": "laboratory-mechanism_cost-09",
+    "presentation_id": "639b60f11c67c7c8ac84",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "7f1d0a8a72c97a5c0c27",
+    "condition_id": "laboratory-mechanism_cost-12",
+    "presentation_id": "e0979c5bd264a00a3065",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "0238fe733a652cf684ac",
+    "condition_id": "water-return_cost-00",
+    "presentation_id": "2155a0227f923e037cdb",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "delegate",
+      "D": "defer"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "16bb742fbc0ee3851c96",
+    "condition_id": "laboratory-dependency_cost-01",
+    "presentation_id": "6317152ca59507c96ba8",
+    "mapping": {
+      "A": "reference",
+      "B": "target",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "d4e31c8fa22e76b0beee",
+    "condition_id": "laboratory-dependency_cost-00",
+    "presentation_id": "fd56abdec2bf2f5d43d0",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "b04db35d835520132bd3",
+    "condition_id": "water-mechanism_cost-01",
+    "presentation_id": "3b61fd6a1ce7383d9c09",
+    "mapping": {
+      "A": "target",
+      "B": "delegate",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "bb642073eb51e97189b2",
+    "condition_id": "water-mechanism_cost-05",
+    "presentation_id": "7732636e2e326f31d468",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "8035103229b89caeea02",
+    "condition_id": "laboratory-return_cost-02",
+    "presentation_id": "ac2afa116a4ad4c77900",
+    "mapping": {
+      "A": "delegate",
+      "B": "defer",
+      "C": "target",
+      "D": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "8f3d3eb8d8fce64ee940",
+    "condition_id": "water-mechanism_cost-00",
+    "presentation_id": "b1c2c94b2308d8a54bc4",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "4bdb03b3638b3158d518",
+    "condition_id": "laboratory-mechanism_cost-13",
+    "presentation_id": "57d2ef3fe0c01bcfe636",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "25b6878c0499cfad187b",
+    "condition_id": "laboratory-mechanism_cost-04",
+    "presentation_id": "bfdcb4d22bdb3d347fcc",
+    "mapping": {
+      "A": "target",
+      "B": "delegate",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "ed49257c67ac8057b6bd",
+    "condition_id": "laboratory-mechanism_cost-13",
+    "presentation_id": "49f28b9d68b3471b1afa",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "9f670533aef23055e451",
+    "condition_id": "laboratory-return_cost-01",
+    "presentation_id": "ae2cdf1321cf37f80b1d",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "9d7dc6045d39f4155ff7",
+    "condition_id": "laboratory-return_cost-03",
+    "presentation_id": "677556f228e5812bf8a5",
+    "mapping": {
+      "A": "defer",
+      "B": "target",
+      "C": "delegate",
+      "D": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "0265be0059dff0dd7742",
+    "condition_id": "laboratory-dependency_cost-02",
+    "presentation_id": "98728802a9e7b71c0608",
+    "mapping": {
+      "A": "target",
+      "B": "delegate",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "a7e65c80a899db00ee35",
+    "condition_id": "water-dependency_cost-02",
+    "presentation_id": "31c42f5383af723f3731",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "4fcc6f9f025db2027683",
+    "condition_id": "water-dependency_cost-00",
+    "presentation_id": "fc1c319fedaff5d9331d",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "2525f4dfc372f0fadda7",
+    "condition_id": "laboratory-mechanism_cost-11",
+    "presentation_id": "79efdb27983a4a98f9b3",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "b7c8280514eca9d220a6",
+    "condition_id": "water-mechanism_cost-07",
+    "presentation_id": "624f2b0cb12e65daa3d7",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "5b073d8d5bf274eaba61",
+    "condition_id": "laboratory-dependency_cost-02",
+    "presentation_id": "78c5c76aebbd58c7f638",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "256b96a2a6bc39bc9bf4",
+    "condition_id": "laboratory-return_cost-01",
+    "presentation_id": "8f1ded5a482c041efe3d",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "d36284a13ae2c1e74550",
+    "condition_id": "laboratory-mechanism_cost-00",
+    "presentation_id": "ec5cbf4620977543da37",
+    "mapping": {
+      "A": "delegate",
+      "B": "defer",
+      "C": "reference",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "2e63578b9dbb6a11fb49",
+    "condition_id": "water-mechanism_cost-04",
+    "presentation_id": "ea8eb574ea120d73a8da",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "a8af62387a2e9bb2aa06",
+    "condition_id": "laboratory-dependency_cost-00",
+    "presentation_id": "894880a6a57d36920855",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "9d7f9adf66626050561d",
+    "condition_id": "laboratory-dependency_cost-03",
+    "presentation_id": "797373046ee17cf7964a",
+    "mapping": {
+      "A": "defer",
+      "B": "target",
+      "C": "delegate",
+      "D": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "1531be1701c0ad858f0f",
+    "condition_id": "laboratory-return_cost-03",
+    "presentation_id": "209b453e178a732b4b94",
+    "mapping": {
+      "A": "target",
+      "B": "delegate",
+      "C": "defer",
+      "D": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "bbe5e92bbe60fbd7ff70",
+    "condition_id": "laboratory-mechanism_cost-08",
+    "presentation_id": "08060cf7b853b4ffd1f0",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "55db3f0328d0e0d216b8",
+    "condition_id": "water-mechanism_cost-03",
+    "presentation_id": "54d21dfcdefe43c91a75",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "delegate",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "548de30f6894fc1c908a",
+    "condition_id": "laboratory-return_cost-00",
+    "presentation_id": "9bcc0490b43d5767ad81",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "351f72c533578ddf33b9",
+    "condition_id": "laboratory-mechanism_cost-06",
+    "presentation_id": "844d91543142d67846f2",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "53062c369f94611d1edd",
+    "condition_id": "water-mechanism_cost-11",
+    "presentation_id": "3fd8d29c0b4ee2de68ff",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "3b3407fab40fe900971b",
+    "condition_id": "laboratory-mechanism_cost-01",
+    "presentation_id": "0bf6458b9b2bbd2474ab",
+    "mapping": {
+      "A": "reference",
+      "B": "target",
+      "C": "delegate",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "40d0088e66ec14b03fa3",
+    "condition_id": "laboratory-dependency_cost-00",
+    "presentation_id": "3f4d37792217cf58513f",
+    "mapping": {
+      "A": "target",
+      "B": "delegate",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "05f1a23e8f7b81feeefb",
+    "condition_id": "water-return_cost-03",
+    "presentation_id": "c3a7477994e57f18f8d3",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "7917df177c2f490fcbc3",
+    "condition_id": "laboratory-mechanism_cost-06",
+    "presentation_id": "7a8052a41e13d95ee8c2",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "bafed6e58b81344c1373",
+    "condition_id": "laboratory-mechanism_cost-09",
+    "presentation_id": "4b1a21958bcc9d061cbd",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "1a0a6d08311811e0ae89",
+    "condition_id": "water-mechanism_cost-02",
+    "presentation_id": "11221315ad28f10d1216",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "8dcc6cee104261420d04",
+    "condition_id": "water-return_cost-01",
+    "presentation_id": "6b47045fa41a7eb8dd20",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "1a8ad916698ecdb77925",
+    "condition_id": "water-mechanism_cost-05",
+    "presentation_id": "caaa79349c3d2aa719a6",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "5a67d0ed001b3fce6bc5",
+    "condition_id": "water-dependency_cost-01",
+    "presentation_id": "4f4ca38b0f30564a9d67",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "76acc1bcdda562cfe78d",
+    "condition_id": "water-mechanism_cost-12",
+    "presentation_id": "0802859b4dc38ebafc46",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "target",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "d64ea7f21b813ad7dcd8",
+    "condition_id": "laboratory-mechanism_cost-07",
+    "presentation_id": "7ff5eac6d2cdca3659be",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "ef70bcf1f8877349d9ab",
+    "condition_id": "water-return_cost-03",
+    "presentation_id": "a36527df13dfe8ed6ee7",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "91c6a013be00fe4e1f52",
+    "condition_id": "laboratory-return_cost-03",
+    "presentation_id": "18c747b2e7473163c4e2",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "9c4668890ac96456eb12",
+    "condition_id": "laboratory-mechanism_cost-08",
+    "presentation_id": "637ec530e49e348ab9ae",
+    "mapping": {
+      "A": "target",
+      "B": "delegate",
+      "C": "defer",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "5db865909935185fb10c",
+    "condition_id": "water-mechanism_cost-06",
+    "presentation_id": "4212037cacbc036cd9f6",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "4057b446a57dc3e54637",
+    "condition_id": "laboratory-mechanism_cost-13",
+    "presentation_id": "1fd3483b91c01f431fa8",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "delegate",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "baea00539e5bfee057a6",
+    "condition_id": "water-mechanism_cost-01",
+    "presentation_id": "36c719baa3fb4fa81207",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "2aed18e3d669f8c0d0fb",
+    "condition_id": "laboratory-return_cost-01",
+    "presentation_id": "f9120e009826bb919da6",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "3caae65b111a40ff8880",
+    "condition_id": "water-mechanism_cost-04",
+    "presentation_id": "70d7469888f10e855a9a",
+    "mapping": {
+      "A": "delegate",
+      "B": "defer",
+      "C": "reference",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "3cd3f5c5eaa26407bd45",
+    "condition_id": "water-mechanism_cost-11",
+    "presentation_id": "1008c9c5f956c1326cc4",
+    "mapping": {
+      "A": "defer",
+      "B": "target",
+      "C": "reference",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "dcb0b59382b52af022f2",
+    "condition_id": "water-dependency_cost-02",
+    "presentation_id": "e224587bc72595bb129b",
+    "mapping": {
+      "A": "delegate",
+      "B": "target",
+      "C": "defer",
+      "D": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "44881985fca82d1e21f4",
+    "condition_id": "water-mechanism_cost-02",
+    "presentation_id": "7f49a44bc15c7453c470",
+    "mapping": {
+      "A": "defer",
+      "B": "target",
+      "C": "delegate",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "bdd920a476a3cae5723c",
+    "condition_id": "laboratory-return_cost-00",
+    "presentation_id": "7339dde5d2abd1052603",
+    "mapping": {
+      "A": "defer",
+      "B": "reference",
+      "C": "target",
+      "D": "delegate"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "2ef046b464e3cd13e114",
+    "condition_id": "laboratory-mechanism_cost-08",
+    "presentation_id": "0bf0ff2944ba53425ffb",
+    "mapping": {
+      "A": "target",
+      "B": "defer",
+      "C": "delegate",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "41846d96076bff704956",
+    "condition_id": "laboratory-mechanism_cost-11",
+    "presentation_id": "4bb19ed0e0cf1f0b1500",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "6313cb0e2062b3009801",
+    "condition_id": "water-mechanism_cost-05",
+    "presentation_id": "84a733af450102f7be88",
+    "mapping": {
+      "A": "target",
+      "B": "delegate",
+      "C": "defer",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "2814148d5229fbcd02b8",
+    "condition_id": "laboratory-return_cost-01",
+    "presentation_id": "2bc00ec9d988d3489f28",
+    "mapping": {
+      "A": "defer",
+      "B": "target",
+      "C": "delegate",
+      "D": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "4bbbf926957509175c6a",
+    "condition_id": "water-mechanism_cost-02",
+    "presentation_id": "fa17b7da658de0715e2f",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "target",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "e41dd17c06d69060f0a6",
+    "condition_id": "water-mechanism_cost-00",
+    "presentation_id": "32ab2d762a0a79463f6f",
+    "mapping": {
+      "A": "reference",
+      "B": "target",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "5173b32869057cfebbb7",
+    "condition_id": "water-mechanism_cost-12",
+    "presentation_id": "0070991ca24adb6b595b",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "e4941471f692f4a9d60d",
+    "condition_id": "water-mechanism_cost-13",
+    "presentation_id": "0c8a434b83b16429c6f4",
+    "mapping": {
+      "A": "delegate",
+      "B": "defer",
+      "C": "target",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "7fe7bb3ffde62e99522f",
+    "condition_id": "laboratory-mechanism_cost-05",
+    "presentation_id": "09e47ad6ca349d128fa2",
+    "mapping": {
+      "A": "delegate",
+      "B": "defer",
+      "C": "reference",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "56382405c31ed558929b",
+    "condition_id": "water-mechanism_cost-13",
+    "presentation_id": "788d06811923f0e8ec83",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "e2ab30722bfb48bde8cd",
+    "condition_id": "laboratory-dependency_cost-00",
+    "presentation_id": "7f53007928c4399568c7",
+    "mapping": {
+      "A": "delegate",
+      "B": "target",
+      "C": "defer",
+      "D": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "5777d0c5554ff84c1276",
+    "condition_id": "laboratory-dependency_cost-01",
+    "presentation_id": "d19b744376306b85244f",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "603be78e3b4a51caf017",
+    "condition_id": "laboratory-mechanism_cost-07",
+    "presentation_id": "5e6d6f16f38b71e020f6",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "b5404e96aaf46b984f55",
+    "condition_id": "water-dependency_cost-00",
+    "presentation_id": "392f82146005c1d555f3",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "4cfa365682b4fa7f83f8",
+    "condition_id": "water-mechanism_cost-10",
+    "presentation_id": "c190a12280915e5d0fc5",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "40d8294f6190c10f06eb",
+    "condition_id": "water-mechanism_cost-08",
+    "presentation_id": "559b9fafc4313bd3eee9",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "83fe1c125e403fee5ba4",
+    "condition_id": "laboratory-mechanism_cost-01",
+    "presentation_id": "40e630e158a969a94411",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "3e3c21ac5f7ff46cac54",
+    "condition_id": "water-dependency_cost-00",
+    "presentation_id": "5b69fa6941d2567c2b38",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "8cf2c8ba9e0908feb484",
+    "condition_id": "water-dependency_cost-03",
+    "presentation_id": "4e513cf5cec19fe27d44",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "813cbefb6a2fafbb7a84",
+    "condition_id": "laboratory-mechanism_cost-05",
+    "presentation_id": "6751114e9cb665b064cc",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "09f531ef6c797819acf0",
+    "condition_id": "water-return_cost-03",
+    "presentation_id": "52f2026ec95d565678e5",
+    "mapping": {
+      "A": "reference",
+      "B": "target",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "e258eb7249d7399676ad",
+    "condition_id": "laboratory-dependency_cost-01",
+    "presentation_id": "b83f14a31edf17c2bd0d",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "1661fcb7fe7210d2db54",
+    "condition_id": "water-mechanism_cost-06",
+    "presentation_id": "c572e5f0e53430107a14",
+    "mapping": {
+      "A": "defer",
+      "B": "delegate",
+      "C": "target",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "dfc95af103f0b90323fc",
+    "condition_id": "water-mechanism_cost-06",
+    "presentation_id": "aafb6fe6c5b27c2cdc77",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "8a4c052e4e99e7008baf",
+    "condition_id": "laboratory-mechanism_cost-03",
+    "presentation_id": "768ac945165132725063",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "61bf5aead3f85ba46b89",
+    "condition_id": "water-mechanism_cost-03",
+    "presentation_id": "76f5e046c4b01495f545",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "2ea77a086bfcee1dc111",
+    "condition_id": "laboratory-mechanism_cost-09",
+    "presentation_id": "33da716937554b1e100c",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "4bcb9835d82d81c57a3d",
+    "condition_id": "water-mechanism_cost-06",
+    "presentation_id": "ec7bf49d89858dcbe848",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "eabb0b3ce9e921adad11",
+    "condition_id": "laboratory-mechanism_cost-10",
+    "presentation_id": "f126043cd7c720b2e5a0",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "fee1825552b389cbd4c0",
+    "condition_id": "laboratory-dependency_cost-01",
+    "presentation_id": "a81c4f3ee182617544b4",
+    "mapping": {
+      "A": "reference",
+      "B": "defer",
+      "C": "target",
+      "D": "delegate"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "3139dc67fd886202634d",
+    "condition_id": "water-mechanism_cost-07",
+    "presentation_id": "24cb54b36ef06c8f1157",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "cccad5b8fca7f8fab183",
+    "condition_id": "laboratory-mechanism_cost-06",
+    "presentation_id": "ca7e8839c5c8869d43b6",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "579b525f9385e5a272c7",
+    "condition_id": "water-return_cost-00",
+    "presentation_id": "57a41f509b0c65e80994",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "be559f0db0d5492f373c",
+    "condition_id": "laboratory-mechanism_cost-01",
+    "presentation_id": "8d7365659af2f912ecb9",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "10d5527191fe1b9f9e92",
+    "condition_id": "water-mechanism_cost-13",
+    "presentation_id": "56e75ce7949fb4309ec5",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "406550712eede52a3c10",
+    "condition_id": "laboratory-dependency_cost-03",
+    "presentation_id": "19b4d7a06c4b0a2ea1a4",
+    "mapping": {
+      "A": "reference",
+      "B": "target",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "3036bd2a28ce88d5eadb",
+    "condition_id": "water-return_cost-03",
+    "presentation_id": "973b260cc195f795e7a1",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "62d31ba25fb365d600be",
+    "condition_id": "laboratory-mechanism_cost-12",
+    "presentation_id": "759c93b12eac15134a49",
+    "mapping": {
+      "A": "defer",
+      "B": "reference",
+      "C": "target",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "8ea5903d3dff0f683ecd",
+    "condition_id": "water-mechanism_cost-00",
+    "presentation_id": "7892a3b202bd00b26a12",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "d908857902ce462ad357",
+    "condition_id": "laboratory-mechanism_cost-12",
+    "presentation_id": "a9cc3b5a71e6104c0617",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "b45d4917ca274353291d",
+    "condition_id": "laboratory-mechanism_cost-10",
+    "presentation_id": "9e2d2eb721d83ade03e0",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "f56703447c0d941c0483",
+    "condition_id": "water-mechanism_cost-11",
+    "presentation_id": "feb7e4eae14884b86d0e",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "a013ed0cfa4310b31ed5",
+    "condition_id": "laboratory-mechanism_cost-07",
+    "presentation_id": "9692818cbf5bf84fe1c4",
+    "mapping": {
+      "A": "target",
+      "B": "defer",
+      "C": "delegate",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "fe790adb197aae55dc45",
+    "condition_id": "water-mechanism_cost-09",
+    "presentation_id": "2853f3909e6f65cf2291",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "6ddde85b681abb184acd",
+    "condition_id": "water-mechanism_cost-09",
+    "presentation_id": "a72fcc19e0f88713dbb1",
+    "mapping": {
+      "A": "delegate",
+      "B": "target",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "c280bc8833ce13986d7b",
+    "condition_id": "laboratory-dependency_cost-03",
+    "presentation_id": "8fb7f6889952983ecd1e",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "target",
+      "D": "defer"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "6be9259d67bb8bde13db",
+    "condition_id": "laboratory-return_cost-01",
+    "presentation_id": "64efb6d979a2fd784add",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "delegate",
+      "D": "defer"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "563d609129050af5d511",
+    "condition_id": "laboratory-mechanism_cost-05",
+    "presentation_id": "4c54e592593c397a78be",
+    "mapping": {
+      "A": "defer",
+      "B": "reference",
+      "C": "delegate",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "43225c0bb94b4fe1a3b1",
+    "condition_id": "water-mechanism_cost-07",
+    "presentation_id": "bdb43d81aa4e7918b1ab",
+    "mapping": {
+      "A": "delegate",
+      "B": "target",
+      "C": "defer",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "b9127a5bc2653e9d6a0b",
+    "condition_id": "water-mechanism_cost-13",
+    "presentation_id": "319ef1f2e3de1b84b9f9",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "cf667885a8c3cec8be58",
+    "condition_id": "laboratory-mechanism_cost-02",
+    "presentation_id": "8586d271a7f09a519ac8",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "69dda05d16ab3511380b",
+    "condition_id": "water-mechanism_cost-01",
+    "presentation_id": "8ef0fd6b0a945cb3a5bb",
+    "mapping": {
+      "A": "reference",
+      "B": "target",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "a22307ae470f6e8daaf6",
+    "condition_id": "water-mechanism_cost-02",
+    "presentation_id": "c139e4f47b8ff69ca38b",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "e2276098e05cae5b1c2b",
+    "condition_id": "laboratory-mechanism_cost-13",
+    "presentation_id": "773ebcaf9ee48e9ebce3",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "ec6047d1be557dcd151b",
+    "condition_id": "water-mechanism_cost-00",
+    "presentation_id": "71e7f956e712f2a45df7",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "4387eb2a41df490b3e67",
+    "condition_id": "water-return_cost-00",
+    "presentation_id": "9a8e55340852d4140f15",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "a9f7a73b80865af3be12",
+    "condition_id": "laboratory-mechanism_cost-00",
+    "presentation_id": "f7cba75bd8b5a3099745",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "715eae5f88f923d2fc81",
+    "condition_id": "water-return_cost-01",
+    "presentation_id": "ba9ee9157424f9f80fa4",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "adc13c855159f19ec4a6",
+    "condition_id": "laboratory-dependency_cost-01",
+    "presentation_id": "0fc9b34affe54173bd9d",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "356d198b7c2d8dfe8906",
+    "condition_id": "water-mechanism_cost-03",
+    "presentation_id": "d45503ff333c28b48089",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "8e98cc05060b686236b7",
+    "condition_id": "laboratory-mechanism_cost-02",
+    "presentation_id": "fcd63e62d074aa7244df",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "03d525b285038a34d33e",
+    "condition_id": "laboratory-dependency_cost-03",
+    "presentation_id": "081448135e2ed6fe63ef",
+    "mapping": {
+      "A": "reference",
+      "B": "target",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "24159166bb10eb2b0446",
+    "condition_id": "laboratory-mechanism_cost-04",
+    "presentation_id": "efcb8f24b4f634dcf529",
+    "mapping": {
+      "A": "reference",
+      "B": "defer",
+      "C": "delegate",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "3d2ad8ef3c21d732370b",
+    "condition_id": "laboratory-mechanism_cost-09",
+    "presentation_id": "e27df245a78637b516fa",
+    "mapping": {
+      "A": "defer",
+      "B": "target",
+      "C": "reference",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "8a2da33a7b7f808fd9b3",
+    "condition_id": "laboratory-dependency_cost-00",
+    "presentation_id": "8e56f43e22b70169fc8f",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "91be8bcd89af1bc65743",
+    "condition_id": "water-mechanism_cost-01",
+    "presentation_id": "5e0c78723dad704e5782",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "8c8a93775d547c073a3a",
+    "condition_id": "water-return_cost-02",
+    "presentation_id": "a00cc958cc6323e040ef",
+    "mapping": {
+      "A": "delegate",
+      "B": "target",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "d1cce9266b7707e51c47",
+    "condition_id": "laboratory-mechanism_cost-10",
+    "presentation_id": "666d238b7eee3199adec",
+    "mapping": {
+      "A": "delegate",
+      "B": "target",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "a393910de5252d4fd930",
+    "condition_id": "laboratory-return_cost-03",
+    "presentation_id": "fd3c7377d50d36617347",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "a2962b4f83804d9b1a09",
+    "condition_id": "water-mechanism_cost-08",
+    "presentation_id": "c8dc956202cc8c75ce74",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "7b4959eaf672116a7dec",
+    "condition_id": "water-mechanism_cost-00",
+    "presentation_id": "61ee0331b126b6dd6a4c",
+    "mapping": {
+      "A": "defer",
+      "B": "delegate",
+      "C": "target",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "c913f4f7134c8f706d3f",
+    "condition_id": "laboratory-mechanism_cost-08",
+    "presentation_id": "57cbf3fde1ed50c14eab",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "f769ba01f61128b8fdab",
+    "condition_id": "water-mechanism_cost-11",
+    "presentation_id": "45b42e9559f0e9654693",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "6cc84d91b41216a02fad",
+    "condition_id": "water-mechanism_cost-09",
+    "presentation_id": "9848d99b9ecc2fe5e9eb",
+    "mapping": {
+      "A": "delegate",
+      "B": "defer",
+      "C": "reference",
+      "D": "target"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "1c5b323ddec1d98a8a20",
+    "condition_id": "water-mechanism_cost-05",
+    "presentation_id": "91fb51eaf23982212e00",
+    "mapping": {
+      "A": "defer",
+      "B": "target",
+      "C": "delegate",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "c75e9f9036130a8af3a5",
+    "condition_id": "water-return_cost-02",
+    "presentation_id": "27d971b6d0f37fc6cc48",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "8e413280815f3b97b367",
+    "condition_id": "laboratory-mechanism_cost-02",
+    "presentation_id": "655f88bc76dcaae2d5f9",
+    "mapping": {
+      "A": "delegate",
+      "B": "target",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "f41d947f0795d8c5e7d6",
+    "condition_id": "laboratory-mechanism_cost-01",
+    "presentation_id": "9c326705d8517994e0da",
+    "mapping": {
+      "A": "reference",
+      "B": "defer",
+      "C": "target",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "dd595d67117615fb1348",
+    "condition_id": "laboratory-dependency_cost-03",
+    "presentation_id": "7bf1c80f90ca1592e3f3",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "f008a507a3372e7a1594",
+    "condition_id": "water-return_cost-00",
+    "presentation_id": "594e5113c0c2c946d640",
+    "mapping": {
+      "A": "reference",
+      "B": "defer",
+      "C": "delegate",
+      "D": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "b935d8f84eb700b5d82b",
+    "condition_id": "laboratory-mechanism_cost-12",
+    "presentation_id": "dcd8a913162a79a64c59",
+    "mapping": {
+      "A": "delegate",
+      "B": "target",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "b7cdbdafaa670057a648",
+    "condition_id": "water-mechanism_cost-06",
+    "presentation_id": "dce22f3b22d8f3a74c77",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "083fb6ac4ab079ca0e14",
+    "condition_id": "laboratory-mechanism_cost-10",
+    "presentation_id": "2314c54f2c151f2f1b64",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "db9c5b970f5048292815",
+    "condition_id": "laboratory-dependency_cost-02",
+    "presentation_id": "c8e4845e08a1ddfacb25",
+    "mapping": {
+      "A": "defer",
+      "B": "target",
+      "C": "delegate",
+      "D": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "d26b00b7ba27c9eba69a",
+    "condition_id": "water-mechanism_cost-11",
+    "presentation_id": "fde4898e58bd293f56f5",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "3243d5145263db56263b",
+    "condition_id": "water-dependency_cost-02",
+    "presentation_id": "7dbd983d3b3d6ff9e07b",
+    "mapping": {
+      "A": "defer",
+      "B": "target",
+      "C": "reference",
+      "D": "delegate"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "5b6ee8703d38d71874bd",
+    "condition_id": "laboratory-dependency_cost-03",
+    "presentation_id": "6d65274862d455d014d8",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "597c637bd923d4c50504",
+    "condition_id": "laboratory-mechanism_cost-03",
+    "presentation_id": "dde1f82bf97bdc370cc4",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "804373f84f826449ce06",
+    "condition_id": "laboratory-mechanism_cost-00",
+    "presentation_id": "5de12741e89c4674b57c",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "474f733c6dfdf45279ef",
+    "condition_id": "laboratory-dependency_cost-00",
+    "presentation_id": "a225533ae466e030acae",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "47eeb4818a3e22cee99e",
+    "condition_id": "water-mechanism_cost-05",
+    "presentation_id": "a0cd82fd9ac366ac9653",
+    "mapping": {
+      "A": "defer",
+      "B": "target",
+      "C": "delegate",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "a5b7dc7dd6987adb176b",
+    "condition_id": "water-dependency_cost-02",
+    "presentation_id": "4bf3283997ef649e71ef",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "95a31f08d8613295f89e",
+    "condition_id": "laboratory-return_cost-00",
+    "presentation_id": "7cfacd0dabdd4ae4851d",
+    "mapping": {
+      "A": "delegate",
+      "B": "reference",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "573ef20810523b53e42c",
+    "condition_id": "laboratory-mechanism_cost-08",
+    "presentation_id": "e24c66a93a5be4c39f49",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "3e661e12c23ed70cc568",
+    "condition_id": "water-return_cost-01",
+    "presentation_id": "577fbda897a4542c5fea",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "target",
+      "D": "defer"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "8ac1b8b616e3afa9014b",
+    "condition_id": "water-return_cost-00",
+    "presentation_id": "f78c89bfdb6997b6e34d",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "delegate",
+      "D": "defer"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "9de030a56c31c512a728",
+    "condition_id": "water-mechanism_cost-08",
+    "presentation_id": "6a29c00b85f5f738b8cb",
+    "mapping": {
+      "A": "delegate",
+      "B": "reference",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "1cbc9ced486fac50f0fb",
+    "condition_id": "water-dependency_cost-03",
+    "presentation_id": "d5129ebee7cb04c61f68",
+    "mapping": {
+      "A": "delegate",
+      "B": "defer",
+      "C": "reference",
+      "D": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "49a92e3d4c44a218e6d6",
+    "condition_id": "laboratory-return_cost-02",
+    "presentation_id": "7555da08ca440aa813e3",
+    "mapping": {
+      "A": "target",
+      "B": "defer",
+      "C": "reference",
+      "D": "delegate"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "f6f5b474539ca72120d0",
+    "condition_id": "water-return_cost-03",
+    "presentation_id": "844a501b2934bdc5872f",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "2f0c55cc7dc164484e3d",
+    "condition_id": "laboratory-mechanism_cost-03",
+    "presentation_id": "cb5b75f42cc7b94d5dc5",
+    "mapping": {
+      "A": "reference",
+      "B": "target",
+      "C": "delegate",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "5518a85947d2fe803cdb",
+    "condition_id": "laboratory-return_cost-03",
+    "presentation_id": "2ad89fdaa541e36f9e7f",
+    "mapping": {
+      "A": "delegate",
+      "B": "defer",
+      "C": "target",
+      "D": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "cf42d5514ed6739f6e75",
+    "condition_id": "water-mechanism_cost-01",
+    "presentation_id": "8baede24f288ab89f16e",
+    "mapping": {
+      "A": "reference",
+      "B": "target",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "a848af1a88da2fdd8184",
+    "condition_id": "laboratory-mechanism_cost-02",
+    "presentation_id": "88aabb68fb3013225358",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "dc40d00ca6d9ef365f25",
+    "condition_id": "laboratory-mechanism_cost-11",
+    "presentation_id": "6cf0fd65eff02dd98efd",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "6603a9c22f6ecb69e462",
+    "condition_id": "water-mechanism_cost-13",
+    "presentation_id": "21dc23c06f72712e032e",
+    "mapping": {
+      "A": "defer",
+      "B": "delegate",
+      "C": "target",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "914e281d66a7da8a71f6",
+    "condition_id": "water-mechanism_cost-12",
+    "presentation_id": "bd383fa95777ceb8b5d0",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "a0187021f5ae8b6c45c5",
+    "condition_id": "laboratory-mechanism_cost-00",
+    "presentation_id": "e13dcab23a97555ce44a",
+    "mapping": {
+      "A": "defer",
+      "B": "reference",
+      "C": "target",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "038572a9030a5ab922f7",
+    "condition_id": "laboratory-mechanism_cost-09",
+    "presentation_id": "3298d64bac4101ee0621",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "7e6ad72b5d15272bdad5",
+    "condition_id": "water-mechanism_cost-07",
+    "presentation_id": "ad73b97f7d23a7871e97",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "a9b781f76e8f5ba0d4cf",
+    "condition_id": "water-mechanism_cost-10",
+    "presentation_id": "c3af6088c66b99ab4f0f",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "d469122300c66ef89e7d",
+    "condition_id": "water-mechanism_cost-08",
+    "presentation_id": "961e69d77769a51f8526",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "0e37afbde580ee793ded",
+    "condition_id": "water-mechanism_cost-04",
+    "presentation_id": "e55b95eafd1333b56a8f",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "09518a2b5ef19fd8ab89",
+    "condition_id": "water-mechanism_cost-12",
+    "presentation_id": "a7ac13b9069d8737f7d0",
+    "mapping": {
+      "A": "reference",
+      "B": "defer",
+      "C": "target",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "5d38a45bf4fea102d9b2",
+    "condition_id": "water-return_cost-01",
+    "presentation_id": "ddd763dfecdb948244e8",
+    "mapping": {
+      "A": "delegate",
+      "B": "defer",
+      "C": "reference",
+      "D": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "47677013a968237d3491",
+    "condition_id": "water-return_cost-02",
+    "presentation_id": "3dabdbdc822dffbbb335",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "60dfc0c302b44b8bd0d8",
+    "condition_id": "water-return_cost-02",
+    "presentation_id": "10088c481494b8cad182",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "27ee6ef56790110541b8",
+    "condition_id": "laboratory-dependency_cost-00",
+    "presentation_id": "ce0e00ded4411cc1befc",
+    "mapping": {
+      "A": "delegate",
+      "B": "target",
+      "C": "defer",
+      "D": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "edb65378b2ccc6c3b818",
+    "condition_id": "water-dependency_cost-01",
+    "presentation_id": "804fb2764b7031804d23",
+    "mapping": {
+      "A": "delegate",
+      "B": "target",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "9922c2bbcec4de9ec582",
+    "condition_id": "water-mechanism_cost-10",
+    "presentation_id": "16f4a73214e7f118ab1e",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "0dd71014e92db237388c",
+    "condition_id": "laboratory-mechanism_cost-06",
+    "presentation_id": "bcb37c5cd023ff36a24e",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "69dfd99a8723764e2ca4",
+    "condition_id": "water-mechanism_cost-03",
+    "presentation_id": "7b8e03340671518c3218",
+    "mapping": {
+      "A": "defer",
+      "B": "reference",
+      "C": "delegate",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "a80977e4d7fb350b6226",
+    "condition_id": "water-dependency_cost-03",
+    "presentation_id": "1076e25445c8386a59e1",
+    "mapping": {
+      "A": "defer",
+      "B": "reference",
+      "C": "delegate",
+      "D": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "8fc5f64b7f1be5b1abdc",
+    "condition_id": "water-return_cost-02",
+    "presentation_id": "2fd8c7d1dc43bf38280c",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "3d1646a26c5ff77e8c74",
+    "condition_id": "water-mechanism_cost-11",
+    "presentation_id": "1265b38cd7c0182970c8",
+    "mapping": {
+      "A": "delegate",
+      "B": "target",
+      "C": "defer",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "c0cfd2b0fe6084a77ffe",
+    "condition_id": "water-return_cost-01",
+    "presentation_id": "6b0af2593a5fb9c33f61",
+    "mapping": {
+      "A": "target",
+      "B": "delegate",
+      "C": "defer",
+      "D": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "5b40c73aa01e2102c58f",
+    "condition_id": "water-mechanism_cost-13",
+    "presentation_id": "2b3c7e0ddf52e2ecd519",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "target",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "c67d4e5d7bcdc5efce75",
+    "condition_id": "laboratory-mechanism_cost-04",
+    "presentation_id": "48474730b829d553a71e",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "89af49bb89fb8207f050",
+    "condition_id": "laboratory-mechanism_cost-13",
+    "presentation_id": "88d4b07933f389a011c2",
+    "mapping": {
+      "A": "delegate",
+      "B": "reference",
+      "C": "target",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "c978caded0d92f59c812",
+    "condition_id": "water-mechanism_cost-06",
+    "presentation_id": "ec07d9bd10f1c51411d6",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "8df2c2423c6b823bc17c",
+    "condition_id": "water-dependency_cost-02",
+    "presentation_id": "61e937659d927b36f13d",
+    "mapping": {
+      "A": "target",
+      "B": "delegate",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "9e3b9c3b7ddc4d547ca0",
+    "condition_id": "laboratory-return_cost-01",
+    "presentation_id": "9f422793bdb46b40f93a",
+    "mapping": {
+      "A": "reference",
+      "B": "target",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "fc594fe0cd45072bb4c8",
+    "condition_id": "laboratory-mechanism_cost-13",
+    "presentation_id": "701c11305ce332100221",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "9391d3bdaaa022110cd6",
+    "condition_id": "laboratory-return_cost-02",
+    "presentation_id": "b495d9cb5ee0c33b637f",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "7f148c701b504841fc74",
+    "condition_id": "laboratory-mechanism_cost-02",
+    "presentation_id": "89a44206dc00f569fd41",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "01bc4c2d4c2320676a59",
+    "condition_id": "water-dependency_cost-01",
+    "presentation_id": "84d4e8bd43d440eb00bf",
+    "mapping": {
+      "A": "delegate",
+      "B": "reference",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "4e8a628bcde80bf4fd01",
+    "condition_id": "water-mechanism_cost-12",
+    "presentation_id": "d3a7cb9b0858ed7bf0de",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "3c919aa54f6e9137cfcc",
+    "condition_id": "laboratory-mechanism_cost-10",
+    "presentation_id": "48a8e87fa05eed696f60",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "delegate",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "0184a9c7790ca423904f",
+    "condition_id": "water-dependency_cost-00",
+    "presentation_id": "d5f71059d98663add4c3",
+    "mapping": {
+      "A": "target",
+      "B": "defer",
+      "C": "reference",
+      "D": "delegate"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "82e79bdad247b1170b48",
+    "condition_id": "water-dependency_cost-01",
+    "presentation_id": "912146291faa20809355",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "11a4e87fd8e9a87d95ca",
+    "condition_id": "laboratory-mechanism_cost-05",
+    "presentation_id": "6539f06164e675d98be5",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "f0176e08ca90b3de818b",
+    "condition_id": "laboratory-mechanism_cost-10",
+    "presentation_id": "6c84466d5a9d629969e9",
+    "mapping": {
+      "A": "defer",
+      "B": "target",
+      "C": "reference",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "b19a4cabd686c72fcc5f",
+    "condition_id": "laboratory-mechanism_cost-00",
+    "presentation_id": "a2967e9f54f61bcce543",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "4c10898e234513237d58",
+    "condition_id": "laboratory-return_cost-00",
+    "presentation_id": "a37a2923a73a449027c7",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "bd6fca6001aaf8329236",
+    "condition_id": "laboratory-mechanism_cost-07",
+    "presentation_id": "e073d86959887842c38e",
+    "mapping": {
+      "A": "reference",
+      "B": "defer",
+      "C": "delegate",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "42e7419fc450d19709b9",
+    "condition_id": "laboratory-dependency_cost-02",
+    "presentation_id": "fb96965ab3e10c518b56",
+    "mapping": {
+      "A": "reference",
+      "B": "target",
+      "C": "delegate",
+      "D": "defer"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "355b5a7eaf5e401aa102",
+    "condition_id": "laboratory-dependency_cost-01",
+    "presentation_id": "5d8516a1dc5272afb398",
+    "mapping": {
+      "A": "reference",
+      "B": "target",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "ee1fb3544a7ba9a8496f",
+    "condition_id": "water-return_cost-03",
+    "presentation_id": "0f26e4ff0fe43ea12d0c",
+    "mapping": {
+      "A": "target",
+      "B": "delegate",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "4a3aee246a6c7ee05fea",
+    "condition_id": "water-mechanism_cost-12",
+    "presentation_id": "0e6ec18b30debdcc8c39",
+    "mapping": {
+      "A": "target",
+      "B": "delegate",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "acf5987750d2bb7b8f8b",
+    "condition_id": "water-dependency_cost-02",
+    "presentation_id": "07ba8cc4173496855c98",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "bf5e6cd9437535c1cdf4",
+    "condition_id": "water-mechanism_cost-02",
+    "presentation_id": "7e8ec7d11672f2f519eb",
+    "mapping": {
+      "A": "target",
+      "B": "delegate",
+      "C": "defer",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "c053650adde9d462172d",
+    "condition_id": "water-dependency_cost-03",
+    "presentation_id": "1849ac876dee9d195b72",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "dfa332e45adab493bbe9",
+    "condition_id": "water-return_cost-02",
+    "presentation_id": "215a792051eef79d73e7",
+    "mapping": {
+      "A": "target",
+      "B": "delegate",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "48c213eae7ec5ff22455",
+    "condition_id": "water-mechanism_cost-00",
+    "presentation_id": "b2dc2f10539e8daa565e",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "db26585763e2736d2cea",
+    "condition_id": "water-dependency_cost-01",
+    "presentation_id": "9b292934a381e9bfd087",
+    "mapping": {
+      "A": "delegate",
+      "B": "target",
+      "C": "defer",
+      "D": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "ad6107961154e1a027ba",
+    "condition_id": "laboratory-return_cost-02",
+    "presentation_id": "b5d35cf21396aacf2d73",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "d9237dc7cdbf2eee0592",
+    "condition_id": "water-mechanism_cost-10",
+    "presentation_id": "46364050851f11e82692",
+    "mapping": {
+      "A": "defer",
+      "B": "delegate",
+      "C": "reference",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "a16de8a8788770604c2f",
+    "condition_id": "laboratory-mechanism_cost-00",
+    "presentation_id": "7d97db182d36afa43db1",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "abe54d83de16e6887358",
+    "condition_id": "water-mechanism_cost-04",
+    "presentation_id": "05e3f6b106d6755cd234",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "b8dc07dab87b8326a4f9",
+    "condition_id": "water-mechanism_cost-05",
+    "presentation_id": "6b61771620865c038c09",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "8b62158785a04617ad66",
+    "condition_id": "water-mechanism_cost-09",
+    "presentation_id": "0ca275c1022e64ac462a",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "af7fc415a70fd7cb013f",
+    "condition_id": "laboratory-return_cost-02",
+    "presentation_id": "8cbfab64799dc8fe2a20",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "5b9dfbf17eb4e8eabe00",
+    "condition_id": "laboratory-mechanism_cost-01",
+    "presentation_id": "a0d0a57e3df42a6661bd",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "25db04a3f673d4d76fdc",
+    "condition_id": "water-mechanism_cost-08",
+    "presentation_id": "d88444e1f778f89731b0",
+    "mapping": {
+      "A": "defer",
+      "B": "reference",
+      "C": "target",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "b1ceb1efacf64f00ec18",
+    "condition_id": "water-mechanism_cost-08",
+    "presentation_id": "9a96caa91e28a8e3cf1c",
+    "mapping": {
+      "A": "delegate",
+      "B": "reference",
+      "C": "target",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "2b9e7293a7b935eb5c12",
+    "condition_id": "water-return_cost-01",
+    "presentation_id": "e6935fae194718c01fbd",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "df20b58e1fdbe70dc099",
+    "condition_id": "water-mechanism_cost-00",
+    "presentation_id": "fb8fe0ad690617b66536",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "9e9ae89e88f999e4a026",
+    "condition_id": "laboratory-dependency_cost-01",
+    "presentation_id": "3b24c2bdcbd16549b00b",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "f5bad24b1cdb1ecbcc3c",
+    "condition_id": "laboratory-dependency_cost-03",
+    "presentation_id": "f3b11dbdd4b94ab5aebf",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "98ed8ea995b66a1cc2da",
+    "condition_id": "water-return_cost-00",
+    "presentation_id": "9f1f315424e314bed77b",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "55f3933242846c007b05",
+    "condition_id": "laboratory-dependency_cost-02",
+    "presentation_id": "aa7f49f018a585bf35d8",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "175d5f2cb1edc8f97d96",
+    "condition_id": "water-mechanism_cost-12",
+    "presentation_id": "805b2f6d490f41e7642c",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "05999584033f8671d868",
+    "condition_id": "laboratory-dependency_cost-03",
+    "presentation_id": "3589edfa5e8853bbc5f7",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "e72d9143c55f28b3429d",
+    "condition_id": "laboratory-return_cost-02",
+    "presentation_id": "aa821fff2f3b6db489cd",
+    "mapping": {
+      "A": "defer",
+      "B": "reference",
+      "C": "delegate",
+      "D": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "cd0aef2c5ab955b8b34f",
+    "condition_id": "laboratory-mechanism_cost-07",
+    "presentation_id": "f9132498c2e4344ced46",
+    "mapping": {
+      "A": "reference",
+      "B": "defer",
+      "C": "delegate",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "f0edb0135596e4832365",
+    "condition_id": "water-mechanism_cost-03",
+    "presentation_id": "1d24ef91e8844b638076",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "9d5027771c5a6b2edd9b",
+    "condition_id": "laboratory-mechanism_cost-09",
+    "presentation_id": "bdf856f202d6663e0e1a",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "71cfbb22d651ebb89784",
+    "condition_id": "water-dependency_cost-01",
+    "presentation_id": "e9c46513baf3e5d5b358",
+    "mapping": {
+      "A": "delegate",
+      "B": "defer",
+      "C": "target",
+      "D": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "dc79750d34a247dd72b0",
+    "condition_id": "laboratory-mechanism_cost-06",
+    "presentation_id": "1a05984f3e870e9deb6c",
+    "mapping": {
+      "A": "reference",
+      "B": "target",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "86d7fd5b68a727cb6dfb",
+    "condition_id": "water-return_cost-02",
+    "presentation_id": "b6da1e809fced2b8d8ae",
+    "mapping": {
+      "A": "delegate",
+      "B": "target",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "48267ffe6fb1259cccdb",
+    "condition_id": "water-mechanism_cost-01",
+    "presentation_id": "f780f3b71054783fea80",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "d32394140896c60e753f",
+    "condition_id": "water-mechanism_cost-04",
+    "presentation_id": "cf9fe0a5fcd285b31d19",
+    "mapping": {
+      "A": "defer",
+      "B": "delegate",
+      "C": "target",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "88db8dfbab3c6d8c13c1",
+    "condition_id": "laboratory-mechanism_cost-08",
+    "presentation_id": "5b49de7605ff413022db",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "99c8247f79d57e653635",
+    "condition_id": "laboratory-mechanism_cost-03",
+    "presentation_id": "05e0ecfe8fe296d27071",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "e2047b206d7b030feeb0",
+    "condition_id": "water-mechanism_cost-09",
+    "presentation_id": "01a467f1848bce457f66",
+    "mapping": {
+      "A": "reference",
+      "B": "target",
+      "C": "delegate",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "d0fbbdae365d10c9abb4",
+    "condition_id": "laboratory-mechanism_cost-01",
+    "presentation_id": "517bfd4c64ff051300e9",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "c668d8393e7e9baf4dfa",
+    "condition_id": "water-mechanism_cost-01",
+    "presentation_id": "1665b98d51a98fbfe429",
+    "mapping": {
+      "A": "delegate",
+      "B": "reference",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "60bfcc5974b1ebd888ea",
+    "condition_id": "laboratory-mechanism_cost-06",
+    "presentation_id": "d56049389fa1756f829d",
+    "mapping": {
+      "A": "reference",
+      "B": "defer",
+      "C": "delegate",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "28d6a391fce23901f5fa",
+    "condition_id": "laboratory-return_cost-03",
+    "presentation_id": "30ce0a94b86e77828e77",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "0c885eb36fcf0770894f",
+    "condition_id": "laboratory-dependency_cost-02",
+    "presentation_id": "66a6748f5bfe43530d42",
+    "mapping": {
+      "A": "defer",
+      "B": "reference",
+      "C": "delegate",
+      "D": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "eed2bc9164b2821e715d",
+    "condition_id": "water-mechanism_cost-02",
+    "presentation_id": "8b2ee011236133a9b3a4",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "ab270e98a3ab88ae44da",
+    "condition_id": "water-return_cost-02",
+    "presentation_id": "9d3e95f103970f04b90b",
+    "mapping": {
+      "A": "delegate",
+      "B": "reference",
+      "C": "target",
+      "D": "defer"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "715e036945a987df2688",
+    "condition_id": "laboratory-dependency_cost-00",
+    "presentation_id": "658b3860ac30f4901c77",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "1b8ba6411ba469230b3c",
+    "condition_id": "laboratory-return_cost-00",
+    "presentation_id": "9c7b5b9e1d5f4d453f50",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "3af231317639c608c08e",
+    "condition_id": "water-dependency_cost-02",
+    "presentation_id": "3f779251e064610689ef",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "e6e141dd31e776952c16",
+    "condition_id": "laboratory-return_cost-00",
+    "presentation_id": "1af0cc5b94cd381ca51c",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "83e0e37dc8513f8a3b99",
+    "condition_id": "laboratory-mechanism_cost-06",
+    "presentation_id": "d65aa9bf2deb1bd787fb",
+    "mapping": {
+      "A": "delegate",
+      "B": "reference",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "edc04da20a10f58a7954",
+    "condition_id": "laboratory-mechanism_cost-08",
+    "presentation_id": "969f4a39dd8b4ccf4d6a",
+    "mapping": {
+      "A": "delegate",
+      "B": "reference",
+      "C": "target",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "6a10f427dbb233134b74",
+    "condition_id": "laboratory-dependency_cost-02",
+    "presentation_id": "9876c32b8135c06f6304",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "85bd6039a6f4a10587a6",
+    "condition_id": "laboratory-mechanism_cost-04",
+    "presentation_id": "471598c63ba17080c4c8",
+    "mapping": {
+      "A": "delegate",
+      "B": "defer",
+      "C": "reference",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "84586352e1193674e5fa",
+    "condition_id": "laboratory-mechanism_cost-11",
+    "presentation_id": "a82aa229faa9e6c6223e",
+    "mapping": {
+      "A": "delegate",
+      "B": "defer",
+      "C": "target",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "e05c626a0639830a6281",
+    "condition_id": "laboratory-mechanism_cost-04",
+    "presentation_id": "be5124c12150c6c6d935",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "target",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "e7ee450498e5c2fe1337",
+    "condition_id": "water-mechanism_cost-02",
+    "presentation_id": "2c41a0014a2739f9efc0",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "fc6a37ad0600bee7bd00",
+    "condition_id": "laboratory-mechanism_cost-05",
+    "presentation_id": "f44cea7537976a7d5a88",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "c5a4b684656b5aa97b17",
+    "condition_id": "laboratory-mechanism_cost-09",
+    "presentation_id": "522d3dcbffb0b95b38f8",
+    "mapping": {
+      "A": "defer",
+      "B": "reference",
+      "C": "delegate",
+      "D": "target"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "d7d449dfd83188ed9c00",
+    "condition_id": "water-mechanism_cost-04",
+    "presentation_id": "00f1fead0d9c8386f71e",
+    "mapping": {
+      "A": "defer",
+      "B": "target",
+      "C": "delegate",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "3093dd1c54fcf47b58b8",
+    "condition_id": "laboratory-mechanism_cost-13",
+    "presentation_id": "dfd78429e7810bd396d7",
+    "mapping": {
+      "A": "delegate",
+      "B": "reference",
+      "C": "target",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "617108cd74b7dba46a55",
+    "condition_id": "water-dependency_cost-02",
+    "presentation_id": "2da3ce67f4ad38e6508a",
+    "mapping": {
+      "A": "target",
+      "B": "defer",
+      "C": "reference",
+      "D": "delegate"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "3c9b9e5abde24417fc60",
+    "condition_id": "laboratory-return_cost-03",
+    "presentation_id": "871a51cb43610cb3bebb",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "fd8033763f330d4edf27",
+    "condition_id": "water-mechanism_cost-05",
+    "presentation_id": "fdc2a06b6f06b3b4695c",
+    "mapping": {
+      "A": "defer",
+      "B": "delegate",
+      "C": "target",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "25ae9f56d0ad96c127a8",
+    "condition_id": "water-mechanism_cost-03",
+    "presentation_id": "e630fbfc60fcae0fb229",
+    "mapping": {
+      "A": "target",
+      "B": "defer",
+      "C": "reference",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "25e531d8b51ffc337115",
+    "condition_id": "laboratory-return_cost-02",
+    "presentation_id": "3d8ec990ab5894324d6a",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "e7d5adc4307de1790913",
+    "condition_id": "laboratory-return_cost-00",
+    "presentation_id": "e2d60619ba8e82bd6309",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "13aabb9f4e194d4e21dc",
+    "condition_id": "laboratory-mechanism_cost-01",
+    "presentation_id": "3632a6cb0ae62a1bb933",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "7c69bb885c1d1d8605d9",
+    "condition_id": "water-return_cost-01",
+    "presentation_id": "4114bcee83ff39a39689",
+    "mapping": {
+      "A": "defer",
+      "B": "target",
+      "C": "reference",
+      "D": "delegate"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "ac93c60565e569398bd8",
+    "condition_id": "laboratory-mechanism_cost-04",
+    "presentation_id": "c51102b62d7195b03547",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "16be492a6ffbcef1206d",
+    "condition_id": "water-return_cost-03",
+    "presentation_id": "0a3156c2d5f9c7e88f79",
+    "mapping": {
+      "A": "reference",
+      "B": "defer",
+      "C": "delegate",
+      "D": "target"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "4d93c9c110e2e9892b4b",
+    "condition_id": "water-mechanism_cost-12",
+    "presentation_id": "61d8b1df02e336d24e32",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "c473abdf0064ab09e50f",
+    "condition_id": "water-mechanism_cost-07",
+    "presentation_id": "9fcca1db9018a760c699",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "delegate",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "8e622575088e0fdd3e2e",
+    "condition_id": "laboratory-mechanism_cost-12",
+    "presentation_id": "2c30519805cd2a2bc65b",
+    "mapping": {
+      "A": "delegate",
+      "B": "defer",
+      "C": "target",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "dbbd249124a6fdd439a8",
+    "condition_id": "laboratory-mechanism_cost-11",
+    "presentation_id": "76a2428fff386251fbab",
+    "mapping": {
+      "A": "reference",
+      "B": "defer",
+      "C": "delegate",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "712331adaf7a8605e794",
+    "condition_id": "water-dependency_cost-03",
+    "presentation_id": "f3363c7c140fcbfd91bd",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "7e0e709e4c20f9a0285f",
+    "condition_id": "water-mechanism_cost-08",
+    "presentation_id": "765c2c8af684f15b274a",
+    "mapping": {
+      "A": "defer",
+      "B": "target",
+      "C": "reference",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "aaa3b28877fd4993623a",
+    "condition_id": "water-mechanism_cost-10",
+    "presentation_id": "b361feaf34fb52073d4d",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "target",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "2df3118acfdfa5011486",
+    "condition_id": "water-mechanism_cost-09",
+    "presentation_id": "d9ab17d5eafab1aa39b6",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "33f120a111a3883b3125",
+    "condition_id": "water-mechanism_cost-07",
+    "presentation_id": "4fc6bf43f9cc4c75e3f6",
+    "mapping": {
+      "A": "delegate",
+      "B": "defer",
+      "C": "reference",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "56cc5e9083b39d651213",
+    "condition_id": "water-mechanism_cost-08",
+    "presentation_id": "45ff15dd91ebc3adb48e",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "4e24197fec9bd2baffc5",
+    "condition_id": "laboratory-mechanism_cost-07",
+    "presentation_id": "0ad5d4ab999bd7e5a052",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "0ebd5135ae735fc221df",
+    "condition_id": "water-mechanism_cost-03",
+    "presentation_id": "3b42882a0902e8d577c1",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "274a0e0a2c147f6ba6c4",
+    "condition_id": "laboratory-mechanism_cost-02",
+    "presentation_id": "70604503323aecba6d84",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "e3e09ebe534ec3c7461b",
+    "condition_id": "water-mechanism_cost-11",
+    "presentation_id": "072378e53dff0c05d400",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "f56494f7e1ecaeaa557b",
+    "condition_id": "water-mechanism_cost-10",
+    "presentation_id": "aeb7d5adf06b31298947",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "11c5eff275bbf5517d95",
+    "condition_id": "laboratory-mechanism_cost-07",
+    "presentation_id": "b7d023ee8c8e13d161ac",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "ab3f0c45b40fe7db6020",
+    "condition_id": "laboratory-mechanism_cost-06",
+    "presentation_id": "e2dfd09ab492b038b7e2",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "30b41cffe02a6a74fa43",
+    "condition_id": "water-return_cost-03",
+    "presentation_id": "5cd07ca15e127e62d7fe",
+    "mapping": {
+      "A": "target",
+      "B": "delegate",
+      "C": "defer",
+      "D": "reference"
+    },
+    "factors": {
+      "mechanism": "resource_sharing",
+      "dependency": 1,
+      "return": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "46d5177ccc70b8c890a2",
+    "condition_id": "water-dependency_cost-03",
+    "presentation_id": "be19baa889a13fe3fa00",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "98d1518ab21772c1a32b",
+    "condition_id": "water-mechanism_cost-13",
+    "presentation_id": "9add3a009a939c2eb857",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "e34ed403a2f890b11aa0",
+    "condition_id": "water-dependency_cost-00",
+    "presentation_id": "0d892913fb70dafe8013",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "bc81d9aa58c21234a89e",
+    "condition_id": "laboratory-mechanism_cost-02",
+    "presentation_id": "54b136e08aa077c90b9c",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "6e28df06d0327a1f3f5d",
+    "condition_id": "laboratory-mechanism_cost-03",
+    "presentation_id": "93b768cbca95037436cc",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "defc9bd80b0437179ee3",
+    "condition_id": "water-mechanism_cost-06",
+    "presentation_id": "c8940d7e73e91461f4f0",
+    "mapping": {
+      "A": "delegate",
+      "B": "target",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "22338cff66de1af3ffd6",
+    "condition_id": "laboratory-dependency_cost-01",
+    "presentation_id": "182a642333bfe22f0f3b",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "0660e8a4047f414f4b55",
+    "condition_id": "water-dependency_cost-01",
+    "presentation_id": "f10f49d329947656e1b6",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "4615c7c0d55c24470083",
+    "condition_id": "water-mechanism_cost-06",
+    "presentation_id": "39580d4a38c8b659b68e",
+    "mapping": {
+      "A": "reference",
+      "B": "defer",
+      "C": "target",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "a7abc896782c1909bceb",
+    "condition_id": "water-dependency_cost-03",
+    "presentation_id": "01e8854550e4e7ff2492",
+    "mapping": {
+      "A": "reference",
+      "B": "target",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "13cc419e51e8e585b988",
+    "condition_id": "water-mechanism_cost-07",
+    "presentation_id": "d4377e4add2844e2a2ff",
+    "mapping": {
+      "A": "defer",
+      "B": "delegate",
+      "C": "target",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "resource_sharing",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "49aeba4d3b907d5e7d91",
+    "condition_id": "laboratory-mechanism_cost-09",
+    "presentation_id": "6da587ff6a1b99764717",
+    "mapping": {
+      "A": "target",
+      "B": "delegate",
+      "C": "reference",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "ade1c7ef7260d255a32f",
+    "condition_id": "water-mechanism_cost-01",
+    "presentation_id": "c4e966537b5ff0a4fcad",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "ca9dbdd91717a879e2af",
+    "condition_id": "water-mechanism_cost-04",
+    "presentation_id": "d573d81149ac4e74ed95",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "bfe4429eaf1e8a5c79fd",
+    "condition_id": "water-dependency_cost-03",
+    "presentation_id": "c07b30beafe0631ae832",
+    "mapping": {
+      "A": "defer",
+      "B": "delegate",
+      "C": "target",
+      "D": "reference"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 1,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "6dbee1547566c0bb3578",
+    "condition_id": "laboratory-mechanism_cost-04",
+    "presentation_id": "9bdb0c61b57ccd3ab07a",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "information_sharing",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "9fc6a6091768b4daf021",
+    "condition_id": "water-mechanism_cost-13",
+    "presentation_id": "3366a19a6a75bf762e7b",
+    "mapping": {
+      "A": "defer",
+      "B": "delegate",
+      "C": "target",
+      "D": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "8fba0cfd9b19899d58d6",
+    "condition_id": "water-dependency_cost-01",
+    "presentation_id": "31a95c23df5aba43c512",
+    "mapping": {
+      "A": "reference",
+      "B": "target"
+    },
+    "factors": {
+      "mechanism": "joint_task",
+      "return": 0,
+      "dependency": 0,
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "f299c93e6d91f70425fe",
+    "condition_id": "laboratory-mechanism_cost-08",
+    "presentation_id": "6444b29b1f8cad9029f5",
+    "mapping": {
+      "A": "defer",
+      "B": "target",
+      "C": "reference",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 1,
+      "dependency": 1,
+      "mechanism": "exchange",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "e7e6c44ae2f0b0d63213",
+    "condition_id": "laboratory-mechanism_cost-00",
+    "presentation_id": "31524eff836d8ab64385",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "756ec9bcc2ab1c809003",
+    "condition_id": "laboratory-mechanism_cost-03",
+    "presentation_id": "22b93819360cfe1536dd",
+    "mapping": {
+      "A": "reference",
+      "B": "delegate",
+      "C": "target",
+      "D": "defer"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "timing_coordination",
+      "cost": 20
+    }
+  },
+  {
+    "review_id": "919f23ee7b91bd4146da",
+    "condition_id": "laboratory-mechanism_cost-10",
+    "presentation_id": "099abb8de1980e8c7a4a",
+    "mapping": {
+      "A": "target",
+      "B": "reference"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "unilateral_assistance",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "77f244556780d7944a78",
+    "condition_id": "laboratory-mechanism_cost-00",
+    "presentation_id": "1604514b1bdec7892321",
+    "mapping": {
+      "A": "target",
+      "B": "reference",
+      "C": "defer",
+      "D": "delegate"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 1,
+      "mechanism": "joint_task",
+      "cost": 0
+    }
+  },
+  {
+    "review_id": "8b9b76aaed73081cadd2",
+    "condition_id": "laboratory-mechanism_cost-13",
+    "presentation_id": "eb4941ec4a0e0ad6de1f",
+    "mapping": {
+      "A": "delegate",
+      "B": "reference",
+      "C": "defer",
+      "D": "target"
+    },
+    "factors": {
+      "return": 0,
+      "dependency": 0,
+      "mechanism": "parallel_activity",
+      "cost": 20
+    }
+  }
+]
