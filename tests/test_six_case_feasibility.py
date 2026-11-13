@@ -54,6 +54,35 @@ def test_excluded_recipient_cases_not_rendered():
     rows=m.render(m.load_bank())
     assert not any(r['perspective']=='recipient' and r['case'] in ('museum','milk') for r in rows)
 
+def test_remote_module_import_does_not_require_local_instrument(tmp_path):
+    import subprocess
+    import sys
+    launcher=path.parents[2]/'modal_six_case_feasibility.py'
+    isolated=tmp_path/launcher.name
+    isolated.write_bytes(launcher.read_bytes())
+    subprocess.run([sys.executable, '-I', '-c',
+                    'import runpy, sys; runpy.run_path(sys.argv[1], run_name="remote_import")',
+                    str(isolated)], check=True, cwd=tmp_path)
+
+def test_answer_boundary_uses_space_and_rejects_retokenization():
+    import runpy
+    import pytest
+    launcher=runpy.run_path(str(path.parents[2]/'modal_six_case_feasibility.py'))
+    class Tokenizer:
+        def encode(self, text, add_special_tokens=False):
+            if text == 'Answer:': return [1, 2]
+            if text.startswith('Answer: ') and text[-1] in 'ABCD':
+                return [1, 2, 10+'ABCD'.index(text[-1])]
+            return [1, 99]
+    ids, candidates=launcher['candidate_tokens'](Tokenizer(), 'Answer:')
+    assert ids == [1, 2] and candidates == dict(zip('ABCD', range(10, 14)))
+    class BadTokenizer(Tokenizer):
+        def encode(self, text, add_special_tokens=False):
+            if text == 'Answer: A': return [1, 99]
+            return super().encode(text, add_special_tokens)
+    with pytest.raises(ValueError, match='Unstable answer boundary'):
+        launcher['candidate_tokens'](BadTokenizer(), 'Answer:')
+
 def test_local_launcher_dry_run_writes_verifiable_manifest(tmp_path, monkeypatch):
     import hashlib
     import json

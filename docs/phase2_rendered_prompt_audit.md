@@ -5,8 +5,9 @@
 - SHA-256: `8d3b6a5738b6bebb9e87504109a06d851f74a194fc7f04139b77c20295b988cb`
 - Items and presentations: 24 scenarios × 4 counterbalanced option orders = 96 prompts
 - Review scope: exact rendered stem, question, and options for every scenario; three additional letter orders are listed per item.
-- Status: offline prompt audit only; no model inference was run for this revised bank.
-- Superseded run: `run_Qwen_Qwen2.5-3B_20261112_184601_fa877ce2` used the earlier bank hash `7f3a5e1b344bf4d98e5a7c1da7fbf560de8b83ca927641b85ba143a289300892`; it does not evaluate this revised wording.
+- Status: offline prompt audit completed before inference; the exact audited bank was subsequently evaluated in the corrected Qwen pilot below.
+- Corrected inference run: `run_Qwen_Qwen2.5-3B_20261112_190748_35d06cdd` (96 presentations; bank SHA-256 matches this audit).
+- Earlier superseded run: `run_Qwen_Qwen2.5-3B_20261112_184601_fa877ce2` used the earlier bank hash `7f3a5e1b344bf4d98e5a7c1da7fbf560de8b83ca927641b85ba143a289300892`; it does not evaluate the wording audited here.
 
 ## Counterbalance check
 
