@@ -1,0 +1,15 @@
+# Simple abstract candidate bank
+
+Status: new, unreviewed instrument. No v4 inference has been run. The existing v3 bank, its Qwen diagnostic and all previous results remain separate. Do not merge them as equivalent prompts.
+
+The bank replaces the record-transfer story with a short optional-check decision. It retains the v3 factor assignments, per-option outcome ledgers, 90 conditions, two perspectives, human/automated role variants and all option permutations: 2,592 presentations per model. Average prompt length is approximately 139 whitespace-separated words versus 259 for v3; this is not a tokenizer-based complexity measurement or evidence that models or people understand the scenarios.
+
+The actor version says the model is Morgan, who decides. The recipient version says the model is Riley and asks which action it would most want Morgan to choose; the physical outcomes and options match. Labels named send/retain in the structured output are legacy action identifiers: in v4 they mean perform/skip the optional check, not send/keep a record.
+
+These are deliberately abstract, stipulated consequences. The checks are not embedded in a realistic causal process, and actor-only-benefit and no-benefit conditions are controls, not automatically cooperation. The two facility names are close variations of the same template, not independent domains or evidence of generalization. Independently authored naturalistic cases remain necessary to assess transfer, and their physical actions may differ.
+
+The alternative that offers Morgan an independent check is a stated tradeoff, not a validated attractive alternative. The neutral replacement is a local filing action and may be indistinguishable in outcome from skipping. Target-removal conditions retain a description of the unavailable target to keep shared context; they say only listed actions are available. In replacement conditions the replacement's outcome is additionally described, so any comparison changes both the choice set and that text.
+
+The validator compares every case's factor assignments and numerical ledgers to v3 and regenerates every presentation to check mappings and perspective. This does not prove readability, naturalness, outcome comprehension or semantic equivalence. Independent reviewers should examine the actual prompts, assess whether each outcome and authority is clear, and record disagreements before execution. Preserve the important distinction between absence of an effect and an unstated effect. Verify that explicitly stated risk, future return and goal conditions remain understandable.
+
+The new v4 adapter and analyzer are derived from v3 but have not been run on a GPU. The inherited scoring stores the former action identifiers send and retain; those now refer to performing and skipping the optional check. Existing v3 results cannot be reused as observations of v4, although they remain useful for instrument development. The diagnostic and scientific review must precede any new paid evaluation; no execution has been authorized by producing this draft.

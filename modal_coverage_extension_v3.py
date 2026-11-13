@@ -7,9 +7,24 @@ from pathlib import Path
 import modal
 from llm_cooperation.factorial_inference import MODEL_REVISIONS, ROOT, canonical, score_row, sha, validate_resume, write_json
 from llm_cooperation.coverage_extension_v3 import OUT, validate
-from modal_factorial_cooperation import image, cache, results, read_existing
-
 app = modal.App('llm-cooperation-coverage-extension-v3')
+cache = modal.Volume.from_name('llm-coop-hf-cache', create_if_missing=True)
+results = modal.Volume.from_name('llm-coop-results', create_if_missing=True)
+image = (modal.Image.debian_slim(python_version='3.11')
+         .pip_install('torch==2.5.1', 'transformers==4.53.2', 'accelerate==1.1.1',
+                      'numpy==1.26.4', 'pydantic==2.9.2', 'sentencepiece==0.2.0', 'protobuf==5.29.5')
+         .add_local_python_source('llm_cooperation'))
+
+
+def read_existing(path):
+    if not path.exists(): return []
+    raw = path.read_bytes()
+    if raw and not raw.endswith(b'\n'):
+        boundary = raw.rfind(b'\n') + 1
+        path.with_name('interrupted_tail_' + sha(raw[boundary:])[:16] + '.bin').write_bytes(raw[boundary:])
+        path.write_bytes(raw[:boundary])
+        raw = raw[:boundary]
+    return [json.loads(line) for line in raw.decode('utf-8').splitlines() if line.strip()]
 
 
 def load_battery():
@@ -95,7 +110,7 @@ def main(model: str, run_id: str, approved: bool = False, resume: bool = False, 
     if run_id != 'coverage_extension_v3_' + aliases[model]:
         raise ValueError('Use the canonical run ID for this bank/model to prevent duplicate runs')
     cases_raw, presentations_raw, rows=load_battery()
-    code=['modal_coverage_extension_v3.py','modal_factorial_cooperation.py','llm_cooperation/coverage_extension_v3.py','llm_cooperation/factorial_inference.py','llm_cooperation/harness/runner.py','llm_cooperation/choice_set_followup.py']
+    code=['modal_coverage_extension_v3.py','llm_cooperation/coverage_extension_v3.py','llm_cooperation/factorial_inference.py','llm_cooperation/harness/runner.py','llm_cooperation/choice_set_followup.py']
     manifest={'run_id':run_id,'model':model,'revision':MODEL_REVISIONS[model], 'cases_sha256':sha(cases_raw),
               'presentations_sha256':sha(presentations_raw),'count':len(rows), 'code_sha256':{p:sha((ROOT/p).read_bytes()) for p in code},
               'review_status':'user_declared_approved','scoring':'forced_next_token_and_greedy'}

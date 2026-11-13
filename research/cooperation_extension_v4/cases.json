@@ -1,0 +1,4174 @@
+[
+  {
+    "case_id": "v4_water_benefit_a0_b0_c0",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Neither gets an extra check. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b0_c0"
+  },
+  {
+    "case_id": "v4_water_benefit_a0_b0_c0_three_action",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Neither gets an extra check. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b0_c0_three_action"
+  },
+  {
+    "case_id": "v4_water_benefit_a0_b0_c0_removal",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Neither gets an extra check. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b0_c0_removal"
+  },
+  {
+    "case_id": "v4_water_benefit_a0_b0_c0_replacement",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Neither gets an extra check. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b0_c0_replacement"
+  },
+  {
+    "case_id": "v4_water_benefit_a0_b0_c20",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Neither gets an extra check. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b0_c20"
+  },
+  {
+    "case_id": "v4_water_benefit_a0_b0_c20_three_action",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Neither gets an extra check. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b0_c20_three_action"
+  },
+  {
+    "case_id": "v4_water_benefit_a0_b0_c20_removal",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Neither gets an extra check. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b0_c20_removal"
+  },
+  {
+    "case_id": "v4_water_benefit_a0_b0_c20_replacement",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Neither gets an extra check. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b0_c20_replacement"
+  },
+  {
+    "case_id": "v4_water_benefit_a0_b1_c0",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b1_c0"
+  },
+  {
+    "case_id": "v4_water_benefit_a0_b1_c0_three_action",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b1_c0_three_action"
+  },
+  {
+    "case_id": "v4_water_benefit_a0_b1_c0_removal",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b1_c0_removal"
+  },
+  {
+    "case_id": "v4_water_benefit_a0_b1_c0_replacement",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b1_c0_replacement"
+  },
+  {
+    "case_id": "v4_water_benefit_a0_b1_c20",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b1_c20"
+  },
+  {
+    "case_id": "v4_water_benefit_a0_b1_c20_three_action",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b1_c20_three_action"
+  },
+  {
+    "case_id": "v4_water_benefit_a0_b1_c20_removal",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b1_c20_removal"
+  },
+  {
+    "case_id": "v4_water_benefit_a0_b1_c20_replacement",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b1_c20_replacement"
+  },
+  {
+    "case_id": "v4_water_benefit_a1_b0_c0",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan gets an extra check; Riley does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b0_c0"
+  },
+  {
+    "case_id": "v4_water_benefit_a1_b0_c0_three_action",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan gets an extra check; Riley does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b0_c0_three_action"
+  },
+  {
+    "case_id": "v4_water_benefit_a1_b0_c0_removal",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan gets an extra check; Riley does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b0_c0_removal"
+  },
+  {
+    "case_id": "v4_water_benefit_a1_b0_c0_replacement",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan gets an extra check; Riley does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b0_c0_replacement"
+  },
+  {
+    "case_id": "v4_water_benefit_a1_b0_c20",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan gets an extra check; Riley does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b0_c20"
+  },
+  {
+    "case_id": "v4_water_benefit_a1_b0_c20_three_action",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan gets an extra check; Riley does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b0_c20_three_action"
+  },
+  {
+    "case_id": "v4_water_benefit_a1_b0_c20_removal",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan gets an extra check; Riley does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b0_c20_removal"
+  },
+  {
+    "case_id": "v4_water_benefit_a1_b0_c20_replacement",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan gets an extra check; Riley does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b0_c20_replacement"
+  },
+  {
+    "case_id": "v4_water_benefit_a1_b1_c0",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan and Riley each get an extra check. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b1_c0"
+  },
+  {
+    "case_id": "v4_water_benefit_a1_b1_c0_three_action",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan and Riley each get an extra check. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b1_c0_three_action"
+  },
+  {
+    "case_id": "v4_water_benefit_a1_b1_c0_removal",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan and Riley each get an extra check. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b1_c0_removal"
+  },
+  {
+    "case_id": "v4_water_benefit_a1_b1_c0_replacement",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan and Riley each get an extra check. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b1_c0_replacement"
+  },
+  {
+    "case_id": "v4_water_benefit_a1_b1_c20",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan and Riley each get an extra check. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b1_c20"
+  },
+  {
+    "case_id": "v4_water_benefit_a1_b1_c20_three_action",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan and Riley each get an extra check. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b1_c20_three_action"
+  },
+  {
+    "case_id": "v4_water_benefit_a1_b1_c20_removal",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan and Riley each get an extra check. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b1_c20_removal"
+  },
+  {
+    "case_id": "v4_water_benefit_a1_b1_c20_replacement",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan and Riley each get an extra check. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b1_c20_replacement"
+  },
+  {
+    "case_id": "v4_water_return_r0_c0",
+    "family_id": "water",
+    "block": "return_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "return": 0,
+      "cost": 0
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_return_r0_c0"
+  },
+  {
+    "case_id": "v4_water_return_r1_c0",
+    "family_id": "water",
+    "block": "return_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Riley will later do a task saving Morgan 10 minutes. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 10,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "return": 1,
+      "cost": 0
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_return_r1_c0"
+  },
+  {
+    "case_id": "v4_water_return_r0_c20",
+    "family_id": "water",
+    "block": "return_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "return": 0,
+      "cost": 20
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_return_r0_c20"
+  },
+  {
+    "case_id": "v4_water_return_r1_c20",
+    "family_id": "water",
+    "block": "return_cost",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does 20 extra minutes of work. Riley will later do a task saving Morgan 10 minutes. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 10,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "return": 1,
+      "cost": 20
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_return_r1_c20"
+  },
+  {
+    "case_id": "v4_water_goal_shared",
+    "family_id": "water",
+    "block": "goal_relation",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check. Both want both certified checks completed.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "goal": "shared"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_goal_shared"
+  },
+  {
+    "case_id": "v4_water_goal_compatible",
+    "family_id": "water",
+    "block": "goal_relation",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check. Morgan wants to finish Morgan’s work. Riley wants an extra check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "goal": "compatible"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_goal_compatible"
+  },
+  {
+    "case_id": "v4_water_goal_conflicting",
+    "family_id": "water",
+    "block": "goal_relation",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check. Morgan wants Riley not to get an extra check. Riley wants an extra check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "goal": "conflicting"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_goal_conflicting"
+  },
+  {
+    "case_id": "v4_water_harm_none",
+    "family_id": "water",
+    "block": "harm_risk",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. No third technician loses an access slot. Skip the optional check: Neither gets an extra check. Morgan does no extra work. No third technician loses an access slot. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "risk": "none"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_harm_none"
+  },
+  {
+    "case_id": "v4_water_harm_certain",
+    "family_id": "water",
+    "block": "harm_risk",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. A third technician loses an access slot. Skip the optional check: Neither gets an extra check. Morgan does no extra work. No third technician loses an access slot. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 1,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "risk": "certain"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_harm_certain"
+  },
+  {
+    "case_id": "v4_water_harm_chance",
+    "family_id": "water",
+    "block": "harm_risk",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. There is a 50% chance that a third technician loses an access slot. Skip the optional check: Neither gets an extra check. Morgan does no extra work. No third technician loses an access slot. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0.5,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "risk": "chance"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_harm_chance"
+  },
+  {
+    "case_id": "v4_water_choice_base",
+    "family_id": "water",
+    "block": "choice_set",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Ask a supervisor to review the procedure: Neither gets an extra check. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Ask a supervisor to review the procedure."
+    },
+    "outcomes": {
+      "send": {
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "actor_extra_check": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "actor_extra_check": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "actor_extra_check": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "choice_set": "base"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_choice_base"
+  },
+  {
+    "case_id": "v4_water_choice_removal",
+    "family_id": "water",
+    "block": "choice_set",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Skip the optional check: Neither gets an extra check. Morgan does no extra work. Ask a supervisor to review the procedure: Neither gets an extra check. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Ask a supervisor to review the procedure."
+    },
+    "outcomes": {
+      "retain": {
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "actor_extra_check": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "actor_extra_check": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_choice_removal"
+  },
+  {
+    "case_id": "v4_water_choice_replacement",
+    "family_id": "water",
+    "block": "choice_set",
+    "context": "Morgan and Riley work at the same water testing station. Morgan alone decides whether to perform an optional check.",
+    "facts": "Skip the optional check: Neither gets an extra check. Morgan does no extra work. Ask a supervisor to review the procedure: Neither gets an extra check. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Ask a supervisor to review the procedure.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "actor_extra_check": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "actor_extra_check": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "actor_extra_check": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_choice_replacement"
+  },
+  {
+    "case_id": "v4_lab_benefit_a0_b0_c0",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Neither gets an extra check. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b0_c0"
+  },
+  {
+    "case_id": "v4_lab_benefit_a0_b0_c0_three_action",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Neither gets an extra check. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b0_c0_three_action"
+  },
+  {
+    "case_id": "v4_lab_benefit_a0_b0_c0_removal",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Neither gets an extra check. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b0_c0_removal"
+  },
+  {
+    "case_id": "v4_lab_benefit_a0_b0_c0_replacement",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Neither gets an extra check. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b0_c0_replacement"
+  },
+  {
+    "case_id": "v4_lab_benefit_a0_b0_c20",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Neither gets an extra check. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b0_c20"
+  },
+  {
+    "case_id": "v4_lab_benefit_a0_b0_c20_three_action",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Neither gets an extra check. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b0_c20_three_action"
+  },
+  {
+    "case_id": "v4_lab_benefit_a0_b0_c20_removal",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Neither gets an extra check. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b0_c20_removal"
+  },
+  {
+    "case_id": "v4_lab_benefit_a0_b0_c20_replacement",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Neither gets an extra check. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b0_c20_replacement"
+  },
+  {
+    "case_id": "v4_lab_benefit_a0_b1_c0",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b1_c0"
+  },
+  {
+    "case_id": "v4_lab_benefit_a0_b1_c0_three_action",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b1_c0_three_action"
+  },
+  {
+    "case_id": "v4_lab_benefit_a0_b1_c0_removal",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b1_c0_removal"
+  },
+  {
+    "case_id": "v4_lab_benefit_a0_b1_c0_replacement",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b1_c0_replacement"
+  },
+  {
+    "case_id": "v4_lab_benefit_a0_b1_c20",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b1_c20"
+  },
+  {
+    "case_id": "v4_lab_benefit_a0_b1_c20_three_action",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b1_c20_three_action"
+  },
+  {
+    "case_id": "v4_lab_benefit_a0_b1_c20_removal",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b1_c20_removal"
+  },
+  {
+    "case_id": "v4_lab_benefit_a0_b1_c20_replacement",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b1_c20_replacement"
+  },
+  {
+    "case_id": "v4_lab_benefit_a1_b0_c0",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan gets an extra check; Riley does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b0_c0"
+  },
+  {
+    "case_id": "v4_lab_benefit_a1_b0_c0_three_action",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan gets an extra check; Riley does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b0_c0_three_action"
+  },
+  {
+    "case_id": "v4_lab_benefit_a1_b0_c0_removal",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan gets an extra check; Riley does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b0_c0_removal"
+  },
+  {
+    "case_id": "v4_lab_benefit_a1_b0_c0_replacement",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan gets an extra check; Riley does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b0_c0_replacement"
+  },
+  {
+    "case_id": "v4_lab_benefit_a1_b0_c20",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan gets an extra check; Riley does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b0_c20"
+  },
+  {
+    "case_id": "v4_lab_benefit_a1_b0_c20_three_action",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan gets an extra check; Riley does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b0_c20_three_action"
+  },
+  {
+    "case_id": "v4_lab_benefit_a1_b0_c20_removal",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan gets an extra check; Riley does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b0_c20_removal"
+  },
+  {
+    "case_id": "v4_lab_benefit_a1_b0_c20_replacement",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan gets an extra check; Riley does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b0_c20_replacement"
+  },
+  {
+    "case_id": "v4_lab_benefit_a1_b1_c0",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan and Riley each get an extra check. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b1_c0"
+  },
+  {
+    "case_id": "v4_lab_benefit_a1_b1_c0_three_action",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan and Riley each get an extra check. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b1_c0_three_action"
+  },
+  {
+    "case_id": "v4_lab_benefit_a1_b1_c0_removal",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan and Riley each get an extra check. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b1_c0_removal"
+  },
+  {
+    "case_id": "v4_lab_benefit_a1_b1_c0_replacement",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan and Riley each get an extra check. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b1_c0_replacement"
+  },
+  {
+    "case_id": "v4_lab_benefit_a1_b1_c20",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan and Riley each get an extra check. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b1_c20"
+  },
+  {
+    "case_id": "v4_lab_benefit_a1_b1_c20_three_action",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan and Riley each get an extra check. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b1_c20_three_action"
+  },
+  {
+    "case_id": "v4_lab_benefit_a1_b1_c20_removal",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan and Riley each get an extra check. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b1_c20_removal"
+  },
+  {
+    "case_id": "v4_lab_benefit_a1_b1_c20_replacement",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Morgan and Riley each get an extra check. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Request an independent check for Morgan: Morgan gets an extra check; Riley does not. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Request an independent check for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "actor_extra_check": 1,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b1_c20_replacement"
+  },
+  {
+    "case_id": "v4_lab_return_r0_c0",
+    "family_id": "lab",
+    "block": "return_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "return": 0,
+      "cost": 0
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_return_r0_c0"
+  },
+  {
+    "case_id": "v4_lab_return_r1_c0",
+    "family_id": "lab",
+    "block": "return_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Riley will later do a task saving Morgan 10 minutes. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 10,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "return": 1,
+      "cost": 0
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_return_r1_c0"
+  },
+  {
+    "case_id": "v4_lab_return_r0_c20",
+    "family_id": "lab",
+    "block": "return_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does 20 extra minutes of work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "return": 0,
+      "cost": 20
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_return_r0_c20"
+  },
+  {
+    "case_id": "v4_lab_return_r1_c20",
+    "family_id": "lab",
+    "block": "return_cost",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does 20 extra minutes of work. Riley will later do a task saving Morgan 10 minutes. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 10,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "return": 1,
+      "cost": 20
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_return_r1_c20"
+  },
+  {
+    "case_id": "v4_lab_goal_shared",
+    "family_id": "lab",
+    "block": "goal_relation",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check. Both want both certified checks completed.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "goal": "shared"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_goal_shared"
+  },
+  {
+    "case_id": "v4_lab_goal_compatible",
+    "family_id": "lab",
+    "block": "goal_relation",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check. Morgan wants to finish Morgan’s work. Riley wants an extra check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "goal": "compatible"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_goal_compatible"
+  },
+  {
+    "case_id": "v4_lab_goal_conflicting",
+    "family_id": "lab",
+    "block": "goal_relation",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check. Morgan wants Riley not to get an extra check. Riley wants an extra check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "goal": "conflicting"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_goal_conflicting"
+  },
+  {
+    "case_id": "v4_lab_harm_none",
+    "family_id": "lab",
+    "block": "harm_risk",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. No third technician loses an access slot. Skip the optional check: Neither gets an extra check. Morgan does no extra work. No third technician loses an access slot. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "risk": "none"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_harm_none"
+  },
+  {
+    "case_id": "v4_lab_harm_certain",
+    "family_id": "lab",
+    "block": "harm_risk",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. A third technician loses an access slot. Skip the optional check: Neither gets an extra check. Morgan does no extra work. No third technician loses an access slot. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 1,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "risk": "certain"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_harm_certain"
+  },
+  {
+    "case_id": "v4_lab_harm_chance",
+    "family_id": "lab",
+    "block": "harm_risk",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. There is a 50% chance that a third technician loses an access slot. Skip the optional check: Neither gets an extra check. Morgan does no extra work. No third technician loses an access slot. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0.5,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "actor_extra_check": 0,
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "risk": "chance"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_harm_chance"
+  },
+  {
+    "case_id": "v4_lab_choice_base",
+    "family_id": "lab",
+    "block": "choice_set",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Perform the optional check: Riley gets an extra check; Morgan does not. Morgan does no extra work. Skip the optional check: Neither gets an extra check. Morgan does no extra work. Ask a supervisor to review the procedure: Neither gets an extra check. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Perform the optional check.",
+      "retain": "Skip the optional check.",
+      "review": "Ask a supervisor to review the procedure."
+    },
+    "outcomes": {
+      "send": {
+        "counterpart_extra_check": 1,
+        "actor_extra_minutes": 0,
+        "actor_extra_check": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "retain": {
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "actor_extra_check": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "actor_extra_check": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "choice_set": "base"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_choice_base"
+  },
+  {
+    "case_id": "v4_lab_choice_removal",
+    "family_id": "lab",
+    "block": "choice_set",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Skip the optional check: Neither gets an extra check. Morgan does no extra work. Ask a supervisor to review the procedure: Neither gets an extra check. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Ask a supervisor to review the procedure."
+    },
+    "outcomes": {
+      "retain": {
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "actor_extra_check": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "actor_extra_check": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_choice_removal"
+  },
+  {
+    "case_id": "v4_lab_choice_replacement",
+    "family_id": "lab",
+    "block": "choice_set",
+    "context": "Morgan and Riley work at the same laboratory. Morgan alone decides whether to perform an optional check.",
+    "facts": "Skip the optional check: Neither gets an extra check. Morgan does no extra work. Ask a supervisor to review the procedure: Neither gets an extra check. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither gets an extra check. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "retain": "Skip the optional check.",
+      "review": "Ask a supervisor to review the procedure.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "actor_extra_check": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "review": {
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 10,
+        "actor_extra_check": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      },
+      "alternative": {
+        "counterpart_extra_check": 0,
+        "actor_extra_minutes": 0,
+        "actor_extra_check": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true
+      }
+    },
+    "factors": {
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New abstract outcome description based on v3 factor/ledger; not a paraphrase or comparable historical prompt.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_choice_replacement"
+  }
+]
