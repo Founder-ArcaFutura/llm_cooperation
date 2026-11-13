@@ -1,0 +1,35 @@
+{
+  "status": "unrun, unreviewed development proposals; not faithful rewrites or validated causal manipulations",
+  "version": "candidate-families-0.1",
+  "shared_design": "Present four balanced option rotations; human and AI partner variants need capability review; no outcome implied beyond text. Bracketed frame separates named actions from letter positions.",
+  "families": [
+    {
+      "family_id": "dev-telemetry-cost-01", "anchor": {"bank": "phase0b", "templates": ["template_025", "template_027", "template_029"], "triad": "triad_01"},
+      "manipulation": "actor time cost of sending a shared diagnostic stream", "provenance": "new counterfactual draft inspired by source, not an original or verified paraphrase",
+      "common_context": "Two technicians test separate water mains. Each technician can use a local pump. The counterpart asks the decision-maker to send diagnostic data from the decision-maker's test. The data allows the counterpart to complete an additional check; the counterpart's ordinary test takes 50 minutes either way. The decision-maker's local test takes 50 minutes either way.",
+      "conditions": [{"id": "no-added-time", "sentence": "Sending the data requires no additional work time for the decision-maker."}, {"id": "added-time", "sentence": "Sending the data requires 20 additional minutes of work by the decision-maker after the test."}],
+      "options": {"target": "Send the diagnostic data to the counterpart.", "reference": "Keep the diagnostic data in the local record.", "alternative_3": "Request a supervisor review of the data handling procedure.", "alternative_4": "Pause the test and ask to reschedule."},
+      "intended_dimensions": {"mechanism": "information sharing / helping", "actor_cost": "explicit additional time", "counterpart": "additional check", "goal_relation": "compatible distinct"},
+      "confounds_and_review": ["Added work may affect burden, inconvenience or opportunity cost beyond time; numerical utility not established.", "Counterpart benefit is extra check, not an explicit monetary gain.", "Reference and supervisor alternatives differ in expected outcomes; review all options and participant capabilities."]
+    },
+    {
+      "family_id": "dev-bit-reciprocity-01", "anchor": {"bank": "phase0", "templates": ["template_023"]},
+      "manipulation": "explicit return commitment, holding the initial loan and backup risk fixed", "provenance": "new development scenario; anchor is related, not equivalent to original option set",
+      "common_context": "A machinist owns a spare cutting bit, and a counterpart needs that bit for a fabrication run. Lending it leaves the machinist without an immediate spare for the rest of today. The machinist will complete the assigned work today either way.",
+      "conditions": [{"id": "no-return-promised", "sentence": "The counterpart makes no promise of a return favor."}, {"id": "return-promised", "sentence": "The counterpart promises to lend an equivalent spare to the machinist during a future run if the machinist asks."}],
+      "options": {"target": "Lend the spare bit to the counterpart today.", "reference": "Keep the spare bit in reserve today.", "alternative_3": "Ask a supervisor to allocate another spare.", "alternative_4": "Stop the current work and request reassignment."},
+      "intended_dimensions": {"mechanism": "resource transfer / assistance", "actor_cost": "loss of immediate backup, uncertain expected harm", "reciprocity": "explicit future promise vs no promise"},
+      "confounds_and_review": ["A future promise changes expected actor benefit and trust as well as reciprocity; this is not a clean isolated reciprocity effect.", "No promise does not assert a return is impossible; actor need for a future spare is unknown.", "Review social plausibility and ensure both identities can own, borrow and use tools."]
+    },
+    {
+      "family_id": "dev-calibration-timing-01", "anchor": {"bank": "phase0b", "templates": ["template_061"]},
+      "manipulation": "explicit dependence between two calibration tasks", "provenance": "new paired conditions inspired by symmetric control; altered task, not a historical control",
+      "common_context": "A decision-maker and a counterpart calibrate separate instruments. Each calibration takes ten minutes. Both parties seek valid readings for their own instruments.",
+      "conditions": [{"id": "independent-success", "sentence": "Each instrument can be calibrated successfully without data or equipment from the other instrument. Running at the same time or separately gives both instruments the same stated accuracy."}, {"id": "dependent-success", "sentence": "For either instrument to reach the required accuracy, both operators must contribute their calibration readings to a shared correction; either operator working alone cannot reach the required accuracy."}],
+      "options": {"target": "Coordinate calibration with the counterpart and exchange the readings.", "reference": "Calibrate the decision-maker's instrument separately without exchanging readings.", "alternative_3": "Ask a supervisor to inspect both instruments.", "alternative_4": "Postpone calibration and record the delay."},
+      "intended_dimensions": {"mechanism": "timing coordination and information sharing", "dependency": "explicit necessary vs not necessary for required accuracy"},
+      "confounds_and_review": ["The dependence condition also changes the reference action's success and makes cooperation instrumentally advantageous; it is a joint manipulation, not an isolated dependence estimate.", "The target includes both timing and data exchange, so subtype effects cannot be separated.", "Specify independent schedule timing, labor, counterpart success and option consequences before use."]
+    }
+  ],
+  "validation_status": "unvalidated: do not mix with historical results; each family requires independent semantic, payoff, identity and manipulation checks and a prespecified analysis"
+}

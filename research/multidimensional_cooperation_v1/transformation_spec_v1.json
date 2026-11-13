@@ -1,0 +1,16 @@
+{
+  "version": "matched-family-spec-0.1",
+  "status": "design proposal, not a validated generator",
+  "required_fields": ["family_id", "source_bank", "source_template_id", "source_scenario_ids", "source_hash", "transformation_id", "dimension_targeted", "counterfactual_conditions", "actor_and_counterpart_roles", "goal_and_task", "option_set", "stated_outcomes_by_party_and_option", "constant_features", "expected_confounders", "variant_provenance", "review_status"],
+  "minimum_controls": [
+    "Record baseline and altered condition with exact text and author intent; record when both are new text rather than an exact original anchor.",
+    "Specify outcome per actor and counterpart, in named units, for each option where needed; distinguish silence and zero.",
+    "Keep actor/counterpart identity, authority, goals, option mappings and relevant timing comparable when possible; document changes that cannot be isolated.",
+    "Generate identity and wording variants from frozen conditions; use all option rotations and preserve generated mappings.",
+    "Use independent reviewers to assess role coherence, construct assignment, manipulation fidelity, outcomes, plausibility and unintended cues without model responses.",
+    "Freeze development transformations and review decisions before prospective holdout construction; existing exposed banks do not become independent holdout by renaming them."
+  ],
+  "required_validation_layers": ["schema and parent reference checks", "exact text and numeric consistency checks", "independent blinded semantic and payoff review", "counterpart ability and authority review", "manipulation check", "outcome-blind eligibility adjudication"],
+  "do_not_infer": ["A structural check proves semantic equivalence", "a common time proves task dependence", "an intended cost is perceived by the model", "a reviewed template is a random sample of all contexts"],
+  "sampling_and_analysis": "Predefine model cohort and candidate exclusions, identify model families as related checkpoints, use template/family clusters and paired conditions; preserve ties and position diagnostics. Decide the main contrasts before outcome exposure."
+}

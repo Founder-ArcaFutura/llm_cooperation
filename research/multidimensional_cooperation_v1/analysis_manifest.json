@@ -1,0 +1,30 @@
+{
+  "description": "Exploratory authored-label and unvalidated Qwen-label descriptive analysis; no causal claims",
+  "inputs": {
+    "data\\scenarios_v1_expanded.json": "78f513e4b3c481841c11aaa1d9f4ab5d5690c212d0398f9e4c28e29eb16f26cd",
+    "data\\scenarios_phase0b_utility_matched.json": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+    "data\\scenarios_phase1_prospective.json": "5994103be281863e336fbad2d325b99a9d235c982ef7bc0f00d512f713e8886f"
+  },
+  "packet_sha256": "7d776d386c1eaa960b1482dff8bbe140da25d2100900d9c210e120da01601b1d",
+  "mapping_sha256": "a1c6b842b33d0de132e2202994ca220945c9fb4a5f69271cda0f4d655753094c",
+  "qwen_sha256": "68ca224d9268b7e8288c3cae5d1cf89930a6cdd2b743e3898de6def26d4d3c3c",
+  "behavioral_row_sha256": {
+    "Qwen/Qwen2.5-1.5B": "15a3f63c36bf36ae315cce4aa66949d7a6a0d052d3b65a64092bcc181d40b36f",
+    "Qwen/Qwen2.5-3B": "695f4cb6b97b5b45ec821c15f2ce534600182845d734d5d039fd9d0b7fdba7ed",
+    "Qwen/Qwen2.5-7B": "ccc9ebaaeed98f6474bd57671baaee401ed4993bbaca0441c1b286856f862ba0",
+    "allenai/OLMo-2-0425-1B": "6b139737bde9a5c8f3df23a020db914ebf8ae7434e842e2d9d63f5a64a9956e3",
+    "allenai/OLMo-2-1124-7B": "09dd66caff85c560d400197e000bac562cb9eafbfcde8cf47ef5d613973c613f",
+    "deepseek-ai/deepseek-llm-7b-base": "316f45501b06d409a18f0ef9c8f51002dfcc9f788659391f7ab0c7a94c4d283f",
+    "google/gemma-2-2b": "29bc0ef30584949b96f624bb73b23269cfdb2e168aefa6fe94a33a45c2c5e27c",
+    "google/gemma-2-9b": "5bc68833b822c63ee160148c2868e89283e640746ab6c05571df3ab724a57aa0",
+    "ibm-granite/granite-3.3-2b-base": "50cb180837a89c8becae3719993118db65ef1e4ed8f7f3b47c64ffc4195a7ebf",
+    "meta-llama/Llama-3.2-3B": "9e52ded7e7b5daf00b73c3b15815e81762e02a00fd1fdfd05cf262f7856a9e30",
+    "mistralai/Mistral-7B-v0.3": "2a8cc019dbfb75499619436a01a2bce756cb8e2fa446b5d22380aee9225b1795"
+  },
+  "luna_development_qa_sha256": "e33c39009ee7df805df54220631f30d857d2a4bdf293d5132b913bec427338f3",
+  "models": 11,
+  "scenario_versions": 304,
+  "scenario_wordings": 608,
+  "within_triad": "Matched triad, partner, permutation, wording; both original and paraphrase untied in each included condition; no inference with four triads",
+  "warning": "Qwen v1 labels are unvalidated and fields can be wrong; group overlap and selection changes across variants; source split is not a prospective heldout guarantee."
+}

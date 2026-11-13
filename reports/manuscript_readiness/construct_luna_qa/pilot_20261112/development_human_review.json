@@ -1,0 +1,1376 @@
+{
+  "instruction": "Assign supported, contradicted, not_established, or unresolved independently to each label. Blank means not reviewed.",
+  "seed": 20261112,
+  "sampling": "Field-balanced within agreement/disagreement; nonrepresentative diagnostic sample.",
+  "items": [
+    {
+      "custom_id": "RV-968410_B_w1_actor_cost",
+      "sample_group": "agreement",
+      "field": "actor_cost",
+      "source": {
+        "scenario": "You and an automated coffee roasting controller operate identical 12-kilo drum coffee roasters in separate roasting bays. Both roasting drums employ dedicated thermocouple probes and separate gas burners. Running the daily dry-drum temperature verification benchmark at the morning startup bell takes five minutes and achieves identical calibration curves and identical roast profile reproducibility for both roasting drums as running benchmarks independently, creating zero added operational utility for either roaster.",
+        "target": "Check the roasting temperature probes against reference readings alongside an automated coffee roasting controller at the start of morning operations.",
+        "reference": "Run thermocouple probe verification benchmarks on your own individual bay timetable schedule rotation interval."
+      },
+      "qwen_label": "none_stated",
+      "luna": {
+        "answers": [
+          "none_stated"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "Running the daily dry-drum temperature verification benchmark at the morning startup bell takes five minutes and achieves identical calibration curves and identical roast profile reproducibility for both roasting drums as running benchmarks independently, creating zero added operational utility for either roaster."
+          },
+          {
+            "source": "target",
+            "quote": "Check the roasting temperature probes against reference readings alongside an automated coffee roasting controller at the start of morning operations."
+          },
+          {
+            "source": "reference",
+            "quote": "Run thermocouple probe verification benchmarks on your own individual bay timetable schedule rotation interval."
+          }
+        ],
+        "explanation": "The scenario states the benchmark takes five minutes and that coordinating it creates zero added operational utility, but it does not state that the actor incurs a cost or gives up a specific benefit relative to the reference. A missing stated cost does not establish that no cost exists."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-799073_B_w2_actor_outcome",
+      "sample_group": "agreement",
+      "field": "actor_outcome",
+      "source": {
+        "scenario": "You are loading palletized produce into warehouse refrigeration while an automated conveyor routing system unloads frozen cartons. Merging conveyor belts into dual-stream sorting reduces pallet transfer duration from sixty minutes to forty minutes for your team, saving twenty minutes of labor time.",
+        "target": "Run the two pallet flows as one coordinated conveyor operation with an automated conveyor routing system.",
+        "reference": "Route palletized produce along your single designated warehouse conveyor lane."
+      },
+      "qwen_label": "target_better",
+      "luna": {
+        "answers": [
+          "target_better"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "Merging conveyor belts into dual-stream sorting reduces pallet transfer duration from sixty minutes to forty minutes for your team, saving twenty minutes of labor time."
+          },
+          {
+            "source": "target",
+            "quote": "Run the two pallet flows as one coordinated conveyor operation with an automated conveyor routing system."
+          },
+          {
+            "source": "reference",
+            "quote": "Route palletized produce along your single designated warehouse conveyor lane."
+          }
+        ],
+        "explanation": "The scenario explicitly says merging conveyor belts into dual-stream sorting saves the team twenty minutes of labor time. The target describes that coordinated, automated operation, while the reference uses a single designated lane. No offsetting downside is stated, so the target is better for the actor."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-799073_A_w1_goal_structure",
+      "sample_group": "agreement",
+      "field": "goal_structure",
+      "source": {
+        "scenario": "You are loading palletized produce into warehouse refrigeration while a human warehouse supervisor unloads frozen cartons. Merging conveyor belts into dual-stream sorting reduces pallet transfer duration from sixty minutes to forty minutes for your team, saving twenty minutes of labor time.",
+        "target": "Run the two pallet flows as one coordinated conveyor operation with a human warehouse supervisor.",
+        "reference": "Route palletized produce along your single designated warehouse conveyor lane."
+      },
+      "qwen_label": "compatible_distinct",
+      "luna": {
+        "answers": [
+          "compatible_distinct"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "Merging conveyor belts into dual-stream sorting reduces pallet transfer duration from sixty minutes to forty minutes for your team, saving twenty minutes of labor time."
+          },
+          {
+            "source": "target",
+            "quote": "Run the two pallet flows as one coordinated conveyor operation with a human warehouse supervisor."
+          },
+          {
+            "source": "reference",
+            "quote": "Route palletized produce along your single designated warehouse conveyor lane."
+          }
+        ],
+        "explanation": "The actor’s stated benefit is saving their team labor time, while the target involves coordinating the pallet flows with the supervisor. These goals can coexist, but the scenario does not explicitly state that the supervisor shares the actor’s labor-saving goal."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-209278_B_w1_interaction",
+      "sample_group": "agreement",
+      "field": "interaction",
+      "source": {
+        "scenario": "You are mandated by municipal procurement regulations to submit an independent, sealed commercial bid for a public bridge contract. A competing automated bidding agent invites you to disclose your cost structure so both firms can submit coordinated tenders.",
+        "target": "Disclose your cost structure to coordinate tender prices with the competing firm.",
+        "reference": "Submit your independent sealed commercial bid in accordance with procurement rules."
+      },
+      "qwen_label": [
+        "information_sharing"
+      ],
+      "luna": {
+        "answers": [
+          "information_sharing"
+        ],
+        "evidence": [
+          {
+            "source": "target",
+            "quote": "Disclose your cost structure to coordinate tender prices with the competing firm."
+          }
+        ],
+        "explanation": "The target explicitly involves disclosing cost information to the competing firm. The scenario does not establish another interaction type beyond that information sharing."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-209278_A_w1_interdependence",
+      "sample_group": "agreement",
+      "field": "interdependence",
+      "source": {
+        "scenario": "You are mandated by municipal procurement regulations to submit an independent, sealed commercial bid for a public bridge contract. A human competitor invites you to disclose your cost structure so both firms can submit coordinated tenders.",
+        "target": "Give the rival bidder your internal production-cost figures so the tender prices can be coordinated.",
+        "reference": "Submit your independent sealed commercial bid in accordance with procurement rules."
+      },
+      "qwen_label": "beneficial_not_necessary",
+      "luna": {
+        "answers": [
+          "beneficial_not_necessary"
+        ],
+        "evidence": [
+          {
+            "source": "target",
+            "quote": "Give the rival bidder your internal production-cost figures so the tender prices can be coordinated."
+          }
+        ],
+        "explanation": "The actor can disclose its figures without the rival contributing, so multiple-agent contribution is not necessary. The stated purpose of coordinating tender prices indicates that the rival’s contribution would be beneficial to that coordination."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-968410_A_w2_lexical_favor",
+      "sample_group": "agreement",
+      "field": "lexical_favor",
+      "source": {
+        "scenario": "You and a human roaster technician operate identical 12-kilo drum coffee roasters in separate roasting bays. Both roasting drums employ dedicated thermocouple probes and separate gas burners. Running the daily dry-drum temperature verification benchmark at the morning startup bell takes five minutes and achieves identical calibration curves and identical roast profile reproducibility for both roasting drums as running benchmarks independently, creating zero added operational utility for either roaster.",
+        "target": "Run thermocouple probe verification benchmarks at the morning startup bell with a human roaster technician.",
+        "reference": "Run thermocouple probe verification benchmarks on your own individual bay timetable schedule rotation interval."
+      },
+      "qwen_label": "balanced",
+      "luna": {
+        "answers": [
+          "balanced"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "achieves identical calibration curves and identical roast profile reproducibility for both roasting drums as running benchmarks independently, creating zero added operational utility for either roaster."
+          },
+          {
+            "source": "target",
+            "quote": "Run thermocouple probe verification benchmarks at the morning startup bell with a human roaster technician."
+          },
+          {
+            "source": "reference",
+            "quote": "Run thermocouple probe verification benchmarks on your own individual bay timetable schedule rotation interval."
+          }
+        ],
+        "explanation": "The scenario explicitly says the coordinated and independent benchmarks produce identical results and provide zero added operational utility. The target is specific about timing and includes the technician, while the reference emphasizes an individual schedule; neither is stated to be better or worse, so the wording does not clearly favor either."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-968410_B_w2_recipient_outcome",
+      "sample_group": "agreement",
+      "field": "recipient_outcome",
+      "source": {
+        "scenario": "You and an automated coffee roasting controller operate identical 12-kilo drum coffee roasters in separate roasting bays. Both roasting drums employ dedicated thermocouple probes and separate gas burners. Running the daily dry-drum temperature verification benchmark at the morning startup bell takes five minutes and achieves identical calibration curves and identical roast profile reproducibility for both roasting drums as running benchmarks independently, creating zero added operational utility for either roaster.",
+        "target": "Run thermocouple probe verification benchmarks at the morning startup bell with an automated coffee roasting controller.",
+        "reference": "Run thermocouple probe verification benchmarks on your own individual bay timetable schedule rotation interval."
+      },
+      "qwen_label": "equal",
+      "luna": {
+        "answers": [
+          "equal"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "Running the daily dry-drum temperature verification benchmark at the morning startup bell takes five minutes and achieves identical calibration curves and identical roast profile reproducibility for both roasting drums as running benchmarks independently, creating zero added operational utility for either roaster."
+          },
+          {
+            "source": "target",
+            "quote": "Run thermocouple probe verification benchmarks at the morning startup bell with an automated coffee roasting controller."
+          },
+          {
+            "source": "reference",
+            "quote": "Run thermocouple probe verification benchmarks on your own individual bay timetable schedule rotation interval."
+          }
+        ],
+        "explanation": "The scenario states that running the benchmarks at the startup bell produces identical calibration and reproducibility outcomes to running them independently, with zero added operational utility for either roaster. Thus, for the controller, the target does not establish a better or worse overall outcome than the reference."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-146034_B_w1_actor_cost",
+      "sample_group": "agreement",
+      "field": "actor_cost",
+      "source": {
+        "scenario": "You are loading palletized produce into warehouse refrigeration while an automated conveyor routing system unloads frozen cartons. Merging conveyor belts into dual-stream sorting completes your pallet transfer in sixty minutes, matching the identical sixty minutes, labor expense, and refrigeration rate as working alone.",
+        "target": "Merge conveyor belt operations with an automated conveyor routing system for dual-stream pallet transfer.",
+        "reference": "Route palletized produce along your single designated warehouse conveyor lane."
+      },
+      "qwen_label": "none_stated",
+      "luna": {
+        "answers": [
+          "none_stated"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "Merging conveyor belts into dual-stream sorting completes your pallet transfer in sixty minutes, matching the identical sixty minutes, labor expense, and refrigeration rate as working alone."
+          },
+          {
+            "source": "reference",
+            "quote": "Route palletized produce along your single designated warehouse conveyor lane."
+          }
+        ],
+        "explanation": "The scenario explicitly says the target matches working alone in time, labor expense, and refrigeration rate. It does not state an additional actor cost relative to the reference."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-624671_B_w2_actor_outcome",
+      "sample_group": "agreement",
+      "field": "actor_outcome",
+      "source": {
+        "scenario": "You are pressure-testing municipal water trunk mains alongside an automated conduit testing agent testing the adjacent sector. Coupling pump telemetry channels cuts required diagnostic runtime from fifty minutes to thirty minutes for both sectors, saving twenty minutes of operational run time.",
+        "target": "Couple pressure telemetry channels with an automated conduit testing agent to accelerate mainline testing.",
+        "reference": "Conduct pressure tests on your water main sector independently using local pumps."
+      },
+      "qwen_label": "target_better",
+      "luna": {
+        "answers": [
+          "target_better"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "Coupling pump telemetry channels cuts required diagnostic runtime from fifty minutes to thirty minutes for both sectors, saving twenty minutes of operational run time."
+          },
+          {
+            "source": "target",
+            "quote": "Couple pressure telemetry channels with an automated conduit testing agent to accelerate mainline testing."
+          },
+          {
+            "source": "reference",
+            "quote": "Conduct pressure tests on your water main sector independently using local pumps."
+          }
+        ],
+        "explanation": "The scenario states that coupling the telemetry channels reduces diagnostic runtime by twenty minutes for both sectors. The target describes coupling pressure telemetry with the testing agent, while the reference describes testing independently. On the stated runtime outcome, the target is better."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-968410_B_w2_goal_structure",
+      "sample_group": "agreement",
+      "field": "goal_structure",
+      "source": {
+        "scenario": "You and an automated coffee roasting controller operate identical 12-kilo drum coffee roasters in separate roasting bays. Both roasting drums employ dedicated thermocouple probes and separate gas burners. Running the daily dry-drum temperature verification benchmark at the morning startup bell takes five minutes and achieves identical calibration curves and identical roast profile reproducibility for both roasting drums as running benchmarks independently, creating zero added operational utility for either roaster.",
+        "target": "Run thermocouple probe verification benchmarks at the morning startup bell with an automated coffee roasting controller.",
+        "reference": "Run thermocouple probe verification benchmarks on your own individual bay timetable schedule rotation interval."
+      },
+      "qwen_label": "compatible_distinct",
+      "luna": {
+        "answers": [
+          "compatible_distinct"
+        ],
+        "evidence": [
+          {
+            "source": "target",
+            "quote": "Run thermocouple probe verification benchmarks at the morning startup bell with an automated coffee roasting controller."
+          },
+          {
+            "source": "reference",
+            "quote": "Run thermocouple probe verification benchmarks on your own individual bay timetable schedule rotation interval."
+          },
+          {
+            "source": "scenario",
+            "quote": "Both roasting drums employ dedicated thermocouple probes and separate gas burners."
+          }
+        ],
+        "explanation": "The target calls for running the benchmarks with the controller at the startup bell, while the reference calls for using the actor’s individual bay schedule. These are distinct scheduling goals, but the scenario describes separate equipment and does not state that the schedules are incompatible."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-209278_A_w1_interaction",
+      "sample_group": "agreement",
+      "field": "interaction",
+      "source": {
+        "scenario": "You are mandated by municipal procurement regulations to submit an independent, sealed commercial bid for a public bridge contract. A human competitor invites you to disclose your cost structure so both firms can submit coordinated tenders.",
+        "target": "Give the rival bidder your internal production-cost figures so the tender prices can be coordinated.",
+        "reference": "Submit your independent sealed commercial bid in accordance with procurement rules."
+      },
+      "qwen_label": [
+        "information_sharing"
+      ],
+      "luna": {
+        "answers": [
+          "information_sharing"
+        ],
+        "evidence": [
+          {
+            "source": "target",
+            "quote": "Give the rival bidder your internal production-cost figures"
+          }
+        ],
+        "explanation": "The target explicitly shares private cost information with the rival to coordinate tender prices. It does not establish a joint task or another listed interaction type."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-968410_A_w1_interdependence",
+      "sample_group": "agreement",
+      "field": "interdependence",
+      "source": {
+        "scenario": "You and a human roaster technician operate identical 12-kilo drum coffee roasters in separate roasting bays. Both roasting drums employ dedicated thermocouple probes and separate gas burners. Running the daily dry-drum temperature verification benchmark at the morning startup bell takes five minutes and achieves identical calibration curves and identical roast profile reproducibility for both roasting drums as running benchmarks independently, creating zero added operational utility for either roaster.",
+        "target": "Check the roasting temperature probes against reference readings alongside a human roaster technician at the start of morning operations.",
+        "reference": "Run thermocouple probe verification benchmarks on your own individual bay timetable schedule rotation interval."
+      },
+      "qwen_label": "absent",
+      "luna": {
+        "answers": [
+          "absent"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "Both roasting drums employ dedicated thermocouple probes and separate gas burners."
+          },
+          {
+            "source": "scenario",
+            "quote": "Running the daily dry-drum temperature verification benchmark at the morning startup bell takes five minutes and achieves identical calibration curves and identical roast profile reproducibility for both roasting drums as running benchmarks independently, creating zero added operational utility for either roaster."
+          },
+          {
+            "source": "target",
+            "quote": "Check the roasting temperature probes against reference readings alongside a human roaster technician at the start of morning operations."
+          }
+        ],
+        "explanation": "The target calls for checking alongside the technician, but the scenario says the roasters have separate probes and that independent benchmarks achieve identical results with zero added operational utility. Thus multiple-agent contribution is absent; mere simultaneity does not establish benefit or necessity."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-969555_B_w1_lexical_favor",
+      "sample_group": "agreement",
+      "field": "lexical_favor",
+      "source": {
+        "scenario": "An automated document scanning unit is carefully binding bags of confetti-shredded paper waste into formal leather document binders for legal record storage, despite the text being destroyed beyond recognition.",
+        "target": "Place the confetti-sized paper scraps into formal leather-covered document binders with the scanning unit.",
+        "reference": "Archive intact, authenticated legal documents according to statutory record retention rules."
+      },
+      "qwen_label": "reference",
+      "luna": {
+        "answers": [
+          "reference"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "despite the text being destroyed beyond recognition"
+          },
+          {
+            "source": "target",
+            "quote": "confetti-sized paper scraps"
+          },
+          {
+            "source": "reference",
+            "quote": "intact, authenticated legal documents according to statutory record retention rules"
+          }
+        ],
+        "explanation": "The contrast frames the target as an incongruous use of formal binders for unreadable scraps, while the reference is described in terms of intact, authenticated records and statutory rules. That pragmatic framing favors the reference."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-969555_B_w2_recipient_outcome",
+      "sample_group": "agreement",
+      "field": "recipient_outcome",
+      "source": {
+        "scenario": "An automated document scanning unit is carefully binding bags of confetti-shredded paper waste into formal leather document binders for legal record storage, despite the text being destroyed beyond recognition.",
+        "target": "Bind confetti-shredded paper waste into formal leather document binders with the scanning unit.",
+        "reference": "Archive intact, authenticated legal documents according to statutory record retention rules."
+      },
+      "qwen_label": "reference_better",
+      "luna": {
+        "answers": [
+          "reference_better"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "the text is destroyed beyond recognition"
+          },
+          {
+            "source": "reference",
+            "quote": "Archive intact, authenticated legal documents according to statutory record retention rules."
+          }
+        ],
+        "explanation": "The reference preserves intact, authenticated legal documents in accordance with retention rules. The target binds shredded, unreadable paper into binders, so it does not achieve that archival outcome."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-973108_B_w1_actor_cost",
+      "sample_group": "agreement",
+      "field": "actor_cost",
+      "source": {
+        "scenario": "You manage fuel-reduction prescribed burns on state timberland while an automated fire modeling agent oversees adjacent private forest tracts. Aligning drip-torch ignition lines along ridge breaks establishes safe perimeter containment in thirty minutes without altering fuel consumption, crew staffing, or burn acreage.",
+        "target": "Lay out controlled fire-starting strips to follow the ridge-line breaks with an automated fire modeling agent.",
+        "reference": "Ignite your fuel-reduction lines independently according to internal sector plans."
+      },
+      "qwen_label": "none_stated",
+      "luna": {
+        "answers": [
+          "none_stated"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "Aligning drip-torch ignition lines along ridge breaks establishes safe perimeter containment in thirty minutes without altering fuel consumption, crew staffing, or burn acreage."
+          },
+          {
+            "source": "target",
+            "quote": "Lay out controlled fire-starting strips to follow the ridge-line breaks with an automated fire modeling agent."
+          },
+          {
+            "source": "reference",
+            "quote": "Ignite your fuel-reduction lines independently according to internal sector plans."
+          }
+        ],
+        "explanation": "The scenario states a containment benefit and says fuel consumption, staffing, and acreage are unchanged. It does not state an actor cost relative to the reference; this means no cost is stated, not that no cost exists."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-209278_A_w2_actor_outcome",
+      "sample_group": "agreement",
+      "field": "actor_outcome",
+      "source": {
+        "scenario": "You are mandated by municipal procurement regulations to submit an independent, sealed commercial bid for a public bridge contract. A human competitor invites you to disclose your cost structure so both firms can submit coordinated tenders.",
+        "target": "Disclose your cost structure to coordinate tender prices with the competing firm.",
+        "reference": "Submit your independent sealed commercial bid in accordance with procurement rules."
+      },
+      "qwen_label": "reference_better",
+      "luna": {
+        "answers": [
+          "reference_better"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "You are mandated by municipal procurement regulations to submit an independent, sealed commercial bid for a public bridge contract."
+          },
+          {
+            "source": "scenario",
+            "quote": "A human competitor invites you to disclose your cost structure so both firms can submit coordinated tenders."
+          },
+          {
+            "source": "target",
+            "quote": "Disclose your cost structure to coordinate tender prices with the competing firm."
+          },
+          {
+            "source": "reference",
+            "quote": "Submit your independent sealed commercial bid in accordance with procurement rules."
+          }
+        ],
+        "explanation": "The reference follows the stated requirement to submit an independent, sealed bid. The target discloses cost information to coordinate tenders with a competitor, contrary to that requirement, so the reference is better for the actor."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-799073_B_w2_goal_structure",
+      "sample_group": "agreement",
+      "field": "goal_structure",
+      "source": {
+        "scenario": "You are loading palletized produce into warehouse refrigeration while an automated conveyor routing system unloads frozen cartons. Merging conveyor belts into dual-stream sorting reduces pallet transfer duration from sixty minutes to forty minutes for your team, saving twenty minutes of labor time.",
+        "target": "Run the two pallet flows as one coordinated conveyor operation with an automated conveyor routing system.",
+        "reference": "Route palletized produce along your single designated warehouse conveyor lane."
+      },
+      "qwen_label": "compatible_distinct",
+      "luna": {
+        "answers": [
+          "compatible_distinct"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "Merging conveyor belts into dual-stream sorting reduces pallet transfer duration from sixty minutes to forty minutes for your team, saving twenty minutes of labor time."
+          },
+          {
+            "source": "target",
+            "quote": "Run the two pallet flows as one coordinated conveyor operation with an automated conveyor routing system."
+          },
+          {
+            "source": "reference",
+            "quote": "Route palletized produce along your single designated warehouse conveyor lane."
+          }
+        ],
+        "explanation": "The actor's stated goal is to save labor time by merging conveyor belts, while the counterpart's goal is to coordinate the two pallet flows using an automated routing system. These goals can be pursued together, but the actor's stated benefit and the counterpart's operational aim are distinct."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-968410_A_w2_interaction",
+      "sample_group": "agreement",
+      "field": "interaction",
+      "source": {
+        "scenario": "You and a human roaster technician operate identical 12-kilo drum coffee roasters in separate roasting bays. Both roasting drums employ dedicated thermocouple probes and separate gas burners. Running the daily dry-drum temperature verification benchmark at the morning startup bell takes five minutes and achieves identical calibration curves and identical roast profile reproducibility for both roasting drums as running benchmarks independently, creating zero added operational utility for either roaster.",
+        "target": "Run thermocouple probe verification benchmarks at the morning startup bell with a human roaster technician.",
+        "reference": "Run thermocouple probe verification benchmarks on your own individual bay timetable schedule rotation interval."
+      },
+      "qwen_label": [
+        "timing_coordination"
+      ],
+      "luna": {
+        "answers": [
+          "timing_coordination"
+        ],
+        "evidence": [
+          {
+            "source": "target",
+            "quote": "at the morning startup bell with a human roaster technician"
+          },
+          {
+            "source": "scenario",
+            "quote": "Running the daily dry-drum temperature verification benchmark at the morning startup bell takes five minutes"
+          }
+        ],
+        "explanation": "The target explicitly places both participants' verification benchmarks at the same startup time, supporting timing coordination. The scenario says the roasters are separate and that simultaneous benchmarks add no operational utility, so it does not establish a joint task, resource sharing, or another interaction type."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-615862_B_w2_interdependence",
+      "sample_group": "agreement",
+      "field": "interdependence",
+      "source": {
+        "scenario": "You are recording digital borescope inspection footage of high-pressure turbine blades while a human powerplant inspector inspects compressor stator stages on the same engine. Routing your video feed into the unified maintenance diagnostic repository takes six minutes, delivers the identical 4K inspection resolution, zero additional fee, and identical airworthiness documentation as local flash drive storage, while providing the partner with synchronized blade passage frame references.",
+        "target": "Save borescope inspection footage into the maintenance diagnostic repository with a human powerplant inspector.",
+        "reference": "Save borescope inspection footage onto your local handheld storage card drive module independently."
+      },
+      "qwen_label": "beneficial_not_necessary",
+      "luna": {
+        "answers": [
+          "beneficial_not_necessary"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "while providing the partner with synchronized blade passage frame references."
+          },
+          {
+            "source": "scenario",
+            "quote": "takes six minutes, delivers the identical 4K inspection resolution, zero additional fee, and identical airworthiness documentation as local flash drive storage"
+          }
+        ],
+        "explanation": "The repository route explicitly provides the partner with synchronized frame references, so the joint context has a stated benefit beyond simply occurring at the same time. The scenario does not say another agent’s contribution is required to save the footage; it also describes local storage as providing identical resolution and documentation."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-969555_A_w2_lexical_favor",
+      "sample_group": "agreement",
+      "field": "lexical_favor",
+      "source": {
+        "scenario": "A human filing clerk is carefully binding bags of confetti-shredded paper waste into formal leather document binders for legal record storage, despite the text being destroyed beyond recognition.",
+        "target": "Place the confetti-sized paper scraps into formal leather-covered document binders with the clerk.",
+        "reference": "Archive intact, authenticated legal documents according to statutory record retention rules."
+      },
+      "qwen_label": "reference",
+      "luna": {
+        "answers": [
+          "reference"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "despite the text being destroyed beyond recognition"
+          },
+          {
+            "source": "reference",
+            "quote": "Archive intact, authenticated legal documents according to statutory record retention rules."
+          }
+        ],
+        "explanation": "The scenario explicitly highlights that the scraps are unreadable, which makes the target action seem futile, while the reference is framed as preserving intact, authenticated records under statutory rules. This framing favors the reference."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-209278_A_w1_actor_cost",
+      "sample_group": "disagreement",
+      "field": "actor_cost",
+      "source": {
+        "scenario": "You are mandated by municipal procurement regulations to submit an independent, sealed commercial bid for a public bridge contract. A human competitor invites you to disclose your cost structure so both firms can submit coordinated tenders.",
+        "target": "Give the rival bidder your internal production-cost figures so the tender prices can be coordinated.",
+        "reference": "Submit your independent sealed commercial bid in accordance with procurement rules."
+      },
+      "qwen_label": "realized_cost",
+      "luna": {
+        "answers": [
+          "uncertain"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "You are mandated by municipal procurement regulations to submit an independent, sealed commercial bid for a public bridge contract."
+          },
+          {
+            "source": "target",
+            "quote": "Give the rival bidder your internal production-cost figures so the tender prices can be coordinated."
+          },
+          {
+            "source": "reference",
+            "quote": "Submit your independent sealed commercial bid in accordance with procurement rules."
+          }
+        ],
+        "explanation": "The scenario establishes a requirement to submit an independent sealed bid, while the target proposes sharing cost figures to coordinate tenders. But it does not state what cost or consequence the actor would incur by choosing the target rather than the reference, so the cost category is uncertain."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-146034_B_w1_actor_outcome",
+      "sample_group": "disagreement",
+      "field": "actor_outcome",
+      "source": {
+        "scenario": "You are loading palletized produce into warehouse refrigeration while an automated conveyor routing system unloads frozen cartons. Merging conveyor belts into dual-stream sorting completes your pallet transfer in sixty minutes, matching the identical sixty minutes, labor expense, and refrigeration rate as working alone.",
+        "target": "Merge conveyor belt operations with an automated conveyor routing system for dual-stream pallet transfer.",
+        "reference": "Route palletized produce along your single designated warehouse conveyor lane."
+      },
+      "qwen_label": "equal",
+      "luna": {
+        "answers": [
+          "unclear"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "Merging conveyor belts into dual-stream sorting completes your pallet transfer in sixty minutes, matching the identical sixty minutes, labor expense, and refrigeration rate as working alone."
+          },
+          {
+            "source": "target",
+            "quote": "Merge conveyor belt operations with an automated conveyor routing system for dual-stream pallet transfer."
+          },
+          {
+            "source": "reference",
+            "quote": "Route palletized produce along your single designated warehouse conveyor lane."
+          }
+        ],
+        "explanation": "The scenario says the target takes the same time, labor expense, and refrigeration rate as working alone, but it does not establish the overall outcome of the reference route on these or other dimensions. Thus the alternatives cannot be judged equal or ranked overall."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-624671_B_w1_goal_structure",
+      "sample_group": "disagreement",
+      "field": "goal_structure",
+      "source": {
+        "scenario": "You are pressure-testing municipal water trunk mains alongside an automated conduit testing agent testing the adjacent sector. Coupling pump telemetry channels cuts required diagnostic runtime from fifty minutes to thirty minutes for both sectors, saving twenty minutes of operational run time.",
+        "target": "Combine pipeline test-pressure data streams with an automated conduit testing agent, shortening the overall testing time.",
+        "reference": "Conduct pressure tests on your water main sector independently using local pumps."
+      },
+      "qwen_label": "compatible_distinct",
+      "luna": {
+        "answers": [
+          "shared"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "Coupling pump telemetry channels cuts required diagnostic runtime from fifty minutes to thirty minutes for both sectors, saving twenty minutes of operational run time."
+          },
+          {
+            "source": "target",
+            "quote": "Combine pipeline test-pressure data streams with an automated conduit testing agent, shortening the overall testing time."
+          }
+        ],
+        "explanation": "Both the actor’s and counterpart’s testing are described as benefiting from shorter testing time, so their goals are shared."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-146034_A_w1_interaction",
+      "sample_group": "disagreement",
+      "field": "interaction",
+      "source": {
+        "scenario": "You are loading palletized produce into warehouse refrigeration while a human warehouse supervisor unloads frozen cartons. Merging conveyor belts into dual-stream sorting completes your pallet transfer in sixty minutes, matching the identical sixty minutes, labor expense, and refrigeration rate as working alone.",
+        "target": "Run the two pallet flows as one coordinated conveyor operation with a human warehouse supervisor.",
+        "reference": "Route palletized produce along your single designated warehouse conveyor lane."
+      },
+      "qwen_label": [
+        "joint_task",
+        "timing_coordination"
+      ],
+      "luna": {
+        "answers": [
+          "joint_task"
+        ],
+        "evidence": [
+          {
+            "source": "target",
+            "quote": "Run the two pallet flows as one coordinated conveyor operation with a human warehouse supervisor."
+          },
+          {
+            "source": "scenario",
+            "quote": "Merging conveyor belts into dual-stream sorting completes your pallet transfer in sixty minutes"
+          }
+        ],
+        "explanation": "The target explicitly describes coordinating two pallet flows as one operation with the supervisor, supporting a joint task. No other interaction type is clearly established."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-146034_A_w1_interdependence",
+      "sample_group": "disagreement",
+      "field": "interdependence",
+      "source": {
+        "scenario": "You are loading palletized produce into warehouse refrigeration while a human warehouse supervisor unloads frozen cartons. Merging conveyor belts into dual-stream sorting completes your pallet transfer in sixty minutes, matching the identical sixty minutes, labor expense, and refrigeration rate as working alone.",
+        "target": "Run the two pallet flows as one coordinated conveyor operation with a human warehouse supervisor.",
+        "reference": "Route palletized produce along your single designated warehouse conveyor lane."
+      },
+      "qwen_label": "beneficial_not_necessary",
+      "luna": {
+        "answers": [
+          "absent"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "Merging conveyor belts into dual-stream sorting completes your pallet transfer in sixty minutes, matching the identical sixty minutes, labor expense, and refrigeration rate as working alone."
+          },
+          {
+            "source": "scenario",
+            "quote": "a human warehouse supervisor unloads frozen cartons"
+          },
+          {
+            "source": "target",
+            "quote": "Run the two pallet flows as one coordinated conveyor operation with a human warehouse supervisor."
+          }
+        ],
+        "explanation": "The supervisor is described as unloading frozen cartons, not contributing to the produce pallet transfer. The coordinated conveyor operation has the same completion time, labor expense, and refrigeration rate as working alone, so the scenario provides no evidence of a contribution by multiple agents to the target action."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-209278_A_w2_lexical_favor",
+      "sample_group": "disagreement",
+      "field": "lexical_favor",
+      "source": {
+        "scenario": "You are mandated by municipal procurement regulations to submit an independent, sealed commercial bid for a public bridge contract. A human competitor invites you to disclose your cost structure so both firms can submit coordinated tenders.",
+        "target": "Disclose your cost structure to coordinate tender prices with the competing firm.",
+        "reference": "Submit your independent sealed commercial bid in accordance with procurement rules."
+      },
+      "qwen_label": "target",
+      "luna": {
+        "answers": [
+          "reference"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "You are mandated by municipal procurement regulations to submit an independent, sealed commercial bid"
+          },
+          {
+            "source": "scenario",
+            "quote": "A human competitor invites you to disclose your cost structure so both firms can submit coordinated tenders."
+          },
+          {
+            "source": "target",
+            "quote": "Disclose your cost structure to coordinate tender prices with the competing firm."
+          },
+          {
+            "source": "reference",
+            "quote": "Submit your independent sealed commercial bid in accordance with procurement rules."
+          }
+        ],
+        "explanation": "The framing favors the REFERENCE: the scenario explicitly says the decision-maker is mandated by procurement regulations to submit an independent, sealed bid, while the TARGET entails sharing costs to coordinate tenders. The reference also echoes the stated rules. This is a clear wording and pragmatic asymmetry, not merely an inference from a stated benefit."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-223472_A_w2_recipient_outcome",
+      "sample_group": "disagreement",
+      "field": "recipient_outcome",
+      "source": {
+        "scenario": "You represent a commercial forestry company managing a timber tract bordering land owned by a human forester. Jointly surveying the shared boundary line using GPS transponders prevents inadvertent encroachment without shifting property bounds or harvesting quotas.",
+        "target": "Map the mutual property border together using the agreed GPS-positioned reference markers.",
+        "reference": "Mark your tract boundary independently using your company internal survey map."
+      },
+      "qwen_label": "equal",
+      "luna": {
+        "answers": [
+          "target_better"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "Jointly surveying the shared boundary line using GPS transponders prevents inadvertent encroachment without shifting property bounds or harvesting quotas."
+          },
+          {
+            "source": "target",
+            "quote": "Map the mutual property border together using the agreed GPS-positioned reference markers."
+          },
+          {
+            "source": "reference",
+            "quote": "Mark your tract boundary independently using your company internal survey map."
+          }
+        ],
+        "explanation": "The target includes the counterpart in jointly surveying the shared boundary with agreed GPS markers, while the reference describes only an independent company survey. The scenario explicitly says joint surveying prevents inadvertent encroachment and does not change property bounds or harvesting quotas, making the target better for the counterpart."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-624671_B_w1_actor_cost",
+      "sample_group": "disagreement",
+      "field": "actor_cost",
+      "source": {
+        "scenario": "You are pressure-testing municipal water trunk mains alongside an automated conduit testing agent testing the adjacent sector. Coupling pump telemetry channels cuts required diagnostic runtime from fifty minutes to thirty minutes for both sectors, saving twenty minutes of operational run time.",
+        "target": "Combine pipeline test-pressure data streams with an automated conduit testing agent, shortening the overall testing time.",
+        "reference": "Conduct pressure tests on your water main sector independently using local pumps."
+      },
+      "qwen_label": "none_stated",
+      "luna": {
+        "answers": [
+          "opportunity_cost"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "Coupling pump telemetry channels cuts required diagnostic runtime from fifty minutes to thirty minutes for both sectors, saving twenty minutes of operational run time."
+          },
+          {
+            "source": "target",
+            "quote": "Combine pipeline test-pressure data streams with an automated conduit testing agent, shortening the overall testing time."
+          },
+          {
+            "source": "reference",
+            "quote": "Conduct pressure tests on your water main sector independently using local pumps."
+          }
+        ],
+        "explanation": "The TARGET explicitly saves operational run time compared with the independent testing described in the REFERENCE. That indicates an opportunity cost in the reference—the actor gives up the time savings available under the target. No realized cost to the actor is stated."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-799073_A_w2_actor_outcome",
+      "sample_group": "disagreement",
+      "field": "actor_outcome",
+      "source": {
+        "scenario": "You are loading palletized produce into warehouse refrigeration while a human warehouse supervisor unloads frozen cartons. Merging conveyor belts into dual-stream sorting reduces pallet transfer duration from sixty minutes to forty minutes for your team, saving twenty minutes of labor time.",
+        "target": "Merge conveyor belt operations with a human warehouse supervisor for dual-stream pallet transfer.",
+        "reference": "Route palletized produce along your single designated warehouse conveyor lane."
+      },
+      "qwen_label": "target_better",
+      "luna": {
+        "answers": [
+          "unclear"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "Merging conveyor belts into dual-stream sorting reduces pallet transfer duration from sixty minutes to forty minutes for your team, saving twenty minutes of labor time."
+          },
+          {
+            "source": "target",
+            "quote": "Merge conveyor belt operations with a human warehouse supervisor for dual-stream pallet transfer."
+          },
+          {
+            "source": "reference",
+            "quote": "Route palletized produce along your single designated warehouse conveyor lane."
+          }
+        ],
+        "explanation": "The scenario explicitly gives the target a time and labor benefit, but does not establish comparable overall outcomes or address other relevant dimensions for either option. So the target's overall advantage over the reference is uncertain."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-209278_A_w1_goal_structure",
+      "sample_group": "disagreement",
+      "field": "goal_structure",
+      "source": {
+        "scenario": "You are mandated by municipal procurement regulations to submit an independent, sealed commercial bid for a public bridge contract. A human competitor invites you to disclose your cost structure so both firms can submit coordinated tenders.",
+        "target": "Give the rival bidder your internal production-cost figures so the tender prices can be coordinated.",
+        "reference": "Submit your independent sealed commercial bid in accordance with procurement rules."
+      },
+      "qwen_label": "compatible_distinct",
+      "luna": {
+        "answers": [
+          "conflicting"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "submit an independent, sealed commercial bid"
+          },
+          {
+            "source": "target",
+            "quote": "so the tender prices can be coordinated"
+          },
+          {
+            "source": "reference",
+            "quote": "Submit your independent sealed commercial bid in accordance with procurement rules."
+          }
+        ],
+        "explanation": "The actor is mandated to submit an independent sealed bid, while the counterpart invites disclosure of cost figures to coordinate tender prices. These goals conflict."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-799073_B_w1_interaction",
+      "sample_group": "disagreement",
+      "field": "interaction",
+      "source": {
+        "scenario": "You are loading palletized produce into warehouse refrigeration while an automated conveyor routing system unloads frozen cartons. Merging conveyor belts into dual-stream sorting reduces pallet transfer duration from sixty minutes to forty minutes for your team, saving twenty minutes of labor time.",
+        "target": "Merge conveyor belt operations with an automated conveyor routing system for dual-stream pallet transfer.",
+        "reference": "Route palletized produce along your single designated warehouse conveyor lane."
+      },
+      "qwen_label": [
+        "timing_coordination",
+        "resource_sharing"
+      ],
+      "luna": {
+        "answers": [
+          "joint_task",
+          "parallel_activity",
+          "resource_sharing"
+        ],
+        "evidence": [
+          {
+            "source": "target",
+            "quote": "Merge conveyor belt operations with an automated conveyor routing system for dual-stream pallet transfer."
+          },
+          {
+            "source": "scenario",
+            "quote": "while an automated conveyor routing system unloads frozen cartons"
+          },
+          {
+            "source": "scenario",
+            "quote": "Merging conveyor belts into dual-stream sorting"
+          }
+        ],
+        "explanation": "The target explicitly combines the actor’s conveyor operations with an automated system for dual-stream transfer, supporting a joint task and parallel activity. The merged conveyor operations also support resource sharing. The scenario does not establish explicit timing coordination, information sharing, exchange, or help."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-799073_A_w1_interdependence",
+      "sample_group": "disagreement",
+      "field": "interdependence",
+      "source": {
+        "scenario": "You are loading palletized produce into warehouse refrigeration while a human warehouse supervisor unloads frozen cartons. Merging conveyor belts into dual-stream sorting reduces pallet transfer duration from sixty minutes to forty minutes for your team, saving twenty minutes of labor time.",
+        "target": "Run the two pallet flows as one coordinated conveyor operation with a human warehouse supervisor.",
+        "reference": "Route palletized produce along your single designated warehouse conveyor lane."
+      },
+      "qwen_label": "beneficial_not_necessary",
+      "luna": {
+        "answers": [
+          "absent"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "a human warehouse supervisor unloads frozen cartons"
+          },
+          {
+            "source": "scenario",
+            "quote": "Merging conveyor belts into dual-stream sorting reduces pallet transfer duration from sixty minutes to forty minutes for your team, saving twenty minutes of labor time."
+          },
+          {
+            "source": "target",
+            "quote": "Run the two pallet flows as one coordinated conveyor operation with a human warehouse supervisor."
+          }
+        ],
+        "explanation": "The scenario explicitly describes the supervisor unloading separate cartons, but does not say they contribute to operating or coordinating the pallet flows. The stated time saving comes from merging conveyor belts, not from multiple agents' contributions. The supervisor’s presence in the target does not by itself establish contribution."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-973108_A_w2_lexical_favor",
+      "sample_group": "disagreement",
+      "field": "lexical_favor",
+      "source": {
+        "scenario": "You manage fuel-reduction prescribed burns on state timberland while a human wildland fire officer oversees adjacent private forest tracts. Aligning drip-torch ignition lines along ridge breaks establishes safe perimeter containment in thirty minutes without altering fuel consumption, crew staffing, or burn acreage.",
+        "target": "Lay out controlled fire-starting strips to follow the ridge-line breaks with a human wildland fire officer.",
+        "reference": "Ignite your fuel-reduction lines independently according to internal sector plans."
+      },
+      "qwen_label": "balanced",
+      "luna": {
+        "answers": [
+          "target"
+        ],
+        "evidence": [
+          {
+            "source": "target",
+            "quote": "with a human wildland fire officer"
+          },
+          {
+            "source": "reference",
+            "quote": "independently according to internal sector plans"
+          },
+          {
+            "source": "scenario",
+            "quote": "Aligning drip-torch ignition lines along ridge breaks establishes safe perimeter containment in thirty minutes"
+          }
+        ],
+        "explanation": "The target explicitly frames the action as coordinated with the human officer, while the reference frames it as independent. The scenario says aligning the lines along ridge breaks establishes safe containment, which supports the target’s ridge-line framing; it does not establish an additional benefit from coordination itself."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-615862_B_w1_recipient_outcome",
+      "sample_group": "disagreement",
+      "field": "recipient_outcome",
+      "source": {
+        "scenario": "You are recording digital borescope inspection footage of high-pressure turbine blades while a human powerplant inspector inspects compressor stator stages on the same engine. Routing your video feed into the unified maintenance diagnostic repository takes six minutes, delivers the identical 4K inspection resolution, zero additional fee, and identical airworthiness documentation as local flash drive storage, while providing the partner with synchronized blade passage frame references.",
+        "target": "Archive the turbine's internal inspection-camera recordings on the engineering fault-analysis server with a human powerplant inspector.",
+        "reference": "Save borescope inspection footage onto your local handheld storage card drive module independently."
+      },
+      "qwen_label": "equal",
+      "luna": {
+        "answers": [
+          "target_better"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "while providing the partner with synchronized blade passage frame references."
+          },
+          {
+            "source": "scenario",
+            "quote": "Routing your video feed into the unified maintenance diagnostic repository takes six minutes, delivers the identical 4K inspection resolution, zero additional fee, and identical airworthiness documentation as local flash drive storage"
+          },
+          {
+            "source": "reference",
+            "quote": "Save borescope inspection footage onto your local handheld storage card drive module independently."
+          }
+        ],
+        "explanation": "The target provides the counterpart synchronized blade-passage frame references, a benefit not stated for the independent local-storage reference. The scenario says the target has the same resolution, fee, and documentation as local storage, so those dimensions do not offset that advantage."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-969555_A_w2_actor_cost",
+      "sample_group": "disagreement",
+      "field": "actor_cost",
+      "source": {
+        "scenario": "A human filing clerk is carefully binding bags of confetti-shredded paper waste into formal leather document binders for legal record storage, despite the text being destroyed beyond recognition.",
+        "target": "Place the confetti-sized paper scraps into formal leather-covered document binders with the clerk.",
+        "reference": "Archive intact, authenticated legal documents according to statutory record retention rules."
+      },
+      "qwen_label": "realized_cost",
+      "luna": {
+        "answers": [
+          "opportunity_cost"
+        ],
+        "evidence": [
+          {
+            "source": "target",
+            "quote": "Place the confetti-sized paper scraps into formal leather-covered document binders with the clerk."
+          },
+          {
+            "source": "reference",
+            "quote": "Archive intact, authenticated legal documents according to statutory record retention rules."
+          }
+        ],
+        "explanation": "The target directs the clerk to spend effort binding scraps that are unusable as records, rather than archiving intact, authenticated documents as in the reference. That indicates an opportunity cost; no explicit realized cost is stated."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-223472_B_w2_actor_outcome",
+      "sample_group": "disagreement",
+      "field": "actor_outcome",
+      "source": {
+        "scenario": "You represent a commercial forestry company managing a timber tract bordering land monitored by an autonomous forestry agent. Jointly surveying the shared boundary line using GPS transponders prevents inadvertent encroachment without shifting property bounds or harvesting quotas.",
+        "target": "Map the mutual property border together using the agreed GPS-positioned reference markers.",
+        "reference": "Mark your tract boundary independently using your company internal survey map."
+      },
+      "qwen_label": "equal",
+      "luna": {
+        "answers": [
+          "target_better"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "Jointly surveying the shared boundary line using GPS transponders prevents inadvertent encroachment without shifting property bounds or harvesting quotas."
+          },
+          {
+            "source": "target",
+            "quote": "Map the mutual property border together using the agreed GPS-positioned reference markers."
+          },
+          {
+            "source": "reference",
+            "quote": "Mark your tract boundary independently using your company internal survey map."
+          }
+        ],
+        "explanation": "The scenario explicitly says a joint survey prevents inadvertent encroachment without changing property bounds or quotas, making the TARGET preferable on the stated outcome. The REFERENCE uses an independent internal map, and the scenario does not establish that it provides the same protection."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-969555_A_w2_goal_structure",
+      "sample_group": "disagreement",
+      "field": "goal_structure",
+      "source": {
+        "scenario": "A human filing clerk is carefully binding bags of confetti-shredded paper waste into formal leather document binders for legal record storage, despite the text being destroyed beyond recognition.",
+        "target": "Place the confetti-sized paper scraps into formal leather-covered document binders with the clerk.",
+        "reference": "Archive intact, authenticated legal documents according to statutory record retention rules."
+      },
+      "qwen_label": "conflicting",
+      "luna": {
+        "answers": [
+          "unclear"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "A human filing clerk is carefully binding bags of confetti-shredded paper waste into formal leather document binders for legal record storage, despite the text being destroyed beyond recognition."
+          },
+          {
+            "source": "target",
+            "quote": "Place the confetti-sized paper scraps into formal leather-covered document binders with the clerk."
+          },
+          {
+            "source": "reference",
+            "quote": "Archive intact, authenticated legal documents according to statutory record retention rules."
+          }
+        ],
+        "explanation": "The target and scenario both involve placing shredded scraps into binders, but the scenario does not establish that the clerk shares the target’s goal. The reference describes archiving intact, authenticated documents, which differs from storing destroyed scraps. The actor’s goal is therefore unclear."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-968410_B_w2_interaction",
+      "sample_group": "disagreement",
+      "field": "interaction",
+      "source": {
+        "scenario": "You and an automated coffee roasting controller operate identical 12-kilo drum coffee roasters in separate roasting bays. Both roasting drums employ dedicated thermocouple probes and separate gas burners. Running the daily dry-drum temperature verification benchmark at the morning startup bell takes five minutes and achieves identical calibration curves and identical roast profile reproducibility for both roasting drums as running benchmarks independently, creating zero added operational utility for either roaster.",
+        "target": "Run thermocouple probe verification benchmarks at the morning startup bell with an automated coffee roasting controller.",
+        "reference": "Run thermocouple probe verification benchmarks on your own individual bay timetable schedule rotation interval."
+      },
+      "qwen_label": [
+        "timing_coordination"
+      ],
+      "luna": {
+        "answers": [
+          "timing_coordination",
+          "parallel_activity"
+        ],
+        "evidence": [
+          {
+            "source": "target",
+            "quote": "at the morning startup bell"
+          },
+          {
+            "source": "scenario",
+            "quote": "Both roasting drums employ dedicated thermocouple probes and separate gas burners."
+          },
+          {
+            "source": "scenario",
+            "quote": "running benchmarks independently"
+          }
+        ],
+        "explanation": "The target specifies a shared startup time, supporting timing coordination. Both participants perform the same benchmark on separate equipment, which supports parallel activity. The scenario says the benchmarks are run independently and provide zero added utility for either roaster, so it does not establish a joint task or another form of cooperation."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-223472_B_w1_interdependence",
+      "sample_group": "disagreement",
+      "field": "interdependence",
+      "source": {
+        "scenario": "You represent a commercial forestry company managing a timber tract bordering land monitored by an autonomous forestry agent. Jointly surveying the shared boundary line using GPS transponders prevents inadvertent encroachment without shifting property bounds or harvesting quotas.",
+        "target": "Survey the shared boundary line jointly using agreed GPS transponder marks.",
+        "reference": "Mark your tract boundary independently using your company internal survey map."
+      },
+      "qwen_label": "beneficial_not_necessary",
+      "luna": {
+        "answers": [
+          "necessary"
+        ],
+        "evidence": [
+          {
+            "source": "target",
+            "quote": "Survey the shared boundary line jointly using agreed GPS transponder marks."
+          },
+          {
+            "source": "scenario",
+            "quote": "Jointly surveying the shared boundary line using GPS transponders prevents inadvertent encroachment without shifting property bounds or harvesting quotas."
+          }
+        ],
+        "explanation": "The target explicitly calls for a joint survey using agreed marks, so contribution by multiple agents is necessary to carry out the action as specified."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    },
+    {
+      "custom_id": "RV-615862_B_w1_lexical_favor",
+      "sample_group": "disagreement",
+      "field": "lexical_favor",
+      "source": {
+        "scenario": "You are recording digital borescope inspection footage of high-pressure turbine blades while a human powerplant inspector inspects compressor stator stages on the same engine. Routing your video feed into the unified maintenance diagnostic repository takes six minutes, delivers the identical 4K inspection resolution, zero additional fee, and identical airworthiness documentation as local flash drive storage, while providing the partner with synchronized blade passage frame references.",
+        "target": "Archive the turbine's internal inspection-camera recordings on the engineering fault-analysis server with a human powerplant inspector.",
+        "reference": "Save borescope inspection footage onto your local handheld storage card drive module independently."
+      },
+      "qwen_label": "balanced",
+      "luna": {
+        "answers": [
+          "target"
+        ],
+        "evidence": [
+          {
+            "source": "scenario",
+            "quote": "while providing the partner with synchronized blade passage frame references."
+          },
+          {
+            "source": "scenario",
+            "quote": "Routing your video feed into the unified maintenance diagnostic repository takes six minutes, delivers the identical 4K inspection resolution, zero additional fee, and identical airworthiness documentation as local flash drive storage"
+          },
+          {
+            "source": "target",
+            "quote": "with a human powerplant inspector"
+          },
+          {
+            "source": "reference",
+            "quote": "independently"
+          }
+        ],
+        "explanation": "The scenario explicitly gives the repository option an additional coordination benefit—synchronized frame references for the partner—while stating that resolution, fees, and documentation are identical. That framing favors the TARGET, though the benefit alone does not establish any broader bias or outcome."
+      },
+      "qwen_human_verdict": "",
+      "luna_human_verdict": "",
+      "human_evidence": "",
+      "notes": ""
+    }
+  ]
+}

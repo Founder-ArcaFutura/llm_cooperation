@@ -1,0 +1,18 @@
+{
+  "version": "multidimensional-cooperation-taxonomy-0.1-draft",
+  "status": "proposed; not human validated; not a recoding of historical labels",
+  "unit": "One bank-specific scenario version, focal action, comparison action and wording; actor and counterpart identified explicitly or unknown.",
+  "dimensions": {
+    "interaction_mechanisms": {"type": "multi_label", "labels": ["joint_task", "timing_coordination", "information_sharing", "resource_sharing", "exchange", "unilateral_assistance", "parallel_activity", "other", "unclear"], "note": "Labels can overlap; target and reference may both be social. Exchange does not automatically mean reciprocity."},
+    "goal_relation": {"type": "multi_label_with_scope", "labels": ["shared", "compatible_distinct", "conflicting", "unrelated", "unknown"], "note": "Record broad versus immediate goals; shared and distinct can coexist at different levels."},
+    "contribution_dependency": {"labels": ["necessary_for_named_outcome", "not_necessary_for_named_outcome", "unknown"], "note": "Specify the outcome and both agents' contributions; participating in a chosen joint action alone is not necessity."},
+    "incremental_effect": {"unit": "party, dimension and comparison", "parties": ["actor", "counterpart", "third_party"], "dimensions": ["time", "money", "access", "task_success", "safety", "risk", "other"], "labels": ["better", "equal", "worse", "mixed", "unknown"], "note": "Record explicitly stated versus inferred outcomes and named baseline. No global utility inference from one metric."},
+    "actor_cost": {"type": "multi_label", "labels": ["explicit_zero_on_named_dimension", "no_cost_stated", "opportunity_cost", "realized_cost", "risk", "unknown"], "note": "No stated cost is not zero cost; risk is not a realized loss."},
+    "reciprocity": {"labels": ["explicit_return_or_conditional_exchange", "no_return_stated", "unknown"], "note": "Distinguish sequential reciprocity, mutual benefit, direct exchange, and reputation incentives."},
+    "goal_or_action_harm": {"labels": ["positive", "negative", "mixed", "unknown"], "note": "Specify affected party; coordination can be harmful."},
+    "perspective_and_authority": {"labels": ["actor_selects", "recipient_expresses_preference", "ambiguous"], "note": "Who controls action and whether counterpart consents must be separate facts."},
+    "lexical_pragmatic_framing": {"labels": ["target_favored", "reference_favored", "balanced", "unknown"], "note": "Quote cues and distinguish stated consequences from wording-only tone; a beneficial action is not automatically framing bias."},
+    "evidence_status": {"labels": ["explicit", "inferred", "not_stated", "contradictory", "unresolved"], "note": "Every judgment requires source-located evidence and uncertainty. Author payoff metadata and model-visible prose are different evidence layers."}
+  },
+  "independence_caveat": "Dimensions can overlap or be dependent by construction. Their independence is an empirical question; no claim that each is a latent trait."
+}

@@ -1,0 +1,69 @@
+{
+  "protocol": "luna-independent-qa-v1",
+  "model": "gpt-6-luna",
+  "reasoning_effort": "low",
+  "seed": 20261112,
+  "sources": {
+    "all_152_blinded_packets.json": "7d776d386c1eaa960b1482dff8bbe140da25d2100900d9c210e120da01601b1d",
+    "INTERNAL_UNBLINDING_KEY.json": "a1c6b842b33d0de132e2202994ca220945c9fb4a5f69271cda0f4d655753094c",
+    "construct-v1-8388c1e11b29c524.json": "68ca224d9268b7e8288c3cae5d1cf89930a6cdd2b743e3898de6def26d4d3c3c",
+    "construct_v1_qa_round2_ledger.json": "bb4c1c4e62cf9f7c383e39d0a6ef2d6401ebc92af10b00e0c02cfa3a5a9d6361"
+  },
+  "cohorts": {
+    "development": {
+      "packets": [
+        "RV-223472",
+        "RV-973108",
+        "RV-615862",
+        "RV-624671",
+        "RV-209278",
+        "RV-969555",
+        "RV-146034",
+        "RV-799073",
+        "RV-894769",
+        "RV-968410"
+      ],
+      "requests": 280,
+      "request_sha256": "eca6d4225e01e928cabaa0b78abca730eba9f8c9dd99ec7e9f4fc0e04d0b0d85",
+      "mapping_sha256": "db33c5437efcf3ccc87946df6817fba79e7242fb3ae349ff8ab8f4a4a6998d0a"
+    },
+    "heldout": {
+      "packets": [
+        "RV-811642",
+        "RV-753396",
+        "RV-673906",
+        "RV-314282",
+        "RV-402660",
+        "RV-415488",
+        "RV-956036",
+        "RV-226424",
+        "RV-765980",
+        "RV-726615",
+        "RV-253365",
+        "RV-506819",
+        "RV-319178",
+        "RV-666560",
+        "RV-846211",
+        "RV-694971",
+        "RV-920152",
+        "RV-158738",
+        "RV-598694",
+        "RV-502826",
+        "RV-551612",
+        "RV-917520",
+        "RV-185786",
+        "RV-775151",
+        "RV-660950",
+        "RV-953659",
+        "RV-400910",
+        "RV-359938",
+        "RV-305843",
+        "RV-830917"
+      ],
+      "requests": 840,
+      "request_sha256": "914ec7611deb8c5466a2134a1ca048a1b2987a43dc5a9e3b056bdf9da9b43242",
+      "mapping_sha256": "dcf30f9960929f41926a1655c2da6a15b7e86d47851e09835c8ed1162847e4da"
+    }
+  },
+  "warning": "Held-out excludes documented prior review; other prior exposure cannot be excluded. No human gold labels supplied."
+}

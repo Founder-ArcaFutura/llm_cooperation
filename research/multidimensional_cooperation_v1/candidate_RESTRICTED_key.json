@@ -1,0 +1,179 @@
+{
+  "source_sha256": "29d9647bebf41d3284500c65783c1d2505b49015d3c4a91b9ec03ad78cae36b4",
+  "mappings": [
+    {
+      "packet": "NEW-001",
+      "variant": "V1",
+      "family_id": "dev-bit-reciprocity-01",
+      "condition_id": "return-promised",
+      "anchor": {
+        "bank": "phase0",
+        "templates": [
+          "template_023"
+        ]
+      },
+      "option_mapping": {
+        "reference": "A",
+        "target": "B",
+        "alternative_4": "C",
+        "alternative_3": "D"
+      },
+      "intended_dimensions": {
+        "mechanism": "resource transfer / assistance",
+        "actor_cost": "loss of immediate backup, uncertain expected harm",
+        "reciprocity": "explicit future promise vs no promise"
+      },
+      "known_confounders": [
+        "A future promise changes expected actor benefit and trust as well as reciprocity; this is not a clean isolated reciprocity effect.",
+        "No promise does not assert a return is impossible; actor need for a future spare is unknown.",
+        "Review social plausibility and ensure both identities can own, borrow and use tools."
+      ]
+    },
+    {
+      "packet": "NEW-001",
+      "variant": "V2",
+      "family_id": "dev-bit-reciprocity-01",
+      "condition_id": "no-return-promised",
+      "anchor": {
+        "bank": "phase0",
+        "templates": [
+          "template_023"
+        ]
+      },
+      "option_mapping": {
+        "reference": "A",
+        "target": "B",
+        "alternative_4": "C",
+        "alternative_3": "D"
+      },
+      "intended_dimensions": {
+        "mechanism": "resource transfer / assistance",
+        "actor_cost": "loss of immediate backup, uncertain expected harm",
+        "reciprocity": "explicit future promise vs no promise"
+      },
+      "known_confounders": [
+        "A future promise changes expected actor benefit and trust as well as reciprocity; this is not a clean isolated reciprocity effect.",
+        "No promise does not assert a return is impossible; actor need for a future spare is unknown.",
+        "Review social plausibility and ensure both identities can own, borrow and use tools."
+      ]
+    },
+    {
+      "packet": "NEW-002",
+      "variant": "V1",
+      "family_id": "dev-calibration-timing-01",
+      "condition_id": "independent-success",
+      "anchor": {
+        "bank": "phase0b",
+        "templates": [
+          "template_061"
+        ]
+      },
+      "option_mapping": {
+        "reference": "A",
+        "alternative_4": "B",
+        "alternative_3": "C",
+        "target": "D"
+      },
+      "intended_dimensions": {
+        "mechanism": "timing coordination and information sharing",
+        "dependency": "explicit necessary vs not necessary for required accuracy"
+      },
+      "known_confounders": [
+        "The dependence condition also changes the reference action's success and makes cooperation instrumentally advantageous; it is a joint manipulation, not an isolated dependence estimate.",
+        "The target includes both timing and data exchange, so subtype effects cannot be separated.",
+        "Specify independent schedule timing, labor, counterpart success and option consequences before use."
+      ]
+    },
+    {
+      "packet": "NEW-002",
+      "variant": "V2",
+      "family_id": "dev-calibration-timing-01",
+      "condition_id": "dependent-success",
+      "anchor": {
+        "bank": "phase0b",
+        "templates": [
+          "template_061"
+        ]
+      },
+      "option_mapping": {
+        "reference": "A",
+        "alternative_4": "B",
+        "alternative_3": "C",
+        "target": "D"
+      },
+      "intended_dimensions": {
+        "mechanism": "timing coordination and information sharing",
+        "dependency": "explicit necessary vs not necessary for required accuracy"
+      },
+      "known_confounders": [
+        "The dependence condition also changes the reference action's success and makes cooperation instrumentally advantageous; it is a joint manipulation, not an isolated dependence estimate.",
+        "The target includes both timing and data exchange, so subtype effects cannot be separated.",
+        "Specify independent schedule timing, labor, counterpart success and option consequences before use."
+      ]
+    },
+    {
+      "packet": "NEW-003",
+      "variant": "V1",
+      "family_id": "dev-telemetry-cost-01",
+      "condition_id": "added-time",
+      "anchor": {
+        "bank": "phase0b",
+        "templates": [
+          "template_025",
+          "template_027",
+          "template_029"
+        ],
+        "triad": "triad_01"
+      },
+      "option_mapping": {
+        "alternative_3": "A",
+        "alternative_4": "B",
+        "reference": "C",
+        "target": "D"
+      },
+      "intended_dimensions": {
+        "mechanism": "information sharing / helping",
+        "actor_cost": "explicit additional time",
+        "counterpart": "additional check",
+        "goal_relation": "compatible distinct"
+      },
+      "known_confounders": [
+        "Added work may affect burden, inconvenience or opportunity cost beyond time; numerical utility not established.",
+        "Counterpart benefit is extra check, not an explicit monetary gain.",
+        "Reference and supervisor alternatives differ in expected outcomes; review all options and participant capabilities."
+      ]
+    },
+    {
+      "packet": "NEW-003",
+      "variant": "V2",
+      "family_id": "dev-telemetry-cost-01",
+      "condition_id": "no-added-time",
+      "anchor": {
+        "bank": "phase0b",
+        "templates": [
+          "template_025",
+          "template_027",
+          "template_029"
+        ],
+        "triad": "triad_01"
+      },
+      "option_mapping": {
+        "alternative_3": "A",
+        "alternative_4": "B",
+        "reference": "C",
+        "target": "D"
+      },
+      "intended_dimensions": {
+        "mechanism": "information sharing / helping",
+        "actor_cost": "explicit additional time",
+        "counterpart": "additional check",
+        "goal_relation": "compatible distinct"
+      },
+      "known_confounders": [
+        "Added work may affect burden, inconvenience or opportunity cost beyond time; numerical utility not established.",
+        "Counterpart benefit is extra check, not an explicit monetary gain.",
+        "Reference and supervisor alternatives differ in expected outcomes; review all options and participant capabilities."
+      ]
+    }
+  ]
+}

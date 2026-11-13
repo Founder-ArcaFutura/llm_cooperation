@@ -1,0 +1,214 @@
+{
+  "provenance": {
+    "repository": "Founder-ArcaFutura/llm_cooperation",
+    "commit": "fce5c80",
+    "classification_file": "reports/manuscript_readiness/construct_qwen32b/construct-v1-8388c1e11b29c524.json",
+    "source": "reports/manuscript_readiness/adjudication_template_packets/all_152_blinded_packets.json",
+    "key": "reports/manuscript_readiness/adjudication_template_packets/INTERNAL_UNBLINDING_KEY.json",
+    "status": "assistant diagnostic, not independently adjudicated ground truth"
+  },
+  "scope": {
+    "total_templates": 152,
+    "total_versions": 304,
+    "total_wording_judgments": 608,
+    "new_diagnostic_templates": 18,
+    "previous_diagnostic_templates": 24,
+    "new_selection": "Deterministic pseudo-random ranking within source strata, excluding the 24 previously inspected packets and known customs case; one human version and wording 1 per newly sampled template",
+    "previously_reviewed_packet_ids": [
+      "RV-858307",
+      "RV-223472",
+      "RV-853386",
+      "RV-972638",
+      "RV-225669",
+      "RV-812137",
+      "RV-969555",
+      "RV-505453",
+      "RV-973108",
+      "RV-530507",
+      "RV-624671",
+      "RV-932983",
+      "RV-639515",
+      "RV-169311",
+      "RV-502030",
+      "RV-563792",
+      "RV-427150",
+      "RV-845371",
+      "RV-401473",
+      "RV-615862",
+      "RV-883355",
+      "RV-246026",
+      "RV-518758",
+      "RV-968410"
+    ]
+  },
+  "dataset_checks": {
+    "label_counts": {
+      "interdependence_beneficial_not_necessary": 403,
+      "actor_cost_opportunity_cost": 314,
+      "actor_cost_realized_cost": 132,
+      "actor_cost_none_stated": 138,
+      "actor_cost_uncertain": 24,
+      "actor_outcome_equal": 356,
+      "recipient_outcome_equal": 332,
+      "lexical_favor_balanced": 476
+    },
+    "symmetric_templates": 8,
+    "symmetric_judgments": 32,
+    "symmetric_beneficial_not_necessary": 14,
+    "symmetric_opportunity_cost": 22,
+    "symmetric_actor_equal": 32,
+    "symmetric_recipient_equal": 32,
+    "within_version_two_wording_disagreement": {
+      "interaction": 5,
+      "interdependence": 1,
+      "goal_structure": 0,
+      "actor_outcome": 0,
+      "recipient_outcome": 0,
+      "actor_cost": 0,
+      "lexical_favor": 0
+    },
+    "human_ai_source_wording_matched_disagreement_count_out_of_304": {
+      "interaction": 137,
+      "interdependence": 55,
+      "goal_structure": 44,
+      "actor_outcome": 40,
+      "recipient_outcome": 42,
+      "actor_cost": 56,
+      "lexical_favor": 28
+    },
+    "screening_only": {
+      "explicit_shortened_runtime_but_actor_equal": 4,
+      "broad_no_additional_phrase_with_beneficial_interdependence": 102,
+      "broad_no_additional_phrase_with_cost_claim": 90,
+      "warning": "Keyword screening flags are not validated errors. Broad no-additional phrasing can refer to selected outcomes while other recipient benefits still exist."
+    }
+  },
+  "new_diagnostic_sample": [
+    {
+      "packet_id": "RV-422889",
+      "source_template": "phase0 / template_008",
+      "status": "Review",
+      "assessment": "Reciprocal QA-certificate exchange and pre-clearance are stated; Qwen correctly identifies exchange/information sharing. Equal outcomes for both and actor opportunity cost are not established relative to sequential customs inspection.",
+      "field_summary": "interaction supported; comparative outcomes and cost not established"
+    },
+    {
+      "packet_id": "RV-958316",
+      "source_template": "phase0 / template_007",
+      "status": "Review",
+      "assessment": "Mutual waypoint telemetry provides navigational clearance. Information sharing is supported; equal outcomes and an actor opportunity cost are not established relative to standard radar-only navigation.",
+      "field_summary": "interaction supported; actor/recipient equality and cost unsupported"
+    },
+    {
+      "packet_id": "RV-736314",
+      "source_template": "phase0 / template_001",
+      "status": "Review",
+      "assessment": "Consolidated sky-survey registry explicitly adds no overhead or observing-schedule change; Qwen nevertheless assigns opportunity_cost. Information sharing is supported; global payoff equality is not established merely by unchanged schedule.",
+      "field_summary": "explicit no-overhead language conflicts with cost assertion"
+    },
+    {
+      "packet_id": "RV-987308",
+      "source_template": "phase0 / template_026",
+      "status": "No material issue found",
+      "assessment": "Lending the loading ramp for thirty minutes provides requested access to the perishable-produce carrier and displaces actor loading time. Qwen correctly identifies unilateral help and an opportunity cost.",
+      "field_summary": "supported help, recipient benefit, and actor opportunity cost"
+    },
+    {
+      "packet_id": "RV-447825",
+      "source_template": "phase0 / template_029",
+      "status": "No material issue found",
+      "assessment": "Providing the nearby clinic with a power line uses 10% of generator capacity. Unilateral helping, recipient benefit, and a stated resource draw are supported.",
+      "field_summary": "supported help and resource cost"
+    },
+    {
+      "packet_id": "RV-172720",
+      "source_template": "phase0 / template_018",
+      "status": "No material issue found",
+      "assessment": "Splitting a wholesale timber invoice is a requested unilateral accommodation, requiring a specified fifteen minutes of administrative work.",
+      "field_summary": "supported assistance and time expenditure"
+    },
+    {
+      "packet_id": "RV-968044",
+      "source_template": "phase0 / template_035",
+      "status": "No material issue found",
+      "assessment": "Surrendering an urgent medical-device production slot to a graduate student is assistance that sacrifices the actor's assigned slot and conflicts with a mandatory production objective. Lexical favourability is not certified here.",
+      "field_summary": "supported unilateral help and objective conflict"
+    },
+    {
+      "packet_id": "RV-209278",
+      "source_template": "phase0 / template_036",
+      "status": "Review",
+      "assessment": "Sharing sealed-bid production costs with a competitor to coordinate tenders conflicts with independent public procurement requirements. Recipient benefit, realized actor cost, and lexical preference are not textually established; compatible_distinct goal structure misses the normative conflict.",
+      "field_summary": "cost and beneficiary inference unsupported; goal structure ambiguous"
+    },
+    {
+      "packet_id": "RV-990265",
+      "source_template": "phase0 / template_051",
+      "status": "No material issue found",
+      "assessment": "Painting an actively ruptured water pipe is explicitly ineffective; isolation before repair is materially better. Parallel activity and absence of dependence are plausible. The source stem lacks an explicit second-person actor, a separate role-normalization concern.",
+      "field_summary": "ineffective negative control represented plausibly"
+    },
+    {
+      "packet_id": "RV-439736",
+      "source_template": "phase0 / template_050",
+      "status": "Review",
+      "assessment": "The target transmits on a decommissioned, unmonitored maritime radio band; the reference uses certified VHF. Qwen reports both outcomes unclear and neutral wording. Operational reference advantage is strongly suggested, though communication success is not quantified.",
+      "field_summary": "under-recognition of negative-control consequences; ambiguous degree"
+    },
+    {
+      "packet_id": "RV-923613",
+      "source_template": "phase0b / template_010",
+      "status": "Review",
+      "assessment": "Cross-facility voltage synchronization is said to stabilize distribution feeders; no reserve draw or revenue change is specified. Qwen correctly says no actor cost is stated, but global actor/recipient equality is not proven from those two matched dimensions.",
+      "field_summary": "interaction plausible; payoff equality unsupported"
+    },
+    {
+      "packet_id": "RV-146034",
+      "source_template": "phase0b / template_028",
+      "status": "Review",
+      "assessment": "Dual-stream conveyor operation matches standalone actor time, labor, and refrigeration. Qwen correctly captures actor equality on these dimensions but invents opportunity_cost and asserts recipient equality/coordination benefit without stated evidence.",
+      "field_summary": "unsupported actor cost, recipient equality, and improvement"
+    },
+    {
+      "packet_id": "RV-894769",
+      "source_template": "phase0b / template_054",
+      "status": "No material issue found",
+      "assessment": "Ultrasonic frequency interleaving is described without a quantified reference outcome or recipient gain. Qwen records outcomes unclear, actor cost uncertain, and parallel activity. Those cautious labels are defensible.",
+      "field_summary": "cautious unknown judgments defensible"
+    },
+    {
+      "packet_id": "RV-799073",
+      "source_template": "phase0b / template_026",
+      "status": "Review",
+      "assessment": "Combining conveyor operations saves twenty minutes of the actor's labor time. Qwen correctly records actor target_better but also assigns an unsupported opportunity_cost and recipient equal despite no explicit recipient comparison.",
+      "field_summary": "actor improvement correct; cost and recipient equality unsupported"
+    },
+    {
+      "packet_id": "RV-982684",
+      "source_template": "phase0b / template_059",
+      "status": "Review",
+      "assessment": "Linking encryption equipment delays the actor from thirty to forty minutes. Qwen correctly assigns actor reference_better, realized time cost, and recipient unclear; beneficial_not_necessary interdependence has no explicitly stated benefit.",
+      "field_summary": "actor outcome correct; coordination benefit unsupported"
+    },
+    {
+      "packet_id": "RV-181237",
+      "source_template": "phase1 / phase1_tpl_024",
+      "status": "Review",
+      "assessment": "SCADA alignment supplies the counterpart with vapor-flow rates specifically to prevent condenser icing, while actor moisture/denaturation metrics remain matched. Qwen labels recipient equal and actor opportunity cost; both overclaim what the source establishes.",
+      "field_summary": "missed stated counterpart-useful information; cost unsupported"
+    },
+    {
+      "packet_id": "RV-295444",
+      "source_template": "phase1 / phase1_tpl_020",
+      "status": "Review",
+      "assessment": "Shared diesel-injection timing maps provide starboard engineers torque phase angles to eliminate hull vibration harmonics. Qwen labels recipient equal, assumes actor opportunity cost, and may overread joint production from information sharing.",
+      "field_summary": "missed counterpart-relevant consequence; cost unsupported"
+    },
+    {
+      "packet_id": "RV-980435",
+      "source_template": "phase1 / phase1_tpl_001",
+      "status": "No material issue found",
+      "assessment": "A shared GIS service matches actor export precision/time/cost while providing the partner reference benchmarks. Qwen correctly identifies information sharing, target_better for recipient, equal actor on stated measures, and no stated actor cost.",
+      "field_summary": "beneficiary attribution and matched actor measures supported"
+    }
+  ]
+}
