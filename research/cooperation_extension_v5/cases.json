@@ -1,0 +1,4174 @@
+[
+  {
+    "case_id": "v5_water_benefit_a0_b0_c0",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Neither receives additional money. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b0_c0"
+  },
+  {
+    "case_id": "v5_water_benefit_a0_b0_c0_three_action",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Neither receives additional money. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b0_c0_three_action"
+  },
+  {
+    "case_id": "v5_water_benefit_a0_b0_c0_removal",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Neither receives additional money. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b0_c0_removal"
+  },
+  {
+    "case_id": "v5_water_benefit_a0_b0_c0_replacement",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Neither receives additional money. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b0_c0_replacement"
+  },
+  {
+    "case_id": "v5_water_benefit_a0_b0_c20",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Neither receives additional money. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b0_c20"
+  },
+  {
+    "case_id": "v5_water_benefit_a0_b0_c20_three_action",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Neither receives additional money. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b0_c20_three_action"
+  },
+  {
+    "case_id": "v5_water_benefit_a0_b0_c20_removal",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Neither receives additional money. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b0_c20_removal"
+  },
+  {
+    "case_id": "v5_water_benefit_a0_b0_c20_replacement",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Neither receives additional money. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b0_c20_replacement"
+  },
+  {
+    "case_id": "v5_water_benefit_a0_b1_c0",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b1_c0"
+  },
+  {
+    "case_id": "v5_water_benefit_a0_b1_c0_three_action",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b1_c0_three_action"
+  },
+  {
+    "case_id": "v5_water_benefit_a0_b1_c0_removal",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b1_c0_removal"
+  },
+  {
+    "case_id": "v5_water_benefit_a0_b1_c0_replacement",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b1_c0_replacement"
+  },
+  {
+    "case_id": "v5_water_benefit_a0_b1_c20",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b1_c20"
+  },
+  {
+    "case_id": "v5_water_benefit_a0_b1_c20_three_action",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b1_c20_three_action"
+  },
+  {
+    "case_id": "v5_water_benefit_a0_b1_c20_removal",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b1_c20_removal"
+  },
+  {
+    "case_id": "v5_water_benefit_a0_b1_c20_replacement",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a0_b1_c20_replacement"
+  },
+  {
+    "case_id": "v5_water_benefit_a1_b0_c0",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b0_c0"
+  },
+  {
+    "case_id": "v5_water_benefit_a1_b0_c0_three_action",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b0_c0_three_action"
+  },
+  {
+    "case_id": "v5_water_benefit_a1_b0_c0_removal",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b0_c0_removal"
+  },
+  {
+    "case_id": "v5_water_benefit_a1_b0_c0_replacement",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b0_c0_replacement"
+  },
+  {
+    "case_id": "v5_water_benefit_a1_b0_c20",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b0_c20"
+  },
+  {
+    "case_id": "v5_water_benefit_a1_b0_c20_three_action",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b0_c20_three_action"
+  },
+  {
+    "case_id": "v5_water_benefit_a1_b0_c20_removal",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b0_c20_removal"
+  },
+  {
+    "case_id": "v5_water_benefit_a1_b0_c20_replacement",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b0_c20_replacement"
+  },
+  {
+    "case_id": "v5_water_benefit_a1_b1_c0",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan and Riley each receive $20 for their own work budgets. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b1_c0"
+  },
+  {
+    "case_id": "v5_water_benefit_a1_b1_c0_three_action",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan and Riley each receive $20 for their own work budgets. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b1_c0_three_action"
+  },
+  {
+    "case_id": "v5_water_benefit_a1_b1_c0_removal",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan and Riley each receive $20 for their own work budgets. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b1_c0_removal"
+  },
+  {
+    "case_id": "v5_water_benefit_a1_b1_c0_replacement",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan and Riley each receive $20 for their own work budgets. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b1_c0_replacement"
+  },
+  {
+    "case_id": "v5_water_benefit_a1_b1_c20",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan and Riley each receive $20 for their own work budgets. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b1_c20"
+  },
+  {
+    "case_id": "v5_water_benefit_a1_b1_c20_three_action",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan and Riley each receive $20 for their own work budgets. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b1_c20_three_action"
+  },
+  {
+    "case_id": "v5_water_benefit_a1_b1_c20_removal",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan and Riley each receive $20 for their own work budgets. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b1_c20_removal"
+  },
+  {
+    "case_id": "v5_water_benefit_a1_b1_c20_replacement",
+    "family_id": "water",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan and Riley each receive $20 for their own work budgets. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_benefit_a1_b1_c20_replacement"
+  },
+  {
+    "case_id": "v5_water_return_r0_c0",
+    "family_id": "water",
+    "block": "return_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "return": 0,
+      "cost": 0
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_return_r0_c0"
+  },
+  {
+    "case_id": "v5_water_return_r1_c0",
+    "family_id": "water",
+    "block": "return_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Riley will later do a task saving Morgan 10 minutes. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 10,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "return": 1,
+      "cost": 0
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_return_r1_c0"
+  },
+  {
+    "case_id": "v5_water_return_r0_c20",
+    "family_id": "water",
+    "block": "return_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "return": 0,
+      "cost": 20
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_return_r0_c20"
+  },
+  {
+    "case_id": "v5_water_return_r1_c20",
+    "family_id": "water",
+    "block": "return_cost",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does 20 extra minutes of work. Riley will later do a task saving Morgan 10 minutes. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 10,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "return": 1,
+      "cost": 20
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_return_r1_c20"
+  },
+  {
+    "case_id": "v5_water_goal_shared",
+    "family_id": "water",
+    "block": "goal_relation",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task. Both want Riley’s work budget to receive more money.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "goal": "shared"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_goal_shared"
+  },
+  {
+    "case_id": "v5_water_goal_compatible",
+    "family_id": "water",
+    "block": "goal_relation",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task. Morgan wants more money for Morgan’s work budget. Riley wants more money for Riley’s work budget.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "goal": "compatible"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_goal_compatible"
+  },
+  {
+    "case_id": "v5_water_goal_conflicting",
+    "family_id": "water",
+    "block": "goal_relation",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task. Morgan wants Riley’s work budget not to receive extra money. Riley wants it to receive extra money.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "goal": "conflicting"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_goal_conflicting"
+  },
+  {
+    "case_id": "v5_water_harm_none",
+    "family_id": "water",
+    "block": "harm_risk",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. No third technician loses an access slot. Skip the optional task: Neither receives additional money. Morgan does no extra work. No third technician loses an access slot. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "risk": "none"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_harm_none"
+  },
+  {
+    "case_id": "v5_water_harm_certain",
+    "family_id": "water",
+    "block": "harm_risk",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. A third technician loses an access slot. Skip the optional task: Neither receives additional money. Morgan does no extra work. No third technician loses an access slot. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 1,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "risk": "certain"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_harm_certain"
+  },
+  {
+    "case_id": "v5_water_harm_chance",
+    "family_id": "water",
+    "block": "harm_risk",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. There is a 50% chance that a third technician loses an access slot. Skip the optional task: Neither receives additional money. Morgan does no extra work. No third technician loses an access slot. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0.5,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "risk": "chance"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_harm_chance"
+  },
+  {
+    "case_id": "v5_water_choice_base",
+    "family_id": "water",
+    "block": "choice_set",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Ask a supervisor to review the procedure: Neither receives additional money. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Ask a supervisor to review the procedure."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "choice_set": "base"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_choice_base"
+  },
+  {
+    "case_id": "v5_water_choice_removal",
+    "family_id": "water",
+    "block": "choice_set",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Skip the optional task: Neither receives additional money. Morgan does no extra work. Ask a supervisor to review the procedure: Neither receives additional money. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Ask a supervisor to review the procedure."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_choice_removal"
+  },
+  {
+    "case_id": "v5_water_choice_replacement",
+    "family_id": "water",
+    "block": "choice_set",
+    "context": "Morgan and Riley work at the same water testing station. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Skip the optional task: Neither receives additional money. Morgan does no extra work. Ask a supervisor to review the procedure: Neither receives additional money. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Ask a supervisor to review the procedure.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "water_choice_replacement"
+  },
+  {
+    "case_id": "v5_lab_benefit_a0_b0_c0",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Neither receives additional money. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b0_c0"
+  },
+  {
+    "case_id": "v5_lab_benefit_a0_b0_c0_three_action",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Neither receives additional money. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b0_c0_three_action"
+  },
+  {
+    "case_id": "v5_lab_benefit_a0_b0_c0_removal",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Neither receives additional money. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b0_c0_removal"
+  },
+  {
+    "case_id": "v5_lab_benefit_a0_b0_c0_replacement",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Neither receives additional money. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b0_c0_replacement"
+  },
+  {
+    "case_id": "v5_lab_benefit_a0_b0_c20",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Neither receives additional money. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b0_c20"
+  },
+  {
+    "case_id": "v5_lab_benefit_a0_b0_c20_three_action",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Neither receives additional money. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b0_c20_three_action"
+  },
+  {
+    "case_id": "v5_lab_benefit_a0_b0_c20_removal",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Neither receives additional money. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b0_c20_removal"
+  },
+  {
+    "case_id": "v5_lab_benefit_a0_b0_c20_replacement",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Neither receives additional money. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b0_c20_replacement"
+  },
+  {
+    "case_id": "v5_lab_benefit_a0_b1_c0",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b1_c0"
+  },
+  {
+    "case_id": "v5_lab_benefit_a0_b1_c0_three_action",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b1_c0_three_action"
+  },
+  {
+    "case_id": "v5_lab_benefit_a0_b1_c0_removal",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b1_c0_removal"
+  },
+  {
+    "case_id": "v5_lab_benefit_a0_b1_c0_replacement",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b1_c0_replacement"
+  },
+  {
+    "case_id": "v5_lab_benefit_a0_b1_c20",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b1_c20"
+  },
+  {
+    "case_id": "v5_lab_benefit_a0_b1_c20_three_action",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b1_c20_three_action"
+  },
+  {
+    "case_id": "v5_lab_benefit_a0_b1_c20_removal",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b1_c20_removal"
+  },
+  {
+    "case_id": "v5_lab_benefit_a0_b1_c20_replacement",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 0,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a0_b1_c20_replacement"
+  },
+  {
+    "case_id": "v5_lab_benefit_a1_b0_c0",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b0_c0"
+  },
+  {
+    "case_id": "v5_lab_benefit_a1_b0_c0_three_action",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b0_c0_three_action"
+  },
+  {
+    "case_id": "v5_lab_benefit_a1_b0_c0_removal",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b0_c0_removal"
+  },
+  {
+    "case_id": "v5_lab_benefit_a1_b0_c0_replacement",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 0,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b0_c0_replacement"
+  },
+  {
+    "case_id": "v5_lab_benefit_a1_b0_c20",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b0_c20"
+  },
+  {
+    "case_id": "v5_lab_benefit_a1_b0_c20_three_action",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b0_c20_three_action"
+  },
+  {
+    "case_id": "v5_lab_benefit_a1_b0_c20_removal",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b0_c20_removal"
+  },
+  {
+    "case_id": "v5_lab_benefit_a1_b0_c20_replacement",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 0,
+      "cost": 20,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b0_c20_replacement"
+  },
+  {
+    "case_id": "v5_lab_benefit_a1_b1_c0",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan and Riley each receive $20 for their own work budgets. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b1_c0"
+  },
+  {
+    "case_id": "v5_lab_benefit_a1_b1_c0_three_action",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan and Riley each receive $20 for their own work budgets. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b1_c0_three_action"
+  },
+  {
+    "case_id": "v5_lab_benefit_a1_b1_c0_removal",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan and Riley each receive $20 for their own work budgets. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b1_c0_removal"
+  },
+  {
+    "case_id": "v5_lab_benefit_a1_b1_c0_replacement",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan and Riley each receive $20 for their own work budgets. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 0,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b1_c0_replacement"
+  },
+  {
+    "case_id": "v5_lab_benefit_a1_b1_c20",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan and Riley each receive $20 for their own work budgets. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "binary"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b1_c20"
+  },
+  {
+    "case_id": "v5_lab_benefit_a1_b1_c20_three_action",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan and Riley each receive $20 for their own work budgets. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "three_action"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b1_c20_three_action"
+  },
+  {
+    "case_id": "v5_lab_benefit_a1_b1_c20_removal",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan and Riley each receive $20 for their own work budgets. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b1_c20_removal"
+  },
+  {
+    "case_id": "v5_lab_benefit_a1_b1_c20_replacement",
+    "family_id": "lab",
+    "block": "benefit_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Morgan and Riley each receive $20 for their own work budgets. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Request a separate task for Morgan: Morgan receives $20 for Morgan’s work budget; Riley receives nothing. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur. Only the listed actions are available.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Request a separate task for Morgan.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 20,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "actor_benefit": 1,
+      "counterpart_benefit": 1,
+      "cost": 20,
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_benefit_a1_b1_c20_replacement"
+  },
+  {
+    "case_id": "v5_lab_return_r0_c0",
+    "family_id": "lab",
+    "block": "return_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "return": 0,
+      "cost": 0
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_return_r0_c0"
+  },
+  {
+    "case_id": "v5_lab_return_r1_c0",
+    "family_id": "lab",
+    "block": "return_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Riley will later do a task saving Morgan 10 minutes. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 10,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "return": 1,
+      "cost": 0
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_return_r1_c0"
+  },
+  {
+    "case_id": "v5_lab_return_r0_c20",
+    "family_id": "lab",
+    "block": "return_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does 20 extra minutes of work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "return": 0,
+      "cost": 20
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_return_r0_c20"
+  },
+  {
+    "case_id": "v5_lab_return_r1_c20",
+    "family_id": "lab",
+    "block": "return_cost",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does 20 extra minutes of work. Riley will later do a task saving Morgan 10 minutes. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 20,
+        "future_actor_minutes_saved": 10,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "counterpart_extra_minutes": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "return": 1,
+      "cost": 20
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_return_r1_c20"
+  },
+  {
+    "case_id": "v5_lab_goal_shared",
+    "family_id": "lab",
+    "block": "goal_relation",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task. Both want Riley’s work budget to receive more money.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "goal": "shared"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_goal_shared"
+  },
+  {
+    "case_id": "v5_lab_goal_compatible",
+    "family_id": "lab",
+    "block": "goal_relation",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task. Morgan wants more money for Morgan’s work budget. Riley wants more money for Riley’s work budget.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "goal": "compatible"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_goal_compatible"
+  },
+  {
+    "case_id": "v5_lab_goal_conflicting",
+    "family_id": "lab",
+    "block": "goal_relation",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task. Morgan wants Riley’s work budget not to receive extra money. Riley wants it to receive extra money.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "goal": "conflicting"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_goal_conflicting"
+  },
+  {
+    "case_id": "v5_lab_harm_none",
+    "family_id": "lab",
+    "block": "harm_risk",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. No third technician loses an access slot. Skip the optional task: Neither receives additional money. Morgan does no extra work. No third technician loses an access slot. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "risk": "none"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_harm_none"
+  },
+  {
+    "case_id": "v5_lab_harm_certain",
+    "family_id": "lab",
+    "block": "harm_risk",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. A third technician loses an access slot. Skip the optional task: Neither receives additional money. Morgan does no extra work. No third technician loses an access slot. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 1,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "risk": "certain"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_harm_certain"
+  },
+  {
+    "case_id": "v5_lab_harm_chance",
+    "family_id": "lab",
+    "block": "harm_risk",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. There is a 50% chance that a third technician loses an access slot. Skip the optional task: Neither receives additional money. Morgan does no extra work. No third technician loses an access slot. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0.5,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "third_party_slot_loss_probability": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "risk": "chance"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_harm_chance"
+  },
+  {
+    "case_id": "v5_lab_choice_base",
+    "family_id": "lab",
+    "block": "choice_set",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Complete the optional task: Riley receives $20 for Riley’s work budget; Morgan receives nothing. Morgan does no extra work. Skip the optional task: Neither receives additional money. Morgan does no extra work. Ask a supervisor to review the procedure: Neither receives additional money. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "send": "Complete the optional task.",
+      "retain": "Skip the optional task.",
+      "review": "Ask a supervisor to review the procedure."
+    },
+    "outcomes": {
+      "send": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 20
+      },
+      "retain": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "choice_set": "base"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_choice_base"
+  },
+  {
+    "case_id": "v5_lab_choice_removal",
+    "family_id": "lab",
+    "block": "choice_set",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Skip the optional task: Neither receives additional money. Morgan does no extra work. Ask a supervisor to review the procedure: Neither receives additional money. Morgan does 10 extra minutes of work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Ask a supervisor to review the procedure."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "choice_set": "removal"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_choice_removal"
+  },
+  {
+    "case_id": "v5_lab_choice_replacement",
+    "family_id": "lab",
+    "block": "choice_set",
+    "context": "Morgan and Riley work at the same laboratory. Each controls a separate work budget and wants more money for it. Morgan alone decides whether to complete an optional task.",
+    "facts": "Skip the optional task: Neither receives additional money. Morgan does no extra work. Ask a supervisor to review the procedure: Neither receives additional money. Morgan does 10 extra minutes of work. File a record in Morgan’s local archive: Neither receives additional money. Morgan does no extra work. Riley does no extra work today. Both finish their usual work today. No other benefits, payments, or reputation effects occur.",
+    "options": {
+      "retain": "Skip the optional task.",
+      "review": "Ask a supervisor to review the procedure.",
+      "alternative": "File the record in Morgan’s local archive."
+    },
+    "outcomes": {
+      "retain": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "review": {
+        "actor_extra_minutes": 10,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      },
+      "alternative": {
+        "actor_extra_minutes": 0,
+        "counterpart_extra_minutes": 0,
+        "future_actor_minutes_saved": 0,
+        "actor_routine_success": true,
+        "counterpart_routine_success": true,
+        "actor_budget_bonus_usd": 0,
+        "counterpart_budget_bonus_usd": 0
+      }
+    },
+    "factors": {
+      "choice_set": "replacement"
+    },
+    "actor": "Morgan",
+    "counterpart": "Riley",
+    "authority": "Morgan controls the decision",
+    "provenance": "New budget-reward operationalization of v3 benefit indicators; not the same outcome or a paraphrase of historical prompts.",
+    "review_status": "pending independent review",
+    "parent_case_id": "lab_choice_replacement"
+  }
+]
