@@ -1,0 +1,34 @@
+{
+  "runs": [
+    {
+      "run_id": "factorial_v1_20261113_093903_qwen7b_full",
+      "model": "Qwen/Qwen2.5-7B",
+      "scope": "full",
+      "n": 4576,
+      "run_manifest_sha256": "294b8bc116243f360693a939ce2b762798e455a5b147cf9a7879269bbd99b15a",
+      "rows_sha256": "db57bdc004555ead31ee3b6da953349e9b17c2019ab29da823a7ac9d15fcea39",
+      "summary_sha256": "d9421ace28d0bef7f6e7f0daa68c72ae369080967e222ee8874943b37a214c0b"
+    },
+    {
+      "run_id": "factorial_v1_20261113_093903_olmo7b_full",
+      "model": "allenai/OLMo-2-1124-7B",
+      "scope": "full",
+      "n": 4576,
+      "run_manifest_sha256": "70dc63d0b3767bc272bc777bff15d02151a37aec10212cf520a31eb9dd7fb350",
+      "rows_sha256": "f0237d907685555d201ec57c7b626ecf09d60940f68eed8d94c91ade345bd8ce",
+      "summary_sha256": "bc2b2b2481b181a41254451102032a8474ad591b46c2dd1d367ed4718861bf4a"
+    },
+    {
+      "run_id": "factorial_v1_20261113_093903_mistral7b_full",
+      "model": "mistralai/Mistral-7B-v0.3",
+      "scope": "full",
+      "n": 4576,
+      "run_manifest_sha256": "ec9aad97c884924ac489244047a6d92f0096f5af88138baac1b4d9e6c0994b54",
+      "rows_sha256": "3e39bda6cc0c6b108a7ed988cf6a04a443ad63b9089f4dda2077a1ade090718b",
+      "summary_sha256": "ea1afff9b92c7aead40f472525c1f911cbfe13d7a7a50218ea34abb17b68e5ef"
+    }
+  ],
+  "analysis_code_sha256": "e892800c189b0135307c6b4137b73ff7fa14d01d32521c54b07795d7c8dde113",
+  "status": "descriptive; two exposed domain implementations; no population CI or p-values",
+  "contrasts": 1920
+}
