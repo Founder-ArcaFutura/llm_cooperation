@@ -2,9 +2,9 @@
 
 This repository studies how pretrained language models select among cooperative coordination, independent action, competition or exploitation, and disengagement in one-shot, text-described situations. It began as a small multiple-choice screen and has grown into a multi-stage empirical programme spanning utility-matched scenarios, lexical and option-order robustness, negative controls, choice-set interventions, training checkpoints, and exploratory mechanistic probes.
 
-The central finding is specific to the measurement task: **in scenarios authored to give cooperation and independent action approximately equal utility to the model's actor, 11 responsive pretrained checkpoints from seven model families selected the cooperative option more often than the independent option in two scenario banks.** Rewording the cooperative option reduced the measured difference. These are constrained forced-choice results; they do not establish altruism, intentions, internal objectives, or unrestricted cooperative conduct. These are historical observations: all 14 paired-wording runs record resolved model revisions and their saved-row/bank hashes were verified, but tokenizer revisions are missing and one historical inference-code source blob remains unavailable. The included raw records and analysis support offline analytical reproduction; exact model-output regeneration is not established. Phase 1 is not a formally eligible prospective replication. See the [cohort provenance qualification](docs/canonical_evidence_provenance.md) and [review-packet incident](docs/review_packet_blinding_incident.md).
+Across two scenario banks authored to give cooperation and independent action approximately equal utility to the actor, **11 responsive pretrained checkpoints from seven model families selected cooperation more often than independent action.** Rewording the cooperative option reduced the measured difference.
 
-**Start here:** [Research index](RESEARCH_INDEX.md) · [Branch integration plan](BRANCH_INTEGRATION_PLAN.md) · [Canonical manuscript and evidence audit](reports/manuscript_readiness/MANUSCRIPT_V1.md) · [Manuscript readiness and provenance](reports/manuscript_readiness/MANUSCRIPT_READINESS_REPORT.md) · [Execution-provenance qualification](reports/manuscript_readiness/canonical_evidence_qualification.json)
+**Start here:** [Research index](RESEARCH_INDEX.md) · [Branch integration plan](BRANCH_INTEGRATION_PLAN.md) · [Canonical manuscript and evidence audit](reports/manuscript_readiness/MANUSCRIPT_V1.md) · [Manuscript readiness and provenance](reports/manuscript_readiness/MANUSCRIPT_READINESS_REPORT.md)
 
 ## Findings at a glance
 
@@ -17,6 +17,12 @@ The central finding is specific to the measurement task: **in scenarios authored
 | Instrument diagnostic | **Pythia 12B** selected position A on 99.71% of the four-option presentations in the audited cohort. | Its strategy-level result is an instrument failure, not evidence for or against cooperation. |
 
 The central estimates and uncertainty intervals are reported in the [canonical manuscript](reports/manuscript_readiness/MANUSCRIPT_V1.md), with row and run provenance in the [cohort provenance manifest](reports/manuscript_readiness/cohort_provenance_manifest.json) and the [statistical readout](reports/manuscript_readiness/cohort_statistical_readout.json). The manuscript marks formal significance tests as **post-hoc exploratory** and explains the exchangeability assumptions and sensitivity analyses.
+
+These are historical observations. All 14 paired-wording runs record resolved model revisions, and their saved-row and bank hashes were verified. Tokenizer revisions are missing, and one historical inference-code source blob remains unavailable. The raw records and analysis support offline analytical reproduction; exact model-output regeneration is not established. Phase 1 is not a formally eligible prospective replication. See the [cohort provenance qualification](docs/canonical_evidence_provenance.md), [review-packet incident](docs/review_packet_blinding_incident.md), and [execution-provenance qualification](reports/manuscript_readiness/canonical_evidence_qualification.json).
+
+### OLMo-2 checkpoint trajectory
+
+A separate exploratory analysis follows strategy-related information across five sampled OLMo-2 1B pretraining checkpoints. See the [trajectory report and figures](https://github.com/Founder-ArcaFutura/llm_cooperation/blob/phase_1a_training_emergence/research/olmo2_emergence/trajectory_v1/olmo_emergence_trajectory.md) and its [machine-readable results](https://github.com/Founder-ArcaFutura/llm_cooperation/blob/phase_1a_training_emergence/research/olmo2_emergence/trajectory_v1/olmo_emergence_trajectory.json). The report finds the criterion at the earliest sampled checkpoint, initialization; five samples do not identify an exact emergence time. This analysis measures residual-stream representations and does not show that they cause choices or establish a cooperative preference.
 
 ### Example figures
 
@@ -49,6 +55,7 @@ Collaboration is especially useful for blinded review of the scenario and wordin
 
 ## Scope and limitations
 
+- These forced-choice results do not establish altruism, intentions, internal objectives, or unrestricted cooperative conduct.
 - The primary outcome is a **restricted four-option next-token argmax**, not action in an open-ended or multi-turn environment.
 - “Equal utility” describes the authored scenario design; the experiments do not establish that each model interpreted the outcomes that way.
 - Four position rotations reduce answer-order confounding but do not repair every model's format or position bias.
