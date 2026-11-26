@@ -1,154 +1,63 @@
-# LLM Cooperation: Pretrained Strategy-Selection Test Harness
+# LLM Cooperation: A Behavioral Research Programme
 
-[![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
-[![Status](https://img.shields.io/badge/phase-0%20exploratory-orange.svg)](#)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+This repository studies how pretrained language models select among cooperative coordination, independent action, competition or exploitation, and disengagement in one-shot, text-described situations. It began as a small multiple-choice screen and has grown into a multi-stage empirical programme spanning utility-matched scenarios, lexical and option-order robustness, negative controls, choice-set interventions, training checkpoints, and exploratory mechanistic probes.
 
-An experimental test harness and analysis pipeline designed to investigate whether **base, unaligned language models** preferentially select cooperative strategies under balanced, one-shot decision dilemmas prior to any supervised fine-tuning (SFT) or RLHF/DPO.
+The central finding is specific to the measurement task: **in scenarios authored to give cooperation and independent action approximately equal utility to the model's actor, 11 responsive pretrained checkpoints from seven model families selected the cooperative option more often than the independent option in two scenario banks.** Rewording the cooperative option reduced the measured difference. These are constrained forced-choice results; they do not establish altruism, intentions, internal objectives, or unrestricted cooperative conduct.
 
-This repository implements **Phase 0 (Exploratory Multiple-Choice Screen)** according to the experimental specification by Adrian Hau / Arca Futura LLC (`Pretrained Cooperation Representations — Experimental Specification v0.2`).
+**Start here:** [Research index](RESEARCH_INDEX.md) · [Canonical manuscript and evidence audit](reports/manuscript_readiness/MANUSCRIPT_V1.md) · [Manuscript readiness and provenance](reports/manuscript_readiness/MANUSCRIPT_READINESS_REPORT.md)
 
----
+## Findings at a glance
 
-## 1. Overview & Key Capabilities
+| Evidence | Result | How to read it |
+| --- | --- | --- |
+| Utility-matched choice | All 11 responsive base checkpoints had positive cooperation-minus-independence margins in both Phase 0B and Phase 1. After rewording, margins ranged from **30.2 to 90.2 percentage points** in Phase 0B and **28.6 to 94.2 points** in Phase 1. | Checkpoint-level results from a four-option next-token argmax instrument; not a population estimate across model families. |
+| Wording sensitivity | Rewording reduced the mean margin by **18.3 points** in Phase 0B and **15.9 points** in Phase 1. | The signal persisted for responsive checkpoints, but its size depended on wording. The paraphrases still await blinded human equivalence review. |
+| Context controls | Across responsive base runs, cooperation was selected on **84.2%** of neutral/costless presentations and **75.5%** of modest-cost presentations, versus **16.0%** when cooperation conflicted with the assigned objective and **18.5%** when it was ineffective or inappropriate. | Descriptive strata across the recorded banks. They test whether responses track the described situation; they do not certify that every scenario communicates its intended construct. |
+| Choice-set removal | When cooperation was removed, independence exceeded a one-third uniform-choice reference in **6 of 6** checkpoints; it exceeded competition/exploitation after correction in **4 of 6**. | An exploratory intervention. A changed choice set cannot establish an inherent second-choice ranking in the original task. |
+| Instrument diagnostic | **Pythia 12B** selected position A on 99.71% of the four-option presentations in the audited cohort. | Its strategy-level result is an instrument failure, not evidence for or against cooperation. |
 
-- **24-Scenario Balanced Item Bank (`data/scenarios.json`):**
-  - Factorially stratified across **2 Partner Types** (`human` vs `ai`) and **4 Context / Cost Types** (`neutral_or_costless`, `modest_cost`, `conflict_with_objective`, `ineffective_or_inappropriate`).
-  - 4 plausible actions per scenario: `COOPERATE`, `INDEPENDENT`, `COMPETE_EXPLOIT`, and `DISENGAGE`.
-  - Prohibits moralizing/taboo vocabulary (`kind`, `moral`, `selfish`, `virtuous`, etc.) with balanced option lengths.
-- **Latin-Square Permutation Engine (`llm_cooperation/items/`):**
-  - Generates exactly 4 counterbalanced presentations per scenario (96 total presentations).
-  - Guarantees each semantic strategy occupies letter positions `A`, `B`, `C`, and `D` equally often.
-- **Dual-Measurement Model Runner (`llm_cooperation/harness/`):**
-  - Next-token raw logit extraction and normalized 4-choice conditional probability calculation.
-  - Forced-choice argmax extraction alongside separate greedy token generation and strict validity parsing.
-  - Diagnostic candidate tokenizer probing (handling leading-space vs unprefixed tokens across Qwen, Pythia, OLMo, and Mistral).
-  - `--mock` dry-run mode for local CI/CD testing without GPU access.
-- **Scenario-Clustered Statistical Analysis (`llm_cooperation/analysis/`):**
-  - Scenario-level aggregation to prevent pseudoreplication across permutations.
-  - 2,000-sample clustered bootstrapping over the 24 scenarios for 95% confidence intervals.
-  - Subgroup stratifications (context type, partner type, alternative strategies).
-  - Letter position bias audit ($P_A, P_B, P_C, P_D$).
-  - Publication-grade figure generation (`reports/figures/`) and automated Markdown decision memos.
+The central estimates and uncertainty intervals are reported in the [canonical manuscript](reports/manuscript_readiness/MANUSCRIPT_V1.md), with row and run provenance in the [cohort provenance manifest](reports/manuscript_readiness/cohort_provenance_manifest.json) and the [statistical readout](reports/manuscript_readiness/cohort_statistical_readout.json). The manuscript marks formal significance tests as **post-hoc exploratory** and explains the exchangeability assumptions and sensitivity analyses.
 
----
+### Example figures
 
-## 2. Repository Structure
+These figures come from one early Qwen 2.5 3B Phase 0 run. They illustrate the measurement and reporting format; they are **not** cohort-level summaries of the later utility-matched studies.
 
-```
-llm_cooperation/
-├── configs/
-│   └── models.yaml                 # Provenance manifest for Qwen, Pythia, OLMo, Mistral
-├── data/
-│   └── scenarios.json              # Frozen 24-scenario item bank
-├── docs/
-│   ├── phase0_protocol.md          # Scientific protocol & gate rules
-│   └── runpod_lambda_setup.md      # Lambda Labs / RunPod execution guide
-├── llm_cooperation/
-│   ├── items/                      # Schemas, permutations, and item audit
-│   ├── harness/                    # ModelRunner, tokenizer probe, and scoring
-│   ├── analysis/                   # Aggregation, clustered bootstrapping, and plotting
-│   └── cli.py                      # Unified CLI entrypoint (`llm-coop`)
-├── tests/                          # Full pytest test suite
-├── pyproject.toml                  # PEP 621 package specification
-├── requirements.txt                # Pip requirements for cloud GPU environments
-└── README.md
-```
+| Strategy choices by context | Choice-position diagnostic |
+| --- | --- |
+| ![Qwen 2.5 3B Phase 0 strategy choices by context](reports/phase1_qwen3b/figures/Qwen_Qwen2.5-3B_run_Qwen_Qwen2.5-3B_20261104_225437_9d3a9b99_cooperation_by_strata.png) | ![Qwen 2.5 3B Phase 0 choice-position diagnostic](reports/phase1_qwen3b/figures/Qwen_Qwen2.5-3B_run_Qwen_Qwen2.5-3B_20261104_225437_9d3a9b99_position_bias_audit.png) |
 
----
+## What the experiments control
 
-## 3. Quickstart & Installation
+- **Option order:** Semantic actions rotate across answer positions. Separate randomized-order replications measure whether observed strategy selection changes with presentation order. A model that repeatedly selects one letter is treated as an instrument failure.
+- **Utility and context:** Later banks distinguish nominally equal-utility cooperation and independent action from contexts where cooperation has a cost, conflicts with the assigned objective, or is ineffective or inappropriate.
+- **Lexical framing:** The cooperative option is reworded while the scenario and alternatives are paired. This tests sensitivity to those specific wordings, not full semantic invariance.
+- **Negative controls:** Objective-conflict and ineffective-cooperation conditions test whether selection tracks the scenario rather than unconditional endorsement of cooperative language.
+- **Calibration and output channels:** Objective calibration tasks, letter-position diagnostics, ties, and free-generation parsing are reported separately from forced-choice argmax. The channels can disagree and are not interchangeable.
+- **Choice-set intervention:** A separate follow-up removes cooperation and measures substitution among the remaining strategies.
 
-### Local / Development Setup
-```bash
-git clone <repo-url>
-cd llm_cooperation
-python3 -m venv venv
-source venv/bin/activate
-pip install --upgrade pip
-pip install -e ".[dev]"
-```
+The canonical cohort avoids moralizing vocabulary in its scenarios. **It does not test an explicit moral-framing inversion.** Whether choices survive a designed reversal of moral labels or evaluative framing while outcomes are held constant remains an open research question; lexical rewording is not a substitute for that control.
 
-### Running Tests and Item Audit
-```bash
-# Verify all unit tests (permutations, schema, parsing, analysis)
-pytest tests/
+## Research map
 
-# Run the scenario item bank and Latin-square balance audit
-llm-coop audit-items
-```
+The work spans several branches and evidence classes. The [research index](RESEARCH_INDEX.md) organizes the phases, points to the strongest available reports, and identifies branch-specific work. Branches preserve their own history; the index does not imply that every experiment is validated or that the branches have been merged.
 
----
+## Open questions and collaboration
 
-## 4. Running Experiments
+The next research steps are to complete independent blinded review of scenario meaning and utility matching; expand instrument qualification beyond the few checkpoints that passed historical calibration thresholds; run a formally eligible prospective replication across multiple independently qualified model families; and test sensitivity to explicit moral framing, alternative option schedules, and payoff levels. The mechanistic probes remain exploratory and do not establish a cooperation circuit.
 
-### Dry-Run / Mock Mode (No GPU required)
-Test the end-to-end evaluation and analysis pipeline locally in seconds:
-```bash
-# Run 96 mock presentations
-llm-coop run --model "mock-qwen2.5-3b" --mock -o results
+Collaboration is especially useful for blinded review of the scenario and wording pairs, independent replication of the analysis from the frozen run records, and designing controls that separate coordination, partner welfare, wording, and answer-position effects. See the [review brief](reports/manuscript_readiness/AUTHOR_REVIEW_BRIEF.md) and [research index](RESEARCH_INDEX.md).
 
-# Analyze results and generate figures
-llm-coop analyze results/run_mock-qwen2.5-3b_*.jsonl -o reports
-```
+## Scope and limitations
 
-### Modal Cloud Execution (Primary Backend)
-Refer to [docs/modal_execution_guide.md](docs/modal_execution_guide.md) for complete instructions, Windows PowerShell setup, and volume sync commands.
+- The primary outcome is a **restricted four-option next-token argmax**, not action in an open-ended or multi-turn environment.
+- “Equal utility” describes the authored scenario design; the experiments do not establish that each model interpreted the outcomes that way.
+- Four position rotations reduce answer-order confounding but do not repair every model's format or position bias.
+- Several model families have only one checkpoint, and checkpoints within a family are not independent training-history replications.
+- Phase 1's prospective-bank designation has an unresolved chronology and review-status conflict. It is not presented here as a formally eligible prospective replication.
+- Human semantic adjudication and wider instrument calibration remain incomplete. Post-hoc inferential tests remain exploratory.
 
-Modal manages on-demand GPU allocation, persistent model weight caching (`llm-coop-hf-cache`), and results persistence (`llm-coop-results`):
+## Repository and reproduction
 
-```powershell
-# Mock run on Modal (zero-GPU CPU container)
-modal run modal_app.py --model "mock-qwen2.5-3b" --mock
+This repository contains protocols, scenario banks, analysis code, raw run records, derived reports, and exploratory research. Use the [research index](RESEARCH_INDEX.md) to find evidence before the package layout or setup instructions. The reports link to their manifests, inputs, analysis notes, and reproduction commands where available. Preserve run identifiers and provenance when comparing results; do not treat repeated presentations of one scenario as independent observations.
 
-# Real GPU run on Modal (A10G or L40S; explicit paid-compute authorization required)
-modal run modal_app.py --model "Qwen/Qwen2.5-3B" --precision "bfloat16" --no-mock --authorize-paid-run
-
-# Download results from Modal Volume to G:\llm_cooperation\results
-modal volume get llm-coop-results <run_file>.jsonl G:\llm_cooperation\results\
-```
-
-### Local / Cloud GPU Execution (Independent CLI)
-The harness can also be executed directly on any local or remote machine without Modal:
-```bash
-# 1. Qwen 2.5 3B (Pretrained Base)
-llm-coop run --model "Qwen/Qwen2.5-3B" --precision bfloat16 -o results
-
-# 2. Pythia 2.8B (Pretrained Base)
-llm-coop run --model "EleutherAI/pythia-2.8b" --precision bfloat16 -o results
-
-# 3. OLMo 2 1B (Pretrained Base)
-llm-coop run --model "allenai/OLMo-2-1124-1B" --precision bfloat16 -o results
-
-# 4. Compare models across runs (separating base models from SFT comparators)
-llm-coop compare-models results/*.jsonl -o reports
-```
-
----
-
-## 5. Output Artifacts
-
-Running `llm-coop analyze` produces:
-- `reports/phase0_report_<model>.md`: Markdown executive summary with gate recommendations (`ADVANCE`, `REVISE`, or `STOP`), 95% bootstrap CIs, and stratum breakdowns.
-- `reports/scenario_aggregates_<model>.csv`: Per-scenario metrics aggregated over the 4 permutations.
-- `reports/figures/cooperation_by_strata.png`: Bar plots showing cooperation rates by cost context and partner type.
-- `reports/figures/strategy_distribution.png`: Rates for Cooperate vs Independent vs Compete vs Disengage.
-- `reports/figures/position_bias_audit.png`: Choice frequency across letter positions A, B, C, D.
-
----
-
-## 6. Scientific Protocol & Claim Boundary
-
-Per experimental specification (§13):
-> *"Across several pretrained language-model families, a balanced multiple-choice screen finds a reproducible bias toward selecting cooperative strategies under specified one-shot conditions."*
-
-- Phase 0 is descriptive and behavioral; it **does not** prove internal motives, innate altruism, or low-level mechanistic circuits.
-- The item bank remains formally designated as **Pending Human Scientific Review**; lexical length parity is necessary but does not inherently guarantee construct equivalence across options.
-- The 25% four-choice share is a uniform display reference, not a naturalistic null hypothesis.
-- Escalation to Phase 1/2 mechanistic probing requires passing the predefined gates: high format compliance, position robustness, consistent cross-scenario patterns, and explicit cross-family human review (mock runs strictly excluded).
-
-### Exploratory mechanistic work
-
-See [the mechanistic exploration guide](docs/mechanistic_exploration.md) for the template-separated MLP-neuron screen, held-out ablation, random-neuron controls, calibration, and explicit Modal authorization. This uses the Phase 0B exploratory bank; the protected prospective Phase 1 bank remains gated.
-
-The separate [delayed-mapping pilot](docs/delayed_mapping_pilot.md) captures residual activity before the answer key is revealed, crosses action order with label assignment, and reports format sensitivity before fitting an exploratory semantic-choice probe. It includes offline plan preparation and explicit local/Modal launch commands. Earlier mechanistic evidence remains preserved; this pilot does not establish a cooperation circuit.
+For the original Phase 0 harness and environment setup, see [docs/phase0_protocol.md](docs/phase0_protocol.md) and [docs/modal_execution_guide.md](docs/modal_execution_guide.md). Real-model inference can use paid compute; the existing run records and reports can be inspected without launching new inference.
