@@ -140,9 +140,16 @@ Running `llm-coop analyze` produces:
 ## 6. Scientific Protocol & Claim Boundary
 
 Per experimental specification (§13):
-> *"Across several pretrained language-model families, a balanced multiple-choice screen finds a reproducible bias toward selecting cooperative strategies under specified one-shot conditions."*
+> *Protocol progression criterion—not a reported result: cross-family replication under specified one-shot conditions is required before a confirmatory Phase 1 commitment.*
 
 - Phase 0 is descriptive and behavioral; it **does not** prove internal motives, innate altruism, or low-level mechanistic circuits.
 - The item bank remains formally designated as **Pending Human Scientific Review**; lexical length parity is necessary but does not inherently guarantee construct equivalence across options.
 - The 25% four-choice share is a uniform display reference, not a naturalistic null hypothesis.
 - Escalation to Phase 1/2 mechanistic probing requires passing the predefined gates: high format compliance, position robustness, consistent cross-scenario patterns, and explicit cross-family human review (mock runs strictly excluded).
+
+
+## Historical result qualification
+
+The progression statement above is a protocol criterion, not an empirical finding. In a separate reanalysis of the saved 24-scenario pilot records, Qwen2.5-3B is the only checkpoint to pass the descriptive screen; that is one family and does not establish cross-family replication. In the 120-scenario expanded-bank cohort, no model in the manifest-verified primary base cohort passes the same screen. Expanded runs not verifiably classified by the model manifest remain explicitly unverified.
+
+These 14 outputs are historical observations. Their raw records remain unchanged, but model, tokenizer, and inference-code revisions are absent from the run headers. The recorded choices can be reanalyzed; exact regeneration of the historical model outputs is not established. The [Phase 0 historical run provenance manifest](docs/phase0_historical_run_provenance.md) lists run IDs, bank hashes, separate reanalysis commands, and the limits of recovery.
