@@ -28,7 +28,7 @@ python -m scripts.report_cooperate_rewording
 python -m scripts.build_manuscript_v1
 ```
 
-These commands use saved records only; they do not load models, contact inference providers, or require GPU execution. The audit and analysis scripts regenerate the machine-readable manifests/readouts and manuscript summaries. Bootstrap and Monte Carlo output reproduced exactly in the validated Windows environment for the recorded seeds. The repository does not currently lock exact dependency versions, so numerical reproducibility across environments should be checked against the saved readout. The report’s historical run hashes reflect CRLF source bytes; Git stores normalized text, so the file bytes and hash display can differ across checkout settings while the LF-normalized content is identical.
+These commands use saved records only; they do not load models, contact inference providers, or require GPU execution. The audit and analysis scripts regenerate the machine-readable manifests/readouts and manuscript summaries. The 2,000-resample descriptive readout and 50,000-iteration post-hoc output were rerun from clean committed snapshots and matched the saved numeric outputs exactly in this Windows environment. Bootstrap and Monte Carlo output reproduced exactly in the validated Windows environment for the recorded seeds. The repository does not currently lock exact dependency versions, so numerical reproducibility across environments should be checked against the saved readout. The report’s historical run hashes reflect CRLF source bytes; Git stores normalized text, so the file bytes and hash display can differ across checkout settings while the LF-normalized content is identical.
 
 ## Separate Phase 0 cohort
 
