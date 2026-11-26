@@ -40,15 +40,28 @@ The canonical Git blobs use LF line endings:
 
 The run hashes match the Windows CRLF worktree bytes; normalizing CRLF to LF reproduces the canonical Git blob hashes. The independent calibration bank is data/calibration_bank.json, SHA-256 4343b76d98733e4fa6061867c5deea9619bfac5a5951f14a1d61007d5c058a39.
 
+## Separated cohort readout
+
+The 24-scenario pilot and 120-scenario expanded bank are different instruments and must be analyzed separately. A combined cross-model report would mix bank versions and cannot support a replication or cross-family claim.
+
+In the current pinned-code reanalysis, the pilot report marks only Qwen2.5-3B as passing the descriptive screen; that is one model from one family, so cross-family replication is absent. The expanded-bank primary manifest cohort has no model passing the same gate. Additional expanded runs without a verified model-manifest classification remain in the report's unverified cohort and are not used as evidence for the primary conclusion. All of these are historical observations with incomplete execution provenance.
+
 ## Analytical reproduction
 
-The saved observations can be reanalyzed without model inference. The validated analysis implementation used for this reanalysis is pinned to PR #2 source commit 91cf9d4d3f958a671c01285ac2b8833c0878e712; this identifies the analysis version, not the unknown historical execution version.
+The saved observations can be reanalyzed without model inference. The validated analysis implementation used for this reanalysis is pinned to PR #2 source commit 91cf9d4d3f958a671c01285ac2b8833c0878e712; this identifies the analysis version, not the unknown historical execution version. Bootstrap intervals use the analysis implementation's fixed default seed (42).
 
-From the repository root, with the branch's 14 raw JSONL files present:
+From the repository root, use the 14 run files and split them by recorded presentation count; do not pass the two bank versions to one comparison:
 
 ~~~powershell
-$files = Get-ChildItem results -File -Filter *.jsonl | ForEach-Object { $_.FullName }
-python -m llm_cooperation.cli compare-models @files --output-dir reports/phase0_reanalysis --bootstrap-samples 2000
+$pilot = @()
+$expanded = @()
+foreach ($f in Get-ChildItem results -File -Filter *.jsonl) {
+    $h = Get-Content $f.FullName -TotalCount 1 | ConvertFrom-Json
+    if ($h.num_presentations -eq 96) { $pilot += $f.FullName }
+    elseif ($h.num_presentations -eq 480) { $expanded += $f.FullName }
+}
+python -m llm_cooperation.cli compare-models @pilot --output-dir reports/phase0_pilot_reanalysis --bootstrap-samples 2000
+python -m llm_cooperation.cli compare-models @expanded --output-dir reports/phase0_expanded_reanalysis --bootstrap-samples 2000
 ~~~
 
-The report is analytically reproducible from these records and the identified analysis source. It is not a regeneration of the model outputs. Keep this qualification attached to any table, figure, or manuscript claim derived from these runs.
+This reproduces analyses of the saved choices with the identified analysis source. It does not regenerate the historical model outputs. Keep the cohort and provenance qualification attached to every table, figure, or manuscript claim derived from these runs.
