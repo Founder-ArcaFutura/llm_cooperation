@@ -1,0 +1,1921 @@
+{
+  "analysis": "post-hoc template-clustered Monte Carlo randomization",
+  "source_revision": "e1fe48aca26bd4d7b71ea857b1e11ece47aaec7a",
+  "worktree_dirty_at_analysis": true,
+  "analysis_code_sha256": "61360c8edd4d503998c023d54fa15ec2a7daf40c6045adc6e1215e96adf095f9",
+  "seed": 20261111,
+  "iterations_per_test": 50000,
+  "multiple_testing": "Holm across all 44 four-option tests; Holm separately across six tests per three-option hypothesis",
+  "four_option": [
+    {
+      "clusters": 52,
+      "presentations": 800,
+      "strategy_counts": {
+        "COOPERATE": 705,
+        "INDEPENDENT": 75,
+        "COMPETE_EXPLOIT": 20,
+        "DISENGAGE": 0
+      },
+      "observed_rate": 0.88125,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.63125,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.7875,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "Qwen/Qwen2.5-3B",
+      "family": "Qwen",
+      "bank": "phase0b",
+      "data_file": "results\\cooperate_rewording\\20261111T131820Z_e2b4ab6e\\rows.jsonl",
+      "data_sha256": "695f4cb6b97b5b45ec821c15f2ce534600182845d734d5d039fd9d0b7fdba7ed",
+      "run_id": "20261111T131820Z_e2b4ab6e",
+      "resolved_model_revision": "3aab1f1954e9cc14eb9509a215f9e5ca08227a9b",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 32
+    },
+    {
+      "clusters": 24,
+      "presentations": 368,
+      "strategy_counts": {
+        "COOPERATE": 347,
+        "INDEPENDENT": 15,
+        "COMPETE_EXPLOIT": 6,
+        "DISENGAGE": 0
+      },
+      "observed_rate": 0.9429347826086957,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.6929347826086957,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.9021739130434783,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "Qwen/Qwen2.5-3B",
+      "family": "Qwen",
+      "bank": "phase1",
+      "data_file": "results\\cooperate_rewording\\20261111T131820Z_e2b4ab6e\\rows.jsonl",
+      "data_sha256": "695f4cb6b97b5b45ec821c15f2ce534600182845d734d5d039fd9d0b7fdba7ed",
+      "run_id": "20261111T131820Z_e2b4ab6e",
+      "resolved_model_revision": "3aab1f1954e9cc14eb9509a215f9e5ca08227a9b",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 16
+    },
+    {
+      "clusters": 52,
+      "presentations": 802,
+      "strategy_counts": {
+        "COOPERATE": 761,
+        "INDEPENDENT": 25,
+        "COMPETE_EXPLOIT": 11,
+        "DISENGAGE": 5
+      },
+      "observed_rate": 0.9488778054862843,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.6988778054862843,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.9177057356608479,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "Qwen/Qwen2.5-1.5B",
+      "family": "Qwen",
+      "bank": "phase0b",
+      "data_file": "results\\cooperate_rewording\\20261111T133143Z_fdcd79db\\rows.jsonl",
+      "data_sha256": "15a3f63c36bf36ae315cce4aa66949d7a6a0d052d3b65a64092bcc181d40b36f",
+      "run_id": "20261111T133143Z_fdcd79db",
+      "resolved_model_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 30
+    },
+    {
+      "clusters": 24,
+      "presentations": 374,
+      "strategy_counts": {
+        "COOPERATE": 351,
+        "INDEPENDENT": 9,
+        "COMPETE_EXPLOIT": 11,
+        "DISENGAGE": 3
+      },
+      "observed_rate": 0.9385026737967914,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.6885026737967914,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.9144385026737968,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "Qwen/Qwen2.5-1.5B",
+      "family": "Qwen",
+      "bank": "phase1",
+      "data_file": "results\\cooperate_rewording\\20261111T133143Z_fdcd79db\\rows.jsonl",
+      "data_sha256": "15a3f63c36bf36ae315cce4aa66949d7a6a0d052d3b65a64092bcc181d40b36f",
+      "run_id": "20261111T133143Z_fdcd79db",
+      "resolved_model_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 10
+    },
+    {
+      "clusters": 52,
+      "presentations": 720,
+      "strategy_counts": {
+        "COOPERATE": 591,
+        "INDEPENDENT": 74,
+        "COMPETE_EXPLOIT": 49,
+        "DISENGAGE": 6
+      },
+      "observed_rate": 0.8208333333333333,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.5708333333333333,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.7180555555555556,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "meta-llama/Llama-3.2-3B",
+      "family": "Llama",
+      "bank": "phase0b",
+      "data_file": "results\\cooperate_rewording\\20261111T135727Z_eee5edc7\\rows.jsonl",
+      "data_sha256": "9e52ded7e7b5daf00b73c3b15815e81762e02a00fd1fdfd05cf262f7856a9e30",
+      "run_id": "20261111T135727Z_eee5edc7",
+      "resolved_model_revision": "13afe5124825b4f3751f836b40dafda64c1ed062",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 112
+    },
+    {
+      "clusters": 24,
+      "presentations": 328,
+      "strategy_counts": {
+        "COOPERATE": 268,
+        "INDEPENDENT": 47,
+        "COMPETE_EXPLOIT": 10,
+        "DISENGAGE": 3
+      },
+      "observed_rate": 0.8170731707317073,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.5670731707317073,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.6737804878048781,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "meta-llama/Llama-3.2-3B",
+      "family": "Llama",
+      "bank": "phase1",
+      "data_file": "results\\cooperate_rewording\\20261111T135727Z_eee5edc7\\rows.jsonl",
+      "data_sha256": "9e52ded7e7b5daf00b73c3b15815e81762e02a00fd1fdfd05cf262f7856a9e30",
+      "run_id": "20261111T135727Z_eee5edc7",
+      "resolved_model_revision": "13afe5124825b4f3751f836b40dafda64c1ed062",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 56
+    },
+    {
+      "clusters": 52,
+      "presentations": 818,
+      "strategy_counts": {
+        "COOPERATE": 763,
+        "INDEPENDENT": 55,
+        "COMPETE_EXPLOIT": 0,
+        "DISENGAGE": 0
+      },
+      "observed_rate": 0.9327628361858191,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.6827628361858191,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.8655256723716381,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "Qwen/Qwen2.5-7B",
+      "family": "Qwen",
+      "bank": "phase0b",
+      "data_file": "results\\cooperate_rewording\\20261111T143823Z_c59513df\\rows.jsonl",
+      "data_sha256": "ccc9ebaaeed98f6474bd57671baaee401ed4993bbaca0441c1b286856f862ba0",
+      "run_id": "20261111T143823Z_c59513df",
+      "resolved_model_revision": "d149729398750b98c0af14eb82c78cfe92750796",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 14
+    },
+    {
+      "clusters": 24,
+      "presentations": 380,
+      "strategy_counts": {
+        "COOPERATE": 371,
+        "INDEPENDENT": 6,
+        "COMPETE_EXPLOIT": 3,
+        "DISENGAGE": 0
+      },
+      "observed_rate": 0.9763157894736842,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.7263157894736842,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.9605263157894737,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "Qwen/Qwen2.5-7B",
+      "family": "Qwen",
+      "bank": "phase1",
+      "data_file": "results\\cooperate_rewording\\20261111T143823Z_c59513df\\rows.jsonl",
+      "data_sha256": "ccc9ebaaeed98f6474bd57671baaee401ed4993bbaca0441c1b286856f862ba0",
+      "run_id": "20261111T143823Z_c59513df",
+      "resolved_model_revision": "d149729398750b98c0af14eb82c78cfe92750796",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 4
+    },
+    {
+      "clusters": 52,
+      "presentations": 832,
+      "strategy_counts": {
+        "COOPERATE": 665,
+        "INDEPENDENT": 70,
+        "COMPETE_EXPLOIT": 71,
+        "DISENGAGE": 26
+      },
+      "observed_rate": 0.7992788461538461,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.5492788461538461,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.7151442307692307,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "allenai/OLMo-2-1124-7B",
+      "family": "OLMo",
+      "bank": "phase0b",
+      "data_file": "results\\cooperate_rewording\\20261111T144748Z_730daa27\\rows.jsonl",
+      "data_sha256": "09dd66caff85c560d400197e000bac562cb9eafbfcde8cf47ef5d613973c613f",
+      "run_id": "20261111T144748Z_730daa27",
+      "resolved_model_revision": "7df9a82518afdecae4e8c026b27adccc8c1f0032",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 0
+    },
+    {
+      "clusters": 24,
+      "presentations": 384,
+      "strategy_counts": {
+        "COOPERATE": 310,
+        "INDEPENDENT": 61,
+        "COMPETE_EXPLOIT": 10,
+        "DISENGAGE": 3
+      },
+      "observed_rate": 0.8072916666666666,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.5572916666666666,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.6484375,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "allenai/OLMo-2-1124-7B",
+      "family": "OLMo",
+      "bank": "phase1",
+      "data_file": "results\\cooperate_rewording\\20261111T144748Z_730daa27\\rows.jsonl",
+      "data_sha256": "09dd66caff85c560d400197e000bac562cb9eafbfcde8cf47ef5d613973c613f",
+      "run_id": "20261111T144748Z_730daa27",
+      "resolved_model_revision": "7df9a82518afdecae4e8c026b27adccc8c1f0032",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 0
+    },
+    {
+      "clusters": 52,
+      "presentations": 770,
+      "strategy_counts": {
+        "COOPERATE": 720,
+        "INDEPENDENT": 40,
+        "COMPETE_EXPLOIT": 9,
+        "DISENGAGE": 1
+      },
+      "observed_rate": 0.935064935064935,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.685064935064935,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.8831168831168831,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "google/gemma-2-9b",
+      "family": "Gemma",
+      "bank": "phase0b",
+      "data_file": "results\\cooperate_rewording\\20261111T184014Z_96b31e5b\\rows.jsonl",
+      "data_sha256": "5bc68833b822c63ee160148c2868e89283e640746ab6c05571df3ab724a57aa0",
+      "run_id": "20261111T184014Z_96b31e5b",
+      "resolved_model_revision": "33c193028431c2fde6c6e51f29e6f17b60cbfac6",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 62
+    },
+    {
+      "clusters": 24,
+      "presentations": 352,
+      "strategy_counts": {
+        "COOPERATE": 331,
+        "INDEPENDENT": 14,
+        "COMPETE_EXPLOIT": 6,
+        "DISENGAGE": 1
+      },
+      "observed_rate": 0.9403409090909091,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.6903409090909091,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.9005681818181818,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "google/gemma-2-9b",
+      "family": "Gemma",
+      "bank": "phase1",
+      "data_file": "results\\cooperate_rewording\\20261111T184014Z_96b31e5b\\rows.jsonl",
+      "data_sha256": "5bc68833b822c63ee160148c2868e89283e640746ab6c05571df3ab724a57aa0",
+      "run_id": "20261111T184014Z_96b31e5b",
+      "resolved_model_revision": "33c193028431c2fde6c6e51f29e6f17b60cbfac6",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 32
+    },
+    {
+      "clusters": 52,
+      "presentations": 622,
+      "strategy_counts": {
+        "COOPERATE": 366,
+        "INDEPENDENT": 104,
+        "COMPETE_EXPLOIT": 109,
+        "DISENGAGE": 43
+      },
+      "observed_rate": 0.5884244372990354,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.3384244372990354,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.4212218649517685,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "allenai/OLMo-2-0425-1B",
+      "family": "OLMo",
+      "bank": "phase0b",
+      "data_file": "results\\cooperate_rewording\\20261111T134323Z_553253f4\\rows.jsonl",
+      "data_sha256": "6b139737bde9a5c8f3df23a020db914ebf8ae7434e842e2d9d63f5a64a9956e3",
+      "run_id": "20261111T134323Z_553253f4",
+      "resolved_model_revision": "a1847dff35000b4271fa70afc5db10fd29fedbdf",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 210
+    },
+    {
+      "clusters": 24,
+      "presentations": 322,
+      "strategy_counts": {
+        "COOPERATE": 163,
+        "INDEPENDENT": 53,
+        "COMPETE_EXPLOIT": 84,
+        "DISENGAGE": 22
+      },
+      "observed_rate": 0.5062111801242236,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.2562111801242236,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.3416149068322981,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "allenai/OLMo-2-0425-1B",
+      "family": "OLMo",
+      "bank": "phase1",
+      "data_file": "results\\cooperate_rewording\\20261111T134323Z_553253f4\\rows.jsonl",
+      "data_sha256": "6b139737bde9a5c8f3df23a020db914ebf8ae7434e842e2d9d63f5a64a9956e3",
+      "run_id": "20261111T134323Z_553253f4",
+      "resolved_model_revision": "a1847dff35000b4271fa70afc5db10fd29fedbdf",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 62
+    },
+    {
+      "clusters": 51,
+      "presentations": 414,
+      "strategy_counts": {
+        "COOPERATE": 301,
+        "INDEPENDENT": 44,
+        "COMPETE_EXPLOIT": 33,
+        "DISENGAGE": 36
+      },
+      "observed_rate": 0.7270531400966184,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.47705314009661837,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.6207729468599034,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "google/gemma-2-2b",
+      "family": "Gemma",
+      "bank": "phase0b",
+      "data_file": "results\\cooperate_rewording\\20261111T140952Z_39b00461\\rows.jsonl",
+      "data_sha256": "29bc0ef30584949b96f624bb73b23269cfdb2e168aefa6fe94a33a45c2c5e27c",
+      "run_id": "20261111T140952Z_39b00461",
+      "resolved_model_revision": "c5ebcd40d208330abc697524c919956e692655cf",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 418
+    },
+    {
+      "clusters": 24,
+      "presentations": 216,
+      "strategy_counts": {
+        "COOPERATE": 112,
+        "INDEPENDENT": 29,
+        "COMPETE_EXPLOIT": 36,
+        "DISENGAGE": 39
+      },
+      "observed_rate": 0.5185185185185185,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.2685185185185185,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.38425925925925924,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "google/gemma-2-2b",
+      "family": "Gemma",
+      "bank": "phase1",
+      "data_file": "results\\cooperate_rewording\\20261111T140952Z_39b00461\\rows.jsonl",
+      "data_sha256": "29bc0ef30584949b96f624bb73b23269cfdb2e168aefa6fe94a33a45c2c5e27c",
+      "run_id": "20261111T140952Z_39b00461",
+      "resolved_model_revision": "c5ebcd40d208330abc697524c919956e692655cf",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 168
+    },
+    {
+      "clusters": 52,
+      "presentations": 744,
+      "strategy_counts": {
+        "COOPERATE": 607,
+        "INDEPENDENT": 39,
+        "COMPETE_EXPLOIT": 58,
+        "DISENGAGE": 40
+      },
+      "observed_rate": 0.8158602150537635,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.5658602150537635,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.7634408602150538,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "ibm-granite/granite-3.3-2b-base",
+      "family": "Granite",
+      "bank": "phase0b",
+      "data_file": "results\\cooperate_rewording\\20261111T142123Z_da496c71\\rows.jsonl",
+      "data_sha256": "50cb180837a89c8becae3719993118db65ef1e4ed8f7f3b47c64ffc4195a7ebf",
+      "run_id": "20261111T142123Z_da496c71",
+      "resolved_model_revision": "c15dc681f4b2aeb4e576cdaae5434edfc17ed14d",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 88
+    },
+    {
+      "clusters": 24,
+      "presentations": 348,
+      "strategy_counts": {
+        "COOPERATE": 212,
+        "INDEPENDENT": 28,
+        "COMPETE_EXPLOIT": 63,
+        "DISENGAGE": 45
+      },
+      "observed_rate": 0.6091954022988506,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.3591954022988506,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.5287356321839081,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "ibm-granite/granite-3.3-2b-base",
+      "family": "Granite",
+      "bank": "phase1",
+      "data_file": "results\\cooperate_rewording\\20261111T142123Z_da496c71\\rows.jsonl",
+      "data_sha256": "50cb180837a89c8becae3719993118db65ef1e4ed8f7f3b47c64ffc4195a7ebf",
+      "run_id": "20261111T142123Z_da496c71",
+      "resolved_model_revision": "c15dc681f4b2aeb4e576cdaae5434edfc17ed14d",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 36
+    },
+    {
+      "clusters": 52,
+      "presentations": 798,
+      "strategy_counts": {
+        "COOPERATE": 772,
+        "INDEPENDENT": 16,
+        "COMPETE_EXPLOIT": 6,
+        "DISENGAGE": 4
+      },
+      "observed_rate": 0.9674185463659147,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.7174185463659147,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.9473684210526315,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "mistralai/Mistral-7B-v0.3",
+      "family": "Mistral",
+      "bank": "phase0b",
+      "data_file": "results\\cooperate_rewording\\20261111T181008Z_87cbe96a\\rows.jsonl",
+      "data_sha256": "2a8cc019dbfb75499619436a01a2bce756cb8e2fa446b5d22380aee9225b1795",
+      "run_id": "20261111T181008Z_87cbe96a",
+      "resolved_model_revision": "caa1feb0e54d415e2df31207e5f4e273e33509b1",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 34
+    },
+    {
+      "clusters": 24,
+      "presentations": 376,
+      "strategy_counts": {
+        "COOPERATE": 359,
+        "INDEPENDENT": 3,
+        "COMPETE_EXPLOIT": 7,
+        "DISENGAGE": 7
+      },
+      "observed_rate": 0.9547872340425532,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.7047872340425532,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.9468085106382979,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "mistralai/Mistral-7B-v0.3",
+      "family": "Mistral",
+      "bank": "phase1",
+      "data_file": "results\\cooperate_rewording\\20261111T181008Z_87cbe96a\\rows.jsonl",
+      "data_sha256": "2a8cc019dbfb75499619436a01a2bce756cb8e2fa446b5d22380aee9225b1795",
+      "run_id": "20261111T181008Z_87cbe96a",
+      "resolved_model_revision": "caa1feb0e54d415e2df31207e5f4e273e33509b1",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 8
+    },
+    {
+      "clusters": 52,
+      "presentations": 708,
+      "strategy_counts": {
+        "COOPERATE": 516,
+        "INDEPENDENT": 64,
+        "COMPETE_EXPLOIT": 75,
+        "DISENGAGE": 53
+      },
+      "observed_rate": 0.7288135593220338,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.47881355932203384,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.6384180790960452,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "deepseek-ai/deepseek-llm-7b-base",
+      "family": "DeepSeek",
+      "bank": "phase0b",
+      "data_file": "results\\cooperate_rewording\\20261111T150127Z_ab9bd626\\rows.jsonl",
+      "data_sha256": "316f45501b06d409a18f0ef9c8f51002dfcc9f788659391f7ab0c7a94c4d283f",
+      "run_id": "20261111T150127Z_ab9bd626",
+      "resolved_model_revision": "7683fea62db869066ddaff6a41d032262c490d4f",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 124
+    },
+    {
+      "clusters": 24,
+      "presentations": 306,
+      "strategy_counts": {
+        "COOPERATE": 188,
+        "INDEPENDENT": 44,
+        "COMPETE_EXPLOIT": 51,
+        "DISENGAGE": 23
+      },
+      "observed_rate": 0.6143790849673203,
+      "uniform_reference": 0.25,
+      "rate_minus_uniform": 0.3643790849673203,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "contrast_strategy": "INDEPENDENT",
+      "rate_difference": 0.47058823529411764,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of COOPERATE and INDEPENDENT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.000879982400351993
+      },
+      "model": "deepseek-ai/deepseek-llm-7b-base",
+      "family": "DeepSeek",
+      "bank": "phase1",
+      "data_file": "results\\cooperate_rewording\\20261111T150127Z_ab9bd626\\rows.jsonl",
+      "data_sha256": "316f45501b06d409a18f0ef9c8f51002dfcc9f788659391f7ab0c7a94c4d283f",
+      "run_id": "20261111T150127Z_ab9bd626",
+      "resolved_model_revision": "7683fea62db869066ddaff6a41d032262c490d4f",
+      "wordings": [
+        "original",
+        "paraphrase"
+      ],
+      "tie_rule": "keep only complete original/paraphrase pairs with unique argmax on both",
+      "excluded_by_tie_or_pair_rule": 78
+    }
+  ],
+  "three_option": [
+    {
+      "clusters": 54,
+      "presentations": 686,
+      "strategy_counts": {
+        "INDEPENDENT": 442,
+        "COMPETE_EXPLOIT": 199,
+        "DISENGAGE": 45
+      },
+      "observed_rate": 0.6443148688046647,
+      "uniform_reference": 0.3333333333333333,
+      "rate_minus_uniform": 0.3109815354713314,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.00011999760004799905
+      },
+      "contrast_strategy": "COMPETE_EXPLOIT",
+      "rate_difference": 0.35422740524781343,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of INDEPENDENT and COMPETE_EXPLOIT",
+        "tail": "two-sided",
+        "exceedances": 26,
+        "iterations": 50000,
+        "p_mc": 0.0005399892002159956,
+        "mc_se": 0.0001038929081451937,
+        "exceedance_probability_mc_95pct_ci": [
+          0.00033970849809046626,
+          0.0007618283156871206
+        ],
+        "p_holm": 0.0021599568008639825
+      },
+      "model": "Qwen/Qwen2.5-3B",
+      "family": "Qwen",
+      "bank": "phase0b_choice_set_removal",
+      "data_file": "results\\choice_set\\20261111T033648Z_aaacfcd5\\rows.jsonl",
+      "data_sha256": "8e0bb3bd78a719ff09159aa776eab8d71c84b63d266f8a98c517c8a3e02c5669",
+      "run_id": "20261111T033648Z_aaacfcd5",
+      "resolved_model_revision": "3aab1f1954e9cc14eb9509a215f9e5ca08227a9b",
+      "bank_sha256": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+      "replacement_bank_sha256": "6212341b7a775686d309236025f6f7b6880d2dd896b67c5bd1068d63d5e64d5f",
+      "bank_status": "pending_human_scientific_review",
+      "research_status": "exploratory",
+      "excluded_tied_maxima": 58,
+      "tie_inclusive_sensitivity": {
+        "clusters": 54,
+        "presentations": 744,
+        "strategy_counts": {
+          "INDEPENDENT": 473,
+          "COMPETE_EXPLOIT": 221,
+          "DISENGAGE": 50
+        },
+        "observed_rate": 0.635752688172043,
+        "uniform_reference": 0.3333333333333333,
+        "rate_minus_uniform": 0.3024193548387097,
+        "uniform_test": {
+          "null": "within-cluster strategy-label exchangeability",
+          "tail": "one-sided greater",
+          "exceedances": 0,
+          "iterations": 50000,
+          "p_mc": 1.999960000799984e-05,
+          "mc_se": 1.999940001499965e-05,
+          "exceedance_probability_mc_95pct_ci": [
+            0.0,
+            7.377486758288227e-05
+          ],
+          "p_holm": 0.00011999760004799905
+        },
+        "contrast_strategy": "COMPETE_EXPLOIT",
+        "rate_difference": 0.3387096774193548,
+        "contrast_test": {
+          "null": "within-cluster exchangeability of INDEPENDENT and COMPETE_EXPLOIT",
+          "tail": "two-sided",
+          "exceedances": 19,
+          "iterations": 50000,
+          "p_mc": 0.0003999920001599968,
+          "mc_se": 8.942304066398137e-05,
+          "exceedance_probability_mc_95pct_ci": [
+            0.00022879983545295564,
+            0.0005933537476293847
+          ],
+          "p_holm": 0.0015999680006399872
+        }
+      },
+      "position_letter_counts": {
+        "A": 164,
+        "B": 265,
+        "C": 257
+      },
+      "position_letter_rates": {
+        "A": 0.239067055393586,
+        "B": 0.38629737609329445,
+        "C": 0.3746355685131195
+      },
+      "strategy_rate_by_position": {
+        "A": {
+          "INDEPENDENT": 0.6280487804878049,
+          "COMPETE_EXPLOIT": 0.29878048780487804,
+          "DISENGAGE": 0.07317073170731707
+        },
+        "B": {
+          "INDEPENDENT": 0.6716981132075471,
+          "COMPETE_EXPLOIT": 0.3132075471698113,
+          "DISENGAGE": 0.01509433962264151
+        },
+        "C": {
+          "INDEPENDENT": 0.6264591439688716,
+          "COMPETE_EXPLOIT": 0.2607003891050584,
+          "DISENGAGE": 0.11284046692607004
+        }
+      },
+      "interpretation": "conditional substitution after removing COOPERATE; not an inherent preference"
+    },
+    {
+      "clusters": 54,
+      "presentations": 686,
+      "strategy_counts": {
+        "INDEPENDENT": 378,
+        "COMPETE_EXPLOIT": 243,
+        "DISENGAGE": 65
+      },
+      "observed_rate": 0.5510204081632653,
+      "uniform_reference": 0.3333333333333333,
+      "rate_minus_uniform": 0.21768707482993194,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.00011999760004799905
+      },
+      "contrast_strategy": "COMPETE_EXPLOIT",
+      "rate_difference": 0.1967930029154519,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of INDEPENDENT and COMPETE_EXPLOIT",
+        "tail": "two-sided",
+        "exceedances": 178,
+        "iterations": 50000,
+        "p_mc": 0.0035799284014319714,
+        "mc_se": 0.000267097030056462,
+        "exceedance_probability_mc_95pct_ci": [
+          0.003056949337339975,
+          0.004121967561440393
+        ],
+        "p_holm": 0.010739785204295915
+      },
+      "model": "Qwen/Qwen2.5-1.5B",
+      "family": "Qwen",
+      "bank": "phase0b_choice_set_removal",
+      "data_file": "results\\choice_set\\20261111T034136Z_c65ecc9c\\rows.jsonl",
+      "data_sha256": "ac543a8fbfe84d00b51efbddc15e105d05c50aca6f8f8de2a915c961055035a7",
+      "run_id": "20261111T034136Z_c65ecc9c",
+      "resolved_model_revision": "8faed761d45a263340a0528343f099c05c9a4323",
+      "bank_sha256": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+      "replacement_bank_sha256": "6212341b7a775686d309236025f6f7b6880d2dd896b67c5bd1068d63d5e64d5f",
+      "bank_status": "pending_human_scientific_review",
+      "research_status": "exploratory",
+      "excluded_tied_maxima": 58,
+      "tie_inclusive_sensitivity": {
+        "clusters": 54,
+        "presentations": 744,
+        "strategy_counts": {
+          "INDEPENDENT": 397,
+          "COMPETE_EXPLOIT": 262,
+          "DISENGAGE": 85
+        },
+        "observed_rate": 0.5336021505376344,
+        "uniform_reference": 0.3333333333333333,
+        "rate_minus_uniform": 0.20026881720430106,
+        "uniform_test": {
+          "null": "within-cluster strategy-label exchangeability",
+          "tail": "one-sided greater",
+          "exceedances": 0,
+          "iterations": 50000,
+          "p_mc": 1.999960000799984e-05,
+          "mc_se": 1.999940001499965e-05,
+          "exceedance_probability_mc_95pct_ci": [
+            0.0,
+            7.377486758288227e-05
+          ],
+          "p_holm": 0.00011999760004799905
+        },
+        "contrast_strategy": "COMPETE_EXPLOIT",
+        "rate_difference": 0.1814516129032258,
+        "contrast_test": {
+          "null": "within-cluster exchangeability of INDEPENDENT and COMPETE_EXPLOIT",
+          "tail": "two-sided",
+          "exceedances": 109,
+          "iterations": 50000,
+          "p_mc": 0.0021999560008799826,
+          "mc_se": 0.00020952671872715011,
+          "exceedance_probability_mc_95pct_ci": [
+            0.0017903382104115207,
+            0.0026291372747774097
+          ],
+          "p_holm": 0.006599868002639947
+        }
+      },
+      "position_letter_counts": {
+        "A": 399,
+        "B": 69,
+        "C": 218
+      },
+      "position_letter_rates": {
+        "A": 0.5816326530612245,
+        "B": 0.10058309037900874,
+        "C": 0.3177842565597668
+      },
+      "strategy_rate_by_position": {
+        "A": {
+          "INDEPENDENT": 0.47368421052631576,
+          "COMPETE_EXPLOIT": 0.37343358395989973,
+          "DISENGAGE": 0.15288220551378445
+        },
+        "B": {
+          "INDEPENDENT": 0.6956521739130435,
+          "COMPETE_EXPLOIT": 0.2898550724637681,
+          "DISENGAGE": 0.014492753623188406
+        },
+        "C": {
+          "INDEPENDENT": 0.6467889908256881,
+          "COMPETE_EXPLOIT": 0.3394495412844037,
+          "DISENGAGE": 0.013761467889908258
+        }
+      },
+      "interpretation": "conditional substitution after removing COOPERATE; not an inherent preference"
+    },
+    {
+      "clusters": 54,
+      "presentations": 652,
+      "strategy_counts": {
+        "INDEPENDENT": 366,
+        "COMPETE_EXPLOIT": 243,
+        "DISENGAGE": 43
+      },
+      "observed_rate": 0.5613496932515337,
+      "uniform_reference": 0.3333333333333333,
+      "rate_minus_uniform": 0.2280163599182004,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.00011999760004799905
+      },
+      "contrast_strategy": "COMPETE_EXPLOIT",
+      "rate_difference": 0.18865030674846625,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of INDEPENDENT and COMPETE_EXPLOIT",
+        "tail": "two-sided",
+        "exceedances": 1745,
+        "iterations": 50000,
+        "p_mc": 0.034919301613967724,
+        "mc_se": 0.0008209661381976775,
+        "exceedance_probability_mc_95pct_ci": [
+          0.03330839736861378,
+          0.03654588946002915
+        ],
+        "p_holm": 0.06983860322793545
+      },
+      "model": "meta-llama/Llama-3.2-3B",
+      "family": "Llama",
+      "bank": "phase0b_choice_set_removal",
+      "data_file": "results\\choice_set\\20261111T034552Z_0d9d4eef\\rows.jsonl",
+      "data_sha256": "1e0fb8c19cd62264d6a589c3b5f2ba88b76a87cc09400309525ef3b223b49e9c",
+      "run_id": "20261111T034552Z_0d9d4eef",
+      "resolved_model_revision": "13afe5124825b4f3751f836b40dafda64c1ed062",
+      "bank_sha256": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+      "replacement_bank_sha256": "6212341b7a775686d309236025f6f7b6880d2dd896b67c5bd1068d63d5e64d5f",
+      "bank_status": "pending_human_scientific_review",
+      "research_status": "exploratory",
+      "excluded_tied_maxima": 92,
+      "tie_inclusive_sensitivity": {
+        "clusters": 54,
+        "presentations": 744,
+        "strategy_counts": {
+          "INDEPENDENT": 406,
+          "COMPETE_EXPLOIT": 278,
+          "DISENGAGE": 60
+        },
+        "observed_rate": 0.5456989247311828,
+        "uniform_reference": 0.3333333333333333,
+        "rate_minus_uniform": 0.21236559139784944,
+        "uniform_test": {
+          "null": "within-cluster strategy-label exchangeability",
+          "tail": "one-sided greater",
+          "exceedances": 0,
+          "iterations": 50000,
+          "p_mc": 1.999960000799984e-05,
+          "mc_se": 1.999940001499965e-05,
+          "exceedance_probability_mc_95pct_ci": [
+            0.0,
+            7.377486758288227e-05
+          ],
+          "p_holm": 0.00011999760004799905
+        },
+        "contrast_strategy": "COMPETE_EXPLOIT",
+        "rate_difference": 0.17204301075268819,
+        "contrast_test": {
+          "null": "within-cluster exchangeability of INDEPENDENT and COMPETE_EXPLOIT",
+          "tail": "two-sided",
+          "exceedances": 1503,
+          "iterations": 50000,
+          "p_mc": 0.03007939841203176,
+          "mc_se": 0.0007638592111417859,
+          "exceedance_probability_mc_95pct_ci": [
+            0.02858064857271221,
+            0.03159423651830407
+          ],
+          "p_holm": 0.06015879682406352
+        }
+      },
+      "position_letter_counts": {
+        "A": 261,
+        "B": 91,
+        "C": 300
+      },
+      "position_letter_rates": {
+        "A": 0.4003067484662577,
+        "B": 0.13957055214723926,
+        "C": 0.4601226993865031
+      },
+      "strategy_rate_by_position": {
+        "A": {
+          "INDEPENDENT": 0.5325670498084292,
+          "COMPETE_EXPLOIT": 0.3946360153256705,
+          "DISENGAGE": 0.07279693486590039
+        },
+        "B": {
+          "INDEPENDENT": 0.6593406593406593,
+          "COMPETE_EXPLOIT": 0.34065934065934067,
+          "DISENGAGE": 0.0
+        },
+        "C": {
+          "INDEPENDENT": 0.5566666666666666,
+          "COMPETE_EXPLOIT": 0.36333333333333334,
+          "DISENGAGE": 0.08
+        }
+      },
+      "interpretation": "conditional substitution after removing COOPERATE; not an inherent preference"
+    },
+    {
+      "clusters": 54,
+      "presentations": 707,
+      "strategy_counts": {
+        "INDEPENDENT": 519,
+        "COMPETE_EXPLOIT": 147,
+        "DISENGAGE": 41
+      },
+      "observed_rate": 0.7340876944837341,
+      "uniform_reference": 0.3333333333333333,
+      "rate_minus_uniform": 0.4007543611504008,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.00011999760004799905
+      },
+      "contrast_strategy": "COMPETE_EXPLOIT",
+      "rate_difference": 0.5261669024045261,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of INDEPENDENT and COMPETE_EXPLOIT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.00011999760004799905
+      },
+      "model": "Qwen/Qwen2.5-7B",
+      "family": "Qwen",
+      "bank": "phase0b_choice_set_removal",
+      "data_file": "results\\choice_set\\20261111T035438Z_2da305d1\\rows.jsonl",
+      "data_sha256": "082c58745cadbf258f55937ec09806d10ce6ae874bc26c3bdbb0d515f24783a9",
+      "run_id": "20261111T035438Z_2da305d1",
+      "resolved_model_revision": "d149729398750b98c0af14eb82c78cfe92750796",
+      "bank_sha256": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+      "replacement_bank_sha256": "6212341b7a775686d309236025f6f7b6880d2dd896b67c5bd1068d63d5e64d5f",
+      "bank_status": "pending_human_scientific_review",
+      "research_status": "exploratory",
+      "excluded_tied_maxima": 37,
+      "tie_inclusive_sensitivity": {
+        "clusters": 54,
+        "presentations": 744,
+        "strategy_counts": {
+          "INDEPENDENT": 530,
+          "COMPETE_EXPLOIT": 163,
+          "DISENGAGE": 51
+        },
+        "observed_rate": 0.7123655913978495,
+        "uniform_reference": 0.3333333333333333,
+        "rate_minus_uniform": 0.3790322580645162,
+        "uniform_test": {
+          "null": "within-cluster strategy-label exchangeability",
+          "tail": "one-sided greater",
+          "exceedances": 0,
+          "iterations": 50000,
+          "p_mc": 1.999960000799984e-05,
+          "mc_se": 1.999940001499965e-05,
+          "exceedance_probability_mc_95pct_ci": [
+            0.0,
+            7.377486758288227e-05
+          ],
+          "p_holm": 0.00011999760004799905
+        },
+        "contrast_strategy": "COMPETE_EXPLOIT",
+        "rate_difference": 0.4932795698924731,
+        "contrast_test": {
+          "null": "within-cluster exchangeability of INDEPENDENT and COMPETE_EXPLOIT",
+          "tail": "two-sided",
+          "exceedances": 0,
+          "iterations": 50000,
+          "p_mc": 1.999960000799984e-05,
+          "mc_se": 1.999940001499965e-05,
+          "exceedance_probability_mc_95pct_ci": [
+            0.0,
+            7.377486758288227e-05
+          ],
+          "p_holm": 0.00011999760004799905
+        }
+      },
+      "position_letter_counts": {
+        "A": 288,
+        "B": 264,
+        "C": 155
+      },
+      "position_letter_rates": {
+        "A": 0.4073550212164074,
+        "B": 0.3734087694483734,
+        "C": 0.21923620933521923
+      },
+      "strategy_rate_by_position": {
+        "A": {
+          "INDEPENDENT": 0.6666666666666666,
+          "COMPETE_EXPLOIT": 0.2222222222222222,
+          "DISENGAGE": 0.1111111111111111
+        },
+        "B": {
+          "INDEPENDENT": 0.7310606060606061,
+          "COMPETE_EXPLOIT": 0.23484848484848486,
+          "DISENGAGE": 0.03409090909090909
+        },
+        "C": {
+          "INDEPENDENT": 0.864516129032258,
+          "COMPETE_EXPLOIT": 0.13548387096774195,
+          "DISENGAGE": 0.0
+        }
+      },
+      "interpretation": "conditional substitution after removing COOPERATE; not an inherent preference"
+    },
+    {
+      "clusters": 54,
+      "presentations": 744,
+      "strategy_counts": {
+        "INDEPENDENT": 323,
+        "COMPETE_EXPLOIT": 270,
+        "DISENGAGE": 151
+      },
+      "observed_rate": 0.43413978494623656,
+      "uniform_reference": 0.3333333333333333,
+      "rate_minus_uniform": 0.10080645161290325,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 47,
+        "iterations": 50000,
+        "p_mc": 0.0009599808003839923,
+        "mc_se": 0.00013849476931969364,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0006907558628240507,
+          0.0012498069526806785
+        ],
+        "p_holm": 0.0009599808003839923
+      },
+      "contrast_strategy": "COMPETE_EXPLOIT",
+      "rate_difference": 0.07123655913978495,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of INDEPENDENT and COMPETE_EXPLOIT",
+        "tail": "two-sided",
+        "exceedances": 10010,
+        "iterations": 50000,
+        "p_mc": 0.2002159956800864,
+        "mc_se": 0.0017895605506769168,
+        "exceedance_probability_mc_95pct_ci": [
+          0.19670007499245784,
+          0.2037347636624742
+        ],
+        "p_holm": 0.2002159956800864
+      },
+      "model": "allenai/OLMo-2-1124-7B",
+      "family": "OLMo",
+      "bank": "phase0b_choice_set_removal",
+      "data_file": "results\\choice_set\\20261111T040047Z_5bb1d0b7\\rows.jsonl",
+      "data_sha256": "33fd5196ec6b92efa0401cf58238ff280d90ae31eed9316033cf68e5ee6c3998",
+      "run_id": "20261111T040047Z_5bb1d0b7",
+      "resolved_model_revision": "7df9a82518afdecae4e8c026b27adccc8c1f0032",
+      "bank_sha256": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+      "replacement_bank_sha256": "6212341b7a775686d309236025f6f7b6880d2dd896b67c5bd1068d63d5e64d5f",
+      "bank_status": "pending_human_scientific_review",
+      "research_status": "exploratory",
+      "excluded_tied_maxima": 0,
+      "tie_inclusive_sensitivity": {
+        "clusters": 54,
+        "presentations": 744,
+        "strategy_counts": {
+          "INDEPENDENT": 323,
+          "COMPETE_EXPLOIT": 270,
+          "DISENGAGE": 151
+        },
+        "observed_rate": 0.43413978494623656,
+        "uniform_reference": 0.3333333333333333,
+        "rate_minus_uniform": 0.10080645161290325,
+        "uniform_test": {
+          "null": "within-cluster strategy-label exchangeability",
+          "tail": "one-sided greater",
+          "exceedances": 44,
+          "iterations": 50000,
+          "p_mc": 0.0008999820003599928,
+          "mc_se": 0.00013410101041215367,
+          "exceedance_probability_mc_95pct_ci": [
+            0.0006394798922999362,
+            0.0011811808995198997
+          ],
+          "p_holm": 0.0008999820003599928
+        },
+        "contrast_strategy": "COMPETE_EXPLOIT",
+        "rate_difference": 0.07123655913978495,
+        "contrast_test": {
+          "null": "within-cluster exchangeability of INDEPENDENT and COMPETE_EXPLOIT",
+          "tail": "two-sided",
+          "exceedances": 10026,
+          "iterations": 50000,
+          "p_mc": 0.2005359892802144,
+          "mc_se": 0.0017906317316613246,
+          "exceedance_probability_mc_95pct_ci": [
+            0.19701795676693892,
+            0.20405684462372514
+          ],
+          "p_holm": 0.2005359892802144
+        }
+      },
+      "position_letter_counts": {
+        "A": 323,
+        "B": 80,
+        "C": 341
+      },
+      "position_letter_rates": {
+        "A": 0.43413978494623656,
+        "B": 0.10752688172043011,
+        "C": 0.4583333333333333
+      },
+      "strategy_rate_by_position": {
+        "A": {
+          "INDEPENDENT": 0.4148606811145511,
+          "COMPETE_EXPLOIT": 0.39009287925696595,
+          "DISENGAGE": 0.19504643962848298
+        },
+        "B": {
+          "INDEPENDENT": 0.5125,
+          "COMPETE_EXPLOIT": 0.325,
+          "DISENGAGE": 0.1625
+        },
+        "C": {
+          "INDEPENDENT": 0.4340175953079179,
+          "COMPETE_EXPLOIT": 0.3460410557184751,
+          "DISENGAGE": 0.21994134897360704
+        }
+      },
+      "interpretation": "conditional substitution after removing COOPERATE; not an inherent preference"
+    },
+    {
+      "clusters": 54,
+      "presentations": 601,
+      "strategy_counts": {
+        "INDEPENDENT": 425,
+        "COMPETE_EXPLOIT": 154,
+        "DISENGAGE": 22
+      },
+      "observed_rate": 0.7071547420965059,
+      "uniform_reference": 0.3333333333333333,
+      "rate_minus_uniform": 0.37382140876317255,
+      "uniform_test": {
+        "null": "within-cluster strategy-label exchangeability",
+        "tail": "one-sided greater",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.00011999760004799905
+      },
+      "contrast_strategy": "COMPETE_EXPLOIT",
+      "rate_difference": 0.4509151414309484,
+      "contrast_test": {
+        "null": "within-cluster exchangeability of INDEPENDENT and COMPETE_EXPLOIT",
+        "tail": "two-sided",
+        "exceedances": 0,
+        "iterations": 50000,
+        "p_mc": 1.999960000799984e-05,
+        "mc_se": 1.999940001499965e-05,
+        "exceedance_probability_mc_95pct_ci": [
+          0.0,
+          7.377486758288227e-05
+        ],
+        "p_holm": 0.00011999760004799905
+      },
+      "model": "google/gemma-2-9b",
+      "family": "Gemma",
+      "bank": "phase0b_choice_set_removal",
+      "data_file": "results\\choice_set\\20261111T041119Z_f240f283\\rows.jsonl",
+      "data_sha256": "0f77e36e42e7f8dacd06f76ccadcee7b1c3129bbb90e07fe63e5efb07b1da340",
+      "run_id": "20261111T041119Z_f240f283",
+      "resolved_model_revision": "33c193028431c2fde6c6e51f29e6f17b60cbfac6",
+      "bank_sha256": "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b",
+      "replacement_bank_sha256": "6212341b7a775686d309236025f6f7b6880d2dd896b67c5bd1068d63d5e64d5f",
+      "bank_status": "pending_human_scientific_review",
+      "research_status": "exploratory",
+      "excluded_tied_maxima": 143,
+      "tie_inclusive_sensitivity": {
+        "clusters": 54,
+        "presentations": 744,
+        "strategy_counts": {
+          "INDEPENDENT": 496,
+          "COMPETE_EXPLOIT": 201,
+          "DISENGAGE": 47
+        },
+        "observed_rate": 0.6666666666666666,
+        "uniform_reference": 0.3333333333333333,
+        "rate_minus_uniform": 0.3333333333333333,
+        "uniform_test": {
+          "null": "within-cluster strategy-label exchangeability",
+          "tail": "one-sided greater",
+          "exceedances": 0,
+          "iterations": 50000,
+          "p_mc": 1.999960000799984e-05,
+          "mc_se": 1.999940001499965e-05,
+          "exceedance_probability_mc_95pct_ci": [
+            0.0,
+            7.377486758288227e-05
+          ],
+          "p_holm": 0.00011999760004799905
+        },
+        "contrast_strategy": "COMPETE_EXPLOIT",
+        "rate_difference": 0.396505376344086,
+        "contrast_test": {
+          "null": "within-cluster exchangeability of INDEPENDENT and COMPETE_EXPLOIT",
+          "tail": "two-sided",
+          "exceedances": 0,
+          "iterations": 50000,
+          "p_mc": 1.999960000799984e-05,
+          "mc_se": 1.999940001499965e-05,
+          "exceedance_probability_mc_95pct_ci": [
+            0.0,
+            7.377486758288227e-05
+          ],
+          "p_holm": 0.00011999760004799905
+        }
+      },
+      "position_letter_counts": {
+        "A": 187,
+        "B": 185,
+        "C": 229
+      },
+      "position_letter_rates": {
+        "A": 0.31114808652246256,
+        "B": 0.30782029950083195,
+        "C": 0.3810316139767055
+      },
+      "strategy_rate_by_position": {
+        "A": {
+          "INDEPENDENT": 0.6844919786096256,
+          "COMPETE_EXPLOIT": 0.24598930481283424,
+          "DISENGAGE": 0.06951871657754011
+        },
+        "B": {
+          "INDEPENDENT": 0.7351351351351352,
+          "COMPETE_EXPLOIT": 0.23783783783783785,
+          "DISENGAGE": 0.02702702702702703
+        },
+        "C": {
+          "INDEPENDENT": 0.7030567685589519,
+          "COMPETE_EXPLOIT": 0.2794759825327511,
+          "DISENGAGE": 0.017467248908296942
+        }
+      },
+      "interpretation": "conditional substitution after removing COOPERATE; not an inherent preference"
+    }
+  ]
+}
