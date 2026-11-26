@@ -61,7 +61,7 @@ pip install -e ".[dev]"
 
 For gated or rate-limited repositories (e.g. Mistral), set your Hugging Face token:
 ```bash
-export HF_TOKEN="hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+export HF_TOKEN="<set-HF_TOKEN-in-your-local-environment>"
 # or run interactive login:
 huggingface-cli login
 ```
