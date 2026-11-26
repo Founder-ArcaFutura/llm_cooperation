@@ -31,7 +31,7 @@ def generate_markdown_report(data: dict) -> str:
         "",
         "**Document Version:** Manuscript V0.1 Offline Audit & Diagnostic Dossier (11 Nov 2026)",
         "**Target Working Manuscript:** *Cooperative Strategy Selection in Pretrained Language Models: Cross-Family Evidence Under Utility Matching and Lexical Rewording*",
-        f"**Report-generation snapshot:** `{revision}` (working tree {'contained pending changes' if dirty else 'clean'} during report generation). This is not a claim that the historical inference ran from this exact tree; see the canonical provenance qualification.",
+        f"**Report-generation snapshot:** `{revision}` (working tree {'contained pending changes' if dirty else 'clean'} during report generation). This is not a claim that the historical inference ran from this exact tree; see the [canonical provenance qualification](../../docs/canonical_evidence_provenance.md).",
         "",
         "## 1. Executive Summary & Audit Status",
         "",
@@ -153,7 +153,7 @@ def generate_markdown_report(data: dict) -> str:
         "## 7. Semantic Validation Status & Blinding",
         "",
         "- **Provisional Status:** All Phase 1 results are exploratory / provisional because behavioral inference preceded independent human semantic adjudication.",
-        "- **Adjudication Queue:** The source work identified 304 scenario rows packaged as 152 paired template units; a first batch prioritized 76 templates. Independent human review remains pending. Existing packet mappings were exposed on a public branch and cannot be reused for blind review; see `docs/review_packet_blinding_incident.md`.",
+        "- **Adjudication Queue:** The source work identified 304 scenario rows packaged as 152 paired template units; a first batch prioritized 76 templates. Independent human review remains pending. Existing packet mappings were exposed on a public branch and cannot be reused for blind review; see the [review-packet blinding incident](../../docs/review_packet_blinding_incident.md).",
         "- **Automated vs Human Adjudication:** Automated checks identify length parity warnings and template flags, but automated triage does not constitute independent human certification.",
         "",
         "---",
@@ -169,7 +169,7 @@ def generate_markdown_report(data: dict) -> str:
         "",
         "Canonical Monte Carlo randomization results and assumptions are documented in `POSTHOC_SIGNIFICANCE_METHODS.md`; machine-readable results are in `posthoc_significance_results.json`. These tests were run after result inspection and are exploratory, not confirmatory. The 25% reference is a uniform-choice benchmark, not a literal random-choice model. The three-option follow-up is separate and conditional on changing the choice set.",
         "",
-        "Per-run row SHA-256 values, resolved model revisions, and experimental source hashes are in `cohort_provenance_manifest.json` and `canonical_evidence_qualification.json`. All 14 paired-wording runs record a resolved model revision, but tokenizer revisions are absent and the exact historical assay source blob was not found in retained Git history. The included saved rows can be reanalyzed offline; exact model-output regeneration is not established. See `docs/canonical_evidence_provenance.md`.",
+        "Per-run row SHA-256 values, resolved model revisions, and experimental source hashes are in `cohort_provenance_manifest.json` and `canonical_evidence_qualification.json`. All 14 paired-wording runs record a resolved model revision, but tokenizer revisions are absent and the exact historical assay source blob was not found in retained Git history. The included saved rows can be reanalyzed offline; exact model-output regeneration is not established. See the [canonical provenance qualification](../../docs/canonical_evidence_provenance.md).",
         ""
     ])
 
@@ -188,10 +188,6 @@ def main():
     out_file.write_text(md + '\n', encoding='utf-8')
     print(f"Generated comprehensive report at {out_file}")
 
-    # Also update research/cooperative_paraphrase_current_audit/PAIRED_RESULTS_PARTIAL.md
-    compat_file = Path('research/cooperative_paraphrase_current_audit/PAIRED_RESULTS_PARTIAL.md')
-    compat_file.write_text(md + '\n', encoding='utf-8')
-    print(f"Updated {compat_file}")
 
 
 if __name__ == '__main__':
