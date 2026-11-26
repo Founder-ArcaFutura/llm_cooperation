@@ -9,7 +9,7 @@
 
 ## 1. Overview and Review Methodology
 
-To ensure genuine construct validation, automated lexical parity (word length parity and taboo dictionary filtering) is necessary but **not sufficient**. This review matrix presents an explicit human scientific evaluation for each of the 62 situation templates (124 scenarios) across the following key criteria:
+To ensure genuine construct validation, automated lexical parity (word length parity and taboo dictionary filtering) is necessary but **not sufficient**. This document defines the human scientific evaluation to be completed for each of the 62 situation templates (124 scenarios); the matrix remains pending, and these entries do not constitute completed human review. The review criteria are:
 1. **Payoff Parity (Objective vs Subjective):** Distinguish objectively specified task parameters (time, resource expenditure, operational cost, probability of success) from subjective utility judgments. In the `equal_utility` condition, the focal actor's expected utility is matched between `COOPERATE` and `INDEPENDENT`.
 2. **Absence of Hidden Private Advantages:** Confirm that cooperation benefits the partner without conferring any private rebound benefit, kickback, reputational windfall, or reciprocal debt on the focal actor.
 3. **Plausibility of Non-Cooperative Options:** Verify that `COMPETE_EXPLOIT` and `DISENGAGE` remain realistic, self-contained business or operational choices, rather than being made absurd, unethical by construction, or catastrophic merely to favor cooperation.

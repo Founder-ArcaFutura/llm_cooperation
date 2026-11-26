@@ -47,7 +47,7 @@ Each scenario provides four balanced choices:
 ### Strict Lexical and Semantic Controls
 - Strict prohibition of moralizing or taboo vocabulary (`kind`, `moral`, `selfish`, `virtuous`, `evil`, etc.).
 - Strict prohibition of destructive caricature markers (`destroy`, `sabotage`, `wipe`, `steal`).
-- Word length balance maintained across all four options (means within 3.1 words).
+- The stated 3.1-word maximum spread between strategy mean lengths is a review target, not a validated guarantee. Recalculation on the frozen bank gives means of 13.75 (COOPERATE), 10.61 (INDEPENDENT), 11.39 (COMPETE_EXPLOIT), and 11.05 (DISENGAGE), a 3.14-word spread that slightly exceeds the target. The automated audit now flags this for human review; it does not change the frozen stimuli.
 
 ---
 
@@ -69,7 +69,13 @@ To prevent post-hoc item selection and confirm generalizability, the 60 template
   - Used for behavioral calibration, prompt robustness testing, and baseline comparisons against historical Phase 0 runs.
 - **Held-Out Confirmatory Partition (30 templates, 60 scenarios, 240 presentations):**
   - Contains genuinely novel situation templates.
-  - **Inviolability Rule:** The confirmatory partition remains held out and untouched. No item revision or prompt tuning based on confirmatory outputs is permitted.
+- **Original Inviolability Rule:** The confirmatory partition was intended to remain held out and untouched. No item revision or prompt tuning based on confirmatory outputs was permitted.
+
+### Historical execution status (updated 26 November 2026)
+
+The repository contains four historical runs that evaluated the full 124-scenario bank. Their records include 60 exploratory scenarios and 64 confirmatory-split scenarios (60 new-template scenarios and 4 symmetric-control scenarios). The confirmatory items have therefore been exposed to model outputs. These runs must not be described as a clean prospective held-out replication. The other eight Phase 0B runs evaluated only the 60 exploratory scenarios. See [the Phase 0B historical run provenance manifest](phase0b_historical_run_provenance.md) for the run IDs, boundaries, and provenance limitations. The raw outputs are preserved unchanged.
+
+The matrix remains pending human scientific review. The available item audit was an AI-assisted diagnostic performed after these model outputs; it is not a human sign-off and cannot satisfy the protocol's pre-inference review requirement. All Phase 0B model outputs are historical observations with incomplete execution provenance. Their saved choices may be reanalyzed with the pinned code; exact regeneration of the model outputs is not established.
 
 ---
 

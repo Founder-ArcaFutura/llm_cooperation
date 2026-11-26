@@ -180,10 +180,17 @@ def audit_scenarios(bank_path: str = "data/scenarios.json") -> bool:
         )
     console.print(table)
 
-    # Check for severe length disparity across strategies (e.g. difference in mean > 5 words)
+    # Phase 0B's protocol gives a 3.1-word target; keep a visible warning when
+    # the frozen bank exceeds it. This remains a review flag, not a validity test.
     max_mean = max(mean_lens.values())
     min_mean = min(mean_lens.values())
-    if max_mean - min_mean > 5.0:
+    length_spread = max_mean - min_mean
+    if is_phase0b and length_spread > 3.1:
+        console.print(
+            f"[bold yellow]WARNING: Phase 0B option-length spread is {length_spread:.2f} words, "
+            "above the protocol's 3.1-word target; human scientific review remains necessary.[/bold yellow]"
+        )
+    if length_spread > 5.0:
         console.print(f"[bold yellow]WARNING: Length disparity detected across strategies (spread: {max_mean - min_mean:.1f} words)[/bold yellow]")
 
     # Check for destructive/unreasonable lexical markers
@@ -250,7 +257,17 @@ def audit_scenarios(bank_path: str = "data/scenarios.json") -> bool:
 
     if success:
         console.print("[bold green]ALL AUDIT CHECKS PASSED SUCCESSFULLY![/bold green]")
-        console.print(f"[green]- {len(scenarios)} scenarios perfectly balanced across 2 partner x 4 context strata ({expected_cell_count} each).[/green]")
+        if is_phase0b:
+            console.print(
+                "[green]- Phase 0B: 62 paired templates; exploratory 30 templates (60 scenarios), "
+                "confirmatory 32 new/control templates (64 scenarios, including 2 symmetric-control templates).[/green]"
+            )
+            console.print(
+                "[green]- Partner variants are paired within template (62 human and 62 AI scenarios); "
+                "the standard Phase 0 2 x 4 context-cell balance is not asserted for this bank.[/green]"
+            )
+        else:
+            console.print(f"[green]- {len(scenarios)} scenarios perfectly balanced across 2 partner x 4 context strata ({expected_cell_count} each).[/green]")
         console.print(f"[green]- {len(all_presentations)} presentations generated with exact 4x4 Latin-square counterbalancing.[/green]")
         console.print(f"[green]- Every strategy occupies positions A, B, C, D exactly {expected_strat_per_letter} times in the corpus.[/green]")
     else:

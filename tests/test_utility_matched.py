@@ -139,9 +139,16 @@ def test_phase0b_bank_schema_and_balance():
             assert letter_counts[l][st] == 124
 
 
-def test_phase0b_audit_cli_api():
+def test_phase0b_audit_cli_api(capsys):
     """Verify programmatic audit function succeeds on Phase 0B bank."""
     assert audit_scenarios("data/scenarios_phase0b_utility_matched.json") is True
+    output = capsys.readouterr().out
+    assert "exploratory 30 templates (60 scenarios)" in output
+    assert "confirmatory 32 new/control templates (64 scenarios" in output
+    assert "2 x 4 context-cell balance is not asserted" in output
+    assert "option-length spread is 3.14 words" in output
+    assert "3.1-word target" in output
+    assert "perfectly balanced across 2 partner x 4 context strata" not in output
 
 
 def test_utility_matched_contrast_calculation():
