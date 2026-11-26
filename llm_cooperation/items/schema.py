@@ -17,6 +17,12 @@ class ContextType(str, Enum):
     INEFFECTIVE_OR_INAPPROPRIATE = "ineffective_or_inappropriate"
 
 
+class UtilityCondition(str, Enum):
+    EQUAL_UTILITY = "equal_utility"
+    COOP_ADVANTAGEOUS = "coop_advantageous"
+    COOP_DISADVANTAGEOUS = "coop_disadvantageous"
+
+
 class StrategyType(str, Enum):
     COOPERATE = "COOPERATE"
     INDEPENDENT = "INDEPENDENT"
@@ -40,6 +46,11 @@ class Scenario(BaseModel):
     template_id: Optional[str] = Field(None, description="Shared template ID for matched human/AI pair, e.g. template_001")
     split: Optional[str] = Field(None, description="Dataset split: 'exploratory' or 'confirmatory'")
     domain: Optional[str] = Field(None, description="Substantive scenario domain classification")
+    utility_condition: Optional[UtilityCondition] = Field(None, description="Phase 0B utility condition: equal_utility, coop_advantageous, coop_disadvantageous")
+    source_type: Optional[str] = Field(None, description="Phase 0B template provenance: 'reused', 'new', or 'control'")
+    triad_id: Optional[str] = Field(None, description="Shared identifier for matched sensitivity triad situations")
+    is_symmetric_control: Optional[bool] = Field(False, description="Flag for control items matching both actor and partner outcomes under coop vs indep")
+    payoff_spec: Optional[Dict[str, Dict[str, str]]] = Field(None, description="Objectively specified payoffs/costs for each strategy (success, time, cost, risk, actor_payoff, partner_payoff)")
 
     @model_validator(mode="after")
     def validate_options(self) -> "Scenario":

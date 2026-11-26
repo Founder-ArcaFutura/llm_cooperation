@@ -51,10 +51,15 @@ def audit_scenarios(bank_path: str = "data/scenarios.json") -> bool:
     success = True
 
     # 1. Check counts
-    is_expanded = len(scenarios) == 120
+    is_phase0b = any(getattr(s, "utility_condition", None) is not None for s in scenarios)
+    is_expanded = len(scenarios) == 120 and not is_phase0b
     expected_cell_count = 15 if is_expanded else 3
-    if len(scenarios) not in (24, 120):
+
+    if not is_phase0b and len(scenarios) not in (24, 120):
         console.print(f"[bold red]FAIL: Expected 24 or 120 scenarios, found {len(scenarios)}[/bold red]")
+        success = False
+    elif is_phase0b and len(scenarios) not in (120, 124):
+        console.print(f"[bold red]FAIL: Expected 120 or 124 Phase 0B scenarios, found {len(scenarios)}[/bold red]")
         success = False
 
     partner_counts = {PartnerType.HUMAN: 0, PartnerType.AI: 0}
@@ -67,17 +72,23 @@ def audit_scenarios(bank_path: str = "data/scenarios.json") -> bool:
         cell = (s.partner_type.value, s.context_type.value)
         cell_counts[cell] = cell_counts.get(cell, 0) + 1
 
-    # Check cell balance
-    for partner in ["human", "ai"]:
-        for ctx in ContextType:
-            cell = (partner, ctx.value)
-            count = cell_counts.get(cell, 0)
-            if count != expected_cell_count:
-                console.print(f"[bold red]FAIL: Cell {cell} has count {count}, expected {expected_cell_count}[/bold red]")
-                success = False
+    # Check cell balance for standard Phase 0 banks
+    if not is_phase0b:
+        for partner in ["human", "ai"]:
+            for ctx in ContextType:
+                cell = (partner, ctx.value)
+                count = cell_counts.get(cell, 0)
+                if count != expected_cell_count:
+                    console.print(f"[bold red]FAIL: Cell {cell} has count {count}, expected {expected_cell_count}[/bold red]")
+                    success = False
+    else:
+        # Phase 0B check partner balance (equal human and AI)
+        if partner_counts[PartnerType.HUMAN] != partner_counts[PartnerType.AI]:
+            console.print(f"[bold red]FAIL: Phase 0B partner mismatch: {partner_counts}[/bold red]")
+            success = False
 
-    # For expanded bank: verify template pairing and split integrity
-    if is_expanded:
+    # For expanded and Phase 0B banks: verify template pairing and split integrity
+    if is_expanded or is_phase0b:
         templates_map = {}
         for s in scenarios:
             if not s.template_id:
@@ -88,8 +99,9 @@ def audit_scenarios(bank_path: str = "data/scenarios.json") -> bool:
                 templates_map[s.template_id] = []
             templates_map[s.template_id].append(s)
 
-        if len(templates_map) != 60:
-            console.print(f"[bold red]FAIL: Expected 60 unique templates, found {len(templates_map)}[/bold red]")
+        expected_tpl_count = 62 if (is_phase0b and len(scenarios) == 124) else 60
+        if len(templates_map) != expected_tpl_count:
+            console.print(f"[bold red]FAIL: Expected {expected_tpl_count} unique templates, found {len(templates_map)}[/bold red]")
             success = False
 
         exploratory_count = 0
@@ -112,7 +124,14 @@ def audit_scenarios(bank_path: str = "data/scenarios.json") -> bool:
             else:
                 confirmatory_count += 1
 
-        if exploratory_count != 40 or confirmatory_count != 20:
+        if is_phase0b:
+            exp_conf = 32 if len(scenarios) == 124 else 30
+            if exploratory_count != 30 or confirmatory_count != exp_conf:
+                console.print(f"[bold red]FAIL: Phase 0B expected 30 exploratory & {exp_conf} confirmatory templates, got {exploratory_count}/{confirmatory_count}[/bold red]")
+                success = False
+            else:
+                console.print(f"[green]PASS: Phase 0B template pairing verified: {len(templates_map)} templates (30 exploratory reused, {confirmatory_count} confirmatory new/control).[/green]")
+        elif exploratory_count != 40 or confirmatory_count != 20:
             console.print(f"[bold red]FAIL: Expected 40 exploratory & 20 confirmatory templates, got {exploratory_count}/{confirmatory_count}[/bold red]")
             success = False
         else:
@@ -161,10 +180,17 @@ def audit_scenarios(bank_path: str = "data/scenarios.json") -> bool:
         )
     console.print(table)
 
-    # Check for severe length disparity across strategies (e.g. difference in mean > 5 words)
+    # Phase 0B's protocol gives a 3.1-word target; keep a visible warning when
+    # the frozen bank exceeds it. This remains a review flag, not a validity test.
     max_mean = max(mean_lens.values())
     min_mean = min(mean_lens.values())
-    if max_mean - min_mean > 5.0:
+    length_spread = max_mean - min_mean
+    if is_phase0b and length_spread > 3.1:
+        console.print(
+            f"[bold yellow]WARNING: Phase 0B option-length spread is {length_spread:.2f} words, "
+            "above the protocol's 3.1-word target; human scientific review remains necessary.[/bold yellow]"
+        )
+    if length_spread > 5.0:
         console.print(f"[bold yellow]WARNING: Length disparity detected across strategies (spread: {max_mean - min_mean:.1f} words)[/bold yellow]")
 
     # Check for destructive/unreasonable lexical markers
@@ -231,7 +257,17 @@ def audit_scenarios(bank_path: str = "data/scenarios.json") -> bool:
 
     if success:
         console.print("[bold green]ALL AUDIT CHECKS PASSED SUCCESSFULLY![/bold green]")
-        console.print(f"[green]- {len(scenarios)} scenarios perfectly balanced across 2 partner x 4 context strata ({expected_cell_count} each).[/green]")
+        if is_phase0b:
+            console.print(
+                "[green]- Phase 0B: 62 paired templates; exploratory 30 templates (60 scenarios), "
+                "confirmatory 32 new/control templates (64 scenarios, including 2 symmetric-control templates).[/green]"
+            )
+            console.print(
+                "[green]- Partner variants are paired within template (62 human and 62 AI scenarios); "
+                "the standard Phase 0 2 x 4 context-cell balance is not asserted for this bank.[/green]"
+            )
+        else:
+            console.print(f"[green]- {len(scenarios)} scenarios perfectly balanced across 2 partner x 4 context strata ({expected_cell_count} each).[/green]")
         console.print(f"[green]- {len(all_presentations)} presentations generated with exact 4x4 Latin-square counterbalancing.[/green]")
         console.print(f"[green]- Every strategy occupies positions A, B, C, D exactly {expected_strat_per_letter} times in the corpus.[/green]")
     else:
