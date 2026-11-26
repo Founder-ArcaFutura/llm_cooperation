@@ -105,3 +105,8 @@ We preregister the hypothesis that $\Delta_{\text{context}} > 0$ with 95% bootst
 2. Mock / synthetic runs are strictly isolated and barred from contributing to scientific findings.
 3. Real-model evaluations on paid GPU compute require explicit authorization (`--authorize-paid-run True` or `ALLOW_PAID_RUN=true`).
 4. The expanded item bank remains marked `pending_human_scientific_review` until formally signed off by human scientific reviewers.
+
+
+## Historical execution provenance and claim boundary
+
+The result files collected with this protocol are historical observations. Their raw records are retained unchanged, but the committed headers do not identify immutable model or tokenizer revisions or the exact code commit used for inference. Existing run inventories and cache metadata have not established those run-to-revision links. Reanalysis of the saved JSONL choices is possible with a pinned analysis implementation; exact regeneration of the historical model outputs is not. See [the Phase 0 historical run provenance manifest](phase0_historical_run_provenance.md) for the bounded recovery record, per-run IDs, canonical bank hashes, and reproduction command. Do not describe these observations as exact computational replications.
