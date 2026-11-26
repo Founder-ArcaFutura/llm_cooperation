@@ -92,10 +92,24 @@ llm-coop run --model "mock-qwen2.5-3b" --mock -o results
 llm-coop analyze results/run_mock-qwen2.5-3b_*.jsonl -o reports
 ```
 
-### Cloud GPU Execution (Lambda Labs / RunPod)
-Refer to [docs/runpod_lambda_setup.md](docs/runpod_lambda_setup.md) for full instructions.
+### Modal Cloud Execution (Primary Backend)
+Refer to [docs/modal_execution_guide.md](docs/modal_execution_guide.md) for complete instructions, Windows PowerShell setup, and volume sync commands.
 
-#### Example: Evaluate Pretrained Base Models
+Modal manages on-demand GPU allocation, persistent model weight caching (`llm-coop-hf-cache`), and results persistence (`llm-coop-results`):
+
+```powershell
+# Mock run on Modal (zero-GPU CPU container)
+modal run modal_app.py --model "mock-qwen2.5-3b" --mock True
+
+# Real GPU run on Modal (A10G or L40S, requires explicit --authorize-paid-run True guard)
+modal run modal_app.py --model "Qwen/Qwen2.5-3B" --precision "bfloat16" --mock False --authorize-paid-run True
+
+# Download results from Modal Volume to G:\llm_cooperation\results
+modal volume get llm-coop-results <run_file>.jsonl G:\llm_cooperation\results\
+```
+
+### Local / Cloud GPU Execution (Independent CLI)
+The harness can also be executed directly on any local or remote machine without Modal:
 ```bash
 # 1. Qwen 2.5 3B (Pretrained Base)
 llm-coop run --model "Qwen/Qwen2.5-3B" --precision bfloat16 -o results
@@ -105,6 +119,9 @@ llm-coop run --model "EleutherAI/pythia-2.8b" --precision bfloat16 -o results
 
 # 3. OLMo 2 1B (Pretrained Base)
 llm-coop run --model "allenai/OLMo-2-1124-1B" --precision bfloat16 -o results
+
+# 4. Compare models across runs (separating base models from SFT comparators)
+llm-coop compare-models results/*.jsonl -o reports
 ```
 
 ---
@@ -123,8 +140,16 @@ Running `llm-coop analyze` produces:
 ## 6. Scientific Protocol & Claim Boundary
 
 Per experimental specification (§13):
-> *"Across several pretrained language-model families, a balanced multiple-choice screen finds a reproducible bias toward selecting cooperative strategies under specified one-shot conditions."*
+> *Protocol progression criterion—not a reported result: cross-family replication under specified one-shot conditions is required before a confirmatory Phase 1 commitment.*
 
 - Phase 0 is descriptive and behavioral; it **does not** prove internal motives, innate altruism, or low-level mechanistic circuits.
+- The item bank remains formally designated as **Pending Human Scientific Review**; lexical length parity is necessary but does not inherently guarantee construct equivalence across options.
 - The 25% four-choice share is a uniform display reference, not a naturalistic null hypothesis.
-- Escalation to Phase 1/2 mechanistic probing requires passing the predefined gates: high format compliance, position robustness, and consistent cross-scenario patterns.
+- Escalation to Phase 1/2 mechanistic probing requires passing the predefined gates: high format compliance, position robustness, consistent cross-scenario patterns, and explicit cross-family human review (mock runs strictly excluded).
+
+
+## Historical result qualification
+
+The progression statement above is a protocol criterion, not an empirical finding. In a separate reanalysis of the saved 24-scenario pilot records, Qwen2.5-3B is the only checkpoint to pass the descriptive screen; that is one family and does not establish cross-family replication. In the 120-scenario expanded-bank cohort, no model in the manifest-verified primary base cohort passes the same screen. Expanded runs not verifiably classified by the model manifest remain explicitly unverified.
+
+These 14 outputs are historical observations. Their raw records remain unchanged, but model, tokenizer, and inference-code revisions are absent from the run headers. The recorded choices can be reanalyzed; exact regeneration of the historical model outputs is not established. The [Phase 0 historical run provenance manifest](docs/phase0_historical_run_provenance.md) lists run IDs, bank hashes, separate reanalysis commands, and the limits of recovery.

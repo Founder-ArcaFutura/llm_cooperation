@@ -3,6 +3,7 @@
 Handles nuances across tokenizers:
 - Unprefixed letters: 'A', 'B', 'C', 'D'
 - Leading-space letters: ' A', ' B', ' C', ' D'
+- Explicit validation at the actual prompt boundary (e.g., prompt + letter vs prompt alone)
 """
 
 from typing import Dict, List, Optional, Tuple
@@ -43,29 +44,111 @@ def probe_candidate_tokens(tokenizer, candidates: Optional[List[str]] = None) ->
     return results
 
 
-def resolve_candidate_token_ids(tokenizer, prompt_ends_with_space: bool = False) -> Dict[str, int]:
+class TokenizerCandidateError(Exception):
+    """Raised when candidate choices cannot be cleanly resolved to single tokens or incompatible at prompt boundary."""
+    pass
+
+
+def validate_candidate_tokens_at_boundary(
+    tokenizer,
+    sample_prompt: str,
+    candidate_token_ids: Dict[str, int],
+) -> None:
+    """Validate that candidate letters tokenize to candidate_token_ids at the actual prompt boundary.
+
+    Tests encoding `sample_prompt + continuation` and verifies that the new token(s)
+    produced after `sample_prompt` form exactly a single token equal to `candidate_token_ids[cand]`.
+    Never silently substitutes incompatible tokens.
+    """
+    prompt_ids = tokenizer.encode(sample_prompt, add_special_tokens=False)
+    num_prompt_tokens = len(prompt_ids)
+    errors = []
+
+    for cand, expected_id in candidate_token_ids.items():
+        # Strictly test continuation matching prompt spacing
+        continuation = cand if sample_prompt.endswith(" ") else f" {cand}"
+        full_text = sample_prompt + continuation
+        full_ids = tokenizer.encode(full_text, add_special_tokens=False)
+
+        # Reject non-prefix matches strictly: full_ids MUST begin exactly with prompt_ids.
+        # Fallback slicing on rstrip() is barred because merging or retokenizing across the
+        # boundary alters previous tokens and misinterprets boundary behavior.
+        if full_ids[:num_prompt_tokens] != prompt_ids:
+            # Check if unprefixed continuation works cleanly without mutating prefix
+            alt_continuation = cand if not sample_prompt.endswith(" ") else f" {cand}"
+            alt_full = sample_prompt + alt_continuation
+            alt_full_ids = tokenizer.encode(alt_full, add_special_tokens=False)
+            if alt_full_ids[:num_prompt_tokens] == prompt_ids:
+                continuation_ids = alt_full_ids[num_prompt_tokens:]
+            else:
+                errors.append(
+                    f"Candidate '{cand}' at prompt boundary caused prefix retokenization "
+                    f"(full: {full_ids}, prompt: {prompt_ids}). Single-token prompt boundary contract violated."
+                )
+                continue
+        else:
+            continuation_ids = full_ids[num_prompt_tokens:]
+
+        if len(continuation_ids) != 1:
+            errors.append(
+                f"Candidate '{cand}' at prompt boundary tokenizes to {continuation_ids} "
+                f"(expected single token [{expected_id}])."
+            )
+        elif continuation_ids[0] != expected_id:
+            errors.append(
+                f"Candidate '{cand}' at prompt boundary produced token ID {continuation_ids[0]} "
+                f"but resolved candidate token ID is {expected_id}. Incompatible token substitution barred."
+            )
+
+    if errors:
+        raise TokenizerCandidateError(
+            f"Prompt boundary tokenization validation failed:\n" + "\n".join(errors)
+        )
+
+
+def resolve_candidate_token_ids(
+    tokenizer,
+    prompt_ends_with_space: bool = False,
+    sample_prompt: Optional[str] = None,
+) -> Dict[str, int]:
     """Determine the single token ID for each candidate letter A, B, C, D.
 
-    If the prompt ends with a space (e.g. 'Answer: '), unprefixed 'A' is typically expected.
-    If the prompt ends with 'Answer:', leading space ' A' may be standard depending on tokenizer.
+    Fails explicitly with a TokenizerCandidateError if any candidate letter
+    is multi-token or ambiguous at the prompt boundary, rather than silently
+    selecting only the first token or substituting incompatible tokens.
     """
     probes = probe_candidate_tokens(tokenizer)
     resolved = {}
+    errors = []
+
     for cand, info in probes.items():
         if prompt_ends_with_space:
-            # Tokenizer expects letter without space
             if info["unprefixed"]["is_single_token"]:
                 resolved[cand] = info["unprefixed"]["single_token_id"]
             elif info["leading_space"]["is_single_token"]:
                 resolved[cand] = info["leading_space"]["single_token_id"]
             else:
-                resolved[cand] = info["unprefixed"]["token_ids"][0]
+                errors.append(
+                    f"Candidate '{cand}' tokenizes to multi-token sequence {info['unprefixed']['token_ids']} "
+                    f"(with space: {info['leading_space']['token_ids']}). Forced-choice single-token scoring invalid."
+                )
         else:
-            # Prompt ends without space, e.g. "Answer:" -> model continues with " A" or "A"
             if info["leading_space"]["is_single_token"]:
                 resolved[cand] = info["leading_space"]["single_token_id"]
             elif info["unprefixed"]["is_single_token"]:
                 resolved[cand] = info["unprefixed"]["single_token_id"]
             else:
-                resolved[cand] = info["leading_space"]["token_ids"][0]
+                errors.append(
+                    f"Candidate '{cand}' tokenizes to multi-token sequence {info['leading_space']['token_ids']} "
+                    f"(unprefixed: {info['unprefixed']['token_ids']}). Forced-choice single-token scoring invalid."
+                )
+
+    if errors:
+        raise TokenizerCandidateError(
+            f"Tokenizer candidate resolution failed at prompt boundary:\n" + "\n".join(errors)
+        )
+
+    if sample_prompt is not None:
+        validate_candidate_tokens_at_boundary(tokenizer, sample_prompt, resolved)
+
     return resolved

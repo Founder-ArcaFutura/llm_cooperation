@@ -24,10 +24,16 @@ def test_parse_generated_letter():
 
     # Valid with punctuation / prefix
     assert parse_generated_letter("A.") == ("A", True)
-    assert parse_generated_letter("B, because...") == ("B", True)
-    assert parse_generated_letter(" C: action") == ("C", True)
+    assert parse_generated_letter("B)") == ("B", True)
+    assert parse_generated_letter("(C)") == ("C", True)
+    assert parse_generated_letter("D:") == ("D", True)
 
-    # Invalid responses
+    # Invalid responses: explanations, disjunctions, ambiguities
+    assert parse_generated_letter("B, because...") == (None, False)
+    assert parse_generated_letter(" C: action") == (None, False)
+    assert parse_generated_letter("A or B") == (None, False)
+    assert parse_generated_letter("A, B, C, or D") == (None, False)
+    assert parse_generated_letter("Neither A nor B") == (None, False)
     assert parse_generated_letter("") == (None, False)
     assert parse_generated_letter("   ") == (None, False)
     assert parse_generated_letter("I would choose to collaborate.") == (None, False)
