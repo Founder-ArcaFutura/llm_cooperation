@@ -1,3 +1,4 @@
+import hashlib
 import json
 from pathlib import Path
 
@@ -22,6 +23,7 @@ def test_manuscript_is_regenerated_from_canonical_outputs():
 def test_posthoc_denominators_correction_and_hash_provenance():
     d = json.loads((OUT / "posthoc_significance_results.json").read_text(encoding="utf-8"))
     manifest = json.loads((OUT / "cohort_provenance_manifest.json").read_text(encoding="utf-8-sig"))
+    qualification = json.loads((OUT / "canonical_evidence_qualification.json").read_text(encoding="utf-8-sig"))
     assert len(d["four_option"]) == 22
     assert len(d["three_option"]) == 6
     assert all(x["presentations"] > 0 and x["clusters"] > 0 for x in d["four_option"])
@@ -35,7 +37,9 @@ def test_posthoc_denominators_correction_and_hash_provenance():
     assert next(x["presentations"] for x in d["three_option"] if x["model"] == "google/gemma-2-9b") == 601
     assert all(x["bank_status"] == "pending_human_scientific_review" for x in d["three_option"])
     assert all(x["bank_sha256"] == "a01b07fa14d02ff5b52647fe9e5357a664ceb4825e6cc84379385ac1f07da73b" for x in d["three_option"])
-    assert d["source_revision"] == "e1fe48aca26bd4d7b71ea857b1e11ece47aaec7a"
+    assert d["source_revision"] == qualification["posthoc_reproduction"]["source_revision"]
+    assert d["worktree_dirty_at_analysis"] is False
+    assert d["analysis_code_sha256"] == hashlib.sha256(Path("scripts/analyze_posthoc_significance.py").read_bytes()).hexdigest()
     assert len(d["analysis_code_sha256"]) == 64
     for x in d["four_option"]:
         assert x["data_sha256"] == manifest["canonical_runs"][x["model"]]["rows_sha256"]

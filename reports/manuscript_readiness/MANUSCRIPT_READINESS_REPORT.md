@@ -2,7 +2,7 @@
 
 **Document Version:** Manuscript V0.1 Offline Audit & Diagnostic Dossier (11 Nov 2026)
 **Target Working Manuscript:** *Cooperative Strategy Selection in Pretrained Language Models: Cross-Family Evidence Under Utility Matching and Lexical Rewording*
-**Historical audit-generation snapshot:** `codex/dose-response-option-orders` at `f0587d5` (working tree contained pending changes during report generation). The former `42aaf61` citation was stale. The curated source records and offline analysis dependencies are now included; see [canonical cohort provenance qualification](../../docs/canonical_evidence_provenance.md) for exact limits on reconstructing the historical inference environment.
+**Report-generation snapshot:** `f02eb9ee65444eaad5e04dc398a4a630df83abbb` (working tree clean during report generation). This is not a claim that the historical inference ran from this exact tree; see the [canonical provenance qualification](../../docs/canonical_evidence_provenance.md).
 
 ## 1. Executive Summary & Audit Status
 
@@ -133,7 +133,7 @@ Below is a comparison of COOPERATE-minus-INDEPENDENT margins when strictly exclu
 ## 7. Semantic Validation Status & Blinding
 
 - **Provisional Status:** All Phase 1 results are exploratory / provisional because behavioral inference preceded independent human semantic adjudication.
-- **Adjudication Queue:** The source queue has 304 scenario rows, packaged as 152 paired template units; a first batch prioritized 76 templates (52 Phase 0B, 24 Phase 1). Independent human review remains pending. Existing packet mappings were exposed on a public research branch, so those packets cannot provide a genuinely blind review. See [the review packet blinding incident and remediation](../../docs/review_packet_blinding_incident.md); do not reuse the exposed packet IDs or key.
+- **Adjudication Queue:** The source work identified 304 scenario rows packaged as 152 paired template units; a first batch prioritized 76 templates. Independent human review remains pending. Existing packet mappings were exposed on a public branch and cannot be reused for blind review; see the [review-packet blinding incident](../../docs/review_packet_blinding_incident.md).
 - **Automated vs Human Adjudication:** Automated checks identify length parity warnings and template flags, but automated triage does not constitute independent human certification.
 
 ---
@@ -149,5 +149,5 @@ Predeclared calibration records from `data/calibration_bank.json`:
 
 Canonical Monte Carlo randomization results and assumptions are documented in `POSTHOC_SIGNIFICANCE_METHODS.md`; machine-readable results are in `posthoc_significance_results.json`. These tests were run after result inspection and are exploratory, not confirmatory. The 25% reference is a uniform-choice benchmark, not a literal random-choice model. The three-option follow-up is separate and conditional on changing the choice set.
 
-Per-run immutable row SHA-256 values, model revisions, and experimental source hashes are in [the cohort provenance manifest](cohort_provenance_manifest.json). The 14 paired-wording runs record resolved model revisions; tokenizer revisions are absent, and the exact historical assay source blob was not recovered from retained Git history. Row hashes and bank/paraphrase hashes were verified with documented line-ending normalization. Saved-row analysis is reproducible using the included scripts; exact computational regeneration is not established. See [the provenance qualification](../../docs/canonical_evidence_provenance.md).
+Per-run row SHA-256 values, resolved model revisions, and experimental source hashes are in `cohort_provenance_manifest.json` and `canonical_evidence_qualification.json`. All 14 paired-wording runs record a resolved model revision, but tokenizer revisions are absent and the exact historical assay source blob was not found in retained Git history. The included saved rows can be reanalyzed offline; exact model-output regeneration is not established. See the [canonical provenance qualification](../../docs/canonical_evidence_provenance.md).
 
