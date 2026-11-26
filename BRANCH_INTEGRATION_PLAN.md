@@ -102,7 +102,7 @@ The user subsequently authorized execution of this plan. Preserve every source b
 
 ## Execution record — 2026-11-26
 
-### PR #2 review gate
+### Initial PR #2 review gate (superseded by the revised provenance policy and merge below)
 
 - Refreshed all remotes without pruning. `origin/main` remained `7702affbf4a159ff916047d85f7c7139b5a03851`; PR #2 head was `91cf9d4d3f958a671c01285ac2b8833c0878e712`.
 - Preserved the pre-existing dirty root checkout. Review and validation ran in a dedicated detached worktree at the PR head.
@@ -112,7 +112,7 @@ The user subsequently authorized execution of this plan. Preserve every source b
 - **Merge blocked pending provenance adjudication.** All 14 PR #2 result headers have `model_revision: null`, `tokenizer_revision: null`, and `git_commit: null`; model configs pin several base models to mutable `main` revisions. The expanded-study protocol requires immutable checkpoint/tokenizer revisions and execution provenance. The exact historical model snapshots are not identified by the committed run records. Do not present those model outputs as exactly regenerable until an existing source record recovers the revisions or the results are expressly separated from any reproducibility claim. No replacement inference is authorized by this integration plan.
 - The two earlier inline review threads now have evidence-backed replies and are resolved. PR #2's description records the remaining provenance gate; the PR itself remains open and unmerged.
 
-### Dependent milestones
+### Initial dependent milestones (superseded)
 
 - PR #2 merge: **not performed**; blocked by the empirical-run provenance gap above.
 - Focused `phase0b-finalize` PR and PR #5 supersession: **not started**; dependent on a validated Phase 0 baseline.
@@ -126,7 +126,7 @@ The user subsequently authorized execution of this plan. Preserve every source b
 - A bounded scan of the Phase 2 tip found no matches for common OpenAI, AWS, GitHub, PEM private-key, or Slack-token patterns; the Hugging Face token-shaped value is the confirmed exception. Filename-based checks are not a complete secret audit.
 - The Phase 2 diff from `main` contains 5,370 paths, 37 `.local` cache paths, and 2,901 files with array/archive/model-like extensions. Those counts include incidental run outputs and development bundles; they are not a reproducibility inclusion list. Triage only artifacts required by a scoped, validated research claim.
 
-### Current remote state
+### Remote state at initial pause (superseded)
 
 - No PR has been merged or created by this execution. PR #2 remains open; `main` remains `7702affbf4a159ff916047d85f7c7139b5a03851`. All source branches remain intact.
 - PR #2 is not safe to merge until the historical run provenance gap is resolved or its evidence scope is explicitly separated in a reviewable integration proposal. Its code tests and item-bank audits pass; this does not make the empirical run records fully reproducible.
@@ -150,7 +150,36 @@ The previous global stop on incomplete historical execution revisions is withdra
 
 ### Current integration state
 
-- Remote `main` verified at `d48739fab9be627b39d4a6752040081e2c1e94c4` after both merges.
+- Remote `main` was verified at `d48739fab9be627b39d4a6752040081e2c1e94c4` after PR #18; see final state below.
 - PR #5 closed as superseded by PR #18; its branch remains. PR #14 remains open and unmerged (4,458 files, 5,575,507 additions at the last verified view). The accumulated Phase 2 branch is not to be merged wholesale.
-- Canonical evidence PR: in progress. Evidence eligibility and provenance are assessed cohort by cohort; do not let an incomplete historical execution field block unrelated implementation or evidence.
+- Canonical evidence PR #19: merged at `158efbd2740d5981a8e3bd38151193ef1c460a53`. Evidence eligibility and provenance were assessed cohort by cohort; incomplete historical execution fields qualified the affected cohorts without blocking unrelated implementation or evidence.
 - Remaining Phase 1, lexical, dose-response, option-order, choice-set, factorial, Phase 2 preferences, checkpoint emergence, and mechanistic work remain separate scoped integration candidates with their own dependencies and evidence status.
+
+
+## Final integration closeout — 2026-11-26
+
+### Verified remote milestones
+
+| Pull request | Result | Verified main merge SHA |
+| --- | --- | --- |
+| #2 Phase 0 foundation | Merged with ancestry-preserving merge commit | `ff6b650fa45c8f475bf0c4dc81f7d05921d5b7c0` |
+| #18 focused Phase 0B integration | Merged; PR #5's head included once by ancestry | `d48739fab9be627b39d4a6752040081e2c1e94c4` |
+| #5 Phase 0B original | Closed as superseded after #18 merged; source branch preserved | — |
+| #19 canonical evidence and public research index | Merged with qualified historical provenance and supporting source rows | `158efbd2740d5981a8e3bd38151193ef1c460a53` |
+| #14 accumulated lexical/Phase 2 branch | Still open and unmerged; 4,458 files and 5,575,507 additions at last verification | — |
+
+After PR #19, `origin/main` was fetched and verified at `158efbd2740d5981a8e3bd38151193ef1c460a53`. Research branches were preserved. No branch was deleted, no history was rewritten, and no paid inference or GPU experiment was launched.
+
+### Canonical evidence and checks
+
+The default branch now contains the research overview and phase index; the manuscript, readiness report, author review brief, provenance qualification, machine-readable manifests/readouts, relevant illustrative figures, model/scenario/paraphrase sources, all 17 paired-wording run records (14 canonical plus three duplicates), the six choice-set runs used by post-hoc analysis, and the scripts/tests needed for offline reproduction. It does not contain the exposed review keys, caches, model weights, arrays, or ZIP bundle.
+
+All 14 paired-wording runs have recorded resolved model revisions, and their row/bank hashes verified after line-ending normalization. Tokenizer revisions are absent in all 14. Retained Git history matched 42 of 56 recorded inference-source file/run digests; the remaining 14 point to one unavailable historical assay-source digest. The included analysis reproduced the saved descriptive and post-hoc numeric outputs exactly on this Windows environment. This supports analytical reproduction from saved choices, not exact regeneration of the historical model outputs. Phase 1 remains exploratory because its held-out metadata conflicts with the existence of runs and pre-inference review was not established. Human semantic review remains incomplete.
+
+Final canonical PR checks: 14/14 run audit across 17 dirs; 2,000-resample descriptive readout with seed 42 matched; 22 four-option and six three-option Monte Carlo results at 50,000 iterations/seed 20261111 matched; 8 targeted tests passed; the Phase 0B PR's 33 tests, bank audit, and 240-row CPU mock passed; PR #2's 26 tests, bank audits, and 480-row CPU mock passed. Relative README/index/manuscript/readiness links and pinned external commit links resolved. The targeted PR diff scan found no token/private-key patterns.
+
+### Open incidents and next research streams
+
+- The Hugging Face token-shaped value was removed from the current setup document, but prior public Git history may retain it. The credential owner still must revoke/rotate it. No value is reproduced in the repository closeout.
+- Three public packet-key families compromise the 152 manuscript-readiness packets (including the 76-priority subset), 352 factorial packets, and 3 construct-QA packets. The inspected response templates contain no completed independent human ratings. Do not reuse these IDs or call them blind review. Generate new randomized IDs/order, keep the new mapping key with an independent custodian off GitHub, and recruit reviewers not exposed to the old packets.
+- Continue remaining work as separate PRs: Phase 1 chronology/protocol reconciliation and prospective replication; option-order and dose-response studies; lexical geometry; choice-set extensions beyond the six selected exploratory runs; factorial assays; checkpoint-emergence trajectories; mechanistic/contrastive probes; and the other-agent preference stream. Each needs its own bank/run/provenance review. PR #14 and the accumulated Phase 2 branch remain decomposed, not wholesale merge candidates.
